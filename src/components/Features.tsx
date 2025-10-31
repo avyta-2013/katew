@@ -41,34 +41,37 @@ const features = [
 
 export const Features = () => {
   return (
-    <section className="py-24 bg-background">
-      <div className="container mx-auto px-4">
-        <div className="text-center mb-16 animate-fade-in">
-          <h2 className="text-4xl md:text-5xl font-bold mb-6">
-            Die Zukunft hat einen Namen
+    <section className="py-32 bg-background relative overflow-hidden">
+      <div className="absolute inset-0 bg-gradient-to-b from-primary/5 via-transparent to-secondary/5" />
+      
+      <div className="container mx-auto px-4 relative z-10">
+        <div className="text-center mb-20 animate-fade-in">
+          <h2 className="text-5xl md:text-7xl font-bold mb-6 tracking-tight">
+            Warum <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">KATEW</span>?
           </h2>
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            Entdecken Sie die Vorteile unserer innovativen Plattform
+          <p className="text-2xl text-muted-foreground max-w-3xl mx-auto font-light">
+            Modernste Technologie für Ihre Gesundheit
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-7xl mx-auto">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
           {features.map((feature, index) => (
             <Card
               key={index}
-              className="group hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border-border bg-card overflow-hidden animate-scale-in"
+              className="group hover:shadow-elevated transition-all duration-500 hover:-translate-y-2 border-border/50 bg-gradient-to-br from-card to-card/50 backdrop-blur overflow-hidden animate-scale-in hover:border-primary/50"
               style={{ animationDelay: `${index * 0.1}s` }}
             >
-              <div className="aspect-video overflow-hidden">
+              <div className="aspect-video overflow-hidden relative">
+                <div className="absolute inset-0 bg-gradient-to-t from-card to-transparent z-10 opacity-60" />
                 <img 
                   src={feature.image} 
                   alt={feature.title}
-                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                 />
               </div>
-              <CardContent className="p-6">
-                <h3 className="text-xl font-semibold mb-3">{feature.title}</h3>
-                <p className="text-muted-foreground leading-relaxed">
+              <CardContent className="p-8">
+                <h3 className="text-2xl font-bold mb-4 group-hover:text-primary transition-colors">{feature.title}</h3>
+                <p className="text-muted-foreground leading-relaxed text-lg">
                   {feature.description}
                 </p>
               </CardContent>

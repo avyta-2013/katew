@@ -3,48 +3,57 @@ import { Smartphone } from "lucide-react";
 
 export const MobileApp = () => {
   return (
-    <section className="py-24 bg-gradient-to-br from-primary/5 via-background to-secondary/5">
-      <div className="container mx-auto px-4">
-        <div className="max-w-6xl mx-auto">
-          <div className="grid md:grid-cols-2 gap-12 items-center">
-            <div className="animate-fade-in">
-              <h2 className="text-4xl md:text-5xl font-bold mb-6">
-                Von überall den passenden Krankentransport finden
+    <section className="py-32 bg-gradient-to-br from-background via-primary/5 to-background relative overflow-hidden">
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_right,_var(--tw-gradient-stops))] from-secondary/10 via-transparent to-transparent" />
+      
+      <div className="container mx-auto px-4 relative z-10">
+        <div className="max-w-7xl mx-auto">
+          <div className="grid md:grid-cols-2 gap-16 items-center">
+            <div className="animate-fade-in order-2 md:order-1">
+              <div className="inline-block px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-semibold mb-6">
+                Verfügbar auf iOS & Android
+              </div>
+              <h2 className="text-5xl md:text-7xl font-bold mb-8 leading-tight tracking-tight">
+                Immer und überall
+                <span className="block bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+                  verfügbar
+                </span>
               </h2>
-              <p className="text-xl text-muted-foreground mb-8 leading-relaxed">
-                Mit unserer mobilen App haben Sie immer und überall Zugriff auf unser
-                umfassendes Netzwerk an Krankentransport-Unternehmen.
+              <p className="text-xl text-muted-foreground mb-10 leading-relaxed">
+                Unsere App bringt professionelle Krankentransporte direkt auf Ihr Smartphone.
+                Schnell, sicher und zuverlässig.
               </p>
-              <div className="flex flex-wrap gap-4">
+              <div className="flex flex-wrap gap-6">
                 <Button
                   size="lg"
-                  className="bg-foreground hover:bg-foreground/90 text-background font-semibold h-14 px-8"
+                  className="h-16 px-10 text-lg font-bold bg-gradient-to-r from-primary to-secondary hover:shadow-glow transition-all duration-500 hover:scale-105"
                 >
-                  <Smartphone className="mr-2 h-5 w-5" />
+                  <Smartphone className="mr-3 h-6 w-6" />
                   Google Play
                 </Button>
                 <Button
                   size="lg"
                   variant="outline"
-                  className="border-2 hover:bg-foreground hover:text-background font-semibold h-14 px-8"
+                  className="h-16 px-10 text-lg font-bold border-2 border-primary hover:bg-primary hover:text-primary-foreground transition-all duration-500 hover:scale-105"
                 >
-                  <Smartphone className="mr-2 h-5 w-5" />
+                  <Smartphone className="mr-3 h-6 w-6" />
                   App Store
                 </Button>
               </div>
             </div>
 
-            <div className="relative animate-scale-in">
+            <div className="relative animate-scale-in order-1 md:order-2">
               <div className="relative z-10 flex justify-center">
-                <div className="w-64 h-[500px] rounded-[3rem] bg-gradient-to-br from-primary to-secondary p-3 shadow-2xl">
-                  <div className="w-full h-full rounded-[2.5rem] bg-background flex items-center justify-center">
-                    <Smartphone className="w-24 h-24 text-primary/20" />
+                <div className="w-80 h-[600px] rounded-[4rem] bg-gradient-to-br from-primary via-secondary to-primary p-4 shadow-elevated">
+                  <div className="w-full h-full rounded-[3.5rem] bg-card flex items-center justify-center overflow-hidden relative">
+                    <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-secondary/5" />
+                    <Smartphone className="w-32 h-32 text-primary/30 relative z-10" />
                   </div>
                 </div>
               </div>
-              {/* Decorative elements */}
-              <div className="absolute top-10 right-0 w-48 h-48 bg-primary/10 rounded-full blur-3xl -z-10" />
-              <div className="absolute bottom-10 left-0 w-48 h-48 bg-secondary/10 rounded-full blur-3xl -z-10" />
+              {/* Enhanced decorative elements */}
+              <div className="absolute top-0 right-0 w-96 h-96 bg-primary/20 rounded-full blur-[120px] -z-10 animate-pulse" />
+              <div className="absolute bottom-0 left-0 w-96 h-96 bg-secondary/20 rounded-full blur-[120px] -z-10 animate-pulse" style={{ animationDelay: '1s' }} />
             </div>
           </div>
         </div>

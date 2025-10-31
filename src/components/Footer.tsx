@@ -2,49 +2,51 @@ import { Heart } from "lucide-react";
 
 export const Footer = () => {
   return (
-    <footer className="bg-foreground text-background py-12">
+    <footer className="bg-card border-t border-border/50 py-16">
       <div className="container mx-auto px-4">
-        <div className="grid md:grid-cols-4 gap-8 mb-8">
+        <div className="grid md:grid-cols-4 gap-12 mb-12">
           <div>
-            <h3 className="text-xl font-bold mb-4">KateW</h3>
-            <p className="text-background/70 leading-relaxed">
-              Die moderne Plattform für Krankentransport-Vermittlung in Deutschland.
+            <h3 className="text-3xl font-bold mb-4 bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+              KATEW
+            </h3>
+            <p className="text-muted-foreground leading-relaxed text-base">
+              Die moderne Plattform für Krankentransport in Deutschland.
             </p>
           </div>
           
           <div>
-            <h4 className="font-semibold mb-4">Unternehmen</h4>
-            <ul className="space-y-2 text-background/70">
-              <li><a href="#" className="hover:text-background transition-colors">Über uns</a></li>
-              <li><a href="#" className="hover:text-background transition-colors">Karriere</a></li>
-              <li><a href="#" className="hover:text-background transition-colors">Partner werden</a></li>
+            <h4 className="font-bold mb-6 text-lg">Unternehmen</h4>
+            <ul className="space-y-3 text-muted-foreground">
+              <li><a href="#" className="hover:text-primary transition-colors text-base">Über uns</a></li>
+              <li><a href="#" className="hover:text-primary transition-colors text-base">Karriere</a></li>
+              <li><a href="#" className="hover:text-primary transition-colors text-base">Partner werden</a></li>
             </ul>
           </div>
           
           <div>
-            <h4 className="font-semibold mb-4">Support</h4>
-            <ul className="space-y-2 text-background/70">
-              <li><a href="#" className="hover:text-background transition-colors">Hilfe-Center</a></li>
-              <li><a href="#" className="hover:text-background transition-colors">Kontakt</a></li>
-              <li><a href="#" className="hover:text-background transition-colors">FAQ</a></li>
+            <h4 className="font-bold mb-6 text-lg">Support</h4>
+            <ul className="space-y-3 text-muted-foreground">
+              <li><a href="#" className="hover:text-primary transition-colors text-base">Hilfe-Center</a></li>
+              <li><a href="#" className="hover:text-primary transition-colors text-base">Kontakt</a></li>
+              <li><a href="#" className="hover:text-primary transition-colors text-base">FAQ</a></li>
             </ul>
           </div>
           
           <div>
-            <h4 className="font-semibold mb-4">Rechtliches</h4>
-            <ul className="space-y-2 text-background/70">
-              <li><a href="#" className="hover:text-background transition-colors">Impressum</a></li>
-              <li><a href="#" className="hover:text-background transition-colors">Datenschutz</a></li>
-              <li><a href="#" className="hover:text-background transition-colors">AGB</a></li>
+            <h4 className="font-bold mb-6 text-lg">Rechtliches</h4>
+            <ul className="space-y-3 text-muted-foreground">
+              <li><a href="#" className="hover:text-primary transition-colors text-base">Impressum</a></li>
+              <li><a href="#" className="hover:text-primary transition-colors text-base">Datenschutz</a></li>
+              <li><a href="#" className="hover:text-primary transition-colors text-base">AGB</a></li>
             </ul>
           </div>
         </div>
         
-        <div className="border-t border-background/20 pt-8 text-center text-background/70">
-          <p className="flex items-center justify-center gap-2">
-            Made with <Heart className="w-4 h-4 text-accent fill-accent" /> in Germany
+        <div className="border-t border-border/50 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-muted-foreground">
+          <p className="flex items-center gap-2 text-base">
+            Made with <Heart className="w-4 h-4 text-secondary fill-secondary" /> in Germany
           </p>
-          <p className="mt-2">© 2024 KateW. Alle Rechte vorbehalten.</p>
+          <p className="text-base">© 2024 KATEW. Alle Rechte vorbehalten.</p>
         </div>
       </div>
     </footer>
