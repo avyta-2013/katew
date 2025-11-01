@@ -1,69 +1,65 @@
-import { Card, CardContent } from "@/components/ui/card";
-import bookingPrescription from "@/assets/booking-prescription.jpg";
-import bookingSelfpay from "@/assets/booking-selfpay.jpg";
-import bookingTender from "@/assets/booking-tender.jpg";
+import { FileText, CreditCard, Building } from "lucide-react";
+import { Button } from "./ui/button";
 
 const bookingOptions = [
   {
-    image: bookingPrescription,
+    icon: FileText,
     title: "Transportschein",
-    description: "Kostenloses Buchen mit ärztlicher Verordnung – die Abrechnung erfolgt direkt mit der Krankenkasse",
+    description: "Direkte Abrechnung mit Ihrer Krankenkasse. Wir übernehmen die komplette Verwaltung und Kommunikation mit der Versicherung.",
   },
   {
-    image: bookingSelfpay,
+    icon: CreditCard,
     title: "Selbstzahler",
-    description: "Flexible Buchung für Privatpersonen mit transparenten Preisen und direkter Bezahlung",
+    description: "Flexible Buchung ohne Transportschein. Transparente Preise und sofortige Buchungsbestätigung für Ihre Planung.",
   },
   {
-    image: bookingTender,
-    title: "Ausschreibung",
-    description: "Erhalten Sie Angebote von mehreren Unternehmen für Ihre spezielle Transportanforderung",
+    icon: Building,
+    title: "Ausschreibungen",
+    description: "Maßgeschneiderte Lösungen für Kliniken und Pflegeeinrichtungen. Effiziente Tender-Verwaltung mit qualitätsgeprüften Partnern.",
   },
 ];
 
 export const BookingOptions = () => {
   return (
-    <section className="py-32 bg-gradient-to-b from-background via-primary/5 to-background relative overflow-hidden">
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-primary/10 via-transparent to-transparent" />
-      
-      <div className="container mx-auto px-4 relative z-10">
+    <section className="py-32 bg-gradient-to-b from-background to-muted/30">
+      <div className="container mx-auto px-4">
         <div className="text-center mb-20 animate-fade-in">
-          <h2 className="text-5xl md:text-7xl font-bold mb-6 tracking-tight">
-            So einfach wie nie
+          <h2 className="text-5xl md:text-7xl font-bold mb-6 tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-primary to-secondary">
+            Buchungsoptionen
           </h2>
-          <p className="text-2xl text-muted-foreground max-w-3xl mx-auto font-light">
-            Wählen Sie Ihre bevorzugte Buchungsmethode
+          <p className="text-xl md:text-2xl text-muted-foreground max-w-3xl mx-auto font-light">
+            Wählen Sie die passende Abrechnungsart
           </p>
         </div>
 
-        <div className="grid md:grid-cols-3 gap-10 max-w-7xl mx-auto">
+        <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto animate-fade-in-up">
           {bookingOptions.map((option, index) => (
-            <Card
+            <div
               key={index}
-              className="group hover:shadow-elevated transition-all duration-500 hover:-translate-y-4 border-border/50 bg-gradient-to-br from-card to-card/30 backdrop-blur overflow-hidden animate-scale-in hover:border-primary/50 relative"
-              style={{ animationDelay: `${index * 0.1}s` }}
+              className="group relative bg-card border border-border rounded-3xl p-10 hover:shadow-elevated hover:border-primary/30 transition-all duration-500 hover:-translate-y-2"
             >
-              <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-primary/20 to-transparent rounded-bl-full" />
-              <div className="aspect-video overflow-hidden relative">
-                <div className="absolute inset-0 bg-gradient-to-t from-card to-transparent z-10" />
-                <img 
-                  src={option.image} 
-                  alt={option.title}
-                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
-                />
-              </div>
-              <CardContent className="p-10">
-                <h3 className="text-3xl font-bold mb-5 group-hover:text-primary transition-colors">{option.title}</h3>
-                <p className="text-muted-foreground leading-relaxed text-lg mb-6">
+              <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-secondary/5 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              
+              <div className="relative">
+                <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-primary to-secondary flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-500 shadow-glow">
+                  <option.icon className="w-8 h-8 text-primary-foreground" />
+                </div>
+
+                <h3 className="text-2xl font-bold mb-4 group-hover:text-primary transition-colors">
+                  {option.title}
+                </h3>
+                <p className="text-muted-foreground text-lg leading-relaxed mb-6">
                   {option.description}
                 </p>
-                <div className="pt-4 border-t border-border/50">
-                  <span className="text-sm font-semibold text-primary group-hover:text-secondary transition-colors">
-                    Mehr erfahren →
-                  </span>
-                </div>
-              </CardContent>
-            </Card>
+
+                <Button 
+                  variant="outline" 
+                  className="w-full group-hover:bg-primary group-hover:text-primary-foreground group-hover:border-primary transition-all"
+                >
+                  Mehr erfahren
+                </Button>
+              </div>
+            </div>
           ))}
         </div>
       </div>

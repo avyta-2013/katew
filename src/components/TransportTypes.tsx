@@ -1,71 +1,62 @@
-import { Card, CardContent } from "@/components/ui/card";
-import transportSitting from "@/assets/transport-sitting.jpg";
-import transportWheelchair from "@/assets/transport-wheelchair.jpg";
-import transportStairchair from "@/assets/transport-stairchair.jpg";
-import transportStretcher from "@/assets/transport-stretcher.jpg";
+import { User, Accessibility, Users, Bed } from "lucide-react";
 
 const transportTypes = [
   {
-    image: transportSitting,
+    icon: User,
     title: "Sitzend",
-    description: "Komfortabler Transport für Patienten, die selbstständig sitzen können",
+    description: "Für gehfähige Patienten mit leichten Einschränkungen. Komfortabler Transport im Fahrzeug mit Sitzgelegenheit.",
   },
   {
-    image: transportWheelchair,
+    icon: Accessibility,
     title: "Rollstuhl",
-    description: "Spezialisierte Fahrzeuge mit barrierefreiem Zugang für Rollstuhlfahrer",
+    description: "Spezialisierter Transport für Rollstuhlfahrer mit professioneller Sicherung und barrierefreiem Zugang.",
   },
   {
-    image: transportStairchair,
+    icon: Users,
     title: "Tragestuhl",
-    description: "Professioneller Transport mit speziellen Tragestühlen für Treppen",
+    description: "Optimale Lösung für enge Treppenhäuser und schwierige Zugänge. Schonender Transport bei eingeschränkter Mobilität.",
   },
   {
-    image: transportStretcher,
+    icon: Bed,
     title: "Liegend",
-    description: "Medizinischer Liegendtransport mit professioneller Betreuung",
+    description: "Vollausgestatteter Krankentransport auf Trage für bettlägerige Patienten mit medizinischer Betreuung.",
   },
 ];
 
 export const TransportTypes = () => {
   return (
-    <section className="py-32 bg-muted/20 relative">
+    <section className="py-32 bg-muted/30">
       <div className="container mx-auto px-4">
         <div className="text-center mb-20 animate-fade-in">
           <h2 className="text-5xl md:text-7xl font-bold mb-6 tracking-tight">
-            Jeder Transport
-            <br />
-            <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">perfekt organisiert</span>
+            Transport-Optionen
           </h2>
-          <p className="text-2xl text-muted-foreground max-w-3xl mx-auto font-light">
-            Von sitzend bis liegend – wir haben die passende Lösung
+          <p className="text-xl md:text-2xl text-muted-foreground max-w-3xl mx-auto font-light">
+            Für jeden Bedarf die passende Lösung
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-7xl mx-auto">
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-7xl mx-auto animate-fade-in-up">
           {transportTypes.map((type, index) => (
-            <Card
+            <div
               key={index}
-              className="group hover:shadow-elevated transition-all duration-500 hover:-translate-y-3 border-border/50 bg-card/50 backdrop-blur overflow-hidden animate-scale-in hover:border-primary/50"
-              style={{ animationDelay: `${index * 0.1}s` }}
+              className="group relative bg-card border border-border rounded-3xl p-8 hover:shadow-elevated hover:border-primary/30 transition-all duration-500 hover:-translate-y-2"
             >
-              <div className="aspect-[4/3] overflow-hidden relative">
-                <div className="absolute inset-0 bg-gradient-to-t from-card via-transparent to-transparent z-10 opacity-80" />
-                <img 
-                  src={type.image} 
-                  alt={type.title}
-                  className="w-full h-full object-cover group-hover:scale-125 transition-transform duration-700"
-                />
-                <div className="absolute bottom-4 left-4 z-20">
-                  <h3 className="text-2xl font-bold text-white">{type.title}</h3>
+              <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-secondary/5 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              
+              <div className="relative text-center">
+                <div className="w-20 h-20 mx-auto rounded-2xl bg-gradient-to-br from-primary to-secondary flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-500 shadow-glow">
+                  <type.icon className="w-10 h-10 text-primary-foreground" />
                 </div>
-              </div>
-              <CardContent className="p-6">
-                <p className="text-muted-foreground leading-relaxed text-base">
+
+                <h3 className="text-2xl font-bold mb-4 group-hover:text-primary transition-colors">
+                  {type.title}
+                </h3>
+                <p className="text-muted-foreground leading-relaxed">
                   {type.description}
                 </p>
-              </CardContent>
-            </Card>
+              </div>
+            </div>
           ))}
         </div>
       </div>

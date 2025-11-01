@@ -1,81 +1,72 @@
-import { Card, CardContent } from "@/components/ui/card";
-import featureOverview from "@/assets/feature-overview.jpg";
-import featureTime from "@/assets/feature-time.jpg";
-import featureSecurity from "@/assets/feature-security.jpg";
-import featureCost from "@/assets/feature-cost.jpg";
-import featureTender from "@/assets/feature-tender.jpg";
-import featureCooperation from "@/assets/feature-cooperation.jpg";
+import { Eye, Clock, Shield, Euro, FileText, Users } from "lucide-react";
 
 const features = [
   {
-    image: featureOverview,
-    title: "Überblick",
-    description: "Alle relevanten Unternehmen auf einer Plattform vereint",
+    icon: Eye,
+    title: "Volle Transparenz",
+    description: "Echtzeit-Übersicht aller verfügbaren Fahrzeuge und transparente Preisgestaltung für jeden Transport.",
   },
   {
-    image: featureTime,
-    title: "Zeit",
-    description: "Gleichzeitige Abfrage mehrerer Unternehmen spart dir wertvolle Zeit",
+    icon: Clock,
+    title: "Zeitersparnis",
+    description: "Automatisierte Prozesse reduzieren den Aufwand bei der Transportorganisation um bis zu 80%.",
   },
   {
-    image: featureSecurity,
-    title: "Sicherheit",
-    description: "Durch unser Qualitätsmanagement haben schwarze Schafe keinen Platz bei uns",
+    icon: Shield,
+    title: "Maximale Sicherheit",
+    description: "Geprüfte Transportunternehmen mit aktuellen Zertifizierungen und Versicherungen.",
   },
   {
-    image: featureCost,
-    title: "Kosten",
-    description: "Vergleiche Unternehmen und spare als Selbstzahler bei deiner Wahl",
+    icon: Euro,
+    title: "Kostenoptimierung",
+    description: "Intelligente Algorithmen finden die beste Balance zwischen Qualität und Preis.",
   },
   {
-    image: featureTender,
-    title: "Ausschreibung",
-    description: "Erhalte Angebote für eine Sonderfahrt von Unternehmen bundesweit",
+    icon: FileText,
+    title: "Ausschreibungen",
+    description: "Effiziente Verwaltung von Tender-Prozessen für Kliniken und Einrichtungen.",
   },
   {
-    image: featureCooperation,
-    title: "Kooperation",
-    description: "Unternehmen, Kostenträger, Pflege- und Gesundheitseinrichtungen vertrauen uns",
+    icon: Users,
+    title: "Zusammenarbeit",
+    description: "Nahtlose Kommunikation zwischen allen Beteiligten in Echtzeit.",
   },
 ];
 
 export const Features = () => {
   return (
-    <section className="py-32 bg-background relative overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-to-b from-primary/5 via-transparent to-secondary/5" />
-      
-      <div className="container mx-auto px-4 relative z-10">
+    <section className="py-32 bg-gradient-to-b from-background to-muted/30">
+      <div className="container mx-auto px-4">
         <div className="text-center mb-20 animate-fade-in">
-          <h2 className="text-5xl md:text-7xl font-bold mb-6 tracking-tight">
-            Warum <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">KATEW</span>?
+          <h2 className="text-5xl md:text-7xl font-bold mb-6 tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-primary to-secondary">
+            Ihre Vorteile
           </h2>
-          <p className="text-2xl text-muted-foreground max-w-3xl mx-auto font-light">
-            Modernste Technologie für Ihre Gesundheit
+          <p className="text-xl md:text-2xl text-muted-foreground max-w-3xl mx-auto font-light">
+            Moderne Technologie für effiziente Krankentransporte
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto animate-fade-in-up">
           {features.map((feature, index) => (
-            <Card
+            <div
               key={index}
-              className="group hover:shadow-elevated transition-all duration-500 hover:-translate-y-2 border-border/50 bg-gradient-to-br from-card to-card/50 backdrop-blur overflow-hidden animate-scale-in hover:border-primary/50"
-              style={{ animationDelay: `${index * 0.1}s` }}
+              className="group relative bg-gradient-to-br from-card to-card/50 backdrop-blur border border-border/50 rounded-3xl p-10 hover:shadow-elevated hover:border-primary/30 transition-all duration-500 hover:-translate-y-2"
             >
-              <div className="aspect-video overflow-hidden relative">
-                <div className="absolute inset-0 bg-gradient-to-t from-card to-transparent z-10 opacity-60" />
-                <img 
-                  src={feature.image} 
-                  alt={feature.title}
-                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
-                />
-              </div>
-              <CardContent className="p-8">
-                <h3 className="text-2xl font-bold mb-4 group-hover:text-primary transition-colors">{feature.title}</h3>
-                <p className="text-muted-foreground leading-relaxed text-lg">
+              <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-secondary/5 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              
+              <div className="relative">
+                <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-primary to-secondary flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-500 shadow-glow">
+                  <feature.icon className="w-8 h-8 text-primary-foreground" />
+                </div>
+
+                <h3 className="text-2xl font-bold mb-4 group-hover:text-primary transition-colors">
+                  {feature.title}
+                </h3>
+                <p className="text-muted-foreground text-lg leading-relaxed">
                   {feature.description}
                 </p>
-              </CardContent>
-            </Card>
+              </div>
+            </div>
           ))}
         </div>
       </div>
