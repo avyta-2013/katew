@@ -1,26 +1,26 @@
+import { Header } from "@/components/Header";
 import { Hero } from "@/components/Hero";
 import { HowItWorks } from "@/components/HowItWorks";
-import { Features } from "@/components/Features";
-import { TransportTypes } from "@/components/TransportTypes";
-import { BookingOptions } from "@/components/BookingOptions";
+import { ServicesSection } from "@/components/ServicesSection";
+import { ProvidersSection } from "@/components/ProvidersSection";
+import { PartnersSection } from "@/components/PartnersSection";
 import { TrustedCompanies } from "@/components/TrustedCompanies";
-import { MobileApp } from "@/components/MobileApp";
+import { BlogNewsletter } from "@/components/BlogNewsletter";
 import { FAQ } from "@/components/FAQ";
-import { Partners } from "@/components/Partners";
 import { Footer } from "@/components/Footer";
 
 const Index = () => {
   return (
     <main className="min-h-screen">
+      <Header />
       <Hero />
       <HowItWorks />
-      <Features />
-      <TransportTypes />
-      <BookingOptions />
+      <ServicesSection />
+      <ProvidersSection />
+      <PartnersSection />
       <TrustedCompanies />
-      <MobileApp />
+      <BlogNewsletter />
       <FAQ />
-      <Partners />
       <Footer />
     </main>
   );

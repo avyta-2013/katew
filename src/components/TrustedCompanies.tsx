@@ -50,50 +50,49 @@ export const TrustedCompanies = () => {
   const [duplicatedCompanies, setDuplicatedCompanies] = useState<typeof companies>([]);
 
   useEffect(() => {
-    // Duplicate the array for seamless infinite scroll
     setDuplicatedCompanies([...companies, ...companies]);
   }, []);
 
   return (
-    <section className="py-32 bg-gradient-to-b from-muted/30 to-background overflow-hidden">
-      <div className="container mx-auto px-4 mb-16">
-        <div className="text-center animate-fade-in">
-          <h2 className="text-5xl md:text-7xl font-bold mb-6 tracking-tight">
+    <section className="py-24 md:py-32 bg-background overflow-hidden">
+      <div className="container mx-auto px-4 mb-12">
+        <div className="text-center">
+          <h2 className="text-3xl md:text-5xl font-bold mb-4 tracking-tight">
             Top bewertete Partner
           </h2>
-          <p className="text-xl md:text-2xl text-muted-foreground max-w-3xl mx-auto font-light">
-            Vertrauen Sie auf Excellence in Ihrer Region
+          <p className="text-lg text-muted-foreground max-w-xl mx-auto">
+            Vertrauen Sie auf geprüfte Qualität in Ihrer Region
           </p>
         </div>
       </div>
 
       <div className="relative">
-        <div className="absolute left-0 top-0 bottom-0 w-32 bg-gradient-to-r from-background to-transparent z-10" />
-        <div className="absolute right-0 top-0 bottom-0 w-32 bg-gradient-to-l from-background to-transparent z-10" />
+        <div className="absolute left-0 top-0 bottom-0 w-24 bg-gradient-to-r from-background to-transparent z-10" />
+        <div className="absolute right-0 top-0 bottom-0 w-24 bg-gradient-to-l from-background to-transparent z-10" />
         
         <div className="flex gap-6 animate-scroll">
           {duplicatedCompanies.map((company, index) => (
             <div
               key={index}
-              className="flex-shrink-0 w-[380px] bg-card border border-border rounded-3xl p-8 hover:shadow-elevated hover:border-primary/30 transition-all duration-500 group"
+              className="flex-shrink-0 w-[320px] bg-card border border-border/50 rounded-2xl p-6 hover:border-primary/30 hover:shadow-card transition-all duration-300 group"
             >
               <div className="flex items-start justify-between mb-4">
                 <div>
-                  <h3 className="text-2xl font-bold mb-2 group-hover:text-primary transition-colors">
+                  <h3 className="font-semibold mb-1 group-hover:text-primary transition-colors">
                     {company.name}
                   </h3>
-                  <div className="flex items-center gap-2 text-muted-foreground">
-                    <MapPin className="w-4 h-4" />
+                  <div className="flex items-center gap-1.5 text-sm text-muted-foreground">
+                    <MapPin className="w-3.5 h-3.5" />
                     <span>{company.city}</span>
                   </div>
                 </div>
-                <div className="flex items-center gap-1 bg-gradient-to-br from-primary to-secondary text-primary-foreground px-3 py-1.5 rounded-full">
-                  <Star className="w-4 h-4 fill-current" />
-                  <span className="font-bold">{company.rating}</span>
+                <div className="flex items-center gap-1 bg-primary/10 text-primary px-2.5 py-1 rounded-lg">
+                  <Star className="w-3.5 h-3.5 fill-current" />
+                  <span className="text-sm font-semibold">{company.rating}</span>
                 </div>
               </div>
 
-              <p className="text-sm text-muted-foreground mb-4">
+              <p className="text-xs text-muted-foreground mb-4">
                 {company.reviews} Bewertungen
               </p>
 
@@ -101,7 +100,7 @@ export const TrustedCompanies = () => {
                 {company.specialties.map((specialty, idx) => (
                   <span
                     key={idx}
-                    className="px-3 py-1 bg-muted text-muted-foreground text-sm rounded-full"
+                    className="px-2.5 py-1 bg-muted text-muted-foreground text-xs rounded-md"
                   >
                     {specialty}
                   </span>
