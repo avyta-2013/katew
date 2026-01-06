@@ -1,116 +1,66 @@
-import { FileText, CreditCard, Building, ArrowRight, Check } from "lucide-react";
+import { FileText, CreditCard, Building } from "lucide-react";
 import { Button } from "./ui/button";
 
 const bookingOptions = [
   {
     icon: FileText,
     title: "Transportschein",
-    description: "Direkte Abrechnung mit Ihrer Krankenkasse.",
-    features: ["Keine Vorkasse", "Automatische Abrechnung", "Schnelle Bearbeitung"],
-    highlighted: false,
+    description: "Direkte Abrechnung mit Ihrer Krankenkasse. Wir übernehmen die komplette Verwaltung und Kommunikation mit der Versicherung.",
   },
   {
     icon: CreditCard,
     title: "Selbstzahler",
-    description: "Flexible Buchung ohne Transportschein.",
-    features: ["Transparente Preise", "Sofortige Bestätigung", "Flexible Zahlung"],
-    highlighted: true,
+    description: "Flexible Buchung ohne Transportschein. Transparente Preise und sofortige Buchungsbestätigung für Ihre Planung.",
   },
   {
     icon: Building,
     title: "Ausschreibungen",
-    description: "Maßgeschneiderte Lösungen für Einrichtungen.",
-    features: ["Volumenrabatte", "Dedizierter Support", "Individuelle Verträge"],
-    highlighted: false,
+    description: "Maßgeschneiderte Lösungen für Kliniken und Pflegeeinrichtungen. Effiziente Tender-Verwaltung mit qualitätsgeprüften Partnern.",
   },
 ];
 
 export const BookingOptions = () => {
   return (
-    <section id="pricing" className="py-24">
+    <section className="py-32 bg-gradient-to-b from-background to-muted/30">
       <div className="container mx-auto px-4">
-        <div className="max-w-6xl mx-auto">
-          {/* Section Header */}
-          <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold mb-6">
-              Buchungsoptionen
-            </h2>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Wählen Sie die passende Abrechnungsart für Ihre Bedürfnisse.
-            </p>
-            
-            <Button className="mt-8 rounded-full bg-foreground text-background hover:bg-foreground/90 px-8 h-12">
-              Jetzt starten
-              <ArrowRight className="ml-2 h-4 w-4" />
-            </Button>
-          </div>
+        <div className="text-center mb-20 animate-fade-in">
+          <h2 className="text-5xl md:text-7xl font-bold mb-6 tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-primary to-secondary">
+            Buchungsoptionen
+          </h2>
+          <p className="text-xl md:text-2xl text-muted-foreground max-w-3xl mx-auto font-light">
+            Wählen Sie die passende Abrechnungsart
+          </p>
+        </div>
 
-          {/* Numbered Steps */}
-          <div className="flex justify-center gap-12 mb-12 text-sm text-muted-foreground">
-            <div className="flex items-center gap-2">
-              <span className="w-6 h-6 rounded-full bg-muted flex items-center justify-center text-xs font-semibold">01</span>
-              <span>Option wählen</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <span className="w-6 h-6 rounded-full bg-muted flex items-center justify-center text-xs font-semibold">02</span>
-              <span>Details eingeben</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <span className="w-6 h-6 rounded-full bg-muted flex items-center justify-center text-xs font-semibold">03</span>
-              <span>Transport buchen</span>
-            </div>
-          </div>
-
-          {/* Options Grid */}
-          <div className="grid md:grid-cols-3 gap-6">
-            {bookingOptions.map((option, index) => (
-              <div
-                key={index}
-                className={`relative bg-card rounded-3xl p-8 border transition-all duration-300 ${
-                  option.highlighted 
-                    ? 'border-primary shadow-elevated scale-105' 
-                    : 'border-border/50 hover:border-border hover:shadow-card'
-                }`}
-              >
-                {option.highlighted && (
-                  <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-primary text-primary-foreground text-xs font-semibold px-4 py-1 rounded-full">
-                    Beliebt
-                  </div>
-                )}
-                
-                <div className={`w-14 h-14 rounded-2xl flex items-center justify-center mb-6 ${
-                  option.highlighted ? 'bg-primary' : 'bg-muted'
-                }`}>
-                  <option.icon className={`w-7 h-7 ${
-                    option.highlighted ? 'text-primary-foreground' : 'text-foreground'
-                  }`} />
+        <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto animate-fade-in-up">
+          {bookingOptions.map((option, index) => (
+            <div
+              key={index}
+              className="group relative bg-card border border-border rounded-3xl p-10 hover:shadow-elevated hover:border-primary/30 transition-all duration-500 hover:-translate-y-2"
+            >
+              <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-secondary/5 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              
+              <div className="relative">
+                <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-primary to-secondary flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-500 shadow-glow">
+                  <option.icon className="w-8 h-8 text-primary-foreground" />
                 </div>
 
-                <h3 className="text-2xl font-bold mb-2">{option.title}</h3>
-                <p className="text-muted-foreground mb-6">{option.description}</p>
-
-                <ul className="space-y-3 mb-8">
-                  {option.features.map((feature, idx) => (
-                    <li key={idx} className="flex items-center gap-3 text-sm">
-                      <Check className="w-4 h-4 text-secondary flex-shrink-0" />
-                      <span>{feature}</span>
-                    </li>
-                  ))}
-                </ul>
+                <h3 className="text-2xl font-bold mb-4 group-hover:text-primary transition-colors">
+                  {option.title}
+                </h3>
+                <p className="text-muted-foreground text-lg leading-relaxed mb-6">
+                  {option.description}
+                </p>
 
                 <Button 
-                  className={`w-full rounded-full h-12 ${
-                    option.highlighted 
-                      ? 'bg-foreground text-background hover:bg-foreground/90' 
-                      : 'bg-muted hover:bg-muted/80 text-foreground'
-                  }`}
+                  variant="outline" 
+                  className="w-full group-hover:bg-primary group-hover:text-primary-foreground group-hover:border-primary transition-all"
                 >
-                  Auswählen
-                  <ArrowRight className="ml-2 h-4 w-4" />
+                  Mehr erfahren
                 </Button>
               </div>
-            ))}
-          </div>
+            </div>
+          ))}
         </div>
       </div>
     </section>
