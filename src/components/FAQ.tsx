@@ -8,54 +8,52 @@ import {
 const faqs = [
   {
     question: "Ist der Dienst kostenlos?",
-    answer:
-      "Ja, die Nutzung unserer Plattform zur Vermittlung von Krankentransporten ist für Patienten kostenlos.",
+    answer: "Ja, die Nutzung unserer Plattform zur Vermittlung von Krankentransporten ist für Patienten kostenlos.",
   },
   {
     question: "Was ist ein Krankentransport, und wann ist er notwendig?",
-    answer:
-      "Ein Krankentransport ist ein spezialisierter Transport für Patienten, die aus medizinischen Gründen nicht selbstständig zu Terminen oder zwischen Einrichtungen reisen können. Er ist notwendig bei eingeschränkter Mobilität, nach Operationen oder bei chronischen Erkrankungen.",
+    answer: "Ein Krankentransport ist ein spezialisierter Transport für Patienten, die aus medizinischen Gründen nicht selbstständig zu Terminen oder zwischen Einrichtungen reisen können.",
   },
   {
     question: "Wie schnell kann ein Transport organisiert werden?",
-    answer:
-      "Die Geschwindigkeit hängt von der Verfügbarkeit der Unternehmen ab. In der Regel können wir innerhalb von 24 Stunden einen Transport organisieren. Für dringende Fälle arbeiten wir mit Partnern zusammen, die auch kurzfristige Anfragen bearbeiten.",
+    answer: "In der Regel können wir innerhalb von 24 Stunden einen Transport organisieren. Für dringende Fälle arbeiten wir mit Partnern zusammen, die auch kurzfristige Anfragen bearbeiten.",
   },
   {
     question: "Welche Qualitätsstandards erfüllen die Unternehmen?",
-    answer:
-      "Alle auf unserer Plattform registrierten Unternehmen durchlaufen ein strenges Qualitätsmanagement. Sie müssen alle erforderlichen Lizenzen, Versicherungen und Zertifizierungen nachweisen.",
+    answer: "Alle auf unserer Plattform registrierten Unternehmen durchlaufen ein strenges Qualitätsmanagement. Sie müssen alle erforderlichen Lizenzen, Versicherungen und Zertifizierungen nachweisen.",
   },
   {
     question: "Kann ich die Kosten mit meiner Krankenkasse abrechnen?",
-    answer:
-      "In vielen Fällen übernimmt die Krankenkasse die Kosten für medizinisch notwendige Krankentransporte. Wir empfehlen, dies vorab mit Ihrer Krankenkasse zu klären. Unsere Partner unterstützen Sie gerne bei der Abrechnung.",
+    answer: "In vielen Fällen übernimmt die Krankenkasse die Kosten für medizinisch notwendige Krankentransporte. Unsere Partner unterstützen Sie gerne bei der Abrechnung.",
   },
 ];
 
 export const FAQ = () => {
   return (
-    <section className="py-32 bg-gradient-to-b from-muted/20 to-background">
+    <section className="py-24">
       <div className="container mx-auto px-4">
-        <div className="max-w-4xl mx-auto">
-          <h2 className="text-5xl md:text-7xl font-bold text-center mb-6 animate-fade-in tracking-tight">
-            Fragen & Antworten
-          </h2>
-          <p className="text-2xl text-muted-foreground text-center mb-20 font-light">
-            Alles was Sie wissen müssen
-          </p>
+        <div className="max-w-3xl mx-auto">
+          {/* Section Header */}
+          <div className="text-center mb-12">
+            <h2 className="text-4xl md:text-5xl font-bold mb-4">
+              Häufige Fragen
+            </h2>
+            <p className="text-lg text-muted-foreground">
+              Alles was Sie wissen müssen
+            </p>
+          </div>
 
-          <Accordion type="single" collapsible className="space-y-6 animate-fade-in-up">
+          <Accordion type="single" collapsible className="space-y-3">
             {faqs.map((faq, index) => (
               <AccordionItem
                 key={index}
                 value={`item-${index}`}
-                className="bg-card/50 backdrop-blur border border-border/50 rounded-2xl px-8 shadow-card hover:shadow-elevated hover:border-primary/30 transition-all duration-300"
+                className="bg-card border border-border/50 rounded-2xl px-6 shadow-soft hover:shadow-card transition-shadow data-[state=open]:shadow-card"
               >
-                <AccordionTrigger className="text-xl font-bold hover:no-underline py-8 hover:text-primary transition-colors">
+                <AccordionTrigger className="text-left font-semibold hover:no-underline py-5 text-base">
                   {faq.question}
                 </AccordionTrigger>
-                <AccordionContent className="text-muted-foreground text-lg leading-relaxed pb-8">
+                <AccordionContent className="text-muted-foreground pb-5 leading-relaxed">
                   {faq.answer}
                 </AccordionContent>
               </AccordionItem>
