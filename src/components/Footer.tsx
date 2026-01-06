@@ -1,52 +1,129 @@
-import { Heart } from "lucide-react";
+import { Mail, Phone, MapPin } from "lucide-react";
+
+const footerLinks = {
+  unternehmen: [
+    { label: "Über uns", href: "#" },
+    { label: "Karriere", href: "#" },
+    { label: "Presse", href: "#" },
+    { label: "Blog", href: "#" },
+  ],
+  produkt: [
+    { label: "Für Anbieter", href: "#anbieter" },
+    { label: "Für Partner", href: "#partner" },
+    { label: "Preise", href: "#" },
+    { label: "Funktionen", href: "#" },
+  ],
+  support: [
+    { label: "Hilfe-Center", href: "#" },
+    { label: "Kontakt", href: "#" },
+    { label: "FAQ", href: "#" },
+    { label: "Status", href: "#" },
+  ],
+  rechtliches: [
+    { label: "Impressum", href: "#" },
+    { label: "Datenschutz", href: "#" },
+    { label: "AGB", href: "#" },
+    { label: "Cookies", href: "#" },
+  ],
+};
 
 export const Footer = () => {
   return (
-    <footer className="bg-card border-t border-border/50 py-16">
+    <footer className="bg-card border-t border-border/50">
       <div className="container mx-auto px-4">
-        <div className="grid md:grid-cols-4 gap-12 mb-12">
-          <div>
-            <h3 className="text-3xl font-bold mb-4 bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
-              KATEW
-            </h3>
-            <p className="text-muted-foreground leading-relaxed text-base">
-              Die moderne Plattform für Krankentransport in Deutschland.
-            </p>
-          </div>
-          
-          <div>
-            <h4 className="font-bold mb-6 text-lg">Unternehmen</h4>
-            <ul className="space-y-3 text-muted-foreground">
-              <li><a href="#" className="hover:text-primary transition-colors text-base">Über uns</a></li>
-              <li><a href="#" className="hover:text-primary transition-colors text-base">Karriere</a></li>
-              <li><a href="#" className="hover:text-primary transition-colors text-base">Partner werden</a></li>
-            </ul>
-          </div>
-          
-          <div>
-            <h4 className="font-bold mb-6 text-lg">Support</h4>
-            <ul className="space-y-3 text-muted-foreground">
-              <li><a href="#" className="hover:text-primary transition-colors text-base">Hilfe-Center</a></li>
-              <li><a href="#" className="hover:text-primary transition-colors text-base">Kontakt</a></li>
-              <li><a href="#" className="hover:text-primary transition-colors text-base">FAQ</a></li>
-            </ul>
-          </div>
-          
-          <div>
-            <h4 className="font-bold mb-6 text-lg">Rechtliches</h4>
-            <ul className="space-y-3 text-muted-foreground">
-              <li><a href="#" className="hover:text-primary transition-colors text-base">Impressum</a></li>
-              <li><a href="#" className="hover:text-primary transition-colors text-base">Datenschutz</a></li>
-              <li><a href="#" className="hover:text-primary transition-colors text-base">AGB</a></li>
-            </ul>
+        {/* Main footer */}
+        <div className="py-16">
+          <div className="grid grid-cols-2 md:grid-cols-5 gap-8 md:gap-12">
+            {/* Brand column */}
+            <div className="col-span-2 md:col-span-1">
+              <a href="/" className="inline-block mb-4">
+                <span className="text-2xl font-bold tracking-tight">
+                  <span className="text-primary">kate</span>
+                  <span className="text-secondary">w</span>
+                </span>
+              </a>
+              <p className="text-sm text-muted-foreground mb-6 leading-relaxed">
+                Die moderne Plattform für Krankentransport in Deutschland.
+              </p>
+              <div className="space-y-3 text-sm text-muted-foreground">
+                <a href="mailto:info@katew.de" className="flex items-center gap-2 hover:text-foreground transition-colors">
+                  <Mail className="w-4 h-4" />
+                  info@katew.de
+                </a>
+                <a href="tel:+4940123456" className="flex items-center gap-2 hover:text-foreground transition-colors">
+                  <Phone className="w-4 h-4" />
+                  +49 40 123 456
+                </a>
+                <p className="flex items-center gap-2">
+                  <MapPin className="w-4 h-4" />
+                  Hamburg, Deutschland
+                </p>
+              </div>
+            </div>
+
+            {/* Link columns */}
+            <div>
+              <h4 className="font-semibold mb-4 text-sm">Unternehmen</h4>
+              <ul className="space-y-3">
+                {footerLinks.unternehmen.map((link) => (
+                  <li key={link.label}>
+                    <a href={link.href} className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+                      {link.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <div>
+              <h4 className="font-semibold mb-4 text-sm">Produkt</h4>
+              <ul className="space-y-3">
+                {footerLinks.produkt.map((link) => (
+                  <li key={link.label}>
+                    <a href={link.href} className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+                      {link.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <div>
+              <h4 className="font-semibold mb-4 text-sm">Support</h4>
+              <ul className="space-y-3">
+                {footerLinks.support.map((link) => (
+                  <li key={link.label}>
+                    <a href={link.href} className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+                      {link.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <div>
+              <h4 className="font-semibold mb-4 text-sm">Rechtliches</h4>
+              <ul className="space-y-3">
+                {footerLinks.rechtliches.map((link) => (
+                  <li key={link.label}>
+                    <a href={link.href} className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+                      {link.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
         </div>
-        
-        <div className="border-t border-border/50 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-muted-foreground">
-          <p className="flex items-center gap-2 text-base">
-            Made with <Heart className="w-4 h-4 text-secondary fill-secondary" /> in Germany
+
+        {/* Bottom bar */}
+        <div className="border-t border-border/50 py-6 flex flex-col sm:flex-row justify-between items-center gap-4">
+          <p className="text-sm text-muted-foreground">
+            © {new Date().getFullYear()} katew. Alle Rechte vorbehalten.
           </p>
-          <p className="text-base">© 2024 KATEW. Alle Rechte vorbehalten.</p>
+          <div className="flex items-center gap-6 text-sm text-muted-foreground">
+            <span>Made in Germany 🇩🇪</span>
+          </div>
         </div>
       </div>
     </footer>
