@@ -96,12 +96,6 @@ export const ProvidersSection = () => {
                 })}
               </div>
 
-              {/* Pricing hint */}
-              <p className="text-sm text-muted-foreground mb-6">
-                <span className="font-medium text-foreground">Transparent & fair:</span> Keine Grundgebühr – 
-                zahlen Sie nur bei erfolgreicher Vermittlung.
-              </p>
-
               <Button asChild size="lg" className="h-12 px-6 rounded-xl font-semibold">
                 <Link to="/anmelden?type=anbieter">
                   Jetzt ausprobieren
