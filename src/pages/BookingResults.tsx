@@ -2,146 +2,171 @@ import { useState } from "react";
 import { 
   MapPin, 
   Navigation, 
-  Calendar, 
-  Clock, 
-  Star, 
-  CheckCircle, 
-  Phone,
-  ArrowRight,
-  Filter,
-  SlidersHorizontal,
-  Armchair,
-  Accessibility,
-  Bed,
-  Users,
-  Shield,
-  Award
+  ArrowLeftRight,
+  Star,
+  CheckCircle2
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Badge } from "@/components/ui/badge";
+import { Checkbox } from "@/components/ui/checkbox";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
-import { Link, useSearchParams } from "react-router-dom";
+import { useSearchParams, useNavigate } from "react-router-dom";
 
 // Mock transport providers
 const transportProviders = [
   {
     id: 1,
-    name: "MedTrans Frankfurt",
-    rating: 4.9,
-    reviews: 234,
-    distance: "2.3 km",
-    price: "Ab 45€",
-    estimatedTime: "15-20 Min.",
-    types: ["Sitzend", "Rollstuhl", "Liegend"],
-    verified: true,
-    available: true,
-    image: "https://images.unsplash.com/photo-1612277795421-9bc7706a4a34?w=120&h=120&fit=crop",
+    name: "Krankentransport Am Main GmbH",
+    rating: 5,
+    price: "0 €",
   },
   {
     id: 2,
-    name: "Ambulanz Care GmbH",
-    rating: 4.8,
-    reviews: 189,
-    distance: "3.1 km",
-    price: "Ab 52€",
-    estimatedTime: "20-25 Min.",
-    types: ["Sitzend", "Rollstuhl", "Liegend", "Tragestuhl"],
-    verified: true,
-    available: true,
-    image: "https://images.unsplash.com/photo-1587745416684-47953f16f02f?w=120&h=120&fit=crop",
+    name: "Viamed Go",
+    rating: 4,
+    price: "0 €",
   },
   {
     id: 3,
-    name: "Krankentransport Hessen",
-    rating: 4.7,
-    reviews: 156,
-    distance: "4.5 km",
-    price: "Ab 48€",
-    estimatedTime: "25-30 Min.",
-    types: ["Sitzend", "Rollstuhl"],
-    verified: true,
-    available: true,
-    image: "https://images.unsplash.com/photo-1631217868264-e5b90bb7e133?w=120&h=120&fit=crop",
+    name: "Fahrdienst Rumpf",
+    rating: 5,
+    price: "0 €",
   },
   {
     id: 4,
-    name: "Rettung & Transport Plus",
-    rating: 4.6,
-    reviews: 98,
-    distance: "5.2 km",
-    price: "Ab 55€",
-    estimatedTime: "30-35 Min.",
-    types: ["Sitzend", "Rollstuhl", "Liegend", "Tragestuhl"],
-    verified: false,
-    available: true,
-    image: "https://images.unsplash.com/photo-1516574187841-cb9cc2ca948b?w=120&h=120&fit=crop",
+    name: "Iqbal-Patiententransport",
+    rating: 5,
+    price: "0 €",
+  },
+  {
+    id: 5,
+    name: "MedTrans Frankfurt",
+    rating: 4,
+    price: "0 €",
+  },
+  {
+    id: 6,
+    name: "Ambulanz Care GmbH",
+    rating: 5,
+    price: "0 €",
   },
 ];
 
-const transportTypes = [
-  { id: "sitting", label: "Sitzend", icon: Armchair },
-  { id: "wheelchair", label: "Rollstuhl", icon: Accessibility },
-  { id: "stretcher", label: "Liegend", icon: Bed },
-  { id: "stairchair", label: "Tragestuhl", icon: Users },
-];
+const anbieterOptions = ["Alle", "Taxi", "Mietwagen"];
+const transportartOptions = ["Transportschein", "Selbstzahler", "Ausschreibung"];
+const transportmittelOptions = ["Sitzend", "Rollstuhl", "Tragestuhl", "Liege"];
 
 export default function BookingResults() {
   const [searchParams] = useSearchParams();
-  const [selectedType, setSelectedType] = useState<string | null>(null);
-  const [showFilters, setShowFilters] = useState(false);
+  const navigate = useNavigate();
+  
+  const [startAddress, setStartAddress] = useState(searchParams.get("start") || "Frankfurt am Main, Deutschland");
+  const [endAddress, setEndAddress] = useState(searchParams.get("end") || "64 Darmstadt, Deutschland");
+  
+  const [selectedProviders, setSelectedProviders] = useState<number[]>(transportProviders.map(p => p.id));
+  const [anbieter, setAnbieter] = useState<string[]>(["Alle"]);
+  const [transportart, setTransportart] = useState<string[]>(["Transportschein"]);
+  const [transportmittel, setTransportmittel] = useState<string[]>(["Sitzend"]);
 
-  const startAddress = searchParams.get("start") || "Frankfurt Hauptbahnhof";
-  const endAddress = searchParams.get("end") || "Universitätsklinikum Frankfurt";
+  const allSelected = selectedProviders.length === transportProviders.length;
+  
+  const toggleProvider = (id: number) => {
+    setSelectedProviders(prev => 
+      prev.includes(id) 
+        ? prev.filter(p => p !== id)
+        : [...prev, id]
+    );
+  };
 
-  const filteredProviders = selectedType
-    ? transportProviders.filter(p => 
-        p.types.some(t => t.toLowerCase().includes(selectedType.toLowerCase()))
-      )
-    : transportProviders;
+  const toggleAll = () => {
+    if (allSelected) {
+      setSelectedProviders([]);
+    } else {
+      setSelectedProviders(transportProviders.map(p => p.id));
+    }
+  };
+
+  const toggleFilter = (
+    value: string, 
+    current: string[], 
+    setter: React.Dispatch<React.SetStateAction<string[]>>
+  ) => {
+    setter(prev => 
+      prev.includes(value) 
+        ? prev.filter(v => v !== value)
+        : [...prev, value]
+    );
+  };
+
+  const handleConfirm = () => {
+    // Navigate to booking confirmation with selected providers
+    navigate(`/buchen/bestaetigen?providers=${selectedProviders.join(",")}&start=${encodeURIComponent(startAddress)}&end=${encodeURIComponent(endAddress)}`);
+  };
+
+  const renderStars = (rating: number) => {
+    return (
+      <div className="flex gap-0.5">
+        {[1, 2, 3, 4, 5].map((star) => (
+          <Star 
+            key={star} 
+            className={`w-4 h-4 ${star <= rating ? 'text-yellow-400 fill-yellow-400' : 'text-muted-foreground/30'}`}
+          />
+        ))}
+      </div>
+    );
+  };
 
   return (
     <>
       <Header />
       <div className="min-h-screen bg-background">
         {/* Search Header */}
-        <section className="relative pt-28 pb-8 md:pt-32 md:pb-10 bg-gradient-to-b from-muted/50 to-background">
+        <section className="pt-24 pb-6 md:pt-28 md:pb-8 bg-muted/30 border-b border-border/50">
           <div className="container mx-auto px-4">
-            <div className="max-w-4xl mx-auto">
-              <h1 className="text-2xl md:text-3xl font-bold mb-6">
-                Verfügbare Anbieter
-              </h1>
-              
-              {/* Search Form */}
-              <div className="bg-card rounded-2xl shadow-lg border border-border/50 p-4 md:p-6">
-                <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-                  <div className="relative">
-                    <MapPin className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-primary" />
-                    <Input
-                      defaultValue={startAddress}
-                      placeholder="Startadresse"
-                      className="h-12 pl-10 bg-muted/50 border-0 rounded-xl"
-                    />
+            <div className="max-w-5xl mx-auto">
+              <div className="bg-card rounded-2xl border border-border/50 p-4 md:p-6">
+                <div className="flex flex-col md:flex-row items-center gap-4">
+                  {/* Start Address */}
+                  <div className="flex-1 w-full">
+                    <label className="text-xs text-muted-foreground mb-1 block">Start</label>
+                    <div className="relative">
+                      <Input
+                        value={startAddress}
+                        onChange={(e) => setStartAddress(e.target.value)}
+                        placeholder="Startadresse"
+                        className="h-12 bg-background border border-border rounded-lg text-base"
+                      />
+                    </div>
                   </div>
-                  <div className="relative">
-                    <Navigation className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-secondary" />
-                    <Input
-                      defaultValue={endAddress}
-                      placeholder="Zieladresse"
-                      className="h-12 pl-10 bg-muted/50 border-0 rounded-xl"
-                    />
+
+                  {/* Distance Indicator */}
+                  <div className="flex flex-col items-center px-4">
+                    <div className="w-12 h-12 rounded-full bg-foreground text-background flex items-center justify-center">
+                      <ArrowLeftRight className="w-5 h-5" />
+                    </div>
+                    <span className="text-sm font-medium mt-1">33.3 KM</span>
                   </div>
-                  <div className="relative">
-                    <Calendar className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
-                    <Input
-                      type="date"
-                      defaultValue={new Date().toISOString().split('T')[0]}
-                      className="h-12 pl-10 bg-muted/50 border-0 rounded-xl"
-                    />
+
+                  {/* End Address */}
+                  <div className="flex-1 w-full">
+                    <label className="text-xs text-muted-foreground mb-1 block">Ziel</label>
+                    <div className="relative">
+                      <Input
+                        value={endAddress}
+                        onChange={(e) => setEndAddress(e.target.value)}
+                        placeholder="Zieladresse"
+                        className="h-12 bg-background border border-border rounded-lg text-base"
+                      />
+                    </div>
                   </div>
-                  <Button className="h-12 bg-gradient-to-r from-primary to-secondary hover:opacity-90 rounded-xl">
-                    Suche aktualisieren
+
+                  {/* Confirm Button */}
+                  <Button 
+                    onClick={handleConfirm}
+                    className="h-12 px-8 bg-foreground text-background hover:bg-foreground/90 rounded-full text-base font-medium"
+                  >
+                    bestätigen
                   </Button>
                 </div>
               </div>
@@ -149,186 +174,170 @@ export default function BookingResults() {
           </div>
         </section>
 
-        {/* Results */}
+        {/* Main Content */}
         <section className="py-8 md:py-12">
           <div className="container mx-auto px-4">
-            <div className="max-w-4xl mx-auto">
-              {/* Filters */}
-              <div className="flex flex-wrap items-center justify-between gap-4 mb-6">
-                <div className="flex items-center gap-2">
-                  <span className="text-sm text-muted-foreground">
-                    {filteredProviders.length} Anbieter gefunden
-                  </span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <Button 
-                    variant="outline" 
-                    size="sm"
-                    onClick={() => setShowFilters(!showFilters)}
-                    className="rounded-full"
-                  >
-                    <SlidersHorizontal className="w-4 h-4 mr-2" />
-                    Filter
-                  </Button>
-                </div>
-              </div>
-
-              {/* Transport Type Filter */}
-              {showFilters && (
-                <div className="bg-card rounded-xl border border-border/50 p-4 mb-6">
-                  <p className="text-sm font-medium mb-3">Transportart</p>
-                  <div className="flex flex-wrap gap-2">
-                    {transportTypes.map((type) => {
-                      const Icon = type.icon;
-                      const isSelected = selectedType === type.id;
-                      return (
-                        <button
-                          key={type.id}
-                          onClick={() => setSelectedType(isSelected ? null : type.id)}
-                          className={`flex items-center gap-2 px-4 py-2 rounded-full text-sm transition-all ${
-                            isSelected
-                              ? "bg-primary text-primary-foreground"
-                              : "bg-muted/50 text-muted-foreground hover:bg-muted"
-                          }`}
-                        >
-                          <Icon className="w-4 h-4" />
-                          {type.label}
-                        </button>
-                      );
-                    })}
-                  </div>
-                </div>
-              )}
-
-              {/* Provider Cards */}
-              <div className="space-y-4">
-                {filteredProviders.map((provider) => (
-                  <div
-                    key={provider.id}
-                    className="group bg-card rounded-2xl border border-border/50 p-5 md:p-6 hover:border-primary/40 hover:shadow-lg transition-all"
-                  >
-                    <div className="flex flex-col md:flex-row gap-5">
-                      {/* Provider Image */}
-                      <div className="w-20 h-20 rounded-xl overflow-hidden flex-shrink-0 bg-muted">
-                        <img 
-                          src={provider.image} 
-                          alt={provider.name}
-                          className="w-full h-full object-cover"
-                        />
-                      </div>
-
-                      {/* Provider Info */}
-                      <div className="flex-1">
-                        <div className="flex flex-wrap items-start justify-between gap-2 mb-2">
-                          <div className="flex items-center gap-2">
-                            <h3 className="font-bold text-lg">{provider.name}</h3>
-                            {provider.verified && (
-                              <Badge className="bg-primary/10 text-primary border-0 text-xs">
-                                <CheckCircle className="w-3 h-3 mr-1" />
-                                Verifiziert
-                              </Badge>
-                            )}
-                          </div>
-                          <div className="text-right">
-                            <p className="text-xl font-bold text-primary">{provider.price}</p>
-                            <p className="text-xs text-muted-foreground">geschätzt</p>
-                          </div>
-                        </div>
-
-                        {/* Rating & Stats */}
-                        <div className="flex flex-wrap items-center gap-4 text-sm text-muted-foreground mb-3">
-                          <span className="flex items-center gap-1">
-                            <Star className="w-4 h-4 text-yellow-500 fill-yellow-500" />
-                            <span className="font-medium text-foreground">{provider.rating}</span>
-                            <span>({provider.reviews} Bewertungen)</span>
-                          </span>
-                          <span className="flex items-center gap-1">
-                            <MapPin className="w-4 h-4" />
-                            {provider.distance} entfernt
-                          </span>
-                          <span className="flex items-center gap-1">
-                            <Clock className="w-4 h-4" />
-                            {provider.estimatedTime}
-                          </span>
-                        </div>
-
-                        {/* Transport Types */}
-                        <div className="flex flex-wrap gap-2 mb-4">
-                          {provider.types.map((type) => (
-                            <Badge 
-                              key={type} 
-                              variant="outline" 
-                              className="text-xs border-border/50"
-                            >
-                              {type}
-                            </Badge>
-                          ))}
-                        </div>
-
-                        {/* Actions */}
-                        <div className="flex flex-wrap gap-3">
-                          <Button className="bg-gradient-to-r from-primary to-secondary hover:opacity-90 rounded-xl">
-                            Jetzt buchen
-                            <ArrowRight className="ml-2 w-4 h-4" />
-                          </Button>
-                          <Button variant="outline" className="rounded-xl">
-                            <Phone className="w-4 h-4 mr-2" />
-                            Anrufen
-                          </Button>
-                        </div>
+            <div className="max-w-5xl mx-auto">
+              <div className="flex flex-col md:flex-row gap-8">
+                {/* Sidebar Filters */}
+                <aside className="w-full md:w-64 flex-shrink-0">
+                  <div className="space-y-8">
+                    {/* Anbieter Filter */}
+                    <div>
+                      <h3 className="font-bold text-base mb-4">Anbieter*</h3>
+                      <div className="space-y-3">
+                        {anbieterOptions.map((option) => (
+                          <label 
+                            key={option} 
+                            className="flex items-center gap-3 cursor-pointer group"
+                          >
+                            <Checkbox
+                              checked={anbieter.includes(option)}
+                              onCheckedChange={() => toggleFilter(option, anbieter, setAnbieter)}
+                              className="data-[state=checked]:bg-primary data-[state=checked]:border-primary"
+                            />
+                            <span className="text-muted-foreground group-hover:text-foreground transition-colors">
+                              {option}
+                            </span>
+                          </label>
+                        ))}
                       </div>
                     </div>
-                  </div>
-                ))}
-              </div>
 
-              {/* Empty State */}
-              {filteredProviders.length === 0 && (
-                <div className="text-center py-16">
-                  <div className="w-16 h-16 rounded-full bg-muted flex items-center justify-center mx-auto mb-4">
-                    <Filter className="w-8 h-8 text-muted-foreground" />
-                  </div>
-                  <h3 className="text-lg font-bold mb-2">Keine Anbieter gefunden</h3>
-                  <p className="text-muted-foreground mb-4">
-                    Versuchen Sie, die Filter anzupassen
-                  </p>
-                  <Button 
-                    variant="outline" 
-                    onClick={() => setSelectedType(null)}
-                  >
-                    Filter zurücksetzen
-                  </Button>
-                </div>
-              )}
+                    <div className="border-t border-border/50" />
 
-              {/* Info Section */}
-              <div className="mt-12 grid md:grid-cols-3 gap-4">
-                <div className="bg-card rounded-xl border border-border/50 p-5 text-center">
-                  <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-3">
-                    <Shield className="w-6 h-6 text-primary" />
+                    {/* Transportart Filter */}
+                    <div>
+                      <h3 className="font-bold text-base mb-4">Transportart*</h3>
+                      <div className="space-y-3">
+                        {transportartOptions.map((option) => (
+                          <label 
+                            key={option} 
+                            className="flex items-center gap-3 cursor-pointer group"
+                          >
+                            <Checkbox
+                              checked={transportart.includes(option)}
+                              onCheckedChange={() => toggleFilter(option, transportart, setTransportart)}
+                              className="data-[state=checked]:bg-primary data-[state=checked]:border-primary"
+                            />
+                            <span className="text-muted-foreground group-hover:text-foreground transition-colors">
+                              {option}
+                            </span>
+                          </label>
+                        ))}
+                      </div>
+                    </div>
+
+                    <div className="border-t border-border/50" />
+
+                    {/* Transportmittel Filter */}
+                    <div>
+                      <h3 className="font-bold text-base mb-4">Transportmittel*</h3>
+                      <div className="space-y-3">
+                        {transportmittelOptions.map((option) => (
+                          <label 
+                            key={option} 
+                            className="flex items-center gap-3 cursor-pointer group"
+                          >
+                            <Checkbox
+                              checked={transportmittel.includes(option)}
+                              onCheckedChange={() => toggleFilter(option, transportmittel, setTransportmittel)}
+                              className="data-[state=checked]:bg-primary data-[state=checked]:border-primary"
+                            />
+                            <span className="text-muted-foreground group-hover:text-foreground transition-colors">
+                              {option}
+                            </span>
+                          </label>
+                        ))}
+                      </div>
+                    </div>
+
+                    <div className="border-t border-border/50" />
+
+                    {/* Kostenspanne */}
+                    <div>
+                      <h3 className="font-bold text-base mb-4">Kostenspanne</h3>
+                      <p className="text-sm text-muted-foreground">
+                        Preise werden nach Anfrage angezeigt
+                      </p>
+                    </div>
                   </div>
-                  <h4 className="font-bold mb-1">Sichere Buchung</h4>
-                  <p className="text-sm text-muted-foreground">
-                    Ihre Daten sind verschlüsselt und geschützt
-                  </p>
-                </div>
-                <div className="bg-card rounded-xl border border-border/50 p-5 text-center">
-                  <div className="w-12 h-12 rounded-full bg-secondary/10 flex items-center justify-center mx-auto mb-3">
-                    <Award className="w-6 h-6 text-secondary" />
+                </aside>
+
+                {/* Provider List */}
+                <div className="flex-1">
+                  {/* Select All */}
+                  <label className="flex items-center gap-3 cursor-pointer mb-6">
+                    <Checkbox
+                      checked={allSelected}
+                      onCheckedChange={toggleAll}
+                      className="data-[state=checked]:bg-primary data-[state=checked]:border-primary"
+                    />
+                    <span className="font-bold text-lg">Alle Auswählen</span>
+                  </label>
+
+                  {/* Provider Cards */}
+                  <div className="space-y-4">
+                    {transportProviders.map((provider) => (
+                      <label
+                        key={provider.id}
+                        className={`flex items-center gap-4 p-4 md:p-5 rounded-xl border cursor-pointer transition-all ${
+                          selectedProviders.includes(provider.id)
+                            ? "bg-card border-primary/30 shadow-sm"
+                            : "bg-card border-border/50 hover:border-border"
+                        }`}
+                      >
+                        <Checkbox
+                          checked={selectedProviders.includes(provider.id)}
+                          onCheckedChange={() => toggleProvider(provider.id)}
+                          className="data-[state=checked]:bg-primary data-[state=checked]:border-primary"
+                        />
+                        
+                        {/* Provider Icon */}
+                        <div className="w-14 h-14 flex-shrink-0 flex items-center justify-center">
+                          <div className="relative">
+                            <div className="w-10 h-10 bg-gradient-to-b from-red-500 to-red-600 rounded-full flex items-center justify-center shadow-md">
+                              <MapPin className="w-5 h-5 text-white" />
+                            </div>
+                            <div className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-8 h-2 bg-gradient-to-r from-yellow-400 via-yellow-500 to-yellow-400 rounded-full opacity-60 blur-[1px]" />
+                          </div>
+                        </div>
+
+                        {/* Provider Info */}
+                        <div className="flex-1 min-w-0">
+                          <h4 className="font-bold text-base md:text-lg truncate">
+                            {provider.name}
+                          </h4>
+                          {renderStars(provider.rating)}
+                        </div>
+
+                        {/* Price */}
+                        <div className="text-right flex-shrink-0">
+                          <span className="text-xl font-bold">{provider.price}</span>
+                        </div>
+                      </label>
+                    ))}
                   </div>
-                  <h4 className="font-bold mb-1">Geprüfte Anbieter</h4>
-                  <p className="text-sm text-muted-foreground">
-                    Alle Partner sind zertifiziert
-                  </p>
-                </div>
-                <div className="bg-card rounded-xl border border-border/50 p-5 text-center">
-                  <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-3">
-                    <Phone className="w-6 h-6 text-primary" />
-                  </div>
-                  <h4 className="font-bold mb-1">Support</h4>
-                  <p className="text-sm text-muted-foreground">
-                    Mo-Fr 8-12 Uhr erreichbar
-                  </p>
+
+                  {/* Selected Count */}
+                  {selectedProviders.length > 0 && (
+                    <div className="mt-8 p-4 bg-primary/5 rounded-xl border border-primary/20">
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-2">
+                          <CheckCircle2 className="w-5 h-5 text-primary" />
+                          <span className="font-medium">
+                            {selectedProviders.length} Anbieter ausgewählt
+                          </span>
+                        </div>
+                        <Button 
+                          onClick={handleConfirm}
+                          className="bg-gradient-to-r from-primary to-secondary hover:opacity-90"
+                        >
+                          Weiter zur Buchung
+                        </Button>
+                      </div>
+                    </div>
+                  )}
                 </div>
               </div>
             </div>
