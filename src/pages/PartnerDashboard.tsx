@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { User, Calendar, Settings, LogOut, Bell, Lock, Eye, EyeOff, Building2, Phone, Mail, MapPin, CalendarDays, CheckCircle2, XCircle, Clock } from "lucide-react";
+import { useState, useRef } from "react";
+import { User, Calendar, Settings, LogOut, Bell, Lock, Eye, EyeOff, Building2, Phone, Mail, MapPin, CalendarDays, CheckCircle2, XCircle, Clock, LayoutDashboard, TrendingUp, Users, Euro, Camera, Upload, ArrowUpRight, ArrowDownRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -10,18 +10,22 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
+import { Progress } from "@/components/ui/progress";
 import { cn } from "@/lib/utils";
 
-type NavItem = "profil" | "buchungen" | "einstellungen";
+type NavItem = "uebersicht" | "profil" | "buchungen" | "einstellungen";
 
 const PartnerDashboard = () => {
-  const [activeNav, setActiveNav] = useState<NavItem>("profil");
+  const [activeNav, setActiveNav] = useState<NavItem>("uebersicht");
   const [showCurrentPassword, setShowCurrentPassword] = useState(false);
   const [showNewPassword, setShowNewPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [emailNotifications, setEmailNotifications] = useState(true);
+  const [profileImage, setProfileImage] = useState<string | null>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   const navItems = [
+    { id: "uebersicht" as NavItem, label: "Übersicht", icon: LayoutDashboard },
     { id: "profil" as NavItem, label: "Profil", icon: User },
     { id: "buchungen" as NavItem, label: "Buchungen", icon: Calendar },
     { id: "einstellungen" as NavItem, label: "Einstellungen", icon: Settings },
@@ -41,18 +45,65 @@ const PartnerDashboard = () => {
     ],
   };
 
+  // KPI Data
+  const kpiData = {
+    totalBookings: 156,
+    activeBookings: 12,
+    completedBookings: 134,
+    cancelledBookings: 10,
+    revenue: 24580,
+    monthlyGrowth: 12.5,
+    satisfactionRate: 98,
+    avgResponseTime: 2.4,
+  };
+
+  const recentActivity = [
+    { id: 1, action: "Neue Buchung", patient: "Max Mustermann", time: "vor 2 Stunden", type: "booking" },
+    { id: 2, action: "Buchung bestätigt", patient: "Anna Schmidt", time: "vor 4 Stunden", type: "confirmed" },
+    { id: 3, action: "Transport abgeschlossen", patient: "Peter Weber", time: "vor 1 Tag", type: "completed" },
+    { id: 4, action: "Neue Anfrage", patient: "Lisa Müller", time: "vor 2 Tagen", type: "request" },
+  ];
+
+  const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setProfileImage(reader.result as string);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const triggerFileInput = () => {
+    fileInputRef.current?.click();
+  };
+
   const renderSidebar = () => (
     <div className="w-72 bg-card border-r border-border min-h-screen flex flex-col">
       {/* Profile Section */}
       <div className="p-6 border-b border-border">
         <div className="flex flex-col items-center">
-          <div className="relative">
+          <div className="relative group">
             <Avatar className="w-20 h-20 border-4 border-primary/20">
-              <AvatarImage src="" />
+              <AvatarImage src={profileImage || ""} />
               <AvatarFallback className="bg-gradient-to-br from-primary to-primary/60 text-white text-xl font-semibold">
                 DL
               </AvatarFallback>
             </Avatar>
+            <button
+              onClick={triggerFileInput}
+              className="absolute inset-0 flex items-center justify-center bg-black/50 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-200 cursor-pointer"
+            >
+              <Camera className="w-6 h-6 text-white" />
+            </button>
+            <input
+              ref={fileInputRef}
+              type="file"
+              accept="image/*"
+              onChange={handleImageUpload}
+              className="hidden"
+            />
             <div className="absolute -bottom-1 -right-1 w-6 h-6 bg-secondary rounded-full flex items-center justify-center">
               <CheckCircle2 className="w-4 h-4 text-white" />
             </div>
@@ -98,12 +149,245 @@ const PartnerDashboard = () => {
     </div>
   );
 
+  const renderOverview = () => (
+    <div className="space-y-8">
+      <div>
+        <h1 className="text-2xl font-bold text-foreground">Übersicht</h1>
+        <p className="text-muted-foreground mt-1">Willkommen zurück, Dino! Hier ist Ihr Dashboard.</p>
+      </div>
+
+      {/* KPI Cards */}
+      <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
+        <Card className="border-0 shadow-lg bg-gradient-to-br from-primary/5 to-primary/10">
+          <CardContent className="p-6">
+            <div className="flex items-start justify-between">
+              <div>
+                <p className="text-sm text-muted-foreground font-medium">Gesamtbuchungen</p>
+                <p className="text-3xl font-bold text-foreground mt-2">{kpiData.totalBookings}</p>
+                <div className="flex items-center gap-1 mt-2 text-secondary text-sm">
+                  <ArrowUpRight className="w-4 h-4" />
+                  <span>+{kpiData.monthlyGrowth}% diesen Monat</span>
+                </div>
+              </div>
+              <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center">
+                <Calendar className="w-6 h-6 text-primary" />
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+
+        <Card className="border-0 shadow-lg bg-gradient-to-br from-secondary/5 to-secondary/10">
+          <CardContent className="p-6">
+            <div className="flex items-start justify-between">
+              <div>
+                <p className="text-sm text-muted-foreground font-medium">Aktive Buchungen</p>
+                <p className="text-3xl font-bold text-foreground mt-2">{kpiData.activeBookings}</p>
+                <div className="flex items-center gap-1 mt-2 text-primary text-sm">
+                  <Clock className="w-4 h-4" />
+                  <span>In Bearbeitung</span>
+                </div>
+              </div>
+              <div className="w-12 h-12 rounded-xl bg-secondary/10 flex items-center justify-center">
+                <TrendingUp className="w-6 h-6 text-secondary" />
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+
+        <Card className="border-0 shadow-lg">
+          <CardContent className="p-6">
+            <div className="flex items-start justify-between">
+              <div>
+                <p className="text-sm text-muted-foreground font-medium">Umsatz (Monat)</p>
+                <p className="text-3xl font-bold text-foreground mt-2">€{kpiData.revenue.toLocaleString()}</p>
+                <div className="flex items-center gap-1 mt-2 text-secondary text-sm">
+                  <ArrowUpRight className="w-4 h-4" />
+                  <span>+8.2% vs. Vormonat</span>
+                </div>
+              </div>
+              <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center">
+                <Euro className="w-6 h-6 text-primary" />
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+
+        <Card className="border-0 shadow-lg">
+          <CardContent className="p-6">
+            <div className="flex items-start justify-between">
+              <div>
+                <p className="text-sm text-muted-foreground font-medium">Kundenzufriedenheit</p>
+                <p className="text-3xl font-bold text-foreground mt-2">{kpiData.satisfactionRate}%</p>
+                <div className="flex items-center gap-1 mt-2 text-muted-foreground text-sm">
+                  <Users className="w-4 h-4" />
+                  <span>Basierend auf 89 Bewertungen</span>
+                </div>
+              </div>
+              <div className="w-12 h-12 rounded-xl bg-secondary/10 flex items-center justify-center">
+                <CheckCircle2 className="w-6 h-6 text-secondary" />
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+
+      {/* Stats Overview */}
+      <div className="grid md:grid-cols-2 gap-6">
+        {/* Booking Stats */}
+        <Card className="border-0 shadow-lg">
+          <CardHeader>
+            <CardTitle className="text-lg">Buchungsstatistik</CardTitle>
+            <CardDescription>Verteilung Ihrer Buchungen nach Status</CardDescription>
+          </CardHeader>
+          <CardContent className="space-y-6">
+            <div className="space-y-3">
+              <div className="flex items-center justify-between text-sm">
+                <span className="text-muted-foreground">Abgeschlossen</span>
+                <span className="font-medium">{kpiData.completedBookings} ({Math.round((kpiData.completedBookings / kpiData.totalBookings) * 100)}%)</span>
+              </div>
+              <Progress value={(kpiData.completedBookings / kpiData.totalBookings) * 100} className="h-2 bg-muted" />
+            </div>
+            <div className="space-y-3">
+              <div className="flex items-center justify-between text-sm">
+                <span className="text-muted-foreground">Aktiv</span>
+                <span className="font-medium">{kpiData.activeBookings} ({Math.round((kpiData.activeBookings / kpiData.totalBookings) * 100)}%)</span>
+              </div>
+              <Progress value={(kpiData.activeBookings / kpiData.totalBookings) * 100} className="h-2 bg-muted [&>div]:bg-primary" />
+            </div>
+            <div className="space-y-3">
+              <div className="flex items-center justify-between text-sm">
+                <span className="text-muted-foreground">Storniert</span>
+                <span className="font-medium">{kpiData.cancelledBookings} ({Math.round((kpiData.cancelledBookings / kpiData.totalBookings) * 100)}%)</span>
+              </div>
+              <Progress value={(kpiData.cancelledBookings / kpiData.totalBookings) * 100} className="h-2 bg-muted [&>div]:bg-destructive" />
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* Recent Activity */}
+        <Card className="border-0 shadow-lg">
+          <CardHeader>
+            <CardTitle className="text-lg">Letzte Aktivitäten</CardTitle>
+            <CardDescription>Ihre neuesten Buchungsupdates</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div className="space-y-4">
+              {recentActivity.map((activity) => (
+                <div key={activity.id} className="flex items-start gap-3 p-3 rounded-xl hover:bg-muted/50 transition-colors">
+                  <div className={cn(
+                    "w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0",
+                    activity.type === "booking" && "bg-primary/10",
+                    activity.type === "confirmed" && "bg-secondary/10",
+                    activity.type === "completed" && "bg-secondary/10",
+                    activity.type === "request" && "bg-amber-500/10"
+                  )}>
+                    {activity.type === "booking" && <Calendar className="w-5 h-5 text-primary" />}
+                    {activity.type === "confirmed" && <CheckCircle2 className="w-5 h-5 text-secondary" />}
+                    {activity.type === "completed" && <CheckCircle2 className="w-5 h-5 text-secondary" />}
+                    {activity.type === "request" && <Clock className="w-5 h-5 text-amber-500" />}
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <p className="font-medium text-sm text-foreground">{activity.action}</p>
+                    <p className="text-sm text-muted-foreground truncate">{activity.patient}</p>
+                  </div>
+                  <span className="text-xs text-muted-foreground whitespace-nowrap">{activity.time}</span>
+                </div>
+              ))}
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+
+      {/* Quick Actions */}
+      <Card className="border-0 shadow-lg">
+        <CardHeader>
+          <CardTitle className="text-lg">Schnellaktionen</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="grid md:grid-cols-3 gap-4">
+            <Button 
+              variant="outline" 
+              className="h-auto p-6 flex flex-col items-center gap-3 hover:bg-primary/5 hover:border-primary"
+              onClick={() => setActiveNav("buchungen")}
+            >
+              <Calendar className="w-8 h-8 text-primary" />
+              <span className="font-medium">Buchungen anzeigen</span>
+            </Button>
+            <Button 
+              variant="outline" 
+              className="h-auto p-6 flex flex-col items-center gap-3 hover:bg-secondary/5 hover:border-secondary"
+              onClick={() => setActiveNav("profil")}
+            >
+              <User className="w-8 h-8 text-secondary" />
+              <span className="font-medium">Profil bearbeiten</span>
+            </Button>
+            <Button 
+              variant="outline" 
+              className="h-auto p-6 flex flex-col items-center gap-3 hover:bg-primary/5 hover:border-primary"
+              onClick={() => setActiveNav("einstellungen")}
+            >
+              <Settings className="w-8 h-8 text-primary" />
+              <span className="font-medium">Einstellungen</span>
+            </Button>
+          </div>
+        </CardContent>
+      </Card>
+    </div>
+  );
+
   const renderProfile = () => (
     <div className="space-y-8">
       <div>
         <h1 className="text-2xl font-bold text-foreground">Profil</h1>
         <p className="text-muted-foreground mt-1">Verwalten Sie Ihre persönlichen Daten</p>
       </div>
+
+      {/* Profile Image Upload Card */}
+      <Card className="border-0 shadow-lg">
+        <CardHeader className="pb-4">
+          <CardTitle className="text-lg flex items-center gap-2">
+            <Camera className="w-5 h-5 text-primary" />
+            Profilbild
+          </CardTitle>
+          <CardDescription>
+            Laden Sie ein Profilbild hoch, um Ihr Konto zu personalisieren
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <div className="flex items-center gap-6">
+            <div className="relative group">
+              <Avatar className="w-24 h-24 border-4 border-primary/20">
+                <AvatarImage src={profileImage || ""} />
+                <AvatarFallback className="bg-gradient-to-br from-primary to-primary/60 text-white text-2xl font-semibold">
+                  DL
+                </AvatarFallback>
+              </Avatar>
+              <button
+                onClick={triggerFileInput}
+                className="absolute inset-0 flex items-center justify-center bg-black/50 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-200 cursor-pointer"
+              >
+                <Camera className="w-8 h-8 text-white" />
+              </button>
+            </div>
+            <div className="flex-1">
+              <input
+                ref={fileInputRef}
+                type="file"
+                accept="image/*"
+                onChange={handleImageUpload}
+                className="hidden"
+              />
+              <Button onClick={triggerFileInput} variant="outline" className="gap-2">
+                <Upload className="w-4 h-4" />
+                Bild hochladen
+              </Button>
+              <p className="text-sm text-muted-foreground mt-2">
+                JPG, PNG oder GIF. Max. 5MB
+              </p>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
 
       <Card className="border-0 shadow-lg">
         <CardHeader className="pb-4">
@@ -485,7 +769,8 @@ const PartnerDashboard = () => {
     <div className="min-h-screen bg-muted/30 flex">
       {renderSidebar()}
       
-      <main className="flex-1 p-8 max-w-4xl">
+      <main className="flex-1 p-8 max-w-5xl">
+        {activeNav === "uebersicht" && renderOverview()}
         {activeNav === "profil" && renderProfile()}
         {activeNav === "buchungen" && renderBookings()}
         {activeNav === "einstellungen" && renderSettings()}
