@@ -210,39 +210,39 @@ export default function BookingResults() {
     );
   };
 
-  // Step 1: Filter Selection with Date/Time
+  // Step 1: Filter Selection with Date/Time - Compact version
   const renderFilterStep = () => (
-    <div className="space-y-8">
-      {/* Date & Time Section - Now on first page */}
-      <div className="bg-gradient-to-br from-primary/10 via-secondary/5 to-primary/10 rounded-3xl p-6 border border-primary/20 shadow-lg shadow-primary/5">
-        <div className="flex items-center gap-3 mb-5">
-          <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-primary via-primary/90 to-secondary flex items-center justify-center shadow-lg shadow-primary/25">
-            <Calendar className="w-6 h-6 text-primary-foreground" />
+    <div className="space-y-5">
+      {/* Date & Time Section */}
+      <div className="bg-gradient-to-br from-primary/5 via-secondary/5 to-primary/5 rounded-2xl p-4 border border-border/30">
+        <div className="flex items-center gap-3 mb-4">
+          <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-primary to-secondary flex items-center justify-center shadow-md">
+            <Calendar className="w-5 h-5 text-primary-foreground" />
           </div>
           <div>
-            <h3 className="font-bold text-lg">Wann soll die Fahrt stattfinden?</h3>
-            <p className="text-sm text-muted-foreground">Wählen Sie Datum und Uhrzeit</p>
+            <h3 className="font-bold">Wann soll die Fahrt stattfinden?</h3>
+            <p className="text-xs text-muted-foreground">Wählen Sie Datum und Uhrzeit</p>
           </div>
         </div>
-        <div className="grid grid-cols-2 gap-4">
-          <div className="space-y-2">
-            <Label className="text-sm font-medium">Datum</Label>
+        <div className="grid grid-cols-2 gap-3">
+          <div className="space-y-1.5">
+            <Label className="text-xs font-medium">Datum</Label>
             <Input
               type="date"
               value={formData.datum}
               onChange={(e) => setFormData(prev => ({ ...prev, datum: e.target.value }))}
-              className="h-14 bg-background border-2 border-primary/20 rounded-2xl text-base font-medium focus:border-primary transition-colors"
+              className="h-11 bg-background border-2 border-border/50 rounded-xl text-sm font-medium focus:border-primary transition-colors"
             />
           </div>
-          <div className="space-y-2">
+          <div className="space-y-1.5">
             <div className="flex items-center justify-between">
-              <Label className="text-sm font-medium">Abholuhrzeit</Label>
+              <Label className="text-xs font-medium">Abholuhrzeit</Label>
               <button
                 onClick={() => setFormData(prev => ({ ...prev, schnellstmoeglich: !prev.schnellstmoeglich }))}
-                className={`px-4 py-1.5 text-xs font-bold rounded-full transition-all ${
+                className={`px-3 py-1 text-xs font-bold rounded-full transition-all ${
                   formData.schnellstmoeglich
-                    ? "bg-gradient-to-r from-primary via-primary/90 to-secondary text-primary-foreground shadow-md"
-                    : "bg-muted hover:bg-primary/10 text-muted-foreground"
+                    ? "bg-gradient-to-r from-secondary to-secondary/90 text-secondary-foreground shadow-md"
+                    : "bg-muted hover:bg-secondary/20 text-muted-foreground"
                 }`}
               >
                 ⚡ Schnellstmöglich
@@ -253,100 +253,91 @@ export default function BookingResults() {
               value={formData.uhrzeit}
               onChange={(e) => setFormData(prev => ({ ...prev, uhrzeit: e.target.value }))}
               disabled={formData.schnellstmoeglich}
-              className="h-14 bg-background border-2 border-primary/20 rounded-2xl text-base font-medium focus:border-primary transition-colors disabled:opacity-50"
+              className="h-11 bg-background border-2 border-border/50 rounded-xl text-sm font-medium focus:border-primary transition-colors disabled:opacity-50"
             />
           </div>
         </div>
       </div>
 
       {/* Anbieter */}
-      <div className="space-y-4">
-        <div className="flex items-center gap-3">
-          <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-primary via-primary/90 to-secondary flex items-center justify-center shadow-lg shadow-primary/25">
-            <Users className="w-6 h-6 text-primary-foreground" />
+      <div className="space-y-3">
+        <div className="flex items-center gap-2">
+          <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-primary to-primary/80 flex items-center justify-center shadow-md">
+            <Users className="w-4 h-4 text-primary-foreground" />
           </div>
-          <div>
-            <Label className="text-lg font-bold">Anbieter</Label>
-            <p className="text-sm text-muted-foreground">Art des Fahrdienstes</p>
-          </div>
+          <Label className="font-bold">Anbieter</Label>
         </div>
-        <div className="grid grid-cols-3 gap-3">
+        <div className="grid grid-cols-3 gap-2">
           {filterOptions.anbieter.map((option) => (
             <button
               key={option}
               onClick={() => setSelectedFilters(prev => ({ ...prev, anbieter: option }))}
-              className={`relative px-6 py-5 rounded-2xl font-semibold transition-all duration-300 ${
+              className={`relative px-4 py-3 rounded-xl font-medium transition-all duration-300 text-sm ${
                 selectedFilters.anbieter === option
-                  ? "bg-gradient-to-br from-primary via-primary/90 to-secondary text-primary-foreground shadow-xl shadow-primary/30 scale-[1.02]"
-                  : "bg-card border-2 border-border/50 hover:border-primary/30 hover:shadow-lg text-foreground"
+                  ? "bg-gradient-to-br from-primary to-primary/90 text-primary-foreground shadow-lg shadow-primary/30"
+                  : "bg-card border-2 border-border/50 hover:border-primary/30 hover:shadow-md text-foreground"
               }`}
             >
               {selectedFilters.anbieter === option && (
-                <CheckCircle className="absolute top-3 right-3 w-5 h-5" />
+                <CheckCircle className="absolute top-2 right-2 w-4 h-4" />
               )}
-              <span className="text-base">{option}</span>
+              {option}
             </button>
           ))}
         </div>
       </div>
 
       {/* Transportart */}
-      <div className="space-y-4">
-        <div className="flex items-center gap-3">
-          <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-primary via-primary/90 to-secondary flex items-center justify-center shadow-lg shadow-primary/25">
-            <Truck className="w-6 h-6 text-primary-foreground" />
+      <div className="space-y-3">
+        <div className="flex items-center gap-2">
+          <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-secondary to-secondary/80 flex items-center justify-center shadow-md">
+            <Truck className="w-4 h-4 text-secondary-foreground" />
           </div>
-          <div>
-            <Label className="text-lg font-bold">Transportart</Label>
-            <p className="text-sm text-muted-foreground">Zahlungsmethode</p>
-          </div>
+          <Label className="font-bold">Transportart</Label>
         </div>
-        <div className="grid grid-cols-3 gap-3">
+        <div className="grid grid-cols-3 gap-2">
           {filterOptions.transportart.map((option) => (
             <button
               key={option}
               onClick={() => setSelectedFilters(prev => ({ ...prev, transportart: option }))}
-              className={`relative px-5 py-5 rounded-2xl font-semibold transition-all duration-300 ${
+              className={`relative px-3 py-3 rounded-xl font-medium transition-all duration-300 text-sm ${
                 selectedFilters.transportart === option
-                  ? "bg-gradient-to-br from-primary via-primary/90 to-secondary text-primary-foreground shadow-xl shadow-primary/30 scale-[1.02]"
-                  : "bg-card border-2 border-border/50 hover:border-primary/30 hover:shadow-lg text-foreground"
+                  ? "bg-gradient-to-br from-secondary to-secondary/90 text-secondary-foreground shadow-lg shadow-secondary/30"
+                  : "bg-card border-2 border-border/50 hover:border-secondary/30 hover:shadow-md text-foreground"
               }`}
             >
               {selectedFilters.transportart === option && (
-                <CheckCircle className="absolute top-3 right-3 w-5 h-5" />
+                <CheckCircle className="absolute top-2 right-2 w-4 h-4" />
               )}
-              <span className="text-base">{option}</span>
+              {option}
             </button>
           ))}
         </div>
       </div>
 
       {/* Transportmittel */}
-      <div className="space-y-4">
-        <div className="flex items-center gap-3">
-          <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-primary via-primary/90 to-secondary flex items-center justify-center shadow-lg shadow-primary/25">
-            <Armchair className="w-6 h-6 text-primary-foreground" />
+      <div className="space-y-3">
+        <div className="flex items-center gap-2">
+          <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-amber-500 to-orange-500 flex items-center justify-center shadow-md">
+            <Armchair className="w-4 h-4 text-white" />
           </div>
-          <div>
-            <Label className="text-lg font-bold">Transportmittel</Label>
-            <p className="text-sm text-muted-foreground">Beförderungsart</p>
-          </div>
+          <Label className="font-bold">Transportmittel</Label>
         </div>
-        <div className="grid grid-cols-2 gap-3">
+        <div className="grid grid-cols-2 gap-2">
           {filterOptions.transportmittel.map((option) => (
             <button
               key={option}
               onClick={() => setSelectedFilters(prev => ({ ...prev, transportmittel: option }))}
-              className={`relative px-6 py-5 rounded-2xl font-semibold transition-all duration-300 ${
+              className={`relative px-4 py-3 rounded-xl font-medium transition-all duration-300 text-sm ${
                 selectedFilters.transportmittel === option
-                  ? "bg-gradient-to-br from-primary via-primary/90 to-secondary text-primary-foreground shadow-xl shadow-primary/30 scale-[1.02]"
-                  : "bg-card border-2 border-border/50 hover:border-primary/30 hover:shadow-lg text-foreground"
+                  ? "bg-gradient-to-br from-amber-500 to-orange-500 text-white shadow-lg shadow-amber-500/30"
+                  : "bg-card border-2 border-border/50 hover:border-amber-500/30 hover:shadow-md text-foreground"
               }`}
             >
               {selectedFilters.transportmittel === option && (
-                <CheckCircle className="absolute top-3 right-3 w-5 h-5" />
+                <CheckCircle className="absolute top-2 right-2 w-4 h-4" />
               )}
-              <span className="text-base">{option}</span>
+              {option}
             </button>
           ))}
         </div>
