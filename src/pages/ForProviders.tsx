@@ -1,16 +1,11 @@
 import { 
   TrendingUp, 
   Users, 
-  Calendar, 
   Shield, 
   Clock, 
   Euro, 
   CheckCircle, 
-  ArrowRight, 
-  Sparkles, 
-  Building2, 
-  BarChart3, 
-  Smartphone,
+  ArrowRight,
   Zap,
   Award,
   HeartHandshake,
@@ -19,12 +14,14 @@ import {
   Send,
   CalendarClock,
   Star,
-  Quote
+  Quote,
+  Building2
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Link } from "react-router-dom";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
+import { CounterCard } from "@/components/CounterCard";
+import { ContactFormCTA } from "@/components/ContactFormCTA";
 
 const benefits = [
   {
@@ -198,44 +195,17 @@ export default function ForProviders() {
           <div className="max-w-6xl mx-auto mb-20">
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
               {benefits.map((benefit, index) => {
-                const Icon = benefit.icon;
                 const delays = ['0ms', '100ms', '200ms', '300ms'];
                 return (
-                  <div
+                  <CounterCard
                     key={index}
-                    className="group relative"
-                    style={{ animationDelay: delays[index] }}
-                  >
-                    {/* Card glow effect */}
-                    <div className="absolute inset-0 bg-gradient-to-br from-primary/40 to-secondary/40 rounded-3xl blur-xl opacity-0 group-hover:opacity-60 transition-opacity duration-500" />
-                    
-                    <div className="relative h-full backdrop-blur-xl bg-card/60 border border-white/10 rounded-3xl p-8 hover:border-primary/50 transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl overflow-hidden">
-                      {/* Inner gradient on hover */}
-                      <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-secondary/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                      
-                      {/* Decorative corner */}
-                      <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-primary/20 to-transparent rounded-bl-[100px] -translate-y-6 translate-x-6" />
-                      
-                      <div className="relative">
-                        {/* Icon with ring */}
-                        <div className="relative w-16 h-16 mb-6">
-                          <div className="absolute inset-0 bg-gradient-to-br from-primary to-secondary rounded-2xl rotate-6 group-hover:rotate-12 transition-transform duration-300" />
-                          <div className="absolute inset-0 bg-card rounded-2xl flex items-center justify-center">
-                            <Icon className="w-8 h-8 text-primary" />
-                          </div>
-                        </div>
-                        
-                        {/* Stat number with counter animation */}
-                        <div className="text-5xl font-black bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent mb-1">
-                          {benefit.stat}
-                        </div>
-                        <div className="text-sm text-muted-foreground font-medium uppercase tracking-wider mb-4">{benefit.statLabel}</div>
-                        
-                        <h3 className="font-bold text-xl mb-2 group-hover:text-primary transition-colors">{benefit.title}</h3>
-                        <p className="text-muted-foreground text-sm leading-relaxed">{benefit.description}</p>
-                      </div>
-                    </div>
-                  </div>
+                    icon={benefit.icon}
+                    stat={benefit.stat}
+                    statLabel={benefit.statLabel}
+                    title={benefit.title}
+                    description={benefit.description}
+                    delay={delays[index]}
+                  />
                 );
               })}
             </div>
@@ -390,31 +360,8 @@ export default function ForProviders() {
         </div>
       </section>
 
-      {/* CTA Section */}
-      <section className="py-24 md:py-32">
-        <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto text-center bg-gradient-to-br from-primary to-secondary rounded-3xl p-12 md:p-16 relative overflow-hidden">
-            {/* Background Pattern */}
-            <div className="absolute inset-0 opacity-10">
-              <div className="absolute top-0 left-0 w-40 h-40 border border-white/30 rounded-full" />
-              <div className="absolute bottom-0 right-0 w-60 h-60 border border-white/30 rounded-full" />
-            </div>
-            
-            <div className="relative">
-              <h2 className="text-3xl md:text-5xl font-bold text-primary-foreground mb-4">
-                Bereit durchzustarten?
-              </h2>
-              <p className="text-xl text-primary-foreground/80 mb-8 max-w-2xl mx-auto">
-                Werden Sie noch heute Teil unseres Netzwerks und profitieren Sie von mehr Aufträgen und weniger Aufwand.
-              </p>
-              <Button size="lg" variant="secondary" className="text-lg px-8 py-6 h-auto bg-white text-primary hover:bg-white/90 shadow-lg">
-                Jetzt registrieren
-                <ArrowRight className="ml-2 w-5 h-5" />
-              </Button>
-            </div>
-          </div>
-        </div>
-      </section>
+      {/* CTA Section with Contact Form */}
+      <ContactFormCTA variant="providers" />
       </div>
       <Footer />
     </>
