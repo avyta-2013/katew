@@ -1,8 +1,18 @@
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { MapPin, Navigation, ArrowRight } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 export const Hero = () => {
+  const navigate = useNavigate();
+  const [startAddress, setStartAddress] = useState("");
+  const [endAddress, setEndAddress] = useState("");
+
+  const handleSearch = () => {
+    navigate(`/buchen?start=${encodeURIComponent(startAddress)}&end=${encodeURIComponent(endAddress)}`);
+  };
+
   return (
     <section className="relative min-h-[90vh] flex items-center justify-center pt-20">
       {/* Subtle gradient background */}
@@ -36,6 +46,8 @@ export const Hero = () => {
                 <MapPin className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
                 <Input
                   placeholder="Startadresse"
+                  value={startAddress}
+                  onChange={(e) => setStartAddress(e.target.value)}
                   className="h-14 pl-12 text-base bg-muted/50 border-0 rounded-xl focus:ring-2 focus:ring-primary/20"
                 />
               </div>
@@ -43,11 +55,14 @@ export const Hero = () => {
                 <Navigation className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
                 <Input
                   placeholder="Zieladresse"
+                  value={endAddress}
+                  onChange={(e) => setEndAddress(e.target.value)}
                   className="h-14 pl-12 text-base bg-muted/50 border-0 rounded-xl focus:ring-2 focus:ring-primary/20"
                 />
               </div>
               <Button
                 size="lg"
+                onClick={handleSearch}
                 className="h-14 px-8 text-base font-semibold rounded-xl bg-primary hover:bg-primary/90 shadow-lg hover:shadow-xl transition-all"
               >
                 Fahrt finden
