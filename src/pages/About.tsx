@@ -71,7 +71,7 @@ const allOptions = [
     category: "transport",
     title: "Sitzend",
     shortDescription: "Für gehfähige Patienten mit leichten Einschränkungen",
-    fullDescription: "Der sitzende Transport ist die ideale Lösung für Patienten, die grundsätzlich gehfähig sind, aber Unterstützung beim Transport zu Terminen benötigen. Diese Transportart eignet sich besonders für Menschen mit leichten Mobilitätseinschränkungen, Senioren oder Patienten, die nach ambulanten Eingriffen eine sichere Beförderung benötigen. Die Fahrten erfolgen in komfortablen PKWs oder geräumigen Großraumfahrzeugen, die mit bequemen Sitzen und ausreichend Platz ausgestattet sind. Unsere geschulten Fahrer unterstützen beim Ein- und Aussteigen und begleiten Sie bei Bedarf bis zur Eingangstür Ihres Ziels. Alle Fahrzeuge sind klimatisiert und verfügen über moderne Sicherheitsausstattung. Bei Bedarf kann eine Begleitperson kostenlos mitfahren. Diese Transportart ist sowohl für Einzelfahrten als auch für regelmäßige Termine wie Arztbesuche, Therapiesitzungen oder Behördengänge geeignet.",
+    fullDescription: "Der sitzende Transport ist die ideale Lösung für Patienten, die grundsätzlich gehfähig sind, aber Unterstützung beim Transport zu Terminen benötigen. Diese Transportart eignet sich besonders für Menschen mit leichten Mobilitätseinschränkungen, Senioren oder Patienten, die nach ambulanten Eingriffen eine sichere Beförderung benötigen. Die Fahrten erfolgen in komfortablen PKWs oder geräumigen Großraumfahrzeugen unserer Partner-Unternehmen, die mit bequemen Sitzen und ausreichend Platz ausgestattet sind. Die geschulten Fahrer der Anbieter unterstützen beim Ein- und Aussteigen und begleiten Sie bei Bedarf bis zur Eingangstür Ihres Ziels. Alle Fahrzeuge sind klimatisiert und verfügen über moderne Sicherheitsausstattung.",
     features: ["Komfortabler Sitzplatz", "Begleitung möglich", "Klimatisiertes Fahrzeug"],
   },
   {
@@ -80,7 +80,7 @@ const allOptions = [
     category: "transport",
     title: "Rollstuhl",
     shortDescription: "Spezialisierter Transport für Rollstuhlfahrer",
-    fullDescription: "Der Rollstuhltransport wurde speziell für Menschen konzipiert, die dauerhaft oder temporär auf einen Rollstuhl angewiesen sind. Unsere Fahrzeugflotte umfasst moderne, barrierefreie Transporter, die mit elektrischen Hebebühnen oder leicht befahrbaren Rampen ausgestattet sind. Die Fahrzeuge bieten ausreichend Platz für verschiedene Rollstuhltypen – von manuellen Rollstühlen bis hin zu elektrischen Modellen. Ein besonderer Fokus liegt auf der sicheren Befestigung: Spezielle Gurtsysteme und Arretierungen halten den Rollstuhl während der gesamten Fahrt stabil und sicher. Unsere Fahrer sind speziell geschult im Umgang mit Rollstuhlfahrern und kennen die besonderen Anforderungen an einen würdevollen und sicheren Transport. Sie unterstützen beim Verladen, bei der Sicherung und begleiten Sie auf Wunsch bis zum Zielort. Barrierefreie Zugänge an Start- und Zieladresse werden bereits bei der Buchung berücksichtigt.",
+    fullDescription: "Der Rollstuhltransport wurde speziell für Menschen konzipiert, die dauerhaft oder temporär auf einen Rollstuhl angewiesen sind. Die Fahrzeuge unserer Partner-Anbieter umfassen moderne, barrierefreie Transporter, die mit elektrischen Hebebühnen oder leicht befahrbaren Rampen ausgestattet sind. Die Fahrzeuge bieten ausreichend Platz für verschiedene Rollstuhltypen – von manuellen Rollstühlen bis hin zu elektrischen Modellen. Ein besonderer Fokus liegt auf der sicheren Befestigung: Spezielle Gurtsysteme und Arretierungen halten den Rollstuhl während der gesamten Fahrt stabil und sicher. Die Fahrer unserer Partner sind speziell geschult im Umgang mit Rollstuhlfahrern.",
     features: ["Barrierefreier Zugang", "Sichere Befestigung", "Geschultes Personal"],
   },
   {
@@ -89,7 +89,7 @@ const allOptions = [
     category: "transport",
     title: "Tragestuhl",
     shortDescription: "Optimal für enge Treppenhäuser und schwierige Zugänge",
-    fullDescription: "Der Tragestuhl-Transport ist die optimale Lösung für Patienten, die in höheren Etagen wohnen und aufgrund ihrer körperlichen Einschränkungen nicht selbstständig Treppen steigen können. Diese Transportart wird von mindestens zwei erfahrenen Mitarbeitern durchgeführt, die in ergonomischen Tragetechniken und sicherem Transport geschult sind. Der Tragestuhl selbst ist ein spezielles Hilfsmittel, das sowohl für den Patienten als auch für das Personal größtmögliche Sicherheit bietet. Er verfügt über robuste Gurte, ergonomische Griffe und rutschfeste Auflagen. Enge Treppenhäuser, verwinkelte Korridore oder fehlende Aufzüge stellen für unser geschultes Team kein Hindernis dar. Die Mitarbeiter arbeiten behutsam und respektvoll, um dem Patienten einen würdevollen Transport zu ermöglichen. Nach dem Treppenaufgang erfolgt der Transfer in ein barrierefreies Fahrzeug oder direkt zum Rollstuhl. Diese Transportart ist unverzichtbar für viele ältere Menschen in Altbauwohnungen ohne Fahrstuhl.",
+    fullDescription: "Der Tragestuhl-Transport ist die optimale Lösung für Patienten, die in höheren Etagen wohnen und aufgrund ihrer körperlichen Einschränkungen nicht selbstständig Treppen steigen können. Diese Transportart wird von mindestens zwei erfahrenen Mitarbeitern der Partner-Unternehmen durchgeführt, die in ergonomischen Tragetechniken und sicherem Transport geschult sind. Der Tragestuhl selbst ist ein spezielles Hilfsmittel, das sowohl für den Patienten als auch für das Personal größtmögliche Sicherheit bietet. Enge Treppenhäuser, verwinkelte Korridore oder fehlende Aufzüge stellen für die geschulten Teams kein Hindernis dar.",
     features: ["Treppengängig", "Schonender Transport", "Erfahrenes Personal"],
   },
   {
@@ -98,7 +98,7 @@ const allOptions = [
     category: "transport",
     title: "Liegend",
     shortDescription: "Vollausgestatteter Transport auf Trage für bettlägerige Patienten",
-    fullDescription: "Der Liegendtransport richtet sich an Patienten, die aus bestimmten Gründen nicht sitzen können und während des Transports eine liegende Position einnehmen müssen. Dies betrifft beispielsweise frisch operierte Patienten, Menschen mit schweren Verletzungen oder Personen, die eine horizontale Lagerung benötigen. Unsere Transportfahrzeuge sind vollständig ausgerüstet und verfügen über professionelle Tragen mit höhenverstellbaren Kopf- und Fußteilen. Die klimatisierten Fahrzeuge gewährleisten optimale Bedingungen während der gesamten Fahrt. Unsere Besatzungen sind erfahren im Umgang mit liegenden Patienten und arbeiten eng mit Kliniken und Pflegeeinrichtungen zusammen, um einen nahtlosen Übergang zu gewährleisten. Die Fahrzeuge bieten ausreichend Platz für die Trage sowie für eine Begleitperson, die auf Wunsch mitfahren kann.",
+    fullDescription: "Der Liegendtransport richtet sich an Patienten, die aus bestimmten Gründen nicht sitzen können und während des Transports eine liegende Position einnehmen müssen. Dies betrifft beispielsweise frisch operierte Patienten, Menschen mit schweren Verletzungen oder Personen, die eine horizontale Lagerung benötigen. Die Transportfahrzeuge unserer Partner sind vollständig ausgerüstet und verfügen über professionelle Tragen mit höhenverstellbaren Kopf- und Fußteilen. Die klimatisierten Fahrzeuge gewährleisten optimale Bedingungen während der gesamten Fahrt. Die Besatzungen der Anbieter sind erfahren im Umgang mit liegenden Patienten.",
     features: ["Professionelle Tragen", "Klimatisiert", "Begleitperson möglich"],
   },
   {
@@ -107,7 +107,7 @@ const allOptions = [
     category: "booking",
     title: "Mit Verordnung",
     shortDescription: "Bei ärztlicher Verordnung übernimmt die Krankenkasse die Kosten",
-    fullDescription: "Wenn Ihr behandelnder Arzt eine Notwendigkeit für Krankenfahrten feststellt, kann er eine sogenannte Verordnung einer Krankenbeförderung ausstellen. Diese Verordnung ist die Grundlage dafür, dass Ihre gesetzliche oder private Krankenversicherung die Kosten für den Transport übernimmt. Typische Gründe für eine Verordnung sind regelmäßige Behandlungen, Fahrten zu ambulanten Operationen oder Termine, bei denen Sie aus gesundheitlichen Gründen nicht selbstständig anreisen können. Bei katew nehmen wir Ihnen den gesamten Abrechnungsaufwand ab: Laden Sie einfach die Verordnung in Ihrem Buchungsprozess hoch oder lassen Sie diese vom Arzt digital übermitteln. Wir rechnen direkt mit Ihrer Krankenkasse ab – Sie müssen nicht in Vorleistung treten und haben keinen Papieraufwand. Lediglich die gesetzliche Zuzahlung von maximal 10 Euro pro Fahrt wird fällig, sofern Sie nicht davon befreit sind. Für Serienbehandlungen wird die Verordnung automatisch für alle Folgetermine verwendet.",
+    fullDescription: "Wenn Ihr behandelnder Arzt eine Notwendigkeit für Krankenfahrten feststellt, kann er eine sogenannte Verordnung einer Krankenbeförderung ausstellen. Diese Verordnung ist die Grundlage dafür, dass Ihre gesetzliche oder private Krankenversicherung die Kosten für den Transport übernimmt. Typische Gründe für eine Verordnung sind regelmäßige Behandlungen, Fahrten zu ambulanten Operationen oder Termine, bei denen Sie aus gesundheitlichen Gründen nicht selbstständig anreisen können. Bei katew vermitteln wir Sie an Partner-Unternehmen, die direkt mit Ihrer Krankenkasse abrechnen – Sie müssen nicht in Vorleistung treten und haben keinen Papieraufwand.",
     features: ["Kostenübernahme durch Kasse", "Direkte Abrechnung", "Digitaler Upload"],
   },
   {
@@ -116,7 +116,7 @@ const allOptions = [
     category: "booking",
     title: "Selbstzahler",
     shortDescription: "Flexibel und unkompliziert ohne Verordnung buchen",
-    fullDescription: "Nicht jede Krankenfahrt erfordert eine ärztliche Verordnung – und manchmal möchte man einfach schnell und unkompliziert einen zuverlässigen Transport buchen. Als Selbstzahler genießen Sie maximale Flexibilität: Keine Wartezeit auf Genehmigungen, keine Bürokratie, keine Einschränkungen. Buchen Sie spontan für den gleichen Tag oder planen Sie Ihre Fahrten Wochen im Voraus. Unsere Preise sind transparent und werden Ihnen bereits vor der Buchung angezeigt – es gibt keine versteckten Kosten oder nachträglichen Aufschläge. Die Bezahlung erfolgt bequem online per Kreditkarte, PayPal oder Lastschrift. Auf Wunsch erhalten Sie eine detaillierte Rechnung, die Sie bei Ihrer Versicherung einreichen können – viele private Krankenversicherungen und Zusatzversicherungen erstatten Krankenfahrten auch ohne Verordnung. Die Selbstzahler-Option eignet sich ideal für Begleitfahrten zu Vorsorgeuntersuchungen, Fahrten zur Reha, Besuche bei Angehörigen in Pflegeeinrichtungen oder alle anderen Situationen, in denen Sie professionellen Transport benötigen.",
+    fullDescription: "Nicht jede Krankenfahrt erfordert eine ärztliche Verordnung – und manchmal möchte man einfach schnell und unkompliziert einen zuverlässigen Transport buchen. Als Selbstzahler genießen Sie maximale Flexibilität: Keine Wartezeit auf Genehmigungen, keine Bürokratie, keine Einschränkungen. Buchen Sie spontan für den gleichen Tag oder planen Sie Ihre Fahrten Wochen im Voraus. Die Preise der Partner-Unternehmen sind transparent und werden Ihnen bereits vor der Buchung angezeigt – es gibt keine versteckten Kosten oder nachträglichen Aufschläge.",
     features: ["Sofortige Buchung", "Transparente Preise", "Online-Bezahlung"],
   },
   {
@@ -125,7 +125,7 @@ const allOptions = [
     category: "booking",
     title: "Ausschreibungen",
     shortDescription: "Für Kostenträger und öffentliche Auftraggeber",
-    fullDescription: "Die Ausschreibungsplattform von katew richtet sich an Krankenkassen, Kliniken, Pflegeeinrichtungen und andere Kostenträger, die regelmäßig Transportdienstleistungen in größerem Umfang benötigen. Unser digitales Ausschreibungsportal ermöglicht eine effiziente, transparente und rechtssichere Vergabe von Fahraufträgen. Definieren Sie Ihre Anforderungen detailliert: Regionen, Transportarten, Qualitätsstandards und Preismodelle. Qualifizierte Fahrdienstanbieter aus unserem geprüften Netzwerk können auf Ihre Ausschreibung bieten. Alle Angebote werden übersichtlich dargestellt und können nach verschiedenen Kriterien verglichen werden. Die gesamte Kommunikation und Dokumentation erfolgt digital und revisionssicher. Vergabeentscheidungen werden automatisch dokumentiert und archiviert. Nach Zuschlagserteilung erfolgt die operative Abwicklung direkt über die katew-Plattform – inklusive Auftragssteuerung, Qualitätsmonitoring und automatisierter Abrechnung. So sparen Sie Zeit, reduzieren Verwaltungskosten und stellen gleichzeitig höchste Qualitätsstandards bei der Patientenbeförderung sicher.",
+    fullDescription: "Die Ausschreibungsplattform von katew richtet sich an Krankenkassen, Kliniken, Pflegeeinrichtungen und andere Kostenträger, die regelmäßig Transportdienstleistungen in größerem Umfang benötigen. Unser digitales Ausschreibungsportal ermöglicht eine effiziente, transparente und rechtssichere Vergabe von Fahraufträgen. Qualifizierte Fahrdienstanbieter aus unserem geprüften Netzwerk können auf Ihre Ausschreibung bieten. Alle Angebote werden übersichtlich dargestellt und können nach verschiedenen Kriterien verglichen werden.",
     features: ["Digitale Ausschreibungen", "Qualifizierte Anbieter", "Transparente Vergabe"],
   },
 ];
@@ -134,13 +134,11 @@ const teamMembers = [
   {
     name: "Dino Lalic",
     role: "Founder / CEO",
-    description: "Mit langjähriger Erfahrung im Bereich Patientenbeförderung treibt Dino die Vision von katew voran.",
     linkedin: "#",
   },
   {
     name: "Chanu De Silva",
     role: "CTO",
-    description: "Chanu bringt technische Expertise und Innovationsgeist in die Entwicklung unserer Plattform ein.",
     linkedin: "#",
   },
 ];
@@ -433,10 +431,10 @@ const About = () => {
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-5xl font-bold mb-4 tracking-tight bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
-              Unser Team
+              Team
             </h2>
             <p className="text-lg text-muted-foreground max-w-xl mx-auto">
-              Die Menschen hinter katew
+              Ohne das Team könnten wir nichts bewirken
             </p>
           </div>
 
@@ -453,8 +451,7 @@ const About = () => {
                     </span>
                   </div>
                   <h3 className="text-xl font-semibold mb-1">{member.name}</h3>
-                  <p className="text-primary font-medium mb-4">{member.role}</p>
-                  <p className="text-sm text-muted-foreground mb-6">{member.description}</p>
+                  <p className="text-primary font-medium mb-6">{member.role}</p>
                   <a 
                     href={member.linkedin}
                     className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors"
