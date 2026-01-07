@@ -759,20 +759,121 @@ const ProviderDashboard = () => {
                 </div>
               </div>
 
-              {/* Map Placeholder */}
-              <div className="space-y-2">
-                <div className="w-full h-64 bg-muted/50 rounded-xl border border-muted flex items-center justify-center relative overflow-hidden">
-                  <div className="absolute inset-0 bg-gradient-to-br from-amber-100/30 to-amber-50/30" />
-                  <div className="text-center z-10">
-                    <MapPinned className="w-10 h-10 mx-auto text-primary/50 mb-2" />
-                    <p className="text-sm text-muted-foreground">Kartenansicht</p>
-                    <p className="text-xs text-muted-foreground/70">Frankfurt am Main, Deutschland</p>
-                  </div>
+            </CardContent>
+          </Card>
+
+          {/* Tarif : Selbstzahler Card */}
+          <Card className="border-0 shadow-lg bg-gradient-to-br from-card to-muted/20 overflow-hidden">
+            <CardHeader className="pb-3 pt-4 px-4 border-b border-border/50">
+              <CardTitle className="text-base font-bold">Tarif : Selbstzahler</CardTitle>
+            </CardHeader>
+            <CardContent className="px-4 pb-4 pt-4 space-y-4">
+              {/* Sitzend */}
+              <div className="flex items-center gap-4 flex-wrap">
+                <span className="w-24 font-medium text-sm">Sitzend</span>
+                <div className="flex items-center gap-2">
+                  <Label className="text-xs text-muted-foreground">Grundpreis:<span className="text-destructive">*</span></Label>
+                  <Input 
+                    placeholder="bspw. 65,00€" 
+                    className="w-36 h-9 bg-muted/30 border border-muted focus-visible:border-primary focus-visible:ring-0 rounded-lg text-sm"
+                  />
+                </div>
+                <div className="flex items-center gap-2">
+                  <Label className="text-xs text-muted-foreground">inkl. km:<span className="text-destructive">*</span></Label>
+                  <Input 
+                    placeholder="bspw 10 km" 
+                    className="w-28 h-9 bg-muted/30 border border-muted focus-visible:border-primary focus-visible:ring-0 rounded-lg text-sm"
+                  />
+                </div>
+                <div className="flex items-center gap-2">
+                  <Label className="text-xs text-muted-foreground">+ € / km:<span className="text-destructive">*</span></Label>
+                  <Input 
+                    placeholder="bspw. 1,20€" 
+                    className="w-28 h-9 bg-muted/30 border border-muted focus-visible:border-primary focus-visible:ring-0 rounded-lg text-sm"
+                  />
+                </div>
+              </div>
+
+              {/* Rollstuhl */}
+              <div className="flex items-center gap-4 flex-wrap">
+                <span className="w-24 font-medium text-sm">Rollstuhl</span>
+                <div className="flex items-center gap-2">
+                  <Label className="text-xs text-muted-foreground">Grundpreis:<span className="text-destructive">*</span></Label>
+                  <Input 
+                    placeholder="bspw. 65,00€" 
+                    className="w-36 h-9 bg-muted/30 border border-muted focus-visible:border-primary focus-visible:ring-0 rounded-lg text-sm"
+                  />
+                </div>
+                <div className="flex items-center gap-2">
+                  <Label className="text-xs text-muted-foreground">inkl. km:<span className="text-destructive">*</span></Label>
+                  <Input 
+                    placeholder="bspw 10 km" 
+                    className="w-28 h-9 bg-muted/30 border border-muted focus-visible:border-primary focus-visible:ring-0 rounded-lg text-sm"
+                  />
+                </div>
+                <div className="flex items-center gap-2">
+                  <Label className="text-xs text-muted-foreground">+ € / km:<span className="text-destructive">*</span></Label>
+                  <Input 
+                    placeholder="bspw. 1,20€" 
+                    className="w-28 h-9 bg-muted/30 border border-muted focus-visible:border-primary focus-visible:ring-0 rounded-lg text-sm"
+                  />
+                </div>
+              </div>
+
+              {/* Tragestuhl */}
+              <div className="flex items-center gap-4 flex-wrap">
+                <span className="w-24 font-medium text-sm">Tragestuhl</span>
+                <div className="flex items-center gap-2">
+                  <Label className="text-xs text-muted-foreground">Grundpreis:<span className="text-destructive">*</span></Label>
+                  <Input 
+                    placeholder="bspw. 65,00€" 
+                    className="w-36 h-9 bg-muted/30 border border-muted focus-visible:border-primary focus-visible:ring-0 rounded-lg text-sm"
+                  />
+                </div>
+                <div className="flex items-center gap-2">
+                  <Label className="text-xs text-muted-foreground">inkl. km:<span className="text-destructive">*</span></Label>
+                  <Input 
+                    placeholder="bspw 10 km" 
+                    className="w-28 h-9 bg-muted/30 border border-muted focus-visible:border-primary focus-visible:ring-0 rounded-lg text-sm"
+                  />
+                </div>
+                <div className="flex items-center gap-2">
+                  <Label className="text-xs text-muted-foreground">+ € / km:<span className="text-destructive">*</span></Label>
+                  <Input 
+                    placeholder="bspw. 1,20€" 
+                    className="w-28 h-9 bg-muted/30 border border-muted focus-visible:border-primary focus-visible:ring-0 rounded-lg text-sm"
+                  />
+                </div>
+              </div>
+
+              {/* Liege */}
+              <div className="flex items-center gap-4 flex-wrap">
+                <span className="w-24 font-medium text-sm">Liege</span>
+                <div className="flex items-center gap-2">
+                  <Label className="text-xs text-muted-foreground">Grundpreis:<span className="text-destructive">*</span></Label>
+                  <Input 
+                    placeholder="bspw. 65,00€" 
+                    className="w-36 h-9 bg-muted/30 border border-muted focus-visible:border-primary focus-visible:ring-0 rounded-lg text-sm"
+                  />
+                </div>
+                <div className="flex items-center gap-2">
+                  <Label className="text-xs text-muted-foreground">inkl. km:<span className="text-destructive">*</span></Label>
+                  <Input 
+                    placeholder="bspw 10 km" 
+                    className="w-28 h-9 bg-muted/30 border border-muted focus-visible:border-primary focus-visible:ring-0 rounded-lg text-sm"
+                  />
+                </div>
+                <div className="flex items-center gap-2">
+                  <Label className="text-xs text-muted-foreground">+ € / km:<span className="text-destructive">*</span></Label>
+                  <Input 
+                    placeholder="bspw. 1,20€" 
+                    className="w-28 h-9 bg-muted/30 border border-muted focus-visible:border-primary focus-visible:ring-0 rounded-lg text-sm"
+                  />
                 </div>
               </div>
 
               <div className="flex justify-end pt-2">
-                <Button size="sm" className="px-6 h-9 bg-primary hover:bg-primary/90 text-sm font-medium rounded-lg text-primary-foreground">
+                <Button size="sm" className="px-6 h-9 bg-foreground hover:bg-foreground/90 text-background text-sm font-medium rounded-lg">
                   Speichern
                 </Button>
               </div>
