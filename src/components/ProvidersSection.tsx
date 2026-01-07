@@ -139,18 +139,13 @@ export const ProvidersSection = () => {
             </div>
           </div>
 
-          {/* Best Rated Providers Slider */}
+          {/* Partners Slider */}
           <div className="mt-16">
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-8">
               <div>
                 <h3 className="text-2xl font-bold mb-2 bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
-                  Bestbewertete Anbieter
+                  Unsere Partner sind überall
                 </h3>
-                <p className="text-muted-foreground">
-                  {viewMode === "deutschland" 
-                    ? "Top-Partner aus ganz Deutschland" 
-                    : "Top-Partner aus Ihrer Region"}
-                </p>
               </div>
               
               {/* Toggle + Navigation */}

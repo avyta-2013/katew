@@ -5,7 +5,6 @@ const footerLinks = {
   unternehmen: [
     { label: "Wir", href: "#wir" },
     { label: "Blog", href: "#" },
-    { label: "Funktionen", href: "#" },
     { label: "Für Anbieter", href: "#anbieter" },
     { label: "Für Partner", href: "#partner" },
   ],
