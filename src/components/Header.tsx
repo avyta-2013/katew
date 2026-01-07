@@ -74,7 +74,7 @@ export const Header = () => {
               Für Partner
             </Link>
             <Link
-              to="/"
+              to="/buchen"
               className="px-4 py-2 text-sm font-medium bg-gradient-to-r from-primary to-secondary text-primary-foreground rounded-lg hover:opacity-90 transition-opacity"
             >
               Fahrt buchen
