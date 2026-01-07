@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { ChevronDown, User, LogIn, UserPlus, HelpCircle } from "lucide-react";
+import { ChevronDown, User, LogIn, UserPlus, HelpCircle, Globe } from "lucide-react";
 import { Link } from "react-router-dom";
 import {
   DropdownMenu,
@@ -11,8 +11,11 @@ import {
 import { useState, useEffect } from "react";
 import logo from "@/assets/logo.png";
 
+type Language = "de" | "en";
+
 export const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
+  const [language, setLanguage] = useState<Language>("de");
 
   useEffect(() => {
     const handleScroll = () => {
@@ -21,6 +24,13 @@ export const Header = () => {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  const languages = [
+    { code: "de" as Language, label: "Deutsch", flag: "🇩🇪" },
+    { code: "en" as Language, label: "English", flag: "🇬🇧" },
+  ];
+
+  const currentLanguage = languages.find(l => l.code === language) || languages[0];
 
   return (
     <header
@@ -65,8 +75,32 @@ export const Header = () => {
             </Link>
           </nav>
 
-          {/* Right side - Account dropdown */}
-          <div className="flex items-center gap-3">
+          {/* Right side - Language & Account */}
+          <div className="flex items-center gap-2">
+            {/* Language Selector */}
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="ghost" className="gap-2 h-10 px-3 rounded-xl hover:bg-muted/50">
+                  <span className="text-base">{currentLanguage.flag}</span>
+                  <span className="hidden sm:inline text-sm">{currentLanguage.code.toUpperCase()}</span>
+                  <ChevronDown className="w-3 h-3 opacity-50" />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end" className="w-40 rounded-xl border-border/50 shadow-elevated">
+                {languages.map((lang) => (
+                  <DropdownMenuItem
+                    key={lang.code}
+                    onClick={() => setLanguage(lang.code)}
+                    className={`gap-3 py-3 cursor-pointer ${language === lang.code ? 'bg-primary/10 text-primary' : ''}`}
+                  >
+                    <span className="text-base">{lang.flag}</span>
+                    {lang.label}
+                  </DropdownMenuItem>
+                ))}
+              </DropdownMenuContent>
+            </DropdownMenu>
+
+            {/* Account Dropdown */}
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button variant="outline" className="gap-2 h-10 px-4 rounded-xl border-border/50 hover:border-primary/30 hover:bg-muted/50">
