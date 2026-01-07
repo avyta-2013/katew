@@ -670,30 +670,21 @@ const PartnerDashboard = () => {
             className="flex-1 h-9 rounded-lg data-[state=active]:bg-primary data-[state=active]:text-white data-[state=active]:shadow-md gap-1.5 font-medium text-sm transition-all duration-300"
           >
             <Clock className="w-3.5 h-3.5" />
-            Aktiv
-            <Badge className="ml-1 bg-white/20 text-inherit border-0 text-xs px-1.5 py-0">
-              {bookings.aktiv.length}
-            </Badge>
+            Aktiv ({bookings.aktiv.length})
           </TabsTrigger>
           <TabsTrigger 
             value="bestaetigt" 
             className="flex-1 h-9 rounded-lg data-[state=active]:bg-secondary data-[state=active]:text-white data-[state=active]:shadow-md gap-1.5 font-medium text-sm transition-all duration-300"
           >
             <CheckCircle2 className="w-3.5 h-3.5" />
-            Bestätigt
-            <Badge className="ml-1 bg-white/20 text-inherit border-0 text-xs px-1.5 py-0">
-              {bookings.bestaetigt.length}
-            </Badge>
+            Bestätigt ({bookings.bestaetigt.length})
           </TabsTrigger>
           <TabsTrigger 
             value="storniert" 
             className="flex-1 h-9 rounded-lg data-[state=active]:bg-destructive data-[state=active]:text-white data-[state=active]:shadow-md gap-1.5 font-medium text-sm transition-all duration-300"
           >
             <XCircle className="w-3.5 h-3.5" />
-            Storniert
-            <Badge className="ml-1 bg-white/20 text-inherit border-0 text-xs px-1.5 py-0">
-              {bookings.storniert.length}
-            </Badge>
+            Storniert ({bookings.storniert.length})
           </TabsTrigger>
         </TabsList>
 
