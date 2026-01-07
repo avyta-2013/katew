@@ -214,9 +214,9 @@ export default function BookingResults() {
   const renderFilterStep = () => (
     <div className="space-y-8">
       {/* Date & Time Section - Now on first page */}
-      <div className="bg-gradient-to-br from-primary/5 via-secondary/5 to-primary/5 rounded-3xl p-6 border border-border/30">
+      <div className="bg-gradient-to-br from-primary/10 via-secondary/5 to-primary/10 rounded-3xl p-6 border border-primary/20 shadow-lg shadow-primary/5">
         <div className="flex items-center gap-3 mb-5">
-          <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-primary to-secondary flex items-center justify-center shadow-lg shadow-primary/25">
+          <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-primary via-primary/90 to-secondary flex items-center justify-center shadow-lg shadow-primary/25">
             <Calendar className="w-6 h-6 text-primary-foreground" />
           </div>
           <div>
@@ -231,7 +231,7 @@ export default function BookingResults() {
               type="date"
               value={formData.datum}
               onChange={(e) => setFormData(prev => ({ ...prev, datum: e.target.value }))}
-              className="h-14 bg-background border-2 border-border/50 rounded-2xl text-base font-medium focus:border-primary transition-colors"
+              className="h-14 bg-background border-2 border-primary/20 rounded-2xl text-base font-medium focus:border-primary transition-colors"
             />
           </div>
           <div className="space-y-2">
@@ -241,8 +241,8 @@ export default function BookingResults() {
                 onClick={() => setFormData(prev => ({ ...prev, schnellstmoeglich: !prev.schnellstmoeglich }))}
                 className={`px-4 py-1.5 text-xs font-bold rounded-full transition-all ${
                   formData.schnellstmoeglich
-                    ? "bg-gradient-to-r from-secondary to-secondary/90 text-secondary-foreground shadow-md"
-                    : "bg-muted hover:bg-secondary/20 text-muted-foreground"
+                    ? "bg-gradient-to-r from-primary via-primary/90 to-secondary text-primary-foreground shadow-md"
+                    : "bg-muted hover:bg-primary/10 text-muted-foreground"
                 }`}
               >
                 ⚡ Schnellstmöglich
@@ -253,7 +253,7 @@ export default function BookingResults() {
               value={formData.uhrzeit}
               onChange={(e) => setFormData(prev => ({ ...prev, uhrzeit: e.target.value }))}
               disabled={formData.schnellstmoeglich}
-              className="h-14 bg-background border-2 border-border/50 rounded-2xl text-base font-medium focus:border-primary transition-colors disabled:opacity-50"
+              className="h-14 bg-background border-2 border-primary/20 rounded-2xl text-base font-medium focus:border-primary transition-colors disabled:opacity-50"
             />
           </div>
         </div>
@@ -262,7 +262,7 @@ export default function BookingResults() {
       {/* Anbieter */}
       <div className="space-y-4">
         <div className="flex items-center gap-3">
-          <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-primary to-primary/80 flex items-center justify-center shadow-lg shadow-primary/25">
+          <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-primary via-primary/90 to-secondary flex items-center justify-center shadow-lg shadow-primary/25">
             <Users className="w-6 h-6 text-primary-foreground" />
           </div>
           <div>
@@ -277,7 +277,7 @@ export default function BookingResults() {
               onClick={() => setSelectedFilters(prev => ({ ...prev, anbieter: option }))}
               className={`relative px-6 py-5 rounded-2xl font-semibold transition-all duration-300 ${
                 selectedFilters.anbieter === option
-                  ? "bg-gradient-to-br from-primary to-primary/90 text-primary-foreground shadow-xl shadow-primary/30 scale-[1.02]"
+                  ? "bg-gradient-to-br from-primary via-primary/90 to-secondary text-primary-foreground shadow-xl shadow-primary/30 scale-[1.02]"
                   : "bg-card border-2 border-border/50 hover:border-primary/30 hover:shadow-lg text-foreground"
               }`}
             >
@@ -293,8 +293,8 @@ export default function BookingResults() {
       {/* Transportart */}
       <div className="space-y-4">
         <div className="flex items-center gap-3">
-          <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-secondary to-secondary/80 flex items-center justify-center shadow-lg shadow-secondary/25">
-            <Truck className="w-6 h-6 text-secondary-foreground" />
+          <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-primary via-primary/90 to-secondary flex items-center justify-center shadow-lg shadow-primary/25">
+            <Truck className="w-6 h-6 text-primary-foreground" />
           </div>
           <div>
             <Label className="text-lg font-bold">Transportart</Label>
@@ -308,8 +308,8 @@ export default function BookingResults() {
               onClick={() => setSelectedFilters(prev => ({ ...prev, transportart: option }))}
               className={`relative px-5 py-5 rounded-2xl font-semibold transition-all duration-300 ${
                 selectedFilters.transportart === option
-                  ? "bg-gradient-to-br from-secondary to-secondary/90 text-secondary-foreground shadow-xl shadow-secondary/30 scale-[1.02]"
-                  : "bg-card border-2 border-border/50 hover:border-secondary/30 hover:shadow-lg text-foreground"
+                  ? "bg-gradient-to-br from-primary via-primary/90 to-secondary text-primary-foreground shadow-xl shadow-primary/30 scale-[1.02]"
+                  : "bg-card border-2 border-border/50 hover:border-primary/30 hover:shadow-lg text-foreground"
               }`}
             >
               {selectedFilters.transportart === option && (
@@ -324,8 +324,8 @@ export default function BookingResults() {
       {/* Transportmittel */}
       <div className="space-y-4">
         <div className="flex items-center gap-3">
-          <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-amber-500 to-orange-500 flex items-center justify-center shadow-lg shadow-amber-500/25">
-            <Armchair className="w-6 h-6 text-white" />
+          <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-primary via-primary/90 to-secondary flex items-center justify-center shadow-lg shadow-primary/25">
+            <Armchair className="w-6 h-6 text-primary-foreground" />
           </div>
           <div>
             <Label className="text-lg font-bold">Transportmittel</Label>
@@ -339,8 +339,8 @@ export default function BookingResults() {
               onClick={() => setSelectedFilters(prev => ({ ...prev, transportmittel: option }))}
               className={`relative px-6 py-5 rounded-2xl font-semibold transition-all duration-300 ${
                 selectedFilters.transportmittel === option
-                  ? "bg-gradient-to-br from-amber-500 to-orange-500 text-white shadow-xl shadow-amber-500/30 scale-[1.02]"
-                  : "bg-card border-2 border-border/50 hover:border-amber-500/30 hover:shadow-lg text-foreground"
+                  ? "bg-gradient-to-br from-primary via-primary/90 to-secondary text-primary-foreground shadow-xl shadow-primary/30 scale-[1.02]"
+                  : "bg-card border-2 border-border/50 hover:border-primary/30 hover:shadow-lg text-foreground"
               }`}
             >
               {selectedFilters.transportmittel === option && (
@@ -358,9 +358,9 @@ export default function BookingResults() {
   const renderPersonalDataStep = () => (
     <div className="space-y-6">
       {/* Header with Profile Button */}
-      <div className="flex items-center justify-between bg-gradient-to-r from-primary/5 to-secondary/5 rounded-2xl p-4 border border-border/30">
+      <div className="flex items-center justify-between bg-gradient-to-br from-primary/10 via-secondary/5 to-primary/10 rounded-2xl p-4 border border-primary/20 shadow-lg shadow-primary/5">
         <div className="flex items-center gap-3">
-          <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-primary to-secondary flex items-center justify-center shadow-lg">
+          <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-primary via-primary/90 to-secondary flex items-center justify-center shadow-lg">
             <User className="w-6 h-6 text-primary-foreground" />
           </div>
           <div>
@@ -375,9 +375,9 @@ export default function BookingResults() {
       </div>
 
       {/* Grund - Big Select Card */}
-      <div className="bg-card rounded-2xl border-2 border-border/50 p-5">
+      <div className="bg-card rounded-2xl border-2 border-primary/10 p-5 shadow-md">
         <div className="flex items-center gap-3 mb-4">
-          <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-violet-500 to-purple-600 flex items-center justify-center shadow-md">
+          <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-primary via-primary/90 to-secondary flex items-center justify-center shadow-md">
             <FileText className="w-5 h-5 text-white" />
           </div>
           <Label className="text-base font-bold">Grund der Fahrt</Label>
@@ -386,7 +386,7 @@ export default function BookingResults() {
           value={formData.grund}
           onValueChange={(value) => setFormData(prev => ({ ...prev, grund: value }))}
         >
-          <SelectTrigger className="h-14 bg-muted/30 border-2 border-border/50 rounded-2xl text-base font-medium focus:border-primary">
+          <SelectTrigger className="h-14 bg-muted/30 border-2 border-primary/20 rounded-2xl text-base font-medium focus:border-primary">
             <SelectValue placeholder="Option auswählen" />
           </SelectTrigger>
           <SelectContent className="bg-card border-2 rounded-xl">
@@ -398,17 +398,17 @@ export default function BookingResults() {
       </div>
 
       {/* Personal Info Grid */}
-      <div className="bg-card rounded-2xl border-2 border-border/50 p-5 space-y-5">
+      <div className="bg-card rounded-2xl border-2 border-primary/10 p-5 space-y-5 shadow-md">
         {/* Anrede, Vorname, Nachname */}
         <div className="grid grid-cols-3 gap-4">
           <div className="space-y-2">
             <Label className="text-sm font-medium text-muted-foreground">Anrede</Label>
-            <div className="flex bg-muted/30 rounded-2xl p-1.5 border-2 border-border/50">
+            <div className="flex bg-muted/30 rounded-2xl p-1.5 border-2 border-primary/20">
               <button
                 onClick={() => setFormData(prev => ({ ...prev, anrede: "Herr" }))}
                 className={`flex-1 py-3 text-sm font-bold rounded-xl transition-all ${
                   formData.anrede === "Herr"
-                    ? "bg-gradient-to-r from-primary to-primary/90 text-primary-foreground shadow-md"
+                    ? "bg-gradient-to-r from-primary via-primary/90 to-secondary text-primary-foreground shadow-md"
                     : "text-muted-foreground hover:text-foreground"
                 }`}
               >
@@ -418,7 +418,7 @@ export default function BookingResults() {
                 onClick={() => setFormData(prev => ({ ...prev, anrede: "Frau" }))}
                 className={`flex-1 py-3 text-sm font-bold rounded-xl transition-all ${
                   formData.anrede === "Frau"
-                    ? "bg-gradient-to-r from-primary to-primary/90 text-primary-foreground shadow-md"
+                    ? "bg-gradient-to-r from-primary via-primary/90 to-secondary text-primary-foreground shadow-md"
                     : "text-muted-foreground hover:text-foreground"
                 }`}
               >
@@ -486,9 +486,9 @@ export default function BookingResults() {
       </div>
 
       {/* Contact & Notes */}
-      <div className="bg-card rounded-2xl border-2 border-border/50 p-5 space-y-4">
+      <div className="bg-card rounded-2xl border-2 border-primary/10 p-5 space-y-4 shadow-md">
         <div className="flex items-center gap-3 mb-2">
-          <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-emerald-500 to-teal-600 flex items-center justify-center shadow-md">
+          <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-primary via-primary/90 to-secondary flex items-center justify-center shadow-md">
             <Phone className="w-5 h-5 text-white" />
           </div>
           <Label className="text-base font-bold">Kontakt & Hinweise</Label>
@@ -520,49 +520,145 @@ export default function BookingResults() {
     </div>
   );
 
-  // Step 3: Confirmation
+  // Step 3: Confirmation - Enhanced visual design
   const renderConfirmationStep = () => (
-    <div className="text-center py-8 space-y-6">
-      <div className="relative inline-flex">
-        <div className="absolute inset-0 bg-gradient-to-r from-primary/30 to-secondary/30 rounded-full blur-xl" />
-        <div className="relative w-24 h-24 rounded-full bg-gradient-to-br from-secondary to-secondary/80 flex items-center justify-center shadow-2xl shadow-secondary/25">
-          <CheckCircle className="w-12 h-12 text-secondary-foreground" />
-        </div>
-      </div>
+    <div className="relative py-6 space-y-8 overflow-hidden">
+      {/* Background decorative elements */}
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[500px] h-[500px] bg-gradient-to-br from-primary/20 via-secondary/15 to-primary/10 rounded-full blur-[100px] -z-10" />
+      <div className="absolute top-20 left-0 w-32 h-32 bg-secondary/20 rounded-full blur-3xl" />
+      <div className="absolute top-10 right-0 w-40 h-40 bg-primary/20 rounded-full blur-3xl" />
       
-      <div className="space-y-3">
-        <h3 className="text-2xl font-bold">Anfrage gesendet!</h3>
-        <p className="text-muted-foreground max-w-md mx-auto">
-          Ihre Buchungsanfrage wurde erfolgreich an <span className="font-semibold text-foreground">{selectedProviders.length} Anbieter</span> gesendet.
-        </p>
+      {/* Success Animation Container */}
+      <div className="text-center space-y-6">
+        {/* Animated Success Icon */}
+        <div className="relative inline-flex">
+          <div className="absolute inset-0 bg-gradient-to-r from-primary via-secondary to-primary rounded-full blur-2xl opacity-60 animate-pulse" />
+          <div className="absolute -inset-4 bg-gradient-to-r from-primary/20 to-secondary/20 rounded-full blur-xl" />
+          <div className="relative">
+            <div className="w-28 h-28 rounded-full bg-gradient-to-br from-primary via-primary/90 to-secondary flex items-center justify-center shadow-2xl shadow-primary/40">
+              <div className="w-24 h-24 rounded-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center border-4 border-white/20">
+                <CheckCircle className="w-14 h-14 text-white drop-shadow-lg" />
+              </div>
+            </div>
+            {/* Sparkle decorations */}
+            <div className="absolute -top-2 -right-2 w-6 h-6 bg-secondary rounded-full flex items-center justify-center shadow-lg animate-bounce">
+              <Sparkles className="w-3 h-3 text-secondary-foreground" />
+            </div>
+            <div className="absolute -bottom-1 -left-3 w-5 h-5 bg-primary rounded-full flex items-center justify-center shadow-lg animate-bounce delay-100">
+              <Star className="w-2.5 h-2.5 text-primary-foreground fill-primary-foreground" />
+            </div>
+          </div>
+        </div>
+        
+        {/* Title with gradient */}
+        <div className="space-y-2">
+          <h3 className="text-3xl font-bold bg-gradient-to-r from-primary via-secondary to-primary bg-clip-text text-transparent">
+            Anfrage erfolgreich gesendet!
+          </h3>
+          <p className="text-lg text-muted-foreground max-w-md mx-auto">
+            Ihre Buchungsanfrage wurde an{" "}
+            <span className="font-bold text-foreground bg-gradient-to-r from-primary/10 to-secondary/10 px-2 py-0.5 rounded-lg">
+              {selectedProviders.length} Anbieter
+            </span>{" "}
+            übermittelt.
+          </p>
+        </div>
       </div>
 
-      <div className="bg-gradient-to-r from-primary/5 to-secondary/5 rounded-2xl p-6 border border-border/50 max-w-md mx-auto">
-        <div className="flex items-start gap-4">
-          <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center flex-shrink-0">
-            <Clock className="w-5 h-5 text-primary" />
+      {/* Info Cards Grid */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-xl mx-auto">
+        {/* Next Steps Card */}
+        <div className="bg-gradient-to-br from-primary/10 via-primary/5 to-transparent rounded-2xl p-5 border border-primary/20 shadow-lg shadow-primary/5">
+          <div className="flex items-start gap-4">
+            <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-primary to-primary/80 flex items-center justify-center shadow-lg shadow-primary/30 flex-shrink-0">
+              <Clock className="w-6 h-6 text-primary-foreground" />
+            </div>
+            <div className="text-left">
+              <p className="font-bold text-base">Nächste Schritte</p>
+              <p className="text-sm text-muted-foreground mt-1">
+                Anbieter prüfen Ihre Anfrage und melden sich innerhalb von 48h.
+              </p>
+            </div>
           </div>
-          <div className="text-left">
-            <p className="font-semibold">Was passiert als Nächstes?</p>
-            <p className="text-sm text-muted-foreground mt-1">
-              Sobald ein Anbieter Ihre Anfrage angenommen hat, erhalten Sie eine Bestätigung per E-Mail und in Ihrem Dashboard.
-            </p>
+        </div>
+
+        {/* Email Notification Card */}
+        <div className="bg-gradient-to-br from-secondary/10 via-secondary/5 to-transparent rounded-2xl p-5 border border-secondary/20 shadow-lg shadow-secondary/5">
+          <div className="flex items-start gap-4">
+            <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-secondary to-secondary/80 flex items-center justify-center shadow-lg shadow-secondary/30 flex-shrink-0">
+              <Zap className="w-6 h-6 text-secondary-foreground" />
+            </div>
+            <div className="text-left">
+              <p className="font-bold text-base">Benachrichtigung</p>
+              <p className="text-sm text-muted-foreground mt-1">
+                Sie erhalten eine E-Mail sobald ein Angebot vorliegt.
+              </p>
+            </div>
           </div>
         </div>
       </div>
 
-      <div className="flex flex-col sm:flex-row gap-3 justify-center pt-4">
+      {/* Journey Summary Card */}
+      <div className="bg-gradient-to-r from-card via-card to-card/80 rounded-2xl p-6 border-2 border-border/50 shadow-xl max-w-xl mx-auto">
+        <div className="flex items-center gap-3 mb-4">
+          <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-primary to-secondary flex items-center justify-center shadow-md">
+            <Navigation className="w-5 h-5 text-white" />
+          </div>
+          <h4 className="font-bold text-lg">Ihre Fahrtdetails</h4>
+        </div>
+        <div className="flex items-center gap-4">
+          <div className="flex-1">
+            <div className="flex items-center gap-3 p-3 bg-primary/5 rounded-xl border border-primary/10">
+              <MapPin className="w-5 h-5 text-primary flex-shrink-0" />
+              <div className="min-w-0">
+                <p className="text-xs text-muted-foreground">Start</p>
+                <p className="font-medium truncate">{startAddress}</p>
+              </div>
+            </div>
+          </div>
+          <div className="flex flex-col items-center">
+            <div className="w-8 h-8 rounded-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center">
+              <ArrowLeftRight className="w-4 h-4 text-white" />
+            </div>
+          </div>
+          <div className="flex-1">
+            <div className="flex items-center gap-3 p-3 bg-secondary/5 rounded-xl border border-secondary/10">
+              <Navigation className="w-5 h-5 text-secondary flex-shrink-0" />
+              <div className="min-w-0">
+                <p className="text-xs text-muted-foreground">Ziel</p>
+                <p className="font-medium truncate">{endAddress}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        {formData.datum && (
+          <div className="mt-4 flex items-center gap-3 p-3 bg-muted/50 rounded-xl">
+            <Calendar className="w-5 h-5 text-muted-foreground" />
+            <div>
+              <p className="text-xs text-muted-foreground">Termin</p>
+              <p className="font-medium">
+                {formData.datum}{formData.uhrzeit && ` um ${formData.uhrzeit}`}
+                {formData.schnellstmoeglich && " (Schnellstmöglich)"}
+              </p>
+            </div>
+          </div>
+        )}
+      </div>
+
+      {/* Action Buttons */}
+      <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4 max-w-md mx-auto">
         <Button
           variant="outline"
           onClick={handleCloseDialog}
-          className="rounded-xl"
+          className="h-14 px-8 rounded-2xl text-base font-semibold border-2 hover:bg-muted/50 transition-all"
         >
           Weitere Buchung
         </Button>
         <Button
           onClick={() => navigate("/")}
-          className="bg-gradient-to-r from-primary to-secondary hover:opacity-90 rounded-xl"
+          className="h-14 px-8 bg-gradient-to-r from-primary via-primary/90 to-secondary hover:opacity-90 rounded-2xl text-base font-semibold shadow-xl shadow-primary/25 transition-all hover:shadow-2xl hover:-translate-y-0.5"
         >
+          <CheckCircle className="w-5 h-5 mr-2" />
           Zum Dashboard
         </Button>
       </div>
