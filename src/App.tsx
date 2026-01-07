@@ -20,6 +20,7 @@ import JobDetail from "./pages/JobDetail";
 import BlogPost from "./pages/BlogPost";
 import BookingResults from "./pages/BookingResults";
 import NotFound from "./pages/NotFound";
+import PartnerDashboard from "./pages/PartnerDashboard";
 
 const queryClient = new QueryClient();
 
@@ -44,6 +45,7 @@ const App = () => (
           <Route path="/datenschutz" element={<Datenschutz />} />
           <Route path="/agb" element={<AGB />} />
           <Route path="/karriere" element={<Karriere />} />
+          <Route path="/partner-dashboard" element={<PartnerDashboard />} />
           <Route path="/karriere/:slug" element={<JobDetail />} />
           <Route path="/blog/:slug" element={<BlogPost />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
