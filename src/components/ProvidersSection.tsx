@@ -1,8 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Zap, TrendingUp, Handshake, ArrowRight, Globe, Navigation, Star, MapPin, ChevronLeft, ChevronRight } from "lucide-react";
-import { useState, useRef, Suspense, lazy } from "react";
-
-const GermanyMap = lazy(() => import("./GermanyMap").then(module => ({ default: module.GermanyMap })));
+import { useState, useRef } from "react";
+import { GermanyMap } from "./GermanyMap";
 
 const benefits = [
   {
@@ -116,15 +115,9 @@ export const ProvidersSection = () => {
                   <p className="text-sm text-muted-foreground">Deutschlandweit vertreten</p>
                 </div>
                 
-                {/* Interactive Leaflet Map */}
-                <div className="relative h-[400px] rounded-2xl overflow-hidden">
-                  <Suspense fallback={
-                    <div className="w-full h-full bg-muted/50 animate-pulse rounded-2xl flex items-center justify-center">
-                      <div className="text-muted-foreground text-sm">Karte wird geladen...</div>
-                    </div>
-                  }>
-                    <GermanyMap />
-                  </Suspense>
+                {/* Interactive SVG Map */}
+                <div className="relative h-[400px] rounded-2xl overflow-hidden bg-gradient-to-br from-primary/5 via-transparent to-secondary/5">
+                  <GermanyMap />
                 </div>
 
                 {/* Stats grid */}
