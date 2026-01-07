@@ -18,6 +18,8 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
+import { Header } from "@/components/Header";
+import { Footer } from "@/components/Footer";
 
 const partnerTypes = [
   {
@@ -101,7 +103,9 @@ const integrations = [
 
 export default function ForPartners() {
   return (
-    <div className="min-h-screen bg-background">
+    <>
+      <Header />
+      <div className="min-h-screen bg-background">
       {/* Hero Section */}
       <section className="relative pt-32 pb-20 md:pt-40 md:pb-32 overflow-hidden">
         {/* Background Effects */}
@@ -365,6 +369,8 @@ export default function ForPartners() {
           </div>
         </div>
       </section>
-    </div>
+      </div>
+      <Footer />
+    </>
   );
 }
