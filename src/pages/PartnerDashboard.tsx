@@ -475,185 +475,209 @@ const PartnerDashboard = () => {
 
       {/* Combined Profile Section */}
       <Card className="border-0 shadow-lg bg-gradient-to-br from-card to-muted/20 overflow-hidden">
-        <CardHeader className="pb-2 pt-4 px-4">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-2">
-              <div className="w-9 h-9 rounded-lg bg-gradient-to-br from-primary/10 to-secondary/10 flex items-center justify-center">
-                <User className="w-4 h-4 text-primary" />
-              </div>
-              <div>
-                <CardTitle className="text-base font-bold">Kontaktdaten</CardTitle>
-                <CardDescription className="text-xs">Persönliche Informationen</CardDescription>
-              </div>
+        <CardHeader className="pb-3 pt-5 px-5">
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-primary to-primary/70 flex items-center justify-center shadow-md">
+              <User className="w-5 h-5 text-primary-foreground" />
+            </div>
+            <div>
+              <CardTitle className="text-lg font-bold">Kontaktdaten</CardTitle>
+              <CardDescription className="text-sm">Verwalten Sie Ihre persönlichen Informationen</CardDescription>
             </div>
           </div>
         </CardHeader>
-        <CardContent className="space-y-5 px-4 pb-4">
-          {/* Row 1: Anrede & Account Type */}
-          <div className="grid md:grid-cols-2 gap-4">
-            {/* Anrede */}
-            <div className="space-y-2">
-              <Label className="text-xs font-semibold">
-                Anrede <span className="text-destructive">*</span>
-              </Label>
-              <div className="flex gap-1 p-1 bg-muted/50 rounded-lg w-fit">
-                <RadioGroup defaultValue="mann" className="flex gap-0.5">
-                  {["Mann", "Frau", "Divers"].map((option) => (
-                    <div key={option} className="flex items-center">
-                      <RadioGroupItem value={option.toLowerCase()} id={`anrede-${option.toLowerCase()}`} className="peer sr-only" />
-                      <Label 
-                        htmlFor={`anrede-${option.toLowerCase()}`} 
-                        className="cursor-pointer px-4 py-2 rounded-md bg-transparent peer-data-[state=checked]:bg-primary peer-data-[state=checked]:text-primary-foreground peer-data-[state=checked]:shadow-sm transition-all duration-200 font-medium text-xs text-muted-foreground hover:text-foreground"
-                      >
-                        {option}
-                      </Label>
-                    </div>
-                  ))}
-                </RadioGroup>
+        
+        <CardContent className="px-5 pb-5 space-y-6">
+          {/* Section: Kontotyp */}
+          <div className="p-4 rounded-xl bg-muted/30 border border-muted/50">
+            <div className="flex flex-wrap items-center justify-between gap-4">
+              <div>
+                <h4 className="text-sm font-semibold text-foreground">Kontotyp</h4>
+                <p className="text-xs text-muted-foreground mt-0.5">Wählen Sie Ihren Kontotyp</p>
               </div>
-            </div>
-
-            {/* Account Type Toggle */}
-            <div className="space-y-2">
-              <Label className="text-xs font-semibold">
-                Kontotyp <span className="text-destructive">*</span>
-              </Label>
-              <div className="flex gap-1 p-1 bg-muted/50 rounded-lg w-fit">
+              <div className="flex gap-2">
                 <button
                   onClick={() => setAccountType("privat")}
                   className={cn(
-                    "flex items-center gap-1.5 px-4 py-2 rounded-md transition-all duration-200 font-medium text-xs",
+                    "flex items-center gap-2 px-4 py-2.5 rounded-lg transition-all duration-200 font-medium text-sm border-2",
                     accountType === "privat" 
-                      ? "bg-secondary text-secondary-foreground shadow-sm" 
-                      : "text-muted-foreground hover:text-foreground"
+                      ? "bg-primary text-primary-foreground border-primary shadow-md" 
+                      : "bg-background text-muted-foreground border-muted hover:border-primary/50 hover:text-foreground"
                   )}
                 >
-                  <User className="w-3.5 h-3.5" />
+                  <User className="w-4 h-4" />
                   Privatperson
                 </button>
                 <button
                   onClick={() => setAccountType("einrichtung")}
                   className={cn(
-                    "flex items-center gap-1.5 px-4 py-2 rounded-md transition-all duration-200 font-medium text-xs",
+                    "flex items-center gap-2 px-4 py-2.5 rounded-lg transition-all duration-200 font-medium text-sm border-2",
                     accountType === "einrichtung" 
-                      ? "bg-secondary text-secondary-foreground shadow-sm" 
-                      : "text-muted-foreground hover:text-foreground"
+                      ? "bg-secondary text-secondary-foreground border-secondary shadow-md" 
+                      : "bg-background text-muted-foreground border-muted hover:border-secondary/50 hover:text-foreground"
                   )}
                 >
-                  <Building2 className="w-3.5 h-3.5" />
+                  <Building2 className="w-4 h-4" />
                   Einrichtung
                 </button>
               </div>
             </div>
           </div>
 
-          {/* Einrichtung Name - Only shown for Einrichtung */}
+          {/* Section: Einrichtung (conditional) */}
           {accountType === "einrichtung" && (
-            <div className="space-y-1">
-              <Label className="text-xs font-semibold flex items-center gap-1.5">
-                <Building2 className="w-3.5 h-3.5 text-muted-foreground" />
+            <div className="space-y-2">
+              <Label className="text-sm font-semibold flex items-center gap-2">
+                <Building2 className="w-4 h-4 text-secondary" />
                 Name der Einrichtung <span className="text-destructive">*</span>
               </Label>
               <Input 
                 defaultValue="AVYTA Pflegegesellschaft mbH" 
-                className="h-10 bg-muted/30 border border-muted focus-visible:border-primary focus-visible:ring-0 rounded-lg text-sm"
+                className="h-11 bg-background border-2 border-muted focus-visible:border-primary focus-visible:ring-0 rounded-xl text-sm"
               />
             </div>
           )}
 
-          {/* Row 2: Vorname, Nachname, Geburtsdatum */}
-          <div className="grid md:grid-cols-3 gap-3">
-            <div className="space-y-1">
-              <Label className="text-xs font-semibold">
-                Vorname <span className="text-destructive">*</span>
-              </Label>
-              <Input 
-                defaultValue="Dino" 
-                className="h-10 bg-muted/30 border border-muted focus-visible:border-primary focus-visible:ring-0 rounded-lg text-sm"
-              />
-            </div>
-            <div className="space-y-1">
-              <Label className="text-xs font-semibold">
-                Nachname <span className="text-destructive">*</span>
-              </Label>
-              <Input 
-                defaultValue="Lalic" 
-                className="h-10 bg-muted/30 border border-muted focus-visible:border-primary focus-visible:ring-0 rounded-lg text-sm"
-              />
-            </div>
-            <div className="space-y-1">
-              <Label className="text-xs font-semibold flex items-center gap-1.5">
-                <CalendarDays className="w-3.5 h-3.5 text-muted-foreground" />
-                Geburtsdatum <span className="text-destructive">*</span>
-              </Label>
-              <Input 
-                type="date" 
-                defaultValue="1992-06-29" 
-                className="h-10 bg-muted/30 border border-muted focus-visible:border-primary focus-visible:ring-0 rounded-lg text-sm"
-              />
+          {/* Section: Persönliche Daten */}
+          <div className="space-y-4">
+            <h4 className="text-sm font-semibold text-foreground flex items-center gap-2">
+              <div className="w-1.5 h-1.5 rounded-full bg-primary" />
+              Persönliche Daten
+            </h4>
+            
+            <div className="grid md:grid-cols-4 gap-4">
+              {/* Anrede */}
+              <div className="space-y-2">
+                <Label className="text-xs font-medium text-muted-foreground">Anrede</Label>
+                <div className="flex gap-1 p-1 bg-muted/50 rounded-lg">
+                  <RadioGroup defaultValue="mann" className="flex gap-0.5 w-full">
+                    {["Herr", "Frau"].map((option) => (
+                      <div key={option} className="flex-1">
+                        <RadioGroupItem value={option.toLowerCase()} id={`anrede-${option.toLowerCase()}`} className="peer sr-only" />
+                        <Label 
+                          htmlFor={`anrede-${option.toLowerCase()}`} 
+                          className="cursor-pointer flex items-center justify-center px-3 py-2 rounded-md bg-transparent peer-data-[state=checked]:bg-primary peer-data-[state=checked]:text-primary-foreground peer-data-[state=checked]:shadow-sm transition-all duration-200 font-medium text-xs text-muted-foreground hover:text-foreground"
+                        >
+                          {option}
+                        </Label>
+                      </div>
+                    ))}
+                  </RadioGroup>
+                </div>
+              </div>
+
+              {/* Vorname */}
+              <div className="space-y-2">
+                <Label className="text-xs font-medium text-muted-foreground">
+                  Vorname <span className="text-destructive">*</span>
+                </Label>
+                <Input 
+                  defaultValue="Dino" 
+                  className="h-11 bg-background border-2 border-muted focus-visible:border-primary focus-visible:ring-0 rounded-xl text-sm"
+                />
+              </div>
+
+              {/* Nachname */}
+              <div className="space-y-2">
+                <Label className="text-xs font-medium text-muted-foreground">
+                  Nachname <span className="text-destructive">*</span>
+                </Label>
+                <Input 
+                  defaultValue="Lalic" 
+                  className="h-11 bg-background border-2 border-muted focus-visible:border-primary focus-visible:ring-0 rounded-xl text-sm"
+                />
+              </div>
+
+              {/* Geburtsdatum */}
+              <div className="space-y-2">
+                <Label className="text-xs font-medium text-muted-foreground flex items-center gap-1">
+                  <CalendarDays className="w-3.5 h-3.5" />
+                  Geburtsdatum
+                </Label>
+                <Input 
+                  type="date" 
+                  defaultValue="1992-06-29" 
+                  className="h-11 bg-background border-2 border-muted focus-visible:border-primary focus-visible:ring-0 rounded-xl text-sm"
+                />
+              </div>
             </div>
           </div>
 
-          {/* Row 3: Straße, PLZ, Stadt */}
-          <div className="grid md:grid-cols-[2fr_1fr_1fr] gap-3">
-            <div className="space-y-1">
-              <Label className="text-xs font-semibold flex items-center gap-1.5">
-                <MapPin className="w-3.5 h-3.5 text-muted-foreground" />
-                Straße <span className="text-destructive">*</span>
-              </Label>
-              <Input 
-                defaultValue="Allerheiligentor 2-4" 
-                className="h-10 bg-muted/30 border border-muted focus-visible:border-primary focus-visible:ring-0 rounded-lg text-sm"
-              />
-            </div>
-            <div className="space-y-1">
-              <Label className="text-xs font-semibold">
-                PLZ <span className="text-destructive">*</span>
-              </Label>
-              <Input 
-                defaultValue="60311" 
-                className="h-10 bg-muted/30 border border-muted focus-visible:border-primary focus-visible:ring-0 rounded-lg text-sm"
-              />
-            </div>
-            <div className="space-y-1">
-              <Label className="text-xs font-semibold">
-                Stadt <span className="text-destructive">*</span>
-              </Label>
-              <Input 
-                defaultValue="Frankfurt Am Main" 
-                className="h-10 bg-muted/30 border border-muted focus-visible:border-primary focus-visible:ring-0 rounded-lg text-sm"
-              />
-            </div>
-          </div>
-
-          {/* Row 4: Telefon & E-Mail */}
-          <div className="grid md:grid-cols-2 gap-3">
-            <div className="space-y-1">
-              <Label className="text-xs font-semibold flex items-center gap-1.5">
-                <Phone className="w-3.5 h-3.5 text-muted-foreground" />
-                Telefon <span className="text-destructive">*</span>
-              </Label>
-              <Input 
-                defaultValue="+49 69 15391405" 
-                className="h-10 bg-muted/30 border border-muted focus-visible:border-primary focus-visible:ring-0 rounded-lg text-sm"
-              />
-            </div>
-            <div className="space-y-1">
-              <Label className="text-xs font-semibold flex items-center gap-1.5">
-                <Mail className="w-3.5 h-3.5 text-muted-foreground" />
-                E-Mail <span className="text-destructive">*</span>
-              </Label>
-              <Input 
-                type="email" 
-                defaultValue="info@avyta.de" 
-                className="h-10 bg-muted/30 border border-muted focus-visible:border-primary focus-visible:ring-0 rounded-lg text-sm"
-              />
+          {/* Section: Adresse */}
+          <div className="space-y-4">
+            <h4 className="text-sm font-semibold text-foreground flex items-center gap-2">
+              <div className="w-1.5 h-1.5 rounded-full bg-secondary" />
+              Adresse
+            </h4>
+            
+            <div className="grid md:grid-cols-[3fr_1fr_2fr] gap-4">
+              <div className="space-y-2">
+                <Label className="text-xs font-medium text-muted-foreground flex items-center gap-1">
+                  <MapPin className="w-3.5 h-3.5" />
+                  Straße & Hausnummer <span className="text-destructive">*</span>
+                </Label>
+                <Input 
+                  defaultValue="Allerheiligentor 2-4" 
+                  className="h-11 bg-background border-2 border-muted focus-visible:border-primary focus-visible:ring-0 rounded-xl text-sm"
+                />
+              </div>
+              <div className="space-y-2">
+                <Label className="text-xs font-medium text-muted-foreground">
+                  PLZ <span className="text-destructive">*</span>
+                </Label>
+                <Input 
+                  defaultValue="60311" 
+                  className="h-11 bg-background border-2 border-muted focus-visible:border-primary focus-visible:ring-0 rounded-xl text-sm"
+                />
+              </div>
+              <div className="space-y-2">
+                <Label className="text-xs font-medium text-muted-foreground">
+                  Stadt <span className="text-destructive">*</span>
+                </Label>
+                <Input 
+                  defaultValue="Frankfurt Am Main" 
+                  className="h-11 bg-background border-2 border-muted focus-visible:border-primary focus-visible:ring-0 rounded-xl text-sm"
+                />
+              </div>
             </div>
           </div>
 
-          <div className="flex justify-end pt-3">
-            <Button size="sm" className="px-6 h-9 bg-primary hover:bg-primary/90 text-sm font-medium rounded-lg text-primary-foreground">
-              Speichern
+          {/* Section: Kontakt */}
+          <div className="space-y-4">
+            <h4 className="text-sm font-semibold text-foreground flex items-center gap-2">
+              <div className="w-1.5 h-1.5 rounded-full bg-primary" />
+              Kontaktinformationen
+            </h4>
+            
+            <div className="grid md:grid-cols-2 gap-4">
+              <div className="space-y-2">
+                <Label className="text-xs font-medium text-muted-foreground flex items-center gap-1">
+                  <Phone className="w-3.5 h-3.5" />
+                  Telefon <span className="text-destructive">*</span>
+                </Label>
+                <Input 
+                  defaultValue="+49 69 15391405" 
+                  className="h-11 bg-background border-2 border-muted focus-visible:border-primary focus-visible:ring-0 rounded-xl text-sm"
+                />
+              </div>
+              <div className="space-y-2">
+                <Label className="text-xs font-medium text-muted-foreground flex items-center gap-1">
+                  <Mail className="w-3.5 h-3.5" />
+                  E-Mail <span className="text-destructive">*</span>
+                </Label>
+                <Input 
+                  type="email" 
+                  defaultValue="info@avyta.de" 
+                  className="h-11 bg-background border-2 border-muted focus-visible:border-primary focus-visible:ring-0 rounded-xl text-sm"
+                />
+              </div>
+            </div>
+          </div>
+
+          {/* Save Button */}
+          <div className="flex justify-end pt-2">
+            <Button className="px-8 h-11 bg-gradient-to-r from-primary to-primary/90 hover:from-primary/90 hover:to-primary text-sm font-semibold rounded-xl text-primary-foreground shadow-lg hover:shadow-xl transition-all duration-300">
+              Änderungen speichern
             </Button>
           </div>
         </CardContent>
