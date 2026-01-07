@@ -210,79 +210,143 @@ export default function BookingResults() {
     );
   };
 
-  // Step 1: Filter Selection
+  // Step 1: Filter Selection with Date/Time
   const renderFilterStep = () => (
-    <div className="space-y-6">
-      {/* Anbieter */}
-      <div className="space-y-3">
-        <div className="flex items-center gap-2">
-          <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-primary to-primary/80 flex items-center justify-center">
-            <Users className="w-4 h-4 text-primary-foreground" />
+    <div className="space-y-8">
+      {/* Date & Time Section - Now on first page */}
+      <div className="bg-gradient-to-br from-primary/5 via-secondary/5 to-primary/5 rounded-3xl p-6 border border-border/30">
+        <div className="flex items-center gap-3 mb-5">
+          <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-primary to-secondary flex items-center justify-center shadow-lg shadow-primary/25">
+            <Calendar className="w-6 h-6 text-primary-foreground" />
           </div>
-          <Label className="text-base font-semibold">Anbieter</Label>
+          <div>
+            <h3 className="font-bold text-lg">Wann soll die Fahrt stattfinden?</h3>
+            <p className="text-sm text-muted-foreground">Wählen Sie Datum und Uhrzeit</p>
+          </div>
         </div>
-        <div className="grid grid-cols-3 gap-2">
+        <div className="grid grid-cols-2 gap-4">
+          <div className="space-y-2">
+            <Label className="text-sm font-medium">Datum</Label>
+            <Input
+              type="date"
+              value={formData.datum}
+              onChange={(e) => setFormData(prev => ({ ...prev, datum: e.target.value }))}
+              className="h-14 bg-background border-2 border-border/50 rounded-2xl text-base font-medium focus:border-primary transition-colors"
+            />
+          </div>
+          <div className="space-y-2">
+            <div className="flex items-center justify-between">
+              <Label className="text-sm font-medium">Abholuhrzeit</Label>
+              <button
+                onClick={() => setFormData(prev => ({ ...prev, schnellstmoeglich: !prev.schnellstmoeglich }))}
+                className={`px-4 py-1.5 text-xs font-bold rounded-full transition-all ${
+                  formData.schnellstmoeglich
+                    ? "bg-gradient-to-r from-secondary to-secondary/90 text-secondary-foreground shadow-md"
+                    : "bg-muted hover:bg-secondary/20 text-muted-foreground"
+                }`}
+              >
+                ⚡ Schnellstmöglich
+              </button>
+            </div>
+            <Input
+              type="time"
+              value={formData.uhrzeit}
+              onChange={(e) => setFormData(prev => ({ ...prev, uhrzeit: e.target.value }))}
+              disabled={formData.schnellstmoeglich}
+              className="h-14 bg-background border-2 border-border/50 rounded-2xl text-base font-medium focus:border-primary transition-colors disabled:opacity-50"
+            />
+          </div>
+        </div>
+      </div>
+
+      {/* Anbieter */}
+      <div className="space-y-4">
+        <div className="flex items-center gap-3">
+          <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-primary to-primary/80 flex items-center justify-center shadow-lg shadow-primary/25">
+            <Users className="w-6 h-6 text-primary-foreground" />
+          </div>
+          <div>
+            <Label className="text-lg font-bold">Anbieter</Label>
+            <p className="text-sm text-muted-foreground">Art des Fahrdienstes</p>
+          </div>
+        </div>
+        <div className="grid grid-cols-3 gap-3">
           {filterOptions.anbieter.map((option) => (
             <button
               key={option}
               onClick={() => setSelectedFilters(prev => ({ ...prev, anbieter: option }))}
-              className={`px-4 py-3 rounded-xl text-sm font-medium transition-all ${
+              className={`relative px-6 py-5 rounded-2xl font-semibold transition-all duration-300 ${
                 selectedFilters.anbieter === option
-                  ? "bg-gradient-to-r from-primary to-primary/90 text-primary-foreground shadow-lg shadow-primary/25"
-                  : "bg-muted/50 hover:bg-muted text-muted-foreground hover:text-foreground"
+                  ? "bg-gradient-to-br from-primary to-primary/90 text-primary-foreground shadow-xl shadow-primary/30 scale-[1.02]"
+                  : "bg-card border-2 border-border/50 hover:border-primary/30 hover:shadow-lg text-foreground"
               }`}
             >
-              {option}
+              {selectedFilters.anbieter === option && (
+                <CheckCircle className="absolute top-3 right-3 w-5 h-5" />
+              )}
+              <span className="text-base">{option}</span>
             </button>
           ))}
         </div>
       </div>
 
       {/* Transportart */}
-      <div className="space-y-3">
-        <div className="flex items-center gap-2">
-          <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-secondary to-secondary/80 flex items-center justify-center">
-            <Truck className="w-4 h-4 text-secondary-foreground" />
+      <div className="space-y-4">
+        <div className="flex items-center gap-3">
+          <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-secondary to-secondary/80 flex items-center justify-center shadow-lg shadow-secondary/25">
+            <Truck className="w-6 h-6 text-secondary-foreground" />
           </div>
-          <Label className="text-base font-semibold">Transportart</Label>
+          <div>
+            <Label className="text-lg font-bold">Transportart</Label>
+            <p className="text-sm text-muted-foreground">Zahlungsmethode</p>
+          </div>
         </div>
-        <div className="grid grid-cols-3 gap-2">
+        <div className="grid grid-cols-3 gap-3">
           {filterOptions.transportart.map((option) => (
             <button
               key={option}
               onClick={() => setSelectedFilters(prev => ({ ...prev, transportart: option }))}
-              className={`px-3 py-3 rounded-xl text-sm font-medium transition-all ${
+              className={`relative px-5 py-5 rounded-2xl font-semibold transition-all duration-300 ${
                 selectedFilters.transportart === option
-                  ? "bg-gradient-to-r from-secondary to-secondary/90 text-secondary-foreground shadow-lg shadow-secondary/25"
-                  : "bg-muted/50 hover:bg-muted text-muted-foreground hover:text-foreground"
+                  ? "bg-gradient-to-br from-secondary to-secondary/90 text-secondary-foreground shadow-xl shadow-secondary/30 scale-[1.02]"
+                  : "bg-card border-2 border-border/50 hover:border-secondary/30 hover:shadow-lg text-foreground"
               }`}
             >
-              {option}
+              {selectedFilters.transportart === option && (
+                <CheckCircle className="absolute top-3 right-3 w-5 h-5" />
+              )}
+              <span className="text-base">{option}</span>
             </button>
           ))}
         </div>
       </div>
 
       {/* Transportmittel */}
-      <div className="space-y-3">
-        <div className="flex items-center gap-2">
-          <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-amber-500 to-amber-500/80 flex items-center justify-center">
-            <Armchair className="w-4 h-4 text-white" />
+      <div className="space-y-4">
+        <div className="flex items-center gap-3">
+          <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-amber-500 to-orange-500 flex items-center justify-center shadow-lg shadow-amber-500/25">
+            <Armchair className="w-6 h-6 text-white" />
           </div>
-          <Label className="text-base font-semibold">Transportmittel</Label>
+          <div>
+            <Label className="text-lg font-bold">Transportmittel</Label>
+            <p className="text-sm text-muted-foreground">Beförderungsart</p>
+          </div>
         </div>
-        <div className="grid grid-cols-2 gap-2">
+        <div className="grid grid-cols-2 gap-3">
           {filterOptions.transportmittel.map((option) => (
             <button
               key={option}
               onClick={() => setSelectedFilters(prev => ({ ...prev, transportmittel: option }))}
-              className={`px-4 py-3 rounded-xl text-sm font-medium transition-all ${
+              className={`relative px-6 py-5 rounded-2xl font-semibold transition-all duration-300 ${
                 selectedFilters.transportmittel === option
-                  ? "bg-gradient-to-r from-amber-500 to-amber-500/90 text-white shadow-lg shadow-amber-500/25"
-                  : "bg-muted/50 hover:bg-muted text-muted-foreground hover:text-foreground"
+                  ? "bg-gradient-to-br from-amber-500 to-orange-500 text-white shadow-xl shadow-amber-500/30 scale-[1.02]"
+                  : "bg-card border-2 border-border/50 hover:border-amber-500/30 hover:shadow-lg text-foreground"
               }`}
             >
-              {option}
+              {selectedFilters.transportmittel === option && (
+                <CheckCircle className="absolute top-3 right-3 w-5 h-5" />
+              )}
+              <span className="text-base">{option}</span>
             </button>
           ))}
         </div>
@@ -290,176 +354,167 @@ export default function BookingResults() {
     </div>
   );
 
-  // Step 2: Personal Data
+  // Step 2: Personal Data (without date/time - moved to step 1)
   const renderPersonalDataStep = () => (
-    <div className="space-y-5">
+    <div className="space-y-6">
       {/* Header with Profile Button */}
-      <div className="flex items-center justify-between">
-        <h3 className="text-lg font-bold">Persönliche Daten</h3>
-        <Button variant="outline" size="sm" className="rounded-full">
+      <div className="flex items-center justify-between bg-gradient-to-r from-primary/5 to-secondary/5 rounded-2xl p-4 border border-border/30">
+        <div className="flex items-center gap-3">
+          <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-primary to-secondary flex items-center justify-center shadow-lg">
+            <User className="w-6 h-6 text-primary-foreground" />
+          </div>
+          <div>
+            <h3 className="font-bold text-lg">Persönliche Daten</h3>
+            <p className="text-sm text-muted-foreground">Angaben zum Fahrgast</p>
+          </div>
+        </div>
+        <Button variant="outline" className="rounded-2xl h-12 px-5 font-semibold border-2 hover:bg-primary/5 hover:border-primary/30">
           <User className="w-4 h-4 mr-2" />
           Profildaten übernehmen
         </Button>
       </div>
 
-      {/* Date and Time Row */}
-      <div className="grid grid-cols-2 gap-4">
-        <div className="space-y-2">
-          <Label className="text-sm text-muted-foreground">Datum*</Label>
-          <div className="relative">
-            <Input
-              type="date"
-              value={formData.datum}
-              onChange={(e) => setFormData(prev => ({ ...prev, datum: e.target.value }))}
-              className="h-12 bg-muted/50 border-0 rounded-xl"
-            />
+      {/* Grund - Big Select Card */}
+      <div className="bg-card rounded-2xl border-2 border-border/50 p-5">
+        <div className="flex items-center gap-3 mb-4">
+          <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-violet-500 to-purple-600 flex items-center justify-center shadow-md">
+            <FileText className="w-5 h-5 text-white" />
           </div>
+          <Label className="text-base font-bold">Grund der Fahrt</Label>
         </div>
-        <div className="space-y-2">
-          <div className="flex items-center gap-2">
-            <Label className="text-sm text-muted-foreground">Uhrzeit (Abholung)*</Label>
-            <button
-              onClick={() => setFormData(prev => ({ ...prev, schnellstmoeglich: !prev.schnellstmoeglich }))}
-              className={`px-3 py-1 text-xs font-medium rounded-full transition-all ${
-                formData.schnellstmoeglich
-                  ? "bg-secondary text-secondary-foreground"
-                  : "bg-muted text-muted-foreground hover:bg-secondary/20"
-              }`}
-            >
-              Schnellstmöglich
-            </button>
-          </div>
-          <Input
-            type="time"
-            value={formData.uhrzeit}
-            onChange={(e) => setFormData(prev => ({ ...prev, uhrzeit: e.target.value }))}
-            disabled={formData.schnellstmoeglich}
-            className="h-12 bg-muted/50 border-0 rounded-xl"
-          />
-        </div>
-      </div>
-
-      {/* Grund */}
-      <div className="space-y-2">
-        <Label className="text-sm text-muted-foreground">Grund*</Label>
         <Select
           value={formData.grund}
           onValueChange={(value) => setFormData(prev => ({ ...prev, grund: value }))}
         >
-          <SelectTrigger className="h-12 bg-muted/50 border-0 rounded-xl">
+          <SelectTrigger className="h-14 bg-muted/30 border-2 border-border/50 rounded-2xl text-base font-medium focus:border-primary">
             <SelectValue placeholder="Option auswählen" />
           </SelectTrigger>
-          <SelectContent>
+          <SelectContent className="bg-card border-2 rounded-xl">
             {grundOptions.map((option) => (
-              <SelectItem key={option} value={option}>{option}</SelectItem>
+              <SelectItem key={option} value={option} className="py-3 text-base">{option}</SelectItem>
             ))}
           </SelectContent>
         </Select>
       </div>
 
-      {/* Anrede, Vorname, Nachname */}
-      <div className="grid grid-cols-3 gap-4">
-        <div className="space-y-2">
-          <Label className="text-sm text-muted-foreground">Anrede</Label>
-          <div className="flex bg-muted/50 rounded-xl p-1">
-            <button
-              onClick={() => setFormData(prev => ({ ...prev, anrede: "Herr" }))}
-              className={`flex-1 py-2 text-sm font-medium rounded-lg transition-all ${
-                formData.anrede === "Herr"
-                  ? "bg-foreground text-background"
-                  : "text-muted-foreground hover:text-foreground"
-              }`}
-            >
-              Herr
-            </button>
-            <button
-              onClick={() => setFormData(prev => ({ ...prev, anrede: "Frau" }))}
-              className={`flex-1 py-2 text-sm font-medium rounded-lg transition-all ${
-                formData.anrede === "Frau"
-                  ? "bg-foreground text-background"
-                  : "text-muted-foreground hover:text-foreground"
-              }`}
-            >
-              Frau
-            </button>
+      {/* Personal Info Grid */}
+      <div className="bg-card rounded-2xl border-2 border-border/50 p-5 space-y-5">
+        {/* Anrede, Vorname, Nachname */}
+        <div className="grid grid-cols-3 gap-4">
+          <div className="space-y-2">
+            <Label className="text-sm font-medium text-muted-foreground">Anrede</Label>
+            <div className="flex bg-muted/30 rounded-2xl p-1.5 border-2 border-border/50">
+              <button
+                onClick={() => setFormData(prev => ({ ...prev, anrede: "Herr" }))}
+                className={`flex-1 py-3 text-sm font-bold rounded-xl transition-all ${
+                  formData.anrede === "Herr"
+                    ? "bg-gradient-to-r from-primary to-primary/90 text-primary-foreground shadow-md"
+                    : "text-muted-foreground hover:text-foreground"
+                }`}
+              >
+                Herr
+              </button>
+              <button
+                onClick={() => setFormData(prev => ({ ...prev, anrede: "Frau" }))}
+                className={`flex-1 py-3 text-sm font-bold rounded-xl transition-all ${
+                  formData.anrede === "Frau"
+                    ? "bg-gradient-to-r from-primary to-primary/90 text-primary-foreground shadow-md"
+                    : "text-muted-foreground hover:text-foreground"
+                }`}
+              >
+                Frau
+              </button>
+            </div>
           </div>
-        </div>
-        <div className="space-y-2">
-          <Label className="text-sm text-muted-foreground">Vorname*</Label>
-          <Input
-            value={formData.vorname}
-            onChange={(e) => setFormData(prev => ({ ...prev, vorname: e.target.value }))}
-            className="h-12 bg-muted/50 border-0 rounded-xl"
-          />
-        </div>
-        <div className="space-y-2">
-          <Label className="text-sm text-muted-foreground">Nachname*</Label>
-          <Input
-            value={formData.nachname}
-            onChange={(e) => setFormData(prev => ({ ...prev, nachname: e.target.value }))}
-            className="h-12 bg-muted/50 border-0 rounded-xl"
-          />
-        </div>
-      </div>
-
-      {/* Geburtsdatum, Pflegegrad, Krankenkasse */}
-      <div className="grid grid-cols-3 gap-4">
-        <div className="space-y-2">
-          <Label className="text-sm text-muted-foreground">Geburtsdatum*</Label>
-          <Input
-            type="date"
-            value={formData.geburtsdatum}
-            onChange={(e) => setFormData(prev => ({ ...prev, geburtsdatum: e.target.value }))}
-            className="h-12 bg-muted/50 border-0 rounded-xl"
-          />
-        </div>
-        <div className="space-y-2">
-          <Label className="text-sm text-muted-foreground">Pflegegrad*</Label>
-          <Select
-            value={formData.pflegegrad}
-            onValueChange={(value) => setFormData(prev => ({ ...prev, pflegegrad: value }))}
-          >
-            <SelectTrigger className="h-12 bg-muted/50 border-0 rounded-xl">
-              <SelectValue placeholder="Option auswählen" />
-            </SelectTrigger>
-            <SelectContent>
-              {pflegegradOptions.map((option) => (
-                <SelectItem key={option} value={option}>{option}</SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-        </div>
-        <div className="space-y-2">
-          <Label className="text-sm text-muted-foreground">Krankenkasse*</Label>
-          <Input
-            value={formData.krankenkasse}
-            onChange={(e) => setFormData(prev => ({ ...prev, krankenkasse: e.target.value }))}
-            className="h-12 bg-muted/50 border-0 rounded-xl"
-          />
-        </div>
-      </div>
-
-      {/* Kontakt and Notiz */}
-      <div className="grid grid-cols-2 gap-4">
-        <div className="space-y-2">
-          <Label className="text-sm text-muted-foreground">Kontakt*</Label>
-          <div className="relative">
-            <Phone className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+          <div className="space-y-2">
+            <Label className="text-sm font-medium text-muted-foreground">Vorname *</Label>
             <Input
-              value={formData.telefon}
-              onChange={(e) => setFormData(prev => ({ ...prev, telefon: e.target.value }))}
-              placeholder="Telefonnummer"
-              className="h-12 pl-12 bg-muted/50 border-0 rounded-xl"
+              value={formData.vorname}
+              onChange={(e) => setFormData(prev => ({ ...prev, vorname: e.target.value }))}
+              className="h-14 bg-muted/30 border-2 border-border/50 rounded-2xl text-base font-medium focus:border-primary"
+              placeholder="Max"
+            />
+          </div>
+          <div className="space-y-2">
+            <Label className="text-sm font-medium text-muted-foreground">Nachname *</Label>
+            <Input
+              value={formData.nachname}
+              onChange={(e) => setFormData(prev => ({ ...prev, nachname: e.target.value }))}
+              className="h-14 bg-muted/30 border-2 border-border/50 rounded-2xl text-base font-medium focus:border-primary"
+              placeholder="Mustermann"
             />
           </div>
         </div>
-        <div className="space-y-2">
-          <Label className="text-sm text-muted-foreground">Notiz (Wichtige Informationen)*</Label>
-          <Input
-            value={formData.notiz}
-            onChange={(e) => setFormData(prev => ({ ...prev, notiz: e.target.value }))}
-            className="h-12 bg-muted/50 border-0 rounded-xl"
-          />
+
+        {/* Geburtsdatum, Pflegegrad, Krankenkasse */}
+        <div className="grid grid-cols-3 gap-4">
+          <div className="space-y-2">
+            <Label className="text-sm font-medium text-muted-foreground">Geburtsdatum *</Label>
+            <Input
+              type="date"
+              value={formData.geburtsdatum}
+              onChange={(e) => setFormData(prev => ({ ...prev, geburtsdatum: e.target.value }))}
+              className="h-14 bg-muted/30 border-2 border-border/50 rounded-2xl text-base font-medium focus:border-primary"
+            />
+          </div>
+          <div className="space-y-2">
+            <Label className="text-sm font-medium text-muted-foreground">Pflegegrad *</Label>
+            <Select
+              value={formData.pflegegrad}
+              onValueChange={(value) => setFormData(prev => ({ ...prev, pflegegrad: value }))}
+            >
+              <SelectTrigger className="h-14 bg-muted/30 border-2 border-border/50 rounded-2xl text-base font-medium focus:border-primary">
+                <SelectValue placeholder="Auswählen" />
+              </SelectTrigger>
+              <SelectContent className="bg-card border-2 rounded-xl">
+                {pflegegradOptions.map((option) => (
+                  <SelectItem key={option} value={option} className="py-3 text-base">{option}</SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
+          <div className="space-y-2">
+            <Label className="text-sm font-medium text-muted-foreground">Krankenkasse *</Label>
+            <Input
+              value={formData.krankenkasse}
+              onChange={(e) => setFormData(prev => ({ ...prev, krankenkasse: e.target.value }))}
+              className="h-14 bg-muted/30 border-2 border-border/50 rounded-2xl text-base font-medium focus:border-primary"
+              placeholder="AOK, TK, etc."
+            />
+          </div>
+        </div>
+      </div>
+
+      {/* Contact & Notes */}
+      <div className="bg-card rounded-2xl border-2 border-border/50 p-5 space-y-4">
+        <div className="flex items-center gap-3 mb-2">
+          <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-emerald-500 to-teal-600 flex items-center justify-center shadow-md">
+            <Phone className="w-5 h-5 text-white" />
+          </div>
+          <Label className="text-base font-bold">Kontakt & Hinweise</Label>
+        </div>
+        <div className="grid grid-cols-2 gap-4">
+          <div className="space-y-2">
+            <Label className="text-sm font-medium text-muted-foreground">Telefonnummer *</Label>
+            <div className="relative">
+              <Phone className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
+              <Input
+                value={formData.telefon}
+                onChange={(e) => setFormData(prev => ({ ...prev, telefon: e.target.value }))}
+                placeholder="+49 123 456789"
+                className="h-14 pl-14 bg-muted/30 border-2 border-border/50 rounded-2xl text-base font-medium focus:border-primary"
+              />
+            </div>
+          </div>
+          <div className="space-y-2">
+            <Label className="text-sm font-medium text-muted-foreground">Besondere Hinweise</Label>
+            <Input
+              value={formData.notiz}
+              onChange={(e) => setFormData(prev => ({ ...prev, notiz: e.target.value }))}
+              placeholder="z.B. Rollstuhlgerecht, Sauerstoff benötigt..."
+              className="h-14 bg-muted/30 border-2 border-border/50 rounded-2xl text-base font-medium focus:border-primary"
+            />
+          </div>
         </div>
       </div>
     </div>
