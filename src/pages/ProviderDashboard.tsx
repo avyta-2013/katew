@@ -1238,24 +1238,82 @@ const ProviderDashboard = () => {
                     <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-primary/20 to-secondary/20 flex items-center justify-center shadow-sm">
                       <User className="w-5 h-5 text-primary" />
                     </div>
-                    <CardTitle className="text-xl font-bold">Klient-Informationen</CardTitle>
+                    <CardTitle className="text-xl font-bold">Klient</CardTitle>
                   </div>
                 </CardHeader>
                 <CardContent className="p-6 space-y-5">
+                  {/* Anrede & Name */}
                   <div className="grid md:grid-cols-2 gap-4">
-                    <div className="group p-4 rounded-xl bg-gradient-to-r from-muted/40 to-muted/20 transition-all duration-300 border border-transparent">
-                      <Label className="text-[10px] text-muted-foreground uppercase tracking-wider font-semibold">Name</Label>
+                    <div className="group p-4 rounded-xl bg-gradient-to-r from-muted/40 to-muted/20 hover:from-primary/10 hover:to-secondary/5 transition-all duration-300 border border-transparent hover:border-primary/20 hover:shadow-md">
+                      <Label className="text-[10px] text-muted-foreground uppercase tracking-wider font-semibold">Anrede</Label>
+                      <div className="flex gap-2 mt-3">
+                        <div className="flex-1 py-2.5 px-4 rounded-xl bg-foreground text-background text-center text-sm font-semibold">
+                          Herr
+                        </div>
+                        <div className="flex-1 py-2.5 px-4 rounded-xl bg-muted/50 text-muted-foreground text-center text-sm font-medium">
+                          Frau
+                        </div>
+                      </div>
+                    </div>
+                    <div className="group p-4 rounded-xl bg-gradient-to-r from-muted/40 to-muted/20 hover:from-primary/10 hover:to-secondary/5 transition-all duration-300 border border-transparent hover:border-primary/20 hover:shadow-md">
+                      <Label className="text-[10px] text-muted-foreground uppercase tracking-wider font-semibold">Vor- und Nachname</Label>
                       <p className="text-base font-semibold text-foreground mt-2">{selectedBooking.patient}</p>
                     </div>
-                    <div className="group p-4 rounded-xl bg-gradient-to-r from-muted/40 to-muted/20 transition-all duration-300 border border-transparent">
-                      <Label className="text-[10px] text-muted-foreground uppercase tracking-wider font-semibold">Telefon</Label>
-                      <p className="text-base font-semibold text-foreground mt-2">+49 170 ****567</p>
+                  </div>
+
+                  {/* Geburtsdatum, Pflegegrad, Krankenkasse */}
+                  <div className="grid md:grid-cols-3 gap-4">
+                    <div className="group p-4 rounded-xl bg-gradient-to-r from-muted/40 to-muted/20 hover:from-primary/10 hover:to-secondary/5 transition-all duration-300 border border-transparent hover:border-primary/20 hover:shadow-md">
+                      <div className="flex items-center gap-2 mb-2">
+                        <CalendarDays className="w-3.5 h-3.5 text-primary" />
+                        <Label className="text-[10px] text-muted-foreground uppercase tracking-wider font-semibold">Geburtsdatum</Label>
+                      </div>
+                      <p className="text-base font-semibold text-foreground">07-11-1992</p>
+                    </div>
+                    <div className="group p-4 rounded-xl bg-gradient-to-r from-muted/40 to-muted/20 hover:from-secondary/10 hover:to-primary/5 transition-all duration-300 border border-transparent hover:border-secondary/20 hover:shadow-md">
+                      <div className="flex items-center gap-2 mb-2">
+                        <Activity className="w-3.5 h-3.5 text-secondary" />
+                        <Label className="text-[10px] text-muted-foreground uppercase tracking-wider font-semibold">Pflegegrad</Label>
+                      </div>
+                      <p className="text-base font-semibold text-foreground">Pflegegrad 1</p>
+                    </div>
+                    <div className="group p-4 rounded-xl bg-gradient-to-r from-muted/40 to-muted/20 hover:from-amber-500/10 hover:to-amber-500/5 transition-all duration-300 border border-transparent hover:border-amber-500/20 hover:shadow-md">
+                      <div className="flex items-center gap-2 mb-2">
+                        <FileText className="w-3.5 h-3.5 text-amber-600" />
+                        <Label className="text-[10px] text-muted-foreground uppercase tracking-wider font-semibold">Krankenkasse</Label>
+                      </div>
+                      <p className="text-base font-semibold text-foreground">AOK</p>
                     </div>
                   </div>
-                  <div className="p-6 rounded-xl bg-amber-500/10 border border-amber-500/20">
-                    <div className="flex items-center gap-3">
-                      <Lock className="w-5 h-5 text-amber-600" />
-                      <p className="text-sm text-amber-700 font-medium">Vollständige Kontaktdaten werden nach Bestätigung freigegeben</p>
+
+                  {/* Kontakt */}
+                  <div className="group p-4 rounded-xl bg-gradient-to-r from-muted/40 to-muted/20 hover:from-blue-500/10 hover:to-blue-500/5 transition-all duration-300 border border-transparent hover:border-blue-500/20 hover:shadow-md">
+                    <div className="flex items-center gap-2 mb-2">
+                      <Phone className="w-3.5 h-3.5 text-blue-600" />
+                      <Label className="text-[10px] text-muted-foreground uppercase tracking-wider font-semibold">Kontakt</Label>
+                    </div>
+                    <p className="text-base font-semibold text-foreground">+49 170 ****567</p>
+                  </div>
+
+                  {/* Notiz */}
+                  <div className="group p-4 rounded-xl bg-gradient-to-r from-muted/40 to-muted/20 hover:from-violet-500/10 hover:to-violet-500/5 transition-all duration-300 border border-transparent hover:border-violet-500/20 hover:shadow-md">
+                    <div className="flex items-center gap-2 mb-2">
+                      <MessageSquare className="w-3.5 h-3.5 text-violet-600" />
+                      <Label className="text-[10px] text-muted-foreground uppercase tracking-wider font-semibold">Notiz</Label>
+                    </div>
+                    <p className="text-sm text-foreground leading-relaxed">Rollstuhlfahrer, bitte auf barrierefreien Zugang achten. Benötigt Hilfe beim Ein- und Aussteigen.</p>
+                  </div>
+
+                  {/* Info Banner */}
+                  <div className="p-5 rounded-xl bg-gradient-to-r from-amber-500/10 to-amber-500/5 border border-amber-500/20">
+                    <div className="flex items-start gap-3">
+                      <div className="w-10 h-10 rounded-xl bg-amber-500/20 flex items-center justify-center flex-shrink-0">
+                        <Lock className="w-5 h-5 text-amber-600" />
+                      </div>
+                      <div>
+                        <p className="text-sm text-amber-700 font-semibold">Datenschutzhinweis</p>
+                        <p className="text-xs text-amber-600 mt-1">Vollständige Kontaktdaten werden nach Bestätigung der Buchung freigegeben.</p>
+                      </div>
                     </div>
                   </div>
                 </CardContent>
