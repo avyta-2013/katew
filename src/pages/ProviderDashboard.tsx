@@ -492,55 +492,6 @@ const ProviderDashboard = () => {
         <p className="text-muted-foreground mt-1 text-sm">Verwalten Sie Ihre Unternehmensdaten und Standorte</p>
       </div>
 
-      {/* Profile Image Upload Card */}
-      <Card className="border-0 shadow-lg bg-gradient-to-br from-card to-muted/20 overflow-hidden">
-        <CardHeader className="pb-2 pt-4 px-4">
-          <div className="flex items-center gap-2">
-            <div className="w-9 h-9 rounded-lg bg-gradient-to-br from-primary/10 to-secondary/10 flex items-center justify-center">
-              <Camera className="w-4 h-4 text-primary" />
-            </div>
-            <div>
-              <CardTitle className="text-base font-bold">Unternehmenslogo</CardTitle>
-              <CardDescription className="text-xs">Logo hochladen</CardDescription>
-            </div>
-          </div>
-        </CardHeader>
-        <CardContent className="px-4 pb-4">
-          <div className="flex items-center gap-5">
-            <div className="relative group">
-              <Avatar className="w-20 h-20 border-2 border-background ring-1 ring-primary/20">
-                <AvatarImage src={profileImage || ""} />
-                <AvatarFallback className="bg-gradient-to-br from-secondary to-primary text-white text-xl font-bold">
-                  MT
-                </AvatarFallback>
-              </Avatar>
-              <button
-                onClick={triggerFileInput}
-                className="absolute inset-0 flex items-center justify-center bg-black/60 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-300 cursor-pointer"
-              >
-                <Camera className="w-6 h-6 text-white" />
-              </button>
-            </div>
-            <div className="flex-1">
-              <input
-                ref={fileInputRef}
-                type="file"
-                accept="image/*"
-                onChange={handleImageUpload}
-                className="hidden"
-              />
-              <Button onClick={triggerFileInput} size="sm" className="gap-2 bg-primary hover:bg-primary/90 text-primary-foreground">
-                <Upload className="w-3.5 h-3.5" />
-                Hochladen
-              </Button>
-              <p className="text-xs text-muted-foreground mt-2">
-                JPG, PNG • Max. 5MB
-              </p>
-            </div>
-          </div>
-        </CardContent>
-      </Card>
-
       {/* Profile Completion Card */}
       <Card className="border-0 shadow-xl bg-gradient-to-br from-card via-card to-muted/10 overflow-hidden">
         <CardContent className="px-6 py-5">
@@ -625,6 +576,55 @@ const ProviderDashboard = () => {
                 <AlertCircle className="w-7 h-7 text-amber-500" />
               </div>
               <span className="text-[10px] text-muted-foreground font-medium uppercase tracking-wide">Nicht aktiv</span>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* Profile Image Upload Card */}
+      <Card className="border-0 shadow-lg bg-gradient-to-br from-card to-muted/20 overflow-hidden">
+        <CardHeader className="pb-2 pt-4 px-4">
+          <div className="flex items-center gap-2">
+            <div className="w-9 h-9 rounded-lg bg-gradient-to-br from-primary/10 to-secondary/10 flex items-center justify-center">
+              <Camera className="w-4 h-4 text-primary" />
+            </div>
+            <div>
+              <CardTitle className="text-base font-bold">Unternehmenslogo</CardTitle>
+              <CardDescription className="text-xs">Logo hochladen</CardDescription>
+            </div>
+          </div>
+        </CardHeader>
+        <CardContent className="px-4 pb-4">
+          <div className="flex items-center gap-5">
+            <div className="relative group">
+              <Avatar className="w-20 h-20 border-2 border-background ring-1 ring-primary/20">
+                <AvatarImage src={profileImage || ""} />
+                <AvatarFallback className="bg-gradient-to-br from-secondary to-primary text-white text-xl font-bold">
+                  MT
+                </AvatarFallback>
+              </Avatar>
+              <button
+                onClick={triggerFileInput}
+                className="absolute inset-0 flex items-center justify-center bg-black/60 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-300 cursor-pointer"
+              >
+                <Camera className="w-6 h-6 text-white" />
+              </button>
+            </div>
+            <div className="flex-1">
+              <input
+                ref={fileInputRef}
+                type="file"
+                accept="image/*"
+                onChange={handleImageUpload}
+                className="hidden"
+              />
+              <Button onClick={triggerFileInput} size="sm" className="gap-2 bg-primary hover:bg-primary/90 text-primary-foreground">
+                <Upload className="w-3.5 h-3.5" />
+                Hochladen
+              </Button>
+              <p className="text-xs text-muted-foreground mt-2">
+                JPG, PNG • Max. 5MB
+              </p>
             </div>
           </div>
         </CardContent>
