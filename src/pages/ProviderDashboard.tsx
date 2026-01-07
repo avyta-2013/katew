@@ -3,9 +3,9 @@ import {
   User, Calendar, Settings, LogOut, Bell, Lock, Eye, EyeOff, Building2, Phone, Mail, MapPin, 
   CalendarDays, CheckCircle2, XCircle, Clock, LayoutDashboard, TrendingUp, Camera, Upload, 
   ArrowUpRight, Truck, Route, Timer, Star, FileText, MoreHorizontal, Trophy, MessageSquare,
-  MapPinned, Bookmark, BarChart3, PieChart, Euro, ClipboardList
+  MapPinned, Bookmark, BarChart3, PieChart, Euro, ClipboardList, Activity, Users, Zap, Target,
+  AlertCircle, ChevronRight, Filter, Search, Download, RefreshCw
 } from "lucide-react";
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -15,12 +15,12 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import { Progress } from "@/components/ui/progress";
 import { Textarea } from "@/components/ui/textarea";
 import { cn } from "@/lib/utils";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart as RechartsPieChart, Pie, Cell } from "recharts";
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart as RechartsPieChart, Pie, Cell, LineChart, Line, Area, AreaChart } from "recharts";
 
 type NavItem = "uebersicht" | "profil" | "buchungen" | "aktivitaeten" | "bewertungen" | "einstellungen";
 
@@ -38,20 +38,29 @@ const ProviderDashboard = () => {
     { id: "uebersicht" as NavItem, label: "Übersicht", icon: LayoutDashboard },
     { id: "profil" as NavItem, label: "Profil", icon: User },
     { id: "buchungen" as NavItem, label: "Buchungen", icon: Bookmark },
-    { id: "aktivitaeten" as NavItem, label: "Aktivitäten", icon: Bell },
+    { id: "aktivitaeten" as NavItem, label: "Aktivitäten", icon: Activity },
     { id: "bewertungen" as NavItem, label: "Bewertungen", icon: Star },
     { id: "einstellungen" as NavItem, label: "Einstellungen", icon: Settings },
   ];
 
   // Chart data
   const weeklyBookings = [
-    { day: "Mo", buchungen: 3 },
-    { day: "Di", buchungen: 5 },
-    { day: "Mi", buchungen: 2 },
-    { day: "Do", buchungen: 7 },
-    { day: "Fr", buchungen: 4 },
-    { day: "Sa", buchungen: 1 },
-    { day: "So", buchungen: 0 },
+    { day: "Mo", buchungen: 12, umsatz: 1200 },
+    { day: "Di", buchungen: 18, umsatz: 1800 },
+    { day: "Mi", buchungen: 9, umsatz: 900 },
+    { day: "Do", buchungen: 24, umsatz: 2400 },
+    { day: "Fr", buchungen: 15, umsatz: 1500 },
+    { day: "Sa", buchungen: 6, umsatz: 600 },
+    { day: "So", buchungen: 3, umsatz: 300 },
+  ];
+
+  const monthlyTrend = [
+    { month: "Jan", buchungen: 65 },
+    { month: "Feb", buchungen: 78 },
+    { month: "Mar", buchungen: 92 },
+    { month: "Apr", buchungen: 85 },
+    { month: "Mai", buchungen: 110 },
+    { month: "Jun", buchungen: 125 },
   ];
 
   const bookingTypes = [
@@ -63,14 +72,15 @@ const ProviderDashboard = () => {
   // Mock bookings data
   const bookings = {
     offen: [
-      { id: 1, pickup: "18.01.2026 10:30", from: "36 Fulda, Germany", to: "Frankfurt Am Main, Germany", kostentraeger: "Transportschein", preis: "0€", status: "offen" },
-      { id: 2, pickup: "20.01.2026 14:00", from: "Kassel, Germany", to: "Marburg, Germany", kostentraeger: "Selbstzahler", preis: "85€", status: "offen" },
+      { id: 1, pickup: "18.01.2026 10:30", from: "36 Fulda, Germany", to: "Frankfurt Am Main, Germany", kostentraeger: "Transportschein", preis: "0€", status: "offen", patient: "M. Schmidt" },
+      { id: 2, pickup: "20.01.2026 14:00", from: "Kassel, Germany", to: "Marburg, Germany", kostentraeger: "Selbstzahler", preis: "85€", status: "offen", patient: "A. Weber" },
+      { id: 5, pickup: "21.01.2026 09:15", from: "Gießen, Germany", to: "Frankfurt, Germany", kostentraeger: "Transportschein", preis: "0€", status: "offen", patient: "K. Müller" },
     ],
     bestaetigt: [
-      { id: 3, pickup: "15.01.2026 09:00", from: "Wiesbaden, Germany", to: "Mainz, Germany", kostentraeger: "Transportschein", preis: "0€", status: "bestaetigt" },
+      { id: 3, pickup: "15.01.2026 09:00", from: "Wiesbaden, Germany", to: "Mainz, Germany", kostentraeger: "Transportschein", preis: "0€", status: "bestaetigt", patient: "H. Fischer" },
     ],
     storniert: [
-      { id: 4, pickup: "10.01.2026 11:30", from: "Darmstadt, Germany", to: "Frankfurt, Germany", kostentraeger: "Selbstzahler", preis: "45€", status: "storniert" },
+      { id: 4, pickup: "10.01.2026 11:30", from: "Darmstadt, Germany", to: "Frankfurt, Germany", kostentraeger: "Selbstzahler", preis: "45€", status: "storniert", patient: "L. Becker" },
     ],
   };
 
@@ -82,21 +92,24 @@ const ProviderDashboard = () => {
     ausschreibungen: 12,
     avgRating: 4.8,
     totalRatings: 89,
+    monthlyRevenue: 12450,
+    completionRate: 94,
   };
 
   // Activities
   const activities = [
-    { id: 1, message: "Neue Buchung eingegangen", time: "vor 2 Stunden", type: "booking" },
-    { id: 2, message: "Buchungsbestätigung vom Kunden", time: "vor 4 Stunden", type: "confirmed" },
-    { id: 3, message: "Die Buchung wurde vom Kunden abgelehnt", time: "vor 1 Tag", type: "cancelled" },
-    { id: 4, message: "Neue Bewertung erhalten", time: "vor 2 Tagen", type: "rating" },
-    { id: 5, message: "Buchung storniert", time: "vor 3 Tagen", type: "cancelled" },
+    { id: 1, message: "Neue Buchung eingegangen", detail: "Transport nach Frankfurt", time: "vor 2 Stunden", type: "booking" },
+    { id: 2, message: "Buchungsbestätigung vom Kunden", detail: "Buchung #1234 bestätigt", time: "vor 4 Stunden", type: "confirmed" },
+    { id: 3, message: "Die Buchung wurde vom Kunden abgelehnt", detail: "Buchung #1189 storniert", time: "vor 1 Tag", type: "cancelled" },
+    { id: 4, message: "Neue Bewertung erhalten", detail: "5 Sterne von Max M.", time: "vor 2 Tagen", type: "rating" },
+    { id: 5, message: "Zahlung eingegangen", detail: "85€ für Buchung #1201", time: "vor 3 Tagen", type: "payment" },
   ];
 
   // Ratings
   const ratings = [
-    { id: 1, client: "Max Mustermann", rating: 5, comment: "Sehr pünktlich und freundlich!", date: "12.01.2026" },
-    { id: 2, client: "Anna Schmidt", rating: 4, comment: "Guter Service, kann ich empfehlen.", date: "10.01.2026" },
+    { id: 1, client: "Max Mustermann", rating: 5, comment: "Sehr pünktlich und freundlich! Der Fahrer war äußerst hilfsbereit.", date: "12.01.2026" },
+    { id: 2, client: "Anna Schmidt", rating: 4, comment: "Guter Service, kann ich empfehlen. Kleine Verspätung aber insgesamt zufrieden.", date: "10.01.2026" },
+    { id: 3, client: "Peter Weber", rating: 5, comment: "Professioneller Transport. Alles perfekt organisiert.", date: "08.01.2026" },
   ];
 
   const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -114,9 +127,58 @@ const ProviderDashboard = () => {
     fileInputRef.current?.click();
   };
 
-  const renderNavigation = () => (
-    <div className="bg-card rounded-2xl shadow-lg border border-border/50 p-2 mb-8">
-      <div className="flex items-center justify-center gap-1 flex-wrap">
+  const renderSidebar = () => (
+    <div className="w-64 bg-card border-r border-border flex flex-col">
+      {/* Profile Section */}
+      <div className="p-4 border-b border-border/50">
+        <div className="flex items-center gap-3">
+          <div className="relative group">
+            <Avatar className="w-12 h-12 border-2 border-background ring-2 ring-secondary/30">
+              <AvatarImage src={profileImage || ""} />
+              <AvatarFallback className="bg-gradient-to-br from-secondary to-primary text-white text-sm font-bold">
+                MT
+              </AvatarFallback>
+            </Avatar>
+            <button
+              onClick={triggerFileInput}
+              className="absolute inset-0 flex items-center justify-center bg-black/60 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-200 cursor-pointer"
+            >
+              <Camera className="w-4 h-4 text-white" />
+            </button>
+            <input
+              ref={fileInputRef}
+              type="file"
+              accept="image/*"
+              onChange={handleImageUpload}
+              className="hidden"
+            />
+          </div>
+          <div className="flex-1 min-w-0">
+            <h2 className="font-semibold text-sm text-foreground truncate">MediTrans GmbH</h2>
+            <p className="text-xs text-muted-foreground truncate">Krankentransport</p>
+            <Badge className="mt-1 text-[10px] bg-secondary/20 text-secondary border-0">
+              Verifiziert
+            </Badge>
+          </div>
+        </div>
+      </div>
+
+      {/* Quick Stats */}
+      <div className="p-3 border-b border-border/50 bg-muted/20">
+        <div className="grid grid-cols-2 gap-2">
+          <div className="text-center p-2 rounded-lg bg-card">
+            <p className="text-lg font-bold text-foreground">{kpiData.avgRating}</p>
+            <p className="text-[10px] text-muted-foreground">Bewertung</p>
+          </div>
+          <div className="text-center p-2 rounded-lg bg-card">
+            <p className="text-lg font-bold text-foreground">{kpiData.completionRate}%</p>
+            <p className="text-[10px] text-muted-foreground">Erfolgsrate</p>
+          </div>
+        </div>
+      </div>
+
+      {/* Navigation */}
+      <nav className="flex-1 p-2 space-y-0.5">
         {navItems.map((item) => {
           const Icon = item.icon;
           const isActive = activeNav === item.id;
@@ -125,82 +187,197 @@ const ProviderDashboard = () => {
               key={item.id}
               onClick={() => setActiveNav(item.id)}
               className={cn(
-                "flex items-center gap-2 px-5 py-3 rounded-xl text-sm font-medium transition-all duration-300",
+                "w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-left transition-all duration-200",
                 isActive
-                  ? "bg-foreground text-background shadow-lg"
-                  : "text-muted-foreground hover:bg-muted/50 hover:text-foreground"
+                  ? "bg-primary text-primary-foreground shadow-md"
+                  : "text-muted-foreground hover:bg-muted/80 hover:text-foreground"
               )}
             >
               <Icon className="w-4 h-4" />
-              {item.label}
+              <span className="text-sm font-medium">{item.label}</span>
+              {item.id === "buchungen" && kpiData.offeneBuchungen > 0 && (
+                <Badge className="ml-auto text-[10px] h-5 px-1.5 bg-destructive text-destructive-foreground border-0">
+                  {kpiData.offeneBuchungen}
+                </Badge>
+              )}
             </button>
           );
         })}
-      </div>
+        
+        {/* Abmelden Button */}
+        <Separator className="my-2" />
+        <button
+          onClick={() => window.location.href = "/"}
+          className="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-left transition-all duration-200 text-destructive hover:bg-destructive/10"
+        >
+          <LogOut className="w-4 h-4" />
+          <span className="text-sm font-medium">Abmelden</span>
+        </button>
+      </nav>
     </div>
   );
 
   const renderOverview = () => (
-    <div className="space-y-6">
+    <div className="space-y-5">
       {/* Header */}
-      <div className="flex items-center gap-3">
-        <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-primary to-secondary flex items-center justify-center">
-          <LayoutDashboard className="w-5 h-5 text-primary-foreground" />
-        </div>
-        <h1 className="text-2xl font-bold text-foreground">Übersicht</h1>
+      <div className="relative">
+        <h1 className="text-2xl font-bold text-foreground relative">
+          Willkommen zurück, <span className="bg-gradient-to-r from-secondary to-primary bg-clip-text text-transparent">MediTrans</span>! 🚑
+        </h1>
+        <p className="text-muted-foreground mt-1 text-sm">Hier ist Ihre aktuelle Dashboard-Übersicht für heute.</p>
+      </div>
+
+      {/* KPI Cards */}
+      <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
+        {/* Open Bookings */}
+        <Card className="border-0 shadow-lg bg-gradient-to-br from-card to-muted/30 overflow-hidden relative group hover:shadow-xl transition-all duration-300">
+          <CardContent className="p-4 relative">
+            <div className="flex items-start justify-between">
+              <div>
+                <p className="text-xs text-muted-foreground font-medium">Offene Buchungen</p>
+                <p className="text-2xl font-bold text-foreground mt-1">{kpiData.offeneBuchungen}</p>
+                <div className="flex items-center gap-1 mt-2">
+                  <div className="flex items-center gap-1 text-amber-600 text-xs font-medium bg-amber-500/10 px-1.5 py-0.5 rounded-full">
+                    <AlertCircle className="w-3 h-3" />
+                    <span>Warten auf Bestätigung</span>
+                  </div>
+                </div>
+              </div>
+              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-amber-500 to-amber-500/70 flex items-center justify-center shadow-md">
+                <ClipboardList className="w-5 h-5 text-white" />
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* Monthly Revenue */}
+        <Card className="border-0 shadow-lg bg-gradient-to-br from-card to-muted/30 overflow-hidden relative group hover:shadow-xl transition-all duration-300">
+          <CardContent className="p-4 relative">
+            <div className="flex items-start justify-between">
+              <div>
+                <p className="text-xs text-muted-foreground font-medium">Monatsumsatz</p>
+                <p className="text-2xl font-bold text-foreground mt-1">{kpiData.monthlyRevenue.toLocaleString()}€</p>
+                <div className="flex items-center gap-1 mt-2">
+                  <div className="flex items-center gap-1 text-secondary text-xs font-medium bg-secondary/10 px-1.5 py-0.5 rounded-full">
+                    <ArrowUpRight className="w-3 h-3" />
+                    <span>+18% zum Vormonat</span>
+                  </div>
+                </div>
+              </div>
+              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-secondary to-secondary/70 flex items-center justify-center shadow-md">
+                <Euro className="w-5 h-5 text-secondary-foreground" />
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* Transportschein */}
+        <Card className="border-0 shadow-lg bg-gradient-to-br from-card to-muted/30 overflow-hidden relative group hover:shadow-xl transition-all duration-300">
+          <CardContent className="p-4 relative">
+            <div className="flex items-start justify-between">
+              <div>
+                <p className="text-xs text-muted-foreground font-medium">Transportscheine</p>
+                <p className="text-2xl font-bold text-foreground mt-1">{kpiData.transportschein}</p>
+                <div className="flex items-center gap-1 mt-2">
+                  <div className="flex items-center gap-1 text-primary text-xs font-medium bg-primary/10 px-1.5 py-0.5 rounded-full">
+                    <FileText className="w-3 h-3" />
+                    <span>Diesen Monat</span>
+                  </div>
+                </div>
+              </div>
+              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-primary to-primary/70 flex items-center justify-center shadow-md">
+                <FileText className="w-5 h-5 text-primary-foreground" />
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* Rating */}
+        <Card className="border-0 shadow-lg bg-gradient-to-br from-card to-muted/30 overflow-hidden relative group hover:shadow-xl transition-all duration-300">
+          <CardContent className="p-4 relative">
+            <div className="flex items-start justify-between">
+              <div>
+                <p className="text-xs text-muted-foreground font-medium">Durchschnittsbewertung</p>
+                <p className="text-2xl font-bold text-foreground mt-1">{kpiData.avgRating} <span className="text-sm font-normal text-muted-foreground">/ 5</span></p>
+                <div className="flex items-center gap-1 mt-2">
+                  <div className="flex items-center gap-0.5">
+                    {[1,2,3,4,5].map((i) => (
+                      <Star key={i} className={cn("w-3 h-3", i <= Math.floor(kpiData.avgRating) ? "fill-amber-400 text-amber-400" : "text-muted")} />
+                    ))}
+                  </div>
+                  <span className="text-xs text-muted-foreground ml-1">({kpiData.totalRatings})</span>
+                </div>
+              </div>
+              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-amber-400 to-amber-500/70 flex items-center justify-center shadow-md">
+                <Trophy className="w-5 h-5 text-white" />
+              </div>
+            </div>
+          </CardContent>
+        </Card>
       </div>
 
       {/* Charts Section */}
-      <div className="grid lg:grid-cols-[2fr_1fr] gap-6">
-        {/* Bar Chart */}
-        <Card className="border-0 shadow-lg bg-card overflow-hidden">
-          <CardHeader className="pb-2">
+      <div className="grid lg:grid-cols-[2fr_1fr] gap-4">
+        {/* Area Chart */}
+        <Card className="border-0 shadow-lg bg-gradient-to-br from-card to-muted/20 overflow-hidden">
+          <CardHeader className="pb-2 pt-4 px-4">
             <div className="flex items-center justify-between">
-              <CardTitle className="text-lg font-bold">Monatliche Buchungen</CardTitle>
-              <Button variant="outline" size="sm" className="text-xs gap-1">
-                Letzte 7 Tage
-                <BarChart3 className="w-3 h-3" />
+              <div>
+                <CardTitle className="text-base font-bold">Buchungstrend</CardTitle>
+                <CardDescription className="text-xs mt-0.5">Letzte 6 Monate</CardDescription>
+              </div>
+              <Button variant="outline" size="sm" className="text-xs gap-1 h-8">
+                <Download className="w-3 h-3" />
+                Export
               </Button>
             </div>
           </CardHeader>
-          <CardContent>
-            <div className="h-64">
+          <CardContent className="px-4 pb-4">
+            <div className="h-52">
               <ResponsiveContainer width="100%" height="100%">
-                <BarChart data={weeklyBookings}>
+                <AreaChart data={monthlyTrend}>
+                  <defs>
+                    <linearGradient id="colorBuchungen" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="5%" stopColor="hsl(var(--primary))" stopOpacity={0.3}/>
+                      <stop offset="95%" stopColor="hsl(var(--primary))" stopOpacity={0}/>
+                    </linearGradient>
+                  </defs>
                   <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
-                  <XAxis dataKey="day" stroke="hsl(var(--muted-foreground))" fontSize={12} />
-                  <YAxis stroke="hsl(var(--muted-foreground))" fontSize={12} />
+                  <XAxis dataKey="month" stroke="hsl(var(--muted-foreground))" fontSize={11} />
+                  <YAxis stroke="hsl(var(--muted-foreground))" fontSize={11} />
                   <Tooltip 
                     contentStyle={{ 
                       backgroundColor: "hsl(var(--card))", 
                       border: "1px solid hsl(var(--border))",
-                      borderRadius: "8px"
+                      borderRadius: "8px",
+                      fontSize: "12px"
                     }} 
                   />
-                  <Bar dataKey="buchungen" fill="hsl(var(--primary))" radius={[4, 4, 0, 0]} />
-                </BarChart>
+                  <Area type="monotone" dataKey="buchungen" stroke="hsl(var(--primary))" strokeWidth={2} fill="url(#colorBuchungen)" />
+                </AreaChart>
               </ResponsiveContainer>
             </div>
           </CardContent>
         </Card>
 
         {/* Pie Chart */}
-        <Card className="border-0 shadow-lg bg-card overflow-hidden">
-          <CardHeader className="pb-2">
-            <CardTitle className="text-lg font-bold">Art</CardTitle>
+        <Card className="border-0 shadow-lg bg-gradient-to-br from-card to-muted/20 overflow-hidden">
+          <CardHeader className="pb-2 pt-4 px-4">
+            <CardTitle className="text-base font-bold">Buchungsarten</CardTitle>
+            <CardDescription className="text-xs mt-0.5">Verteilung nach Typ</CardDescription>
           </CardHeader>
-          <CardContent>
+          <CardContent className="px-4 pb-4">
             <div className="flex flex-col items-center">
-              <div className="h-48 w-full">
+              <div className="h-36 w-full">
                 <ResponsiveContainer width="100%" height="100%">
                   <RechartsPieChart>
                     <Pie
                       data={bookingTypes}
                       cx="50%"
                       cy="50%"
-                      innerRadius={50}
-                      outerRadius={80}
-                      paddingAngle={2}
+                      innerRadius={40}
+                      outerRadius={60}
+                      paddingAngle={3}
                       dataKey="value"
                     >
                       {bookingTypes.map((entry, index) => (
@@ -211,11 +388,11 @@ const ProviderDashboard = () => {
                   </RechartsPieChart>
                 </ResponsiveContainer>
               </div>
-              <div className="flex flex-wrap justify-center gap-4 mt-4">
+              <div className="flex flex-wrap justify-center gap-3 mt-3">
                 {bookingTypes.map((type, index) => (
-                  <div key={index} className="flex items-center gap-2">
-                    <div className="w-3 h-3 rounded-sm" style={{ backgroundColor: type.color }} />
-                    <span className="text-xs text-muted-foreground">{type.name}</span>
+                  <div key={index} className="flex items-center gap-1.5">
+                    <div className="w-2.5 h-2.5 rounded-sm" style={{ backgroundColor: type.color }} />
+                    <span className="text-[10px] text-muted-foreground">{type.name} ({type.value}%)</span>
                   </div>
                 ))}
               </div>
@@ -224,293 +401,217 @@ const ProviderDashboard = () => {
         </Card>
       </div>
 
-      {/* KPI Cards */}
-      <div className="grid md:grid-cols-4 gap-4">
-        <Card className="border-0 shadow-lg bg-card hover:shadow-xl transition-all duration-300 group">
-          <CardContent className="p-5">
-            <div className="flex items-center gap-4">
-              <div className="w-14 h-14 rounded-2xl bg-foreground flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                <ClipboardList className="w-7 h-7 text-background" />
-              </div>
+      {/* Bottom Section */}
+      <div className="grid md:grid-cols-2 gap-4">
+        {/* Open Bookings Table */}
+        <Card className="border-0 shadow-lg bg-gradient-to-br from-card to-muted/20 overflow-hidden">
+          <CardHeader className="pb-2 pt-4 px-4">
+            <div className="flex items-center justify-between">
               <div>
-                <p className="text-3xl font-bold text-foreground">{kpiData.offeneBuchungen}</p>
-                <p className="text-sm text-muted-foreground">Offene Buchungen</p>
+                <CardTitle className="text-base font-bold">Offene Buchungen</CardTitle>
+                <CardDescription className="text-xs mt-0.5">Warten auf Ihre Bestätigung</CardDescription>
               </div>
+              <Button size="sm" variant="outline" className="text-xs h-8" onClick={() => setActiveNav("buchungen")}>
+                Alle anzeigen
+              </Button>
+            </div>
+          </CardHeader>
+          <CardContent className="px-4 pb-4">
+            <div className="space-y-2">
+              {bookings.offen.slice(0, 3).map((booking) => (
+                <div key={booking.id} className="flex items-center gap-3 p-3 rounded-xl bg-muted/30 hover:bg-muted/50 transition-colors cursor-pointer group">
+                  <div className="w-10 h-10 rounded-lg bg-amber-500/15 flex items-center justify-center flex-shrink-0">
+                    <Truck className="w-5 h-5 text-amber-600" />
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <p className="font-medium text-sm text-foreground truncate">{booking.from.split(",")[0]} → {booking.to.split(",")[0]}</p>
+                    <p className="text-xs text-muted-foreground">{booking.pickup} • {booking.patient}</p>
+                  </div>
+                  <Badge className="bg-amber-500/20 text-amber-600 border-0 text-[10px]">
+                    {booking.kostentraeger}
+                  </Badge>
+                  <ChevronRight className="w-4 h-4 text-muted-foreground group-hover:text-foreground transition-colors" />
+                </div>
+              ))}
             </div>
           </CardContent>
         </Card>
 
-        <Card className="border-0 shadow-lg bg-card hover:shadow-xl transition-all duration-300 group">
-          <CardContent className="p-5">
-            <div className="flex items-center gap-4">
-              <div className="w-14 h-14 rounded-2xl bg-foreground flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                <BarChart3 className="w-7 h-7 text-background" />
-              </div>
+        {/* Recent Activity */}
+        <Card className="border-0 shadow-lg bg-gradient-to-br from-card to-muted/20 overflow-hidden">
+          <CardHeader className="pb-2 pt-4 px-4">
+            <div className="flex items-center justify-between">
               <div>
-                <p className="text-3xl font-bold text-foreground">{kpiData.transportschein}</p>
-                <p className="text-sm text-muted-foreground">Transportschein</p>
+                <CardTitle className="text-base font-bold">Letzte Aktivitäten</CardTitle>
+                <CardDescription className="text-xs mt-0.5">Ihre neuesten Updates</CardDescription>
               </div>
+              <Button size="sm" variant="outline" className="text-xs h-8" onClick={() => setActiveNav("aktivitaeten")}>
+                Alle anzeigen
+              </Button>
             </div>
-          </CardContent>
-        </Card>
-
-        <Card className="border-0 shadow-lg bg-card hover:shadow-xl transition-all duration-300 group">
-          <CardContent className="p-5">
-            <div className="flex items-center gap-4">
-              <div className="w-14 h-14 rounded-2xl bg-foreground flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                <Star className="w-7 h-7 text-background" />
-              </div>
-              <div>
-                <p className="text-3xl font-bold text-foreground">{kpiData.selbstzahler}</p>
-                <p className="text-sm text-muted-foreground">Selbstzahler</p>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-
-        <Card className="border-0 shadow-lg bg-card hover:shadow-xl transition-all duration-300 group">
-          <CardContent className="p-5">
-            <div className="flex items-center gap-4">
-              <div className="w-14 h-14 rounded-2xl bg-foreground flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                <TrendingUp className="w-7 h-7 text-background" />
-              </div>
-              <div>
-                <p className="text-3xl font-bold text-foreground">{kpiData.ausschreibungen}</p>
-                <p className="text-sm text-muted-foreground">Ausschreibung</p>
-              </div>
+          </CardHeader>
+          <CardContent className="px-4 pb-4">
+            <div className="space-y-2">
+              {activities.slice(0, 4).map((activity) => (
+                <div 
+                  key={activity.id} 
+                  className="flex items-center gap-3 p-2.5 rounded-xl hover:bg-muted/50 transition-all duration-200 cursor-pointer"
+                >
+                  <div className={cn(
+                    "w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0",
+                    activity.type === "booking" && "bg-primary/15",
+                    activity.type === "confirmed" && "bg-secondary/15",
+                    activity.type === "cancelled" && "bg-destructive/15",
+                    activity.type === "rating" && "bg-amber-500/15",
+                    activity.type === "payment" && "bg-secondary/15"
+                  )}>
+                    {activity.type === "booking" && <Truck className="w-4 h-4 text-primary" />}
+                    {activity.type === "confirmed" && <CheckCircle2 className="w-4 h-4 text-secondary" />}
+                    {activity.type === "cancelled" && <XCircle className="w-4 h-4 text-destructive" />}
+                    {activity.type === "rating" && <Star className="w-4 h-4 text-amber-500" />}
+                    {activity.type === "payment" && <Euro className="w-4 h-4 text-secondary" />}
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <p className="font-medium text-xs text-foreground">{activity.message}</p>
+                    <p className="text-[10px] text-muted-foreground truncate">{activity.detail}</p>
+                  </div>
+                  <span className="text-[10px] text-muted-foreground whitespace-nowrap bg-muted/50 px-2 py-1 rounded-full">{activity.time}</span>
+                </div>
+              ))}
             </div>
           </CardContent>
         </Card>
       </div>
-
-      {/* Open Bookings Table */}
-      <Card className="border-0 shadow-lg bg-card overflow-hidden">
-        <CardHeader className="pb-3">
-          <div className="flex items-center justify-between">
-            <CardTitle className="text-lg font-bold">Offene Buchungen</CardTitle>
-            <Button size="sm" className="bg-foreground text-background hover:bg-foreground/90">
-              Alle zeigen
-            </Button>
-          </div>
-        </CardHeader>
-        <CardContent>
-          <div className="overflow-x-auto">
-            <table className="w-full">
-              <thead>
-                <tr className="border-b border-border">
-                  <th className="text-left py-3 px-4 text-xs font-semibold text-muted-foreground uppercase">Abholung</th>
-                  <th className="text-left py-3 px-4 text-xs font-semibold text-muted-foreground uppercase">Start / Ziel</th>
-                  <th className="text-left py-3 px-4 text-xs font-semibold text-muted-foreground uppercase">Kostenträger</th>
-                  <th className="text-left py-3 px-4 text-xs font-semibold text-muted-foreground uppercase">Preis</th>
-                  <th className="text-left py-3 px-4 text-xs font-semibold text-muted-foreground uppercase">Status</th>
-                  <th className="text-left py-3 px-4 text-xs font-semibold text-muted-foreground uppercase">Action</th>
-                </tr>
-              </thead>
-              <tbody>
-                {bookings.offen.map((booking) => (
-                  <tr key={booking.id} className="border-b border-border/50 hover:bg-muted/30 transition-colors">
-                    <td className="py-4 px-4">
-                      <span className="text-sm font-medium">{booking.pickup}</span>
-                    </td>
-                    <td className="py-4 px-4">
-                      <div className="text-sm">
-                        <p className="font-medium">Start: {booking.from}</p>
-                        <p className="text-muted-foreground">Ziel: {booking.to}</p>
-                      </div>
-                    </td>
-                    <td className="py-4 px-4">
-                      <span className="text-sm font-medium">{booking.kostentraeger}</span>
-                    </td>
-                    <td className="py-4 px-4">
-                      <Badge className="bg-secondary/20 text-secondary border-0 font-semibold">
-                        {booking.preis}
-                      </Badge>
-                    </td>
-                    <td className="py-4 px-4">
-                      <Badge className="bg-amber-500/20 text-amber-600 border-0">
-                        {booking.status}
-                      </Badge>
-                    </td>
-                    <td className="py-4 px-4">
-                      <Button size="sm" className="bg-foreground text-background hover:bg-foreground/90">
-                        Einzelheiten
-                      </Button>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </CardContent>
-      </Card>
     </div>
   );
 
   const renderProfile = () => (
-    <div className="space-y-6">
-      {/* Header */}
-      <div className="flex items-center gap-3">
-        <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-primary to-secondary flex items-center justify-center">
-          <User className="w-5 h-5 text-primary-foreground" />
-        </div>
-        <div>
-          <h1 className="text-2xl font-bold text-foreground">Profil</h1>
-          <p className="text-sm text-amber-600">Für jedes Transportmittel wird ein Standort erstellt. Um Änderungen vorzunehmen, löschen Sie den vorhandenen und erstellen einen neuen</p>
-        </div>
+    <div className="space-y-5">
+      <div className="relative">
+        <h1 className="text-2xl font-bold text-foreground relative">Unternehmensprofil</h1>
+        <p className="text-muted-foreground mt-1 text-sm">Verwalten Sie Ihre Unternehmensdaten und Standorte</p>
       </div>
+
+      {/* Profile Image Upload Card */}
+      <Card className="border-0 shadow-lg bg-gradient-to-br from-card to-muted/20 overflow-hidden">
+        <CardHeader className="pb-2 pt-4 px-4">
+          <div className="flex items-center gap-2">
+            <div className="w-9 h-9 rounded-lg bg-gradient-to-br from-primary/10 to-secondary/10 flex items-center justify-center">
+              <Camera className="w-4 h-4 text-primary" />
+            </div>
+            <div>
+              <CardTitle className="text-base font-bold">Unternehmenslogo</CardTitle>
+              <CardDescription className="text-xs">Logo hochladen</CardDescription>
+            </div>
+          </div>
+        </CardHeader>
+        <CardContent className="px-4 pb-4">
+          <div className="flex items-center gap-5">
+            <div className="relative group">
+              <Avatar className="w-20 h-20 border-2 border-background ring-1 ring-primary/20">
+                <AvatarImage src={profileImage || ""} />
+                <AvatarFallback className="bg-gradient-to-br from-secondary to-primary text-white text-xl font-bold">
+                  MT
+                </AvatarFallback>
+              </Avatar>
+              <button
+                onClick={triggerFileInput}
+                className="absolute inset-0 flex items-center justify-center bg-black/60 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-300 cursor-pointer"
+              >
+                <Camera className="w-6 h-6 text-white" />
+              </button>
+            </div>
+            <div className="flex-1">
+              <input
+                ref={fileInputRef}
+                type="file"
+                accept="image/*"
+                onChange={handleImageUpload}
+                className="hidden"
+              />
+              <Button onClick={triggerFileInput} size="sm" className="gap-2 bg-primary hover:bg-primary/90 text-primary-foreground">
+                <Upload className="w-3.5 h-3.5" />
+                Hochladen
+              </Button>
+              <p className="text-xs text-muted-foreground mt-2">
+                JPG, PNG • Max. 5MB
+              </p>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
 
       {/* Profile Tabs */}
       <Tabs defaultValue="stammdaten" className="w-full">
-        <TabsList className="bg-transparent border-b border-border rounded-none p-0 h-auto w-full justify-start">
+        <TabsList className="bg-muted/30 p-1 h-11 rounded-xl border border-muted w-fit">
           <TabsTrigger 
             value="stammdaten" 
-            className="data-[state=active]:bg-transparent data-[state=active]:border-b-2 data-[state=active]:border-primary rounded-none px-6 py-3 font-medium"
+            className="h-8 rounded-lg data-[state=active]:bg-card data-[state=active]:shadow-sm font-medium px-4 text-sm"
           >
-            <Settings className="w-4 h-4 mr-2" />
+            <Building2 className="w-4 h-4 mr-2" />
             Stammdaten
           </TabsTrigger>
           <TabsTrigger 
             value="standort" 
-            className="data-[state=active]:bg-transparent data-[state=active]:border-b-2 data-[state=active]:border-primary rounded-none px-6 py-3 font-medium"
+            className="h-8 rounded-lg data-[state=active]:bg-card data-[state=active]:shadow-sm font-medium px-4 text-sm"
           >
             <MapPinned className="w-4 h-4 mr-2" />
             Standort
           </TabsTrigger>
         </TabsList>
 
-        <TabsContent value="stammdaten" className="mt-6 space-y-6">
-          {/* Unternehmen */}
-          <Card className="border-0 shadow-lg bg-card overflow-hidden">
-            <CardHeader className="pb-3 border-b border-border/50">
-              <CardTitle className="text-lg font-bold">Unternehmen</CardTitle>
+        <TabsContent value="stammdaten" className="mt-4 space-y-4">
+          <Card className="border-0 shadow-lg bg-gradient-to-br from-card to-muted/20 overflow-hidden">
+            <CardHeader className="pb-3 pt-4 px-4">
+              <CardTitle className="text-base font-bold">Unternehmensdaten</CardTitle>
             </CardHeader>
-            <CardContent className="pt-5 space-y-5">
-              <div className="space-y-2">
-                <Label className="text-sm font-medium text-muted-foreground">
-                  Unternehmensname <span className="text-destructive">*</span>
-                </Label>
-                <Input 
-                  defaultValue="MediTrans GmbH" 
-                  className="h-12 bg-background border-2 border-muted focus-visible:border-primary focus-visible:ring-0 rounded-xl"
-                />
-              </div>
-
+            <CardContent className="px-4 pb-4 space-y-4">
               <div className="grid md:grid-cols-2 gap-4">
-                <div className="space-y-2">
-                  <Label className="text-sm font-medium text-muted-foreground">
-                    Vorname <span className="text-destructive">*</span>
-                  </Label>
+                <div className="space-y-1">
+                  <Label className="text-xs font-semibold">Unternehmensname <span className="text-destructive">*</span></Label>
                   <Input 
-                    defaultValue="Thomas" 
-                    className="h-12 bg-background border-2 border-muted focus-visible:border-primary focus-visible:ring-0 rounded-xl"
+                    defaultValue="MediTrans GmbH" 
+                    className="h-10 bg-muted/30 border border-muted focus-visible:border-primary focus-visible:ring-0 rounded-lg text-sm"
                   />
                 </div>
-                <div className="space-y-2">
-                  <Label className="text-sm font-medium text-muted-foreground">
-                    Nachname <span className="text-destructive">*</span>
-                  </Label>
+                <div className="space-y-1">
+                  <Label className="text-xs font-semibold">Rechtsform <span className="text-destructive">*</span></Label>
                   <Input 
-                    defaultValue="Müller" 
-                    className="h-12 bg-background border-2 border-muted focus-visible:border-primary focus-visible:ring-0 rounded-xl"
+                    defaultValue="GmbH" 
+                    className="h-10 bg-muted/30 border border-muted focus-visible:border-primary focus-visible:ring-0 rounded-lg text-sm"
                   />
                 </div>
               </div>
 
               <div className="grid md:grid-cols-2 gap-4">
-                <div className="space-y-2">
-                  <Label className="text-sm font-medium text-muted-foreground">
-                    Straße <span className="text-destructive">*</span>
-                  </Label>
+                <div className="space-y-1">
+                  <Label className="text-xs font-semibold">Telefon <span className="text-destructive">*</span></Label>
                   <Input 
-                    defaultValue="Hauptstraße 123" 
-                    className="h-12 bg-background border-2 border-muted focus-visible:border-primary focus-visible:ring-0 rounded-xl"
-                  />
-                </div>
-                <div className="space-y-2">
-                  <Label className="text-sm font-medium text-muted-foreground">
-                    Postleitzahl <span className="text-destructive">*</span>
-                  </Label>
-                  <Input 
-                    defaultValue="60311" 
-                    className="h-12 bg-background border-2 border-muted focus-visible:border-primary focus-visible:ring-0 rounded-xl"
-                  />
-                </div>
-              </div>
-
-              <div className="grid md:grid-cols-2 gap-4">
-                <div className="space-y-2">
-                  <Label className="text-sm font-medium text-muted-foreground">
-                    Stadt <span className="text-destructive">*</span>
-                  </Label>
-                  <Input 
-                    defaultValue="Frankfurt am Main" 
-                    className="h-12 bg-background border-2 border-muted focus-visible:border-primary focus-visible:ring-0 rounded-xl"
-                  />
-                </div>
-                <div className="space-y-2">
-                  <Label className="text-sm font-medium text-muted-foreground">
-                    Amtsgericht
-                  </Label>
-                  <Input 
-                    defaultValue="Frankfurt am Main" 
-                    className="h-12 bg-background border-2 border-muted focus-visible:border-primary focus-visible:ring-0 rounded-xl"
-                  />
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-
-          {/* Kontakt */}
-          <Card className="border-0 shadow-lg bg-card overflow-hidden">
-            <CardHeader className="pb-3 border-b border-border/50">
-              <CardTitle className="text-lg font-bold">Kontakt</CardTitle>
-            </CardHeader>
-            <CardContent className="pt-5 space-y-5">
-              <div className="grid md:grid-cols-2 gap-4">
-                <div className="space-y-2">
-                  <Label className="text-sm font-medium text-muted-foreground">
-                    Telefon <span className="text-destructive">*</span>
-                  </Label>
-                  <Input 
+                    type="tel"
                     defaultValue="+49 69 12345678" 
-                    className="h-12 bg-background border-2 border-muted focus-visible:border-primary focus-visible:ring-0 rounded-xl"
+                    className="h-10 bg-muted/30 border border-muted focus-visible:border-primary focus-visible:ring-0 rounded-lg text-sm"
                   />
                 </div>
-                <div className="space-y-2">
-                  <Label className="text-sm font-medium text-muted-foreground">
-                    Telefax
-                  </Label>
-                  <Input 
-                    defaultValue="+49 69 12345679" 
-                    className="h-12 bg-background border-2 border-muted focus-visible:border-primary focus-visible:ring-0 rounded-xl"
-                  />
-                </div>
-              </div>
-
-              <div className="grid md:grid-cols-2 gap-4">
-                <div className="space-y-2">
-                  <Label className="text-sm font-medium text-muted-foreground">
-                    Mobil/WhatsApp <span className="text-destructive">*</span>
-                  </Label>
-                  <Input 
-                    defaultValue="+49 170 1234567" 
-                    className="h-12 bg-background border-2 border-muted focus-visible:border-primary focus-visible:ring-0 rounded-xl"
-                  />
-                </div>
-                <div className="space-y-2">
-                  <Label className="text-sm font-medium text-muted-foreground">
-                    Email <span className="text-destructive">*</span>
-                  </Label>
+                <div className="space-y-1">
+                  <Label className="text-xs font-semibold">E-Mail <span className="text-destructive">*</span></Label>
                   <Input 
                     type="email"
                     defaultValue="info@meditrans.de" 
-                    className="h-12 bg-background border-2 border-muted focus-visible:border-primary focus-visible:ring-0 rounded-xl"
+                    className="h-10 bg-muted/30 border border-muted focus-visible:border-primary focus-visible:ring-0 rounded-lg text-sm"
                   />
                 </div>
               </div>
 
-              <div className="flex justify-end pt-3">
-                <Button className="bg-foreground text-background hover:bg-foreground/90 px-8 h-11 rounded-xl font-medium">
+              <div className="space-y-1">
+                <Label className="text-xs font-semibold">Beschreibung</Label>
+                <Textarea 
+                  defaultValue="Professioneller Krankentransport im Rhein-Main-Gebiet. 24/7 erreichbar für alle Arten von Patiententransporten."
+                  className="bg-muted/30 border border-muted focus-visible:border-primary focus-visible:ring-0 rounded-lg text-sm min-h-20"
+                />
+              </div>
+
+              <div className="flex justify-end pt-2">
+                <Button size="sm" className="px-6 h-9 bg-primary hover:bg-primary/90 text-sm font-medium rounded-lg text-primary-foreground">
                   Speichern
                 </Button>
               </div>
@@ -518,48 +619,55 @@ const ProviderDashboard = () => {
           </Card>
         </TabsContent>
 
-        <TabsContent value="standort" className="mt-6">
-          <Card className="border-0 shadow-lg bg-card overflow-hidden">
-            <CardHeader className="pb-3 border-b border-border/50">
-              <CardTitle className="text-lg font-bold">Standort & Fahrzeuge</CardTitle>
+        <TabsContent value="standort" className="mt-4 space-y-4">
+          <Card className="border-0 shadow-lg bg-gradient-to-br from-card to-muted/20 overflow-hidden">
+            <CardHeader className="pb-3 pt-4 px-4">
+              <CardTitle className="text-base font-bold">Standort & Einsatzgebiet</CardTitle>
             </CardHeader>
-            <CardContent className="pt-5 space-y-5">
+            <CardContent className="px-4 pb-4 space-y-4">
               <div className="grid md:grid-cols-2 gap-4">
-                <div className="space-y-2">
-                  <Label className="text-sm font-medium text-muted-foreground">
-                    Standort Adresse <span className="text-destructive">*</span>
-                  </Label>
+                <div className="space-y-1">
+                  <Label className="text-xs font-semibold">Straße & Hausnummer <span className="text-destructive">*</span></Label>
                   <Input 
-                    defaultValue="Hauptstraße 123, 60311 Frankfurt" 
-                    className="h-12 bg-background border-2 border-muted focus-visible:border-primary focus-visible:ring-0 rounded-xl"
+                    defaultValue="Hauptstraße 123" 
+                    className="h-10 bg-muted/30 border border-muted focus-visible:border-primary focus-visible:ring-0 rounded-lg text-sm"
                   />
                 </div>
-                <div className="space-y-2">
-                  <Label className="text-sm font-medium text-muted-foreground">
-                    Einsatzradius (km) <span className="text-destructive">*</span>
-                  </Label>
+                <div className="space-y-1">
+                  <Label className="text-xs font-semibold">PLZ & Stadt <span className="text-destructive">*</span></Label>
                   <Input 
-                    type="number"
-                    defaultValue="100" 
-                    className="h-12 bg-background border-2 border-muted focus-visible:border-primary focus-visible:ring-0 rounded-xl"
+                    defaultValue="60311 Frankfurt" 
+                    className="h-10 bg-muted/30 border border-muted focus-visible:border-primary focus-visible:ring-0 rounded-lg text-sm"
                   />
                 </div>
               </div>
 
-              <div className="space-y-3">
-                <Label className="text-sm font-medium text-muted-foreground">Verfügbare Transportarten</Label>
-                <div className="grid md:grid-cols-2 gap-3">
+              <div className="space-y-1">
+                <Label className="text-xs font-semibold">Einsatzradius (km) <span className="text-destructive">*</span></Label>
+                <Input 
+                  type="number"
+                  defaultValue="100" 
+                  className="h-10 bg-muted/30 border border-muted focus-visible:border-primary focus-visible:ring-0 rounded-lg text-sm max-w-32"
+                />
+              </div>
+
+              <div className="space-y-2">
+                <Label className="text-xs font-semibold">Verfügbare Transportarten</Label>
+                <div className="grid md:grid-cols-2 gap-2">
                   {["Liegend", "Sitzend", "Rollstuhl", "Tragestuhl"].map((type) => (
-                    <div key={type} className="flex items-center justify-between p-4 bg-muted/30 rounded-xl border-2 border-muted">
-                      <span className="font-medium">{type}</span>
+                    <div key={type} className="flex items-center justify-between p-3 bg-muted/30 rounded-xl border border-muted">
+                      <div className="flex items-center gap-2">
+                        <Truck className="w-4 h-4 text-muted-foreground" />
+                        <span className="text-sm font-medium">{type}</span>
+                      </div>
                       <Switch defaultChecked />
                     </div>
                   ))}
                 </div>
               </div>
 
-              <div className="flex justify-end pt-3">
-                <Button className="bg-foreground text-background hover:bg-foreground/90 px-8 h-11 rounded-xl font-medium">
+              <div className="flex justify-end pt-2">
+                <Button size="sm" className="px-6 h-9 bg-primary hover:bg-primary/90 text-sm font-medium rounded-lg text-primary-foreground">
                   Speichern
                 </Button>
               </div>
@@ -571,68 +679,77 @@ const ProviderDashboard = () => {
   );
 
   const renderBookings = () => (
-    <div className="space-y-6">
-      {/* Header */}
-      <div className="flex items-center gap-3">
-        <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-primary to-secondary flex items-center justify-center">
-          <Bookmark className="w-5 h-5 text-primary-foreground" />
+    <div className="space-y-5">
+      <div className="flex items-center justify-between">
+        <div>
+          <h1 className="text-2xl font-bold text-foreground">Buchungen</h1>
+          <p className="text-muted-foreground mt-1 text-sm">Verwalten Sie alle Ihre Buchungen</p>
         </div>
-        <h1 className="text-2xl font-bold text-foreground">Buchungen</h1>
+        <div className="flex items-center gap-2">
+          <Button variant="outline" size="sm" className="gap-2 h-9">
+            <Filter className="w-4 h-4" />
+            Filter
+          </Button>
+          <Button variant="outline" size="sm" className="gap-2 h-9">
+            <Download className="w-4 h-4" />
+            Export
+          </Button>
+        </div>
       </div>
 
       {/* KPI Cards */}
-      <div className="grid md:grid-cols-4 gap-4">
-        <Card className="border-0 shadow-lg bg-card hover:shadow-xl transition-all duration-300 group">
-          <CardContent className="p-5">
-            <div className="flex items-center gap-4">
-              <div className="w-14 h-14 rounded-2xl bg-foreground flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                <ClipboardList className="w-7 h-7 text-background" />
+      <div className="grid md:grid-cols-4 gap-3">
+        <Card className="border-0 shadow-md bg-gradient-to-br from-amber-500/10 to-amber-500/5 overflow-hidden">
+          <CardContent className="p-4">
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 rounded-xl bg-amber-500/20 flex items-center justify-center">
+                <ClipboardList className="w-5 h-5 text-amber-600" />
               </div>
               <div>
-                <p className="text-3xl font-bold text-foreground">{kpiData.offeneBuchungen}</p>
-                <p className="text-sm text-muted-foreground">Offene Buchungen</p>
+                <p className="text-xl font-bold text-foreground">{kpiData.offeneBuchungen}</p>
+                <p className="text-xs text-muted-foreground">Offen</p>
               </div>
             </div>
           </CardContent>
         </Card>
 
-        <Card className="border-0 shadow-lg bg-card hover:shadow-xl transition-all duration-300 group">
-          <CardContent className="p-5">
-            <div className="flex items-center gap-4">
-              <div className="w-14 h-14 rounded-2xl bg-foreground flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                <BarChart3 className="w-7 h-7 text-background" />
+        <Card className="border-0 shadow-md bg-gradient-to-br from-primary/10 to-primary/5 overflow-hidden">
+          <CardContent className="p-4">
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 rounded-xl bg-primary/20 flex items-center justify-center">
+                <FileText className="w-5 h-5 text-primary" />
               </div>
               <div>
-                <p className="text-3xl font-bold text-foreground">{kpiData.transportschein}</p>
-                <p className="text-sm text-muted-foreground">Transportschein</p>
+                <p className="text-xl font-bold text-foreground">{kpiData.transportschein}</p>
+                <p className="text-xs text-muted-foreground">Transportschein</p>
               </div>
             </div>
           </CardContent>
         </Card>
 
-        <Card className="border-0 shadow-lg bg-card hover:shadow-xl transition-all duration-300 group">
-          <CardContent className="p-5">
-            <div className="flex items-center gap-4">
-              <div className="w-14 h-14 rounded-2xl bg-foreground flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                <Star className="w-7 h-7 text-background" />
+        <Card className="border-0 shadow-md bg-gradient-to-br from-secondary/10 to-secondary/5 overflow-hidden">
+          <CardContent className="p-4">
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 rounded-xl bg-secondary/20 flex items-center justify-center">
+                <Euro className="w-5 h-5 text-secondary" />
               </div>
               <div>
-                <p className="text-3xl font-bold text-foreground">{kpiData.selbstzahler}</p>
-                <p className="text-sm text-muted-foreground">Selbstzahler</p>
+                <p className="text-xl font-bold text-foreground">{kpiData.selbstzahler}</p>
+                <p className="text-xs text-muted-foreground">Selbstzahler</p>
               </div>
             </div>
           </CardContent>
         </Card>
 
-        <Card className="border-0 shadow-lg bg-card hover:shadow-xl transition-all duration-300 group">
-          <CardContent className="p-5">
-            <div className="flex items-center gap-4">
-              <div className="w-14 h-14 rounded-2xl bg-foreground flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                <TrendingUp className="w-7 h-7 text-background" />
+        <Card className="border-0 shadow-md bg-gradient-to-br from-violet-500/10 to-violet-500/5 overflow-hidden">
+          <CardContent className="p-4">
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 rounded-xl bg-violet-500/20 flex items-center justify-center">
+                <Target className="w-5 h-5 text-violet-600" />
               </div>
               <div>
-                <p className="text-3xl font-bold text-foreground">{kpiData.ausschreibungen}</p>
-                <p className="text-sm text-muted-foreground">Ausschreibung</p>
+                <p className="text-xl font-bold text-foreground">{kpiData.ausschreibungen}</p>
+                <p className="text-xs text-muted-foreground">Ausschreibung</p>
               </div>
             </div>
           </CardContent>
@@ -641,91 +758,86 @@ const ProviderDashboard = () => {
 
       {/* Bookings Tabs */}
       <Tabs defaultValue="offen" className="w-full">
-        <TabsList className="w-full justify-start bg-muted/30 p-1.5 h-14 rounded-xl border border-muted">
+        <TabsList className="bg-muted/30 p-1 h-11 rounded-xl border border-muted">
           <TabsTrigger 
             value="offen" 
-            className="flex-1 h-10 rounded-lg data-[state=active]:bg-foreground data-[state=active]:text-background data-[state=active]:shadow-md font-medium transition-all duration-300"
+            className="h-8 rounded-lg data-[state=active]:bg-foreground data-[state=active]:text-background data-[state=active]:shadow-md font-medium px-6 text-sm"
           >
-            Offene Buchungen
+            Offen ({bookings.offen.length})
           </TabsTrigger>
           <TabsTrigger 
             value="bestaetigt" 
-            className="flex-1 h-10 rounded-lg data-[state=active]:bg-foreground data-[state=active]:text-background data-[state=active]:shadow-md font-medium transition-all duration-300"
+            className="h-8 rounded-lg data-[state=active]:bg-foreground data-[state=active]:text-background data-[state=active]:shadow-md font-medium px-6 text-sm"
           >
-            Bestätigt
+            Bestätigt ({bookings.bestaetigt.length})
           </TabsTrigger>
           <TabsTrigger 
             value="storniert" 
-            className="flex-1 h-10 rounded-lg data-[state=active]:bg-foreground data-[state=active]:text-background data-[state=active]:shadow-md font-medium transition-all duration-300"
+            className="h-8 rounded-lg data-[state=active]:bg-foreground data-[state=active]:text-background data-[state=active]:shadow-md font-medium px-6 text-sm"
           >
-            Storniert
+            Storniert ({bookings.storniert.length})
           </TabsTrigger>
         </TabsList>
 
         {(["offen", "bestaetigt", "storniert"] as const).map((status) => (
-          <TabsContent key={status} value={status} className="mt-6">
+          <TabsContent key={status} value={status} className="mt-4">
             <Card className="border-0 shadow-lg bg-card overflow-hidden">
               <CardContent className="p-0">
-                <div className="overflow-x-auto">
-                  <table className="w-full">
-                    <thead>
-                      <tr className="border-b border-border">
-                        <th className="text-left py-4 px-5 text-xs font-semibold text-muted-foreground uppercase">Abholung</th>
-                        <th className="text-left py-4 px-5 text-xs font-semibold text-muted-foreground uppercase">Start / Ziel</th>
-                        <th className="text-left py-4 px-5 text-xs font-semibold text-muted-foreground uppercase">Kostenträger</th>
-                        <th className="text-left py-4 px-5 text-xs font-semibold text-muted-foreground uppercase">Preis</th>
-                        <th className="text-left py-4 px-5 text-xs font-semibold text-muted-foreground uppercase">Status</th>
-                        <th className="text-left py-4 px-5 text-xs font-semibold text-muted-foreground uppercase">Action</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {bookings[status].length === 0 ? (
-                        <tr>
-                          <td colSpan={6} className="py-12 text-center text-muted-foreground">
-                            Keine Buchungen gefunden
-                          </td>
-                        </tr>
-                      ) : (
-                        bookings[status].map((booking) => (
-                          <tr key={booking.id} className="border-b border-border/50 hover:bg-muted/30 transition-colors">
-                            <td className="py-4 px-5">
-                              <span className="text-sm font-medium">{booking.pickup}</span>
-                            </td>
-                            <td className="py-4 px-5">
-                              <div className="text-sm">
-                                <p className="font-medium">Start: {booking.from}</p>
-                                <p className="text-muted-foreground">Ziel: {booking.to}</p>
-                              </div>
-                            </td>
-                            <td className="py-4 px-5">
-                              <span className="text-sm font-medium">{booking.kostentraeger}</span>
-                            </td>
-                            <td className="py-4 px-5">
-                              <Badge className="bg-secondary/20 text-secondary border-0 font-semibold">
-                                {booking.preis}
-                              </Badge>
-                            </td>
-                            <td className="py-4 px-5">
-                              <Badge className={cn(
-                                "border-0",
-                                status === "offen" && "bg-amber-500/20 text-amber-600",
-                                status === "bestaetigt" && "bg-secondary/20 text-secondary",
-                                status === "storniert" && "bg-destructive/20 text-destructive"
-                              )}>
-                                {status}
-                              </Badge>
-                            </td>
-                            <td className="py-4 px-5">
-                              <Button size="sm" className="bg-foreground text-background hover:bg-foreground/90">
-                                Einzelheiten
-                              </Button>
-                            </td>
-                          </tr>
-                        ))
-                      )}
-                    </tbody>
-                  </table>
-                </div>
+                {bookings[status].length === 0 ? (
+                  <div className="py-12 text-center">
+                    <div className="w-16 h-16 rounded-full bg-muted/50 flex items-center justify-center mx-auto mb-4">
+                      <ClipboardList className="w-8 h-8 text-muted-foreground" />
+                    </div>
+                    <p className="text-muted-foreground">Keine Buchungen gefunden</p>
+                  </div>
+                ) : (
+                  <div className="divide-y divide-border/50">
+                    {bookings[status].map((booking) => (
+                      <div key={booking.id} className="flex items-center gap-4 p-4 hover:bg-muted/30 transition-colors">
+                        <div className="w-12 h-12 rounded-xl bg-muted/50 flex items-center justify-center flex-shrink-0">
+                          <Truck className="w-6 h-6 text-muted-foreground" />
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <div className="flex items-center gap-2 mb-1">
+                            <p className="font-semibold text-sm text-foreground">{booking.from.split(",")[0]}</p>
+                            <ChevronRight className="w-4 h-4 text-muted-foreground" />
+                            <p className="font-semibold text-sm text-foreground">{booking.to.split(",")[0]}</p>
+                          </div>
+                          <div className="flex items-center gap-3 text-xs text-muted-foreground">
+                            <span className="flex items-center gap-1">
+                              <Clock className="w-3 h-3" />
+                              {booking.pickup}
+                            </span>
+                            <span className="flex items-center gap-1">
+                              <User className="w-3 h-3" />
+                              {booking.patient}
+                            </span>
+                          </div>
+                        </div>
+                        <div className="flex items-center gap-3">
+                          <Badge className={cn(
+                            "border-0 text-xs",
+                            booking.kostentraeger === "Transportschein" && "bg-primary/20 text-primary",
+                            booking.kostentraeger === "Selbstzahler" && "bg-secondary/20 text-secondary"
+                          )}>
+                            {booking.kostentraeger}
+                          </Badge>
+                          <Badge className={cn(
+                            "border-0 text-xs",
+                            status === "offen" && "bg-amber-500/20 text-amber-600",
+                            status === "bestaetigt" && "bg-secondary/20 text-secondary",
+                            status === "storniert" && "bg-destructive/20 text-destructive"
+                          )}>
+                            {status}
+                          </Badge>
+                          <Button size="sm" className="h-8 text-xs">
+                            Details
+                          </Button>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                )}
               </CardContent>
             </Card>
           </TabsContent>
@@ -735,31 +847,42 @@ const ProviderDashboard = () => {
   );
 
   const renderActivities = () => (
-    <div className="space-y-6">
-      {/* Header */}
-      <div className="flex items-center gap-3">
-        <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-primary to-secondary flex items-center justify-center">
-          <Bell className="w-5 h-5 text-primary-foreground" />
+    <div className="space-y-5">
+      <div className="flex items-center justify-between">
+        <div>
+          <h1 className="text-2xl font-bold text-foreground">Aktivitäten</h1>
+          <p className="text-muted-foreground mt-1 text-sm">Alle Benachrichtigungen und Updates</p>
         </div>
-        <h1 className="text-2xl font-bold text-foreground">Aktivitäten</h1>
+        <Button variant="outline" size="sm" className="gap-2 h-9">
+          <RefreshCw className="w-4 h-4" />
+          Aktualisieren
+        </Button>
       </div>
 
-      {/* Activities List */}
       <Card className="border-0 shadow-lg bg-card overflow-hidden">
-        <CardHeader className="pb-3 border-b border-border/50">
-          <CardTitle className="text-lg font-bold">Aktuelle Benachrichtigungen</CardTitle>
-        </CardHeader>
         <CardContent className="p-0">
           <div className="divide-y divide-border/50">
             {activities.map((activity) => (
-              <div key={activity.id} className="flex items-center gap-4 p-5 hover:bg-muted/30 transition-colors">
-                <div className="w-12 h-12 rounded-full bg-foreground flex items-center justify-center flex-shrink-0">
-                  <CheckCircle2 className="w-6 h-6 text-background" />
+              <div key={activity.id} className="flex items-start gap-4 p-5 hover:bg-muted/30 transition-colors">
+                <div className={cn(
+                  "w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0",
+                  activity.type === "booking" && "bg-primary/15",
+                  activity.type === "confirmed" && "bg-secondary/15",
+                  activity.type === "cancelled" && "bg-destructive/15",
+                  activity.type === "rating" && "bg-amber-500/15",
+                  activity.type === "payment" && "bg-secondary/15"
+                )}>
+                  {activity.type === "booking" && <Truck className="w-5 h-5 text-primary" />}
+                  {activity.type === "confirmed" && <CheckCircle2 className="w-5 h-5 text-secondary" />}
+                  {activity.type === "cancelled" && <XCircle className="w-5 h-5 text-destructive" />}
+                  {activity.type === "rating" && <Star className="w-5 h-5 text-amber-500" />}
+                  {activity.type === "payment" && <Euro className="w-5 h-5 text-secondary" />}
                 </div>
                 <div className="flex-1">
-                  <p className="font-medium text-foreground">{activity.message}</p>
-                  <p className="text-sm text-muted-foreground">{activity.time}</p>
+                  <p className="font-semibold text-foreground">{activity.message}</p>
+                  <p className="text-sm text-muted-foreground mt-0.5">{activity.detail}</p>
                 </div>
+                <span className="text-xs text-muted-foreground bg-muted/50 px-3 py-1.5 rounded-full whitespace-nowrap">{activity.time}</span>
               </div>
             ))}
           </div>
@@ -769,79 +892,103 @@ const ProviderDashboard = () => {
   );
 
   const renderRatings = () => (
-    <div className="space-y-6">
-      {/* Header */}
-      <div className="flex items-center gap-3">
-        <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-primary to-secondary flex items-center justify-center">
-          <Star className="w-5 h-5 text-primary-foreground" />
-        </div>
+    <div className="space-y-5">
+      <div>
         <h1 className="text-2xl font-bold text-foreground">Bewertungen</h1>
+        <p className="text-muted-foreground mt-1 text-sm">Kundenfeedback und Bewertungen</p>
       </div>
 
       {/* Rating Overview */}
-      <Card className="border-0 shadow-lg bg-card overflow-hidden">
-        <CardHeader className="pb-3 border-b border-border/50">
-          <CardTitle className="text-lg font-bold">Auswertung</CardTitle>
-        </CardHeader>
-        <CardContent className="py-8">
-          <div className="flex items-center justify-around">
+      <div className="grid md:grid-cols-3 gap-4">
+        <Card className="border-0 shadow-lg bg-gradient-to-br from-amber-500/10 to-amber-500/5 overflow-hidden">
+          <CardContent className="p-5">
             <div className="flex items-center gap-4">
-              <Trophy className="w-16 h-16 text-muted-foreground" />
+              <div className="w-14 h-14 rounded-2xl bg-amber-500/20 flex items-center justify-center">
+                <Trophy className="w-7 h-7 text-amber-600" />
+              </div>
               <div>
-                <p className="text-4xl font-bold text-foreground">{kpiData.avgRating}</p>
-                <p className="text-sm text-muted-foreground">Score</p>
+                <p className="text-3xl font-bold text-foreground">{kpiData.avgRating}</p>
+                <div className="flex items-center gap-1 mt-1">
+                  {[1,2,3,4,5].map((i) => (
+                    <Star key={i} className={cn("w-4 h-4", i <= Math.floor(kpiData.avgRating) ? "fill-amber-400 text-amber-400" : "text-muted")} />
+                  ))}
+                </div>
               </div>
             </div>
+          </CardContent>
+        </Card>
+
+        <Card className="border-0 shadow-lg bg-gradient-to-br from-primary/10 to-primary/5 overflow-hidden">
+          <CardContent className="p-5">
             <div className="flex items-center gap-4">
-              <Star className="w-16 h-16 text-muted-foreground" />
+              <div className="w-14 h-14 rounded-2xl bg-primary/20 flex items-center justify-center">
+                <MessageSquare className="w-7 h-7 text-primary" />
+              </div>
               <div>
-                <p className="text-4xl font-bold text-foreground">{kpiData.totalRatings}</p>
-                <p className="text-sm text-muted-foreground">Insgesamt</p>
+                <p className="text-3xl font-bold text-foreground">{kpiData.totalRatings}</p>
+                <p className="text-sm text-muted-foreground">Bewertungen insgesamt</p>
               </div>
             </div>
-          </div>
-        </CardContent>
-      </Card>
+          </CardContent>
+        </Card>
+
+        <Card className="border-0 shadow-lg bg-gradient-to-br from-secondary/10 to-secondary/5 overflow-hidden">
+          <CardContent className="p-5">
+            <div className="flex items-center gap-4">
+              <div className="w-14 h-14 rounded-2xl bg-secondary/20 flex items-center justify-center">
+                <TrendingUp className="w-7 h-7 text-secondary" />
+              </div>
+              <div>
+                <p className="text-3xl font-bold text-foreground">{kpiData.completionRate}%</p>
+                <p className="text-sm text-muted-foreground">Erfolgsrate</p>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+      </div>
 
       {/* Ratings List */}
       <Card className="border-0 shadow-lg bg-card overflow-hidden">
-        <CardHeader className="pb-3 border-b border-border/50">
-          <CardTitle className="text-lg font-bold">Klienten</CardTitle>
+        <CardHeader className="pb-3 pt-4 px-5 border-b border-border/50">
+          <CardTitle className="text-base font-bold">Kundenbewertungen</CardTitle>
         </CardHeader>
         <CardContent className="p-0">
           {ratings.length === 0 ? (
             <div className="py-12 text-center">
-              <p className="text-lg font-semibold text-foreground">Bisher keine Bewertungen!</p>
+              <div className="w-16 h-16 rounded-full bg-muted/50 flex items-center justify-center mx-auto mb-4">
+                <Star className="w-8 h-8 text-muted-foreground" />
+              </div>
+              <p className="text-muted-foreground">Noch keine Bewertungen vorhanden</p>
             </div>
           ) : (
             <div className="divide-y divide-border/50">
               {ratings.map((rating) => (
                 <div key={rating.id} className="p-5 hover:bg-muted/30 transition-colors">
-                  <div className="flex items-start justify-between">
+                  <div className="flex items-start justify-between mb-3">
                     <div className="flex items-center gap-3">
-                      <Avatar className="w-12 h-12">
-                        <AvatarFallback className="bg-gradient-to-br from-primary to-secondary text-primary-foreground font-bold">
+                      <Avatar className="w-10 h-10">
+                        <AvatarFallback className="bg-gradient-to-br from-primary to-secondary text-primary-foreground text-sm font-bold">
                           {rating.client.split(" ").map(n => n[0]).join("")}
                         </AvatarFallback>
                       </Avatar>
                       <div>
                         <p className="font-semibold text-foreground">{rating.client}</p>
-                        <p className="text-sm text-muted-foreground">{rating.date}</p>
+                        <p className="text-xs text-muted-foreground">{rating.date}</p>
                       </div>
                     </div>
-                    <div className="flex items-center gap-1">
+                    <div className="flex items-center gap-0.5">
                       {Array.from({ length: 5 }).map((_, i) => (
                         <Star 
                           key={i} 
                           className={cn(
-                            "w-5 h-5",
+                            "w-4 h-4",
                             i < rating.rating ? "fill-amber-400 text-amber-400" : "text-muted"
                           )} 
                         />
                       ))}
                     </div>
                   </div>
-                  <p className="mt-3 text-muted-foreground">{rating.comment}</p>
+                  <p className="text-sm text-muted-foreground pl-13">{rating.comment}</p>
                 </div>
               ))}
             </div>
@@ -852,186 +999,148 @@ const ProviderDashboard = () => {
   );
 
   const renderSettings = () => (
-    <div className="space-y-6">
-      {/* Header */}
-      <div className="flex items-center gap-3">
-        <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-primary to-secondary flex items-center justify-center">
-          <Settings className="w-5 h-5 text-primary-foreground" />
-        </div>
+    <div className="space-y-5">
+      <div>
         <h1 className="text-2xl font-bold text-foreground">Einstellungen</h1>
+        <p className="text-muted-foreground mt-1 text-sm">Verwalten Sie Ihre Kontoeinstellungen</p>
       </div>
 
-      {/* Settings Tabs */}
-      <Tabs defaultValue="konto" className="w-full">
-        <TabsList className="bg-transparent border-b border-border rounded-none p-0 h-auto w-full justify-start">
-          <TabsTrigger 
-            value="konto" 
-            className="data-[state=active]:bg-transparent data-[state=active]:border-b-2 data-[state=active]:border-primary rounded-none px-6 py-3 font-medium"
-          >
-            <User className="w-4 h-4 mr-2" />
-            Konto
-          </TabsTrigger>
-        </TabsList>
+      {/* Notifications */}
+      <Card className="border-0 shadow-lg bg-gradient-to-br from-card to-muted/20 overflow-hidden">
+        <CardHeader className="pb-3 pt-4 px-4">
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-primary/10 to-secondary/10 flex items-center justify-center">
+              <Bell className="w-5 h-5 text-primary" />
+            </div>
+            <div>
+              <CardTitle className="text-base font-bold">Benachrichtigungen</CardTitle>
+              <CardDescription className="text-xs">Verwalten Sie Ihre Benachrichtigungseinstellungen</CardDescription>
+            </div>
+          </div>
+        </CardHeader>
+        <CardContent className="px-4 pb-4 space-y-3">
+          <div className="flex items-center justify-between py-2 px-3 rounded-lg hover:bg-muted/30 transition-colors">
+            <div className="flex items-center gap-3">
+              <Mail className="w-4 h-4 text-muted-foreground" />
+              <span className="text-sm font-medium">Neue Buchungen per E-Mail</span>
+            </div>
+            <Switch 
+              checked={emailNotifications} 
+              onCheckedChange={setEmailNotifications}
+            />
+          </div>
+          <div className="flex items-center justify-between py-2 px-3 rounded-lg hover:bg-muted/30 transition-colors">
+            <div className="flex items-center gap-3">
+              <MessageSquare className="w-4 h-4 text-muted-foreground" />
+              <span className="text-sm font-medium">Neue Buchungen per WhatsApp</span>
+            </div>
+            <Switch 
+              checked={whatsappNotifications} 
+              onCheckedChange={setWhatsappNotifications}
+            />
+          </div>
+          <div className="flex justify-end pt-2">
+            <Button size="sm" className="px-6 h-9 bg-primary hover:bg-primary/90 text-sm font-medium rounded-lg text-primary-foreground">
+              Speichern
+            </Button>
+          </div>
+        </CardContent>
+      </Card>
 
-        <TabsContent value="konto" className="mt-6 space-y-6">
-          {/* Notifications */}
-          <Card className="border-0 shadow-lg bg-card overflow-hidden">
-            <CardHeader className="pb-3 border-b border-border/50">
-              <CardTitle className="text-lg font-bold">Benachrichtigung</CardTitle>
-            </CardHeader>
-            <CardContent className="pt-5 space-y-4">
-              <div className="flex items-center justify-between py-2">
-                <span className="text-sm font-medium">Neue Buchungen per E-Mail erhalten</span>
-                <Switch 
-                  checked={emailNotifications} 
-                  onCheckedChange={setEmailNotifications}
-                />
-              </div>
-              <div className="flex items-center justify-between py-2">
-                <span className="text-sm font-medium">Neue Buchungen per WhatsApp erhalten</span>
-                <Switch 
-                  checked={whatsappNotifications} 
-                  onCheckedChange={setWhatsappNotifications}
-                />
-              </div>
-              <div className="flex justify-end pt-3">
-                <Button className="bg-foreground text-background hover:bg-foreground/90 px-8 h-11 rounded-xl font-medium">
-                  Speichern
-                </Button>
-              </div>
-            </CardContent>
-          </Card>
+      {/* Password */}
+      <Card className="border-0 shadow-lg bg-gradient-to-br from-card to-muted/20 overflow-hidden">
+        <CardHeader className="pb-3 pt-4 px-4">
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-primary/10 to-secondary/10 flex items-center justify-center">
+              <Lock className="w-5 h-5 text-primary" />
+            </div>
+            <div>
+              <CardTitle className="text-base font-bold">Passwort ändern</CardTitle>
+              <CardDescription className="text-xs">Aktualisieren Sie Ihr Passwort</CardDescription>
+            </div>
+          </div>
+        </CardHeader>
+        <CardContent className="space-y-3 px-4 pb-4">
+          <div className="space-y-1">
+            <Label className="text-xs font-semibold">Aktuelles Passwort</Label>
+            <div className="relative max-w-md">
+              <Input 
+                type={showCurrentPassword ? "text" : "password"} 
+                placeholder="••••••••"
+                className="h-10 bg-muted/30 border border-muted focus-visible:border-primary focus-visible:ring-0 rounded-lg text-sm pr-10"
+              />
+              <button
+                type="button"
+                onClick={() => setShowCurrentPassword(!showCurrentPassword)}
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
+              >
+                {showCurrentPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+              </button>
+            </div>
+          </div>
 
-          {/* Email Change */}
-          <Card className="border-0 shadow-lg bg-card overflow-hidden">
-            <CardHeader className="pb-3 border-b border-border/50">
-              <div className="flex items-center justify-between">
-                <CardTitle className="text-lg font-bold">E-Mail ändern</CardTitle>
-                <p className="text-sm text-muted-foreground">Deine aktuelle Email lautet info@meditrans.de</p>
-              </div>
-            </CardHeader>
-            <CardContent className="pt-5 space-y-4">
-              <div className="space-y-2">
-                <Label className="text-sm font-medium text-muted-foreground">Neue Email Adresse eingeben</Label>
-                <Input 
-                  type="email"
-                  defaultValue="info@meditrans.de" 
-                  className="h-12 bg-background border-2 border-muted focus-visible:border-primary focus-visible:ring-0 rounded-xl max-w-md"
-                />
-                <p className="text-sm text-destructive">Sie müssen sich erneut anmelden, wenn Sie Ihre E-Mail-Adresse ändern</p>
-              </div>
-              <div className="flex justify-end pt-3">
-                <Button className="bg-foreground text-background hover:bg-foreground/90 px-8 h-11 rounded-xl font-medium">
-                  Speichern
-                </Button>
-              </div>
-            </CardContent>
-          </Card>
+          <div className="space-y-1">
+            <Label className="text-xs font-semibold">Neues Passwort</Label>
+            <div className="relative max-w-md">
+              <Input 
+                type={showNewPassword ? "text" : "password"} 
+                placeholder="••••••••"
+                className="h-10 bg-muted/30 border border-muted focus-visible:border-primary focus-visible:ring-0 rounded-lg text-sm pr-10"
+              />
+              <button
+                type="button"
+                onClick={() => setShowNewPassword(!showNewPassword)}
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
+              >
+                {showNewPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+              </button>
+            </div>
+          </div>
 
-          {/* Password Change */}
-          <Card className="border-0 shadow-lg bg-card overflow-hidden">
-            <CardHeader className="pb-3 border-b border-border/50">
-              <CardTitle className="text-lg font-bold">Passwort ändern</CardTitle>
-            </CardHeader>
-            <CardContent className="pt-5 space-y-4">
-              <div className="space-y-2 max-w-md">
-                <Label className="text-sm font-medium text-muted-foreground">Aktuelles Passwort</Label>
-                <div className="relative">
-                  <Input 
-                    type={showCurrentPassword ? "text" : "password"} 
-                    placeholder="••••••••"
-                    className="h-12 bg-background border-2 border-muted focus-visible:border-primary focus-visible:ring-0 rounded-xl pr-12"
-                  />
-                  <button
-                    type="button"
-                    onClick={() => setShowCurrentPassword(!showCurrentPassword)}
-                    className="absolute right-4 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
-                  >
-                    {showCurrentPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
-                  </button>
-                </div>
-              </div>
+          <div className="space-y-1">
+            <Label className="text-xs font-semibold">Passwort bestätigen</Label>
+            <div className="relative max-w-md">
+              <Input 
+                type={showConfirmPassword ? "text" : "password"} 
+                placeholder="••••••••"
+                className="h-10 bg-muted/30 border border-muted focus-visible:border-primary focus-visible:ring-0 rounded-lg text-sm pr-10"
+              />
+              <button
+                type="button"
+                onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
+              >
+                {showConfirmPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+              </button>
+            </div>
+          </div>
 
-              <div className="space-y-2 max-w-md">
-                <Label className="text-sm font-medium text-muted-foreground">Neues Passwort</Label>
-                <div className="relative">
-                  <Input 
-                    type={showNewPassword ? "text" : "password"} 
-                    placeholder="••••••••"
-                    className="h-12 bg-background border-2 border-muted focus-visible:border-primary focus-visible:ring-0 rounded-xl pr-12"
-                  />
-                  <button
-                    type="button"
-                    onClick={() => setShowNewPassword(!showNewPassword)}
-                    className="absolute right-4 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
-                  >
-                    {showNewPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
-                  </button>
-                </div>
-              </div>
-
-              <div className="space-y-2 max-w-md">
-                <Label className="text-sm font-medium text-muted-foreground">Neues Passwort bestätigen</Label>
-                <div className="relative">
-                  <Input 
-                    type={showConfirmPassword ? "text" : "password"} 
-                    placeholder="••••••••"
-                    className="h-12 bg-background border-2 border-muted focus-visible:border-primary focus-visible:ring-0 rounded-xl pr-12"
-                  />
-                  <button
-                    type="button"
-                    onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                    className="absolute right-4 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
-                  >
-                    {showConfirmPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
-                  </button>
-                </div>
-              </div>
-
-              <div className="flex justify-end pt-3">
-                <Button className="bg-foreground text-background hover:bg-foreground/90 px-8 h-11 rounded-xl font-medium">
-                  Bestätigen
-                </Button>
-              </div>
-            </CardContent>
-          </Card>
-
-          {/* Logout */}
-          <Card className="border-0 shadow-lg bg-card overflow-hidden">
-            <CardContent className="py-5">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="font-semibold text-foreground">Abmelden</p>
-                  <p className="text-sm text-muted-foreground">Von Ihrem Konto abmelden</p>
-                </div>
-                <Button variant="destructive" className="gap-2 px-6 h-11 rounded-xl">
-                  <LogOut className="w-4 h-4" />
-                  Abmelden
-                </Button>
-              </div>
-            </CardContent>
-          </Card>
-        </TabsContent>
-      </Tabs>
+          <div className="flex justify-end pt-3">
+            <Button size="sm" className="px-6 h-9 bg-primary hover:bg-primary/90 text-sm font-medium rounded-lg text-primary-foreground">
+              Passwort ändern
+            </Button>
+          </div>
+        </CardContent>
+      </Card>
     </div>
   );
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-background via-muted/10 to-background flex flex-col">
+    <div className="min-h-screen bg-gradient-to-br from-background via-muted/20 to-background flex flex-col">
       <Header />
       
-      <main className="flex-1 container mx-auto px-4 pt-24 md:pt-28 pb-12">
-        {renderNavigation()}
+      <div className="flex flex-1 pt-20 md:pt-24">
+        {renderSidebar()}
         
-        <div className="max-w-6xl mx-auto">
+        <main className="flex-1 p-6 max-w-5xl overflow-y-auto">
           {activeNav === "uebersicht" && renderOverview()}
           {activeNav === "profil" && renderProfile()}
           {activeNav === "buchungen" && renderBookings()}
           {activeNav === "aktivitaeten" && renderActivities()}
           {activeNav === "bewertungen" && renderRatings()}
           {activeNav === "einstellungen" && renderSettings()}
-        </div>
-      </main>
+        </main>
+      </div>
 
       <Footer />
     </div>
