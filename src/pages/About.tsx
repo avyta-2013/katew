@@ -124,16 +124,16 @@ const allOptions = [
     icon: Gavel,
     category: "booking",
     title: "Ausschreibungen",
-    shortDescription: "Für Kostenträger und öffentliche Auftraggeber",
-    fullDescription: "Die Ausschreibungsplattform von katew richtet sich an Krankenkassen, Kliniken, Pflegeeinrichtungen und andere Kostenträger, die regelmäßig Transportdienstleistungen in größerem Umfang benötigen. Unser digitales Ausschreibungsportal ermöglicht eine effiziente, transparente und rechtssichere Vergabe von Fahraufträgen. Qualifizierte Fahrdienstanbieter aus unserem geprüften Netzwerk können auf Ihre Ausschreibung bieten. Alle Angebote werden übersichtlich dargestellt und können nach verschiedenen Kriterien verglichen werden.",
-    features: ["Digitale Ausschreibungen", "Qualifizierte Anbieter", "Transparente Vergabe"],
+    shortDescription: "Mit einem Klick mehrere Angebote einholen und vergleichen",
+    fullDescription: "Die Ausschreibungsfunktion bietet jedem – ob Einrichtung, Privatkunde, Angehöriger oder sonstige Interessenten – die Möglichkeit, mit nur einem Klick verschiedene Transportunternehmen gleichzeitig anzufragen. Sie setzen eine Frist und erhalten bis dahin mehrere Angebote von qualifizierten Anbietern aus unserem Netzwerk. Danach entscheiden Sie in Ruhe, welches Angebot am besten zu Ihren Anforderungen passt. Volle Transparenz, maximaler Preisvergleich – ganz ohne Aufwand. Kein Telefonieren, kein Vergleichen von Einzelangeboten, keine versteckten Kosten.",
+    features: ["Ein Klick – mehrere Angebote", "Volle Transparenz", "Maximaler Preisvergleich"],
   },
 ];
 
 const teamMembers = [
   {
     name: "Dino Lalic",
-    role: "Founder / CEO",
+    role: "CEO",
     linkedin: "#",
   },
   {
@@ -430,6 +430,9 @@ const About = () => {
       <section className="py-20 md:py-28 bg-muted/30">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-medium mb-6">
+              Das Team
+            </div>
             <h2 className="text-3xl md:text-5xl font-bold mb-4 tracking-tight bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
               Team
             </h2>
