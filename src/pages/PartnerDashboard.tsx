@@ -1,5 +1,5 @@
 import { useState, useRef } from "react";
-import { User, Calendar, Settings, LogOut, Bell, Lock, Eye, EyeOff, Building2, Phone, Mail, MapPin, CalendarDays, CheckCircle2, XCircle, Clock, LayoutDashboard, TrendingUp, Camera, Upload, ArrowUpRight, Truck, Route, Timer, Sparkles, Ticket, MoreHorizontal, Star, RefreshCw, FileText, Users, Plus, Search } from "lucide-react";
+import { User, Calendar, Settings, LogOut, Bell, Lock, Eye, EyeOff, Building2, Phone, Mail, MapPin, CalendarDays, CheckCircle2, XCircle, Clock, LayoutDashboard, TrendingUp, Camera, Upload, ArrowUpRight, Truck, Route, Timer, Sparkles, Ticket, MoreHorizontal, Star, RefreshCw, FileText, Users, Plus, Search, ChevronLeft, ChevronRight } from "lucide-react";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -31,6 +31,8 @@ const PartnerDashboard = () => {
   const [accountType, setAccountType] = useState<AccountType>("einrichtung");
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [bookingSearch, setBookingSearch] = useState("");
+  const [bookingPage, setBookingPage] = useState(1);
+  const BOOKINGS_PER_PAGE = 10;
 
   const [ticketDialogOpen, setTicketDialogOpen] = useState(false);
 
@@ -692,112 +694,160 @@ const PartnerDashboard = () => {
           </TabsTrigger>
         </TabsList>
 
-        {(["aktiv", "bestaetigt", "storniert"] as const).map((status) => (
-          <TabsContent key={status} value={status} className="mt-6">
-            {bookings[status].length === 0 ? (
-              <Card className="border-0 shadow-xl bg-gradient-to-br from-card to-muted/20">
-                <CardContent className="py-20 text-center">
-                  <div className="w-20 h-20 mx-auto mb-6 rounded-2xl bg-muted/50 flex items-center justify-center">
-                    <Calendar className="w-10 h-10 text-muted-foreground" />
-                  </div>
-                  <p className="text-lg text-muted-foreground">Keine {status === "aktiv" ? "aktiven" : status === "bestaetigt" ? "bestätigten" : "stornierten"} Buchungen gefunden</p>
-                </CardContent>
-              </Card>
-            ) : (
-              <div className="space-y-4">
-                {bookings[status].map((booking) => (
-                  <Card key={booking.id} className="border-0 shadow-xl bg-gradient-to-br from-card to-muted/10 hover:shadow-2xl transition-all duration-300 hover:-translate-y-1 overflow-hidden group">
-                    <CardContent className="p-6">
-                      <div className="flex items-start justify-between">
-                        <div className="flex items-start gap-5">
-                          <div className={cn(
-                            "w-14 h-14 rounded-2xl flex items-center justify-center transition-transform duration-300 group-hover:scale-110",
-                            status === "aktiv" && "bg-gradient-to-br from-primary/20 to-primary/10",
-                            status === "bestaetigt" && "bg-gradient-to-br from-secondary/20 to-secondary/10",
-                            status === "storniert" && "bg-gradient-to-br from-destructive/20 to-destructive/10"
-                          )}>
-                            <Calendar className={cn(
-                              "w-7 h-7",
-                              status === "aktiv" && "text-primary",
-                              status === "bestaetigt" && "text-secondary",
-                              status === "storniert" && "text-destructive"
-                            )} />
-                          </div>
-                          <div>
-                            <div className="flex items-center gap-2 mb-1">
-                              <Truck className="w-3.5 h-3.5 text-muted-foreground" />
-                              <span className="text-xs font-medium text-muted-foreground">{booking.provider}</span>
+        {(["aktiv", "bestaetigt", "storniert"] as const).map((status) => {
+          const filteredBookings = bookings[status].filter(b => 
+            bookingSearch === "" || 
+            b.patient.toLowerCase().includes(bookingSearch.toLowerCase()) ||
+            b.from.toLowerCase().includes(bookingSearch.toLowerCase()) ||
+            b.to.toLowerCase().includes(bookingSearch.toLowerCase()) ||
+            b.provider.toLowerCase().includes(bookingSearch.toLowerCase())
+          );
+          const totalPages = Math.ceil(filteredBookings.length / BOOKINGS_PER_PAGE);
+          const paginatedBookings = filteredBookings.slice(
+            (bookingPage - 1) * BOOKINGS_PER_PAGE,
+            bookingPage * BOOKINGS_PER_PAGE
+          );
+          
+          return (
+            <TabsContent key={status} value={status} className="mt-6">
+              {filteredBookings.length === 0 ? (
+                <Card className="border-0 shadow-xl bg-gradient-to-br from-card to-muted/20">
+                  <CardContent className="py-20 text-center">
+                    <div className="w-20 h-20 mx-auto mb-6 rounded-2xl bg-muted/50 flex items-center justify-center">
+                      <Calendar className="w-10 h-10 text-muted-foreground" />
+                    </div>
+                    <p className="text-lg text-muted-foreground">Keine {status === "aktiv" ? "aktiven" : status === "bestaetigt" ? "bestätigten" : "stornierten"} Buchungen gefunden</p>
+                  </CardContent>
+                </Card>
+              ) : (
+                <>
+                  <div className="space-y-4">
+                    {paginatedBookings.map((booking) => (
+                      <Card key={booking.id} className="border-0 shadow-xl bg-gradient-to-br from-card to-muted/10 hover:shadow-2xl transition-all duration-300 hover:-translate-y-1 overflow-hidden group">
+                        <CardContent className="p-6">
+                          <div className="flex items-start justify-between">
+                            <div className="flex items-start gap-5">
+                              <div className={cn(
+                                "w-14 h-14 rounded-2xl flex items-center justify-center transition-transform duration-300 group-hover:scale-110",
+                                status === "aktiv" && "bg-gradient-to-br from-primary/20 to-primary/10",
+                                status === "bestaetigt" && "bg-gradient-to-br from-secondary/20 to-secondary/10",
+                                status === "storniert" && "bg-gradient-to-br from-destructive/20 to-destructive/10"
+                              )}>
+                                <Calendar className={cn(
+                                  "w-7 h-7",
+                                  status === "aktiv" && "text-primary",
+                                  status === "bestaetigt" && "text-secondary",
+                                  status === "storniert" && "text-destructive"
+                                )} />
+                              </div>
+                              <div>
+                                <div className="flex items-center gap-2 mb-1">
+                                  <Truck className="w-3.5 h-3.5 text-muted-foreground" />
+                                  <span className="text-xs font-medium text-muted-foreground">{booking.provider}</span>
+                                </div>
+                                <h3 className="font-bold text-lg text-foreground">{booking.patient}</h3>
+                                <p className="text-muted-foreground mt-1">
+                                  {booking.date} um {booking.time} Uhr
+                                </p>
+                                <Badge variant="outline" className="mt-3 rounded-lg border-2">
+                                  {booking.type}
+                                </Badge>
+                              </div>
                             </div>
-                            <h3 className="font-bold text-lg text-foreground">{booking.patient}</h3>
-                            <p className="text-muted-foreground mt-1">
-                              {booking.date} um {booking.time} Uhr
-                            </p>
-                            <Badge variant="outline" className="mt-3 rounded-lg border-2">
-                              {booking.type}
-                            </Badge>
+                            <div className="flex items-center gap-3">
+                              <Badge className={cn(
+                                "capitalize px-4 py-2 text-sm font-semibold rounded-xl",
+                                status === "aktiv" && "bg-gradient-to-r from-primary/20 to-primary/10 text-primary border-0",
+                                status === "bestaetigt" && "bg-gradient-to-r from-secondary/20 to-secondary/10 text-secondary border-0",
+                                status === "storniert" && "bg-gradient-to-r from-destructive/20 to-destructive/10 text-destructive border-0"
+                              )}>
+                                {status === "aktiv" ? "Aktiv" : status === "bestaetigt" ? "Bestätigt" : "Storniert"}
+                              </Badge>
+                              <DropdownMenu>
+                                <DropdownMenuTrigger asChild>
+                                  <Button variant="outline" size="sm" className="h-10 px-4 rounded-xl border-2 hover:bg-muted/50 gap-2">
+                                    <MoreHorizontal className="w-4 h-4" />
+                                    Optionen
+                                  </Button>
+                                </DropdownMenuTrigger>
+                                <DropdownMenuContent align="end" className="w-48 rounded-xl border-2 shadow-xl bg-card">
+                                  <DropdownMenuItem className="gap-3 py-3 px-4 cursor-pointer rounded-lg hover:bg-muted/50 focus:bg-muted/50">
+                                    <FileText className="w-4 h-4 text-primary" />
+                                    <span className="font-medium">Details</span>
+                                  </DropdownMenuItem>
+                                  <DropdownMenuItem className="gap-3 py-3 px-4 cursor-pointer rounded-lg hover:bg-muted/50 focus:bg-muted/50">
+                                    <RefreshCw className="w-4 h-4 text-secondary" />
+                                    <span className="font-medium">Wiederholen</span>
+                                  </DropdownMenuItem>
+                                  <DropdownMenuItem className="gap-3 py-3 px-4 cursor-pointer rounded-lg hover:bg-muted/50 focus:bg-muted/50">
+                                    <Star className="w-4 h-4 text-amber-500" />
+                                    <span className="font-medium">Bewerten</span>
+                                  </DropdownMenuItem>
+                                </DropdownMenuContent>
+                              </DropdownMenu>
+                            </div>
                           </div>
-                        </div>
-                        <div className="flex items-center gap-3">
-                          <Badge className={cn(
-                            "capitalize px-4 py-2 text-sm font-semibold rounded-xl",
-                            status === "aktiv" && "bg-gradient-to-r from-primary/20 to-primary/10 text-primary border-0",
-                            status === "bestaetigt" && "bg-gradient-to-r from-secondary/20 to-secondary/10 text-secondary border-0",
-                            status === "storniert" && "bg-gradient-to-r from-destructive/20 to-destructive/10 text-destructive border-0"
-                          )}>
-                            {status === "aktiv" ? "Aktiv" : status === "bestaetigt" ? "Bestätigt" : "Storniert"}
-                          </Badge>
-                          <DropdownMenu>
-                            <DropdownMenuTrigger asChild>
-                              <Button variant="outline" size="sm" className="h-10 px-4 rounded-xl border-2 hover:bg-muted/50 gap-2">
-                                <MoreHorizontal className="w-4 h-4" />
-                                Optionen
-                              </Button>
-                            </DropdownMenuTrigger>
-                            <DropdownMenuContent align="end" className="w-48 rounded-xl border-2 shadow-xl bg-card">
-                              <DropdownMenuItem className="gap-3 py-3 px-4 cursor-pointer rounded-lg hover:bg-muted/50 focus:bg-muted/50">
-                                <FileText className="w-4 h-4 text-primary" />
-                                <span className="font-medium">Details</span>
-                              </DropdownMenuItem>
-                              <DropdownMenuItem className="gap-3 py-3 px-4 cursor-pointer rounded-lg hover:bg-muted/50 focus:bg-muted/50">
-                                <RefreshCw className="w-4 h-4 text-secondary" />
-                                <span className="font-medium">Wiederholen</span>
-                              </DropdownMenuItem>
-                              <DropdownMenuItem className="gap-3 py-3 px-4 cursor-pointer rounded-lg hover:bg-muted/50 focus:bg-muted/50">
-                                <Star className="w-4 h-4 text-amber-500" />
-                                <span className="font-medium">Bewerten</span>
-                              </DropdownMenuItem>
-                            </DropdownMenuContent>
-                          </DropdownMenu>
-                        </div>
+                          <Separator className="my-5" />
+                          <div className="grid md:grid-cols-2 gap-4">
+                            <div className="flex items-start gap-3 p-4 rounded-xl bg-primary/5">
+                              <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
+                                <MapPin className="w-5 h-5 text-primary" />
+                              </div>
+                              <div>
+                                <span className="text-sm text-muted-foreground">Abholung</span>
+                                <p className="font-semibold text-foreground">{booking.from}</p>
+                              </div>
+                            </div>
+                            <div className="flex items-start gap-3 p-4 rounded-xl bg-secondary/5">
+                              <div className="w-10 h-10 rounded-lg bg-secondary/10 flex items-center justify-center flex-shrink-0">
+                                <MapPin className="w-5 h-5 text-secondary" />
+                              </div>
+                              <div>
+                                <span className="text-sm text-muted-foreground">Ziel</span>
+                                <p className="font-semibold text-foreground">{booking.to}</p>
+                              </div>
+                            </div>
+                          </div>
+                        </CardContent>
+                      </Card>
+                    ))}
+                  </div>
+                  
+                  {/* Pagination */}
+                  {totalPages > 1 && (
+                    <div className="flex items-center justify-between mt-6 p-4 bg-card rounded-xl border border-border/50">
+                      <p className="text-sm text-muted-foreground">
+                        Seite {bookingPage} von {totalPages} ({filteredBookings.length} Einträge)
+                      </p>
+                      <div className="flex items-center gap-2">
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          className="h-8 gap-1"
+                          disabled={bookingPage === 1}
+                          onClick={() => setBookingPage(p => Math.max(1, p - 1))}
+                        >
+                          <ChevronLeft className="w-4 h-4" />
+                          Zurück
+                        </Button>
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          className="h-8 gap-1"
+                          disabled={bookingPage === totalPages}
+                          onClick={() => setBookingPage(p => Math.min(totalPages, p + 1))}
+                        >
+                          Weiter
+                          <ChevronRight className="w-4 h-4" />
+                        </Button>
                       </div>
-                      <Separator className="my-5" />
-                      <div className="grid md:grid-cols-2 gap-4">
-                        <div className="flex items-start gap-3 p-4 rounded-xl bg-primary/5">
-                          <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
-                            <MapPin className="w-5 h-5 text-primary" />
-                          </div>
-                          <div>
-                            <span className="text-sm text-muted-foreground">Abholung</span>
-                            <p className="font-semibold text-foreground">{booking.from}</p>
-                          </div>
-                        </div>
-                        <div className="flex items-start gap-3 p-4 rounded-xl bg-secondary/5">
-                          <div className="w-10 h-10 rounded-lg bg-secondary/10 flex items-center justify-center flex-shrink-0">
-                            <MapPin className="w-5 h-5 text-secondary" />
-                          </div>
-                          <div>
-                            <span className="text-sm text-muted-foreground">Ziel</span>
-                            <p className="font-semibold text-foreground">{booking.to}</p>
-                          </div>
-                        </div>
-                      </div>
-                    </CardContent>
-                  </Card>
-                ))}
-              </div>
-            )}
-          </TabsContent>
-        ))}
+                    </div>
+                  )}
+                </>
+              )}
+            </TabsContent>
+          );
+        })}
       </Tabs>
     </div>
   );

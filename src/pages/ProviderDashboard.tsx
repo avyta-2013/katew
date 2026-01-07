@@ -4,7 +4,7 @@ import {
   CalendarDays, CheckCircle2, XCircle, Clock, LayoutDashboard, TrendingUp, Camera, Upload, 
   ArrowUpRight, Truck, Route, Timer, Star, FileText, MoreHorizontal, Trophy, MessageSquare,
   MapPinned, Bookmark, BarChart3, PieChart, Euro, ClipboardList, Activity, Users, Zap, Target,
-  AlertCircle, ChevronRight, Filter, Search, Download, RefreshCw, Accessibility, Armchair, BedDouble, Ticket, Plus
+  AlertCircle, ChevronRight, ChevronLeft, Filter, Search, Download, RefreshCw, Accessibility, Armchair, BedDouble, Ticket, Plus
 } from "lucide-react";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
@@ -37,6 +37,8 @@ const ProviderDashboard = () => {
   const [selectedBooking, setSelectedBooking] = useState<typeof bookings.offen[0] | null>(null);
   const [bookingTab, setBookingTab] = useState<"transport" | "klient">("transport");
   const [bookingSearch, setBookingSearch] = useState("");
+  const [bookingPage, setBookingPage] = useState(1);
+  const BOOKINGS_PER_PAGE = 10;
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   // Tickets state
@@ -1520,73 +1522,120 @@ const ProviderDashboard = () => {
             </TabsTrigger>
           </TabsList>
 
-          {(["offen", "bestaetigt", "storniert"] as const).map((status) => (
-            <TabsContent key={status} value={status} className="mt-4">
-              <Card className="border-0 shadow-lg bg-card overflow-hidden">
-                <CardContent className="p-0">
-                  {bookings[status].length === 0 ? (
-                    <div className="py-12 text-center">
-                      <div className="w-16 h-16 rounded-full bg-muted/50 flex items-center justify-center mx-auto mb-4">
-                        <ClipboardList className="w-8 h-8 text-muted-foreground" />
-                      </div>
-                      <p className="text-muted-foreground">Keine Buchungen gefunden</p>
-                    </div>
-                  ) : (
-                    <div className="divide-y divide-border/50">
-                      {bookings[status].map((booking) => (
-                        <div key={booking.id} className="flex items-center gap-4 p-4 hover:bg-muted/30 transition-colors">
-                          <div className="w-12 h-12 rounded-xl bg-muted/50 flex items-center justify-center flex-shrink-0">
-                            <Truck className="w-6 h-6 text-muted-foreground" />
-                          </div>
-                          <div className="flex-1 min-w-0">
-                            <div className="flex items-center gap-2 mb-1">
-                              <p className="font-semibold text-sm text-foreground">{booking.from.split(",")[0]}</p>
-                              <ChevronRight className="w-4 h-4 text-muted-foreground" />
-                              <p className="font-semibold text-sm text-foreground">{booking.to.split(",")[0]}</p>
-                            </div>
-                            <div className="flex items-center gap-3 text-xs text-muted-foreground">
-                              <span className="flex items-center gap-1">
-                                <Clock className="w-3 h-3" />
-                                {booking.pickup}
-                              </span>
-                              <span className="flex items-center gap-1">
-                                <User className="w-3 h-3" />
-                                {booking.patient}
-                              </span>
-                            </div>
-                          </div>
-                          <div className="flex items-center gap-3">
-                            <Badge className={cn(
-                              "border-0 text-xs",
-                              booking.kostentraeger === "Transportschein" && "bg-primary/20 text-primary",
-                              booking.kostentraeger === "Selbstzahler" && "bg-secondary/20 text-secondary"
-                            )}>
-                              {booking.kostentraeger}
-                            </Badge>
-                            <Badge className={cn(
-                              "border-0 text-xs",
-                              status === "offen" && "bg-amber-500/20 text-amber-600",
-                              status === "bestaetigt" && "bg-secondary/20 text-secondary",
-                              status === "storniert" && "bg-destructive/20 text-destructive"
-                            )}>
-                              {status}
-                            </Badge>
-                            <Button 
-                              size="sm" 
-                              className="h-8 text-xs"
-                              onClick={() => setSelectedBooking(booking)}
-                            >
-                              Details
-                            </Button>
-                          </div>
+          {(["offen", "bestaetigt", "storniert"] as const).map((status) => {
+            const filteredBookings = bookings[status].filter(b => 
+              bookingSearch === "" || 
+              b.from.toLowerCase().includes(bookingSearch.toLowerCase()) ||
+              b.to.toLowerCase().includes(bookingSearch.toLowerCase()) ||
+              b.patient.toLowerCase().includes(bookingSearch.toLowerCase())
+            );
+            const totalPages = Math.ceil(filteredBookings.length / BOOKINGS_PER_PAGE);
+            const paginatedBookings = filteredBookings.slice(
+              (bookingPage - 1) * BOOKINGS_PER_PAGE,
+              bookingPage * BOOKINGS_PER_PAGE
+            );
+            
+            return (
+              <TabsContent key={status} value={status} className="mt-4">
+                <Card className="border-0 shadow-lg bg-card overflow-hidden">
+                  <CardContent className="p-0">
+                    {filteredBookings.length === 0 ? (
+                      <div className="py-12 text-center">
+                        <div className="w-16 h-16 rounded-full bg-muted/50 flex items-center justify-center mx-auto mb-4">
+                          <ClipboardList className="w-8 h-8 text-muted-foreground" />
                         </div>
-                      ))}
-                    </div>
-                  )}
-                </CardContent>
-              </Card>
-            </TabsContent>
-          ))}
+                        <p className="text-muted-foreground">Keine Buchungen gefunden</p>
+                      </div>
+                    ) : (
+                      <>
+                        <div className="divide-y divide-border/50">
+                          {paginatedBookings.map((booking) => (
+                            <div key={booking.id} className="flex items-center gap-4 p-4 hover:bg-muted/30 transition-colors">
+                              <div className="w-12 h-12 rounded-xl bg-muted/50 flex items-center justify-center flex-shrink-0">
+                                <Truck className="w-6 h-6 text-muted-foreground" />
+                              </div>
+                              <div className="flex-1 min-w-0">
+                                <div className="flex items-center gap-2 mb-1">
+                                  <p className="font-semibold text-sm text-foreground">{booking.from.split(",")[0]}</p>
+                                  <ChevronRight className="w-4 h-4 text-muted-foreground" />
+                                  <p className="font-semibold text-sm text-foreground">{booking.to.split(",")[0]}</p>
+                                </div>
+                                <div className="flex items-center gap-3 text-xs text-muted-foreground">
+                                  <span className="flex items-center gap-1">
+                                    <Clock className="w-3 h-3" />
+                                    {booking.pickup}
+                                  </span>
+                                  <span className="flex items-center gap-1">
+                                    <User className="w-3 h-3" />
+                                    {booking.patient}
+                                  </span>
+                                </div>
+                              </div>
+                              <div className="flex items-center gap-3">
+                                <Badge className={cn(
+                                  "border-0 text-xs",
+                                  booking.kostentraeger === "Transportschein" && "bg-primary/20 text-primary",
+                                  booking.kostentraeger === "Selbstzahler" && "bg-secondary/20 text-secondary"
+                                )}>
+                                  {booking.kostentraeger}
+                                </Badge>
+                                <Badge className={cn(
+                                  "border-0 text-xs",
+                                  status === "offen" && "bg-amber-500/20 text-amber-600",
+                                  status === "bestaetigt" && "bg-secondary/20 text-secondary",
+                                  status === "storniert" && "bg-destructive/20 text-destructive"
+                                )}>
+                                  {status}
+                                </Badge>
+                                <Button 
+                                  size="sm" 
+                                  className="h-8 text-xs"
+                                  onClick={() => setSelectedBooking(booking)}
+                                >
+                                  Details
+                                </Button>
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                        
+                        {/* Pagination */}
+                        {totalPages > 1 && (
+                          <div className="flex items-center justify-between p-4 border-t border-border/50">
+                            <p className="text-sm text-muted-foreground">
+                              Seite {bookingPage} von {totalPages} ({filteredBookings.length} Einträge)
+                            </p>
+                            <div className="flex items-center gap-2">
+                              <Button
+                                variant="outline"
+                                size="sm"
+                                className="h-8 gap-1"
+                                disabled={bookingPage === 1}
+                                onClick={() => setBookingPage(p => Math.max(1, p - 1))}
+                              >
+                                <ChevronLeft className="w-4 h-4" />
+                                Zurück
+                              </Button>
+                              <Button
+                                variant="outline"
+                                size="sm"
+                                className="h-8 gap-1"
+                                disabled={bookingPage === totalPages}
+                                onClick={() => setBookingPage(p => Math.min(totalPages, p + 1))}
+                              >
+                                Weiter
+                                <ChevronRight className="w-4 h-4" />
+                              </Button>
+                            </div>
+                          </div>
+                        )}
+                      </>
+                    )}
+                  </CardContent>
+                </Card>
+              </TabsContent>
+            );
+          })}
         </Tabs>
       </div>
     );
