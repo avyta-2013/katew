@@ -29,25 +29,25 @@ const contactInfo = [
   {
     icon: Phone,
     title: "Telefon",
-    value: "0800 123 4567",
-    description: "Kostenlose Hotline",
+    value: "+49 155 61 231",
+    description: "Mo-Fr 8-12 Uhr",
   },
   {
     icon: Mail,
     title: "E-Mail",
-    value: "info@katew.de",
-    description: "Schreiben Sie uns",
+    value: "support@katew.de",
+    description: "Antwort innerhalb 48 Stunden",
   },
   {
     icon: MapPin,
     title: "Adresse",
-    value: "Musterstraße 123",
-    description: "12345 Berlin",
+    value: "Allerheiligentor 2-4",
+    description: "60311 Frankfurt",
   },
   {
     icon: Clock,
     title: "Öffnungszeiten",
-    value: "Mo-Fr 8-18 Uhr",
+    value: "Mo-Fr 8-12 Uhr",
     description: "Telefonische Erreichbarkeit",
   },
 ];
@@ -163,7 +163,7 @@ export default function Contact() {
                     Schreiben Sie uns
                   </h2>
                   <p className="text-muted-foreground mb-8">
-                    Füllen Sie das Formular aus und wir melden uns innerhalb von 24 Stunden
+                    Füllen Sie das Formular aus und wir melden uns innerhalb von 48 Stunden
                   </p>
                   
                   <form onSubmit={handleSubmit} className="space-y-6">
@@ -315,7 +315,7 @@ export default function Contact() {
                     <ul className="space-y-3 text-sm text-muted-foreground">
                       <li className="flex items-center gap-2">
                         <div className="w-1.5 h-1.5 rounded-full bg-primary" />
-                        Antwort innerhalb von 24 Stunden
+                        Antwort innerhalb von 48 Stunden
                       </li>
                       <li className="flex items-center gap-2">
                         <div className="w-1.5 h-1.5 rounded-full bg-primary" />

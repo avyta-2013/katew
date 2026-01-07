@@ -27,62 +27,113 @@ import {
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 
-const categories = [
+// Für Anbieter Kategorien
+const anbieterCategories = [
   {
     icon: Truck,
-    title: "Buchung & Transport",
-    description: "Alles zur Buchung und Durchführung von Krankenfahrten",
-    articles: 12,
+    title: "Registrierung & Onboarding",
+    description: "So werden Sie Teil unseres Netzwerks",
+    articles: 8,
     color: "from-blue-500 to-cyan-500",
   },
   {
     icon: CreditCard,
-    title: "Abrechnung & Kosten",
-    description: "Informationen zu Preisen, Kostenübernahme und Rechnungen",
-    articles: 8,
+    title: "Abrechnung & Provisionen",
+    description: "Informationen zu Zahlungen und Abrechnungsmodellen",
+    articles: 6,
     color: "from-green-500 to-emerald-500",
   },
   {
-    icon: Users,
-    title: "Für Partner",
-    description: "Hilfe für Krankenhäuser, Pflegeheime und Praxen",
-    articles: 10,
-    color: "from-purple-500 to-violet-500",
-  },
-  {
     icon: Shield,
-    title: "Sicherheit & Datenschutz",
-    description: "Wie wir Ihre Daten schützen",
+    title: "Qualitätsstandards",
+    description: "Anforderungen und Zertifizierungen für Anbieter",
     articles: 5,
     color: "from-orange-500 to-red-500",
   },
+  {
+    icon: Clock,
+    title: "Fahrten & Aufträge",
+    description: "Auftragsmanagement und Durchführung",
+    articles: 10,
+    color: "from-purple-500 to-violet-500",
+  },
 ];
 
-const popularArticles = [
+// Für Partner Kategorien
+const partnerCategories = [
   {
-    title: "Wie buche ich eine Krankenfahrt?",
-    category: "Buchung & Transport",
+    icon: Users,
+    title: "Konto & Verwaltung",
+    description: "Accounteinrichtung und Nutzerverwaltung",
+    articles: 7,
+    color: "from-blue-500 to-cyan-500",
+  },
+  {
+    icon: Truck,
+    title: "Buchung & Transport",
+    description: "So buchen Sie Krankenfahrten für Ihre Patienten",
+    articles: 12,
+    color: "from-green-500 to-emerald-500",
+  },
+  {
+    icon: CreditCard,
+    title: "Kosten & Abrechnung",
+    description: "Kostenübernahme und Rechnungsstellung",
+    articles: 8,
+    color: "from-orange-500 to-red-500",
+  },
+  {
+    icon: Shield,
+    title: "Datenschutz & Sicherheit",
+    description: "Wie wir Patientendaten schützen",
+    articles: 5,
+    color: "from-purple-500 to-violet-500",
+  },
+];
+
+const anbieterArticles = [
+  {
+    title: "Wie registriere ich mich als Anbieter?",
+    category: "Registrierung",
     views: "2.4k",
   },
   {
-    title: "Kostenübernahme durch die Krankenkasse",
-    category: "Abrechnung & Kosten",
+    title: "Welche Anforderungen muss ich erfüllen?",
+    category: "Qualitätsstandards",
     views: "1.8k",
   },
   {
-    title: "Welche Unterlagen brauche ich?",
-    category: "Buchung & Transport",
+    title: "Wie funktioniert die Abrechnung?",
+    category: "Abrechnung",
     views: "1.5k",
   },
   {
-    title: "Stornierung und Umbuchung",
-    category: "Buchung & Transport",
+    title: "Aufträge annehmen und verwalten",
+    category: "Fahrten & Aufträge",
     views: "1.2k",
+  },
+];
+
+const partnerArticles = [
+  {
+    title: "Wie buche ich eine Krankenfahrt?",
+    category: "Buchung",
+    views: "3.1k",
+  },
+  {
+    title: "Kostenübernahme durch die Krankenkasse",
+    category: "Kosten",
+    views: "2.5k",
   },
   {
     title: "Partner-Konto einrichten",
-    category: "Für Partner",
-    views: "980",
+    category: "Konto",
+    views: "1.8k",
+  },
+  {
+    title: "Patientendaten sicher verwalten",
+    category: "Datenschutz",
+    views: "1.4k",
   },
 ];
 
@@ -119,26 +170,30 @@ const contactOptions = [
     title: "Live-Chat",
     description: "Sofortige Hilfe von unserem Team",
     action: "Chat starten",
-    available: "Mo-Fr 8-18 Uhr",
+    available: "Mo-Fr 8-12 Uhr",
   },
   {
     icon: Phone,
     title: "Telefon",
     description: "Persönliche Beratung",
-    action: "0800 123 4567",
-    available: "Mo-Fr 8-18 Uhr",
+    action: "+49 155 61 231",
+    available: "Mo-Fr 8-12 Uhr",
   },
   {
     icon: Mail,
     title: "E-Mail",
     description: "Schriftliche Anfrage",
     action: "support@katew.de",
-    available: "Antwort in 24h",
+    available: "Antwort in 48h",
   },
 ];
 
 export default function HelpCenter() {
   const [searchQuery, setSearchQuery] = useState("");
+  const [activeTab, setActiveTab] = useState<"anbieter" | "partner">("partner");
+
+  const categories = activeTab === "anbieter" ? anbieterCategories : partnerCategories;
+  const articles = activeTab === "anbieter" ? anbieterArticles : partnerArticles;
 
   return (
     <>
@@ -180,12 +235,44 @@ export default function HelpCenter() {
           </div>
         </section>
 
+        {/* Tab Switcher */}
+        <section className="py-8">
+          <div className="container mx-auto px-4">
+            <div className="max-w-md mx-auto">
+              <div className="flex bg-muted/50 rounded-2xl p-1.5">
+                <button
+                  onClick={() => setActiveTab("partner")}
+                  className={`flex-1 py-3 px-6 rounded-xl font-semibold text-sm transition-all ${
+                    activeTab === "partner"
+                      ? "bg-card shadow-md text-primary"
+                      : "text-muted-foreground hover:text-foreground"
+                  }`}
+                >
+                  <Users className="w-4 h-4 inline-block mr-2" />
+                  Für Partner
+                </button>
+                <button
+                  onClick={() => setActiveTab("anbieter")}
+                  className={`flex-1 py-3 px-6 rounded-xl font-semibold text-sm transition-all ${
+                    activeTab === "anbieter"
+                      ? "bg-card shadow-md text-primary"
+                      : "text-muted-foreground hover:text-foreground"
+                  }`}
+                >
+                  <Truck className="w-4 h-4 inline-block mr-2" />
+                  Für Anbieter
+                </button>
+              </div>
+            </div>
+          </div>
+        </section>
+
         {/* Categories Grid */}
         <section className="py-16 md:py-24">
           <div className="container mx-auto px-4">
             <div className="max-w-6xl mx-auto">
               <h2 className="text-2xl md:text-3xl font-bold mb-10 text-center">
-                Kategorien durchsuchen
+                {activeTab === "anbieter" ? "Hilfe für Anbieter" : "Hilfe für Partner"}
               </h2>
               
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -233,7 +320,7 @@ export default function HelpCenter() {
                     <h2 className="text-2xl font-bold">Beliebte Artikel</h2>
                   </div>
                   <div className="space-y-4">
-                    {popularArticles.map((article, index) => (
+                    {articles.map((article, index) => (
                       <div
                         key={index}
                         className="group bg-card rounded-xl border border-border/50 p-5 hover:border-primary/40 hover:shadow-lg transition-all cursor-pointer"
