@@ -8,6 +8,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { useState, useEffect } from "react";
+import logo from "@/assets/logo.png";
 
 export const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -32,10 +33,7 @@ export const Header = () => {
         <div className="flex items-center justify-between h-16 md:h-20">
           {/* Logo */}
           <a href="/" className="flex items-center gap-2">
-            <span className="text-2xl font-bold tracking-tight">
-              <span className="text-primary">kate</span>
-              <span className="text-secondary">w</span>
-            </span>
+            <img src={logo} alt="katew Logo" className="h-8 md:h-10" />
           </a>
 
           {/* Navigation - Center */}

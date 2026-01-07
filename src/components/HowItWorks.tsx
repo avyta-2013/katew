@@ -1,23 +1,23 @@
-import { FileText, Users, CheckCircle, ArrowRight } from "lucide-react";
+import { UserPlus, FileText, CheckCircle, ArrowRight } from "lucide-react";
 
 const steps = [
   {
-    icon: FileText,
+    icon: UserPlus,
     number: "01",
+    title: "Registrieren / Einloggen",
+    description: "Erstellen Sie Ihr kostenloses Konto oder melden Sie sich an.",
+  },
+  {
+    icon: FileText,
+    number: "02",
     title: "Anfrage stellen",
     description: "Geben Sie Start, Ziel und Transportart an – in unter 2 Minuten.",
   },
   {
-    icon: Users,
-    number: "02",
-    title: "Angebote erhalten",
-    description: "Qualifizierte Unternehmen aus Ihrer Region melden sich bei Ihnen.",
-  },
-  {
     icon: CheckCircle,
     number: "03",
-    title: "Fahrt bestätigen",
-    description: "Wählen Sie das beste Angebot und buchen Sie direkt.",
+    title: "Bestätigung erhalten",
+    description: "Erhalten Sie die Bestätigung und alle Details zu Ihrer Fahrt.",
   },
 ];
 
@@ -26,11 +26,11 @@ export const HowItWorks = () => {
     <section className="py-24 md:py-32 bg-background">
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-5xl font-bold mb-4 tracking-tight">
+          <h2 className="text-3xl md:text-5xl font-bold mb-4 tracking-tight bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
             So funktioniert's
           </h2>
           <p className="text-lg text-muted-foreground max-w-xl mx-auto">
-            In drei einfachen Schritten zu Ihrem Transport
+            In drei einfachen Schritten zu Ihrer Krankenfahrt
           </p>
         </div>
 

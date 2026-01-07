@@ -18,7 +18,7 @@ export const Hero = () => {
 
           {/* Headline */}
           <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 leading-[1.1] tracking-tight animate-fade-in">
-            Krankentransport,
+            <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">Krankenfahrt,</span>
             <br />
             <span className="text-muted-foreground">einfach organisiert.</span>
           </h1>

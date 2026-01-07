@@ -1,29 +1,25 @@
 import { Mail, Phone, MapPin } from "lucide-react";
+import logo from "@/assets/logo.png";
 
 const footerLinks = {
   unternehmen: [
-    { label: "Über uns", href: "#" },
-    { label: "Karriere", href: "#" },
-    { label: "Presse", href: "#" },
+    { label: "Wir", href: "#wir" },
     { label: "Blog", href: "#" },
   ],
   produkt: [
     { label: "Für Anbieter", href: "#anbieter" },
     { label: "Für Partner", href: "#partner" },
-    { label: "Preise", href: "#" },
     { label: "Funktionen", href: "#" },
   ],
   support: [
     { label: "Hilfe-Center", href: "#" },
     { label: "Kontakt", href: "#" },
     { label: "FAQ", href: "#" },
-    { label: "Status", href: "#" },
   ],
   rechtliches: [
     { label: "Impressum", href: "#" },
     { label: "Datenschutz", href: "#" },
     { label: "AGB", href: "#" },
-    { label: "Cookies", href: "#" },
   ],
 };
 
@@ -37,26 +33,23 @@ export const Footer = () => {
             {/* Brand column */}
             <div className="col-span-2 md:col-span-1">
               <a href="/" className="inline-block mb-4">
-                <span className="text-2xl font-bold tracking-tight">
-                  <span className="text-primary">kate</span>
-                  <span className="text-secondary">w</span>
-                </span>
+                <img src={logo} alt="katew Logo" className="h-8" />
               </a>
               <p className="text-sm text-muted-foreground mb-6 leading-relaxed">
-                Die moderne Plattform für Krankentransport in Deutschland.
+                Die moderne Plattform für Krankenfahrten in Deutschland.
               </p>
               <div className="space-y-3 text-sm text-muted-foreground">
-                <a href="mailto:info@katew.de" className="flex items-center gap-2 hover:text-foreground transition-colors">
+                <a href="mailto:support@katew.de" className="flex items-center gap-2 hover:text-foreground transition-colors">
                   <Mail className="w-4 h-4" />
-                  info@katew.de
+                  support@katew.de
                 </a>
-                <a href="tel:+4940123456" className="flex items-center gap-2 hover:text-foreground transition-colors">
+                <a href="tel:+4915561231" className="flex items-center gap-2 hover:text-foreground transition-colors">
                   <Phone className="w-4 h-4" />
-                  +49 40 123 456
+                  +49 155 61 231
                 </a>
                 <p className="flex items-center gap-2">
                   <MapPin className="w-4 h-4" />
-                  Hamburg, Deutschland
+                  Frankfurt, Deutschland
                 </p>
               </div>
             </div>

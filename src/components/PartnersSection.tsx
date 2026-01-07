@@ -79,8 +79,8 @@ export const PartnersSection = () => {
               <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-secondary/10 text-secondary text-sm font-medium mb-6">
                 Für Partner
               </div>
-              <h2 className="text-3xl md:text-5xl font-bold mb-6 tracking-tight">
-                Transport buchen leicht gemacht
+              <h2 className="text-3xl md:text-5xl font-bold mb-6 tracking-tight bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+                Krankenfahrt buchen leicht gemacht
               </h2>
               <p className="text-lg text-muted-foreground mb-8 leading-relaxed">
                 Ob Privatperson oder Einrichtung – katew verbindet Sie mit 
