@@ -32,6 +32,8 @@ const ProviderDashboard = () => {
   const [emailNotifications, setEmailNotifications] = useState(true);
   const [whatsappNotifications, setWhatsappNotifications] = useState(true);
   const [profileImage, setProfileImage] = useState<string | null>(null);
+  const [selectedBooking, setSelectedBooking] = useState<typeof bookings.offen[0] | null>(null);
+  const [bookingTab, setBookingTab] = useState<"transport" | "klient">("transport");
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const navItems = [
@@ -1074,173 +1076,441 @@ const ProviderDashboard = () => {
     </div>
   );
 
-  const renderBookings = () => (
-    <div className="space-y-5">
-      <div className="flex items-center justify-between">
-        <div>
-          <h1 className="text-2xl font-bold text-foreground">Buchungen</h1>
-          <p className="text-muted-foreground mt-1 text-sm">Verwalten Sie alle Ihre Buchungen</p>
-        </div>
-        <div className="flex items-center gap-2">
-          <Button variant="outline" size="sm" className="gap-2 h-9">
-            <Filter className="w-4 h-4" />
-            Filter
+  const renderBookingDetails = () => {
+    if (!selectedBooking) return null;
+    
+    return (
+      <div className="space-y-5">
+        {/* Back Button */}
+        <Button 
+          variant="ghost" 
+          size="sm" 
+          className="gap-2 text-muted-foreground hover:text-foreground"
+          onClick={() => setSelectedBooking(null)}
+        >
+          <ChevronRight className="w-4 h-4 rotate-180" />
+          Zurück zur Übersicht
+        </Button>
+
+        {/* Header Card */}
+        <Card className="border-0 shadow-2xl bg-gradient-to-br from-foreground via-foreground to-foreground/90 overflow-hidden relative">
+          <div className="absolute top-0 right-0 w-64 h-64 bg-gradient-to-bl from-primary/20 to-transparent rounded-bl-full" />
+          <div className="absolute bottom-0 left-0 w-32 h-32 bg-gradient-to-tr from-secondary/20 to-transparent rounded-tr-full" />
+          <CardContent className="p-8 relative">
+            <div className="flex items-start justify-between">
+              <div>
+                <Badge className="bg-primary/20 text-primary border-0 mb-4">
+                  {selectedBooking.kostentraeger}
+                </Badge>
+                <h1 className="text-4xl font-bold text-background mb-2">
+                  Buchung #{88819703 + selectedBooking.id}
+                </h1>
+                <p className="text-background/60 text-sm">
+                  Erstellt am {selectedBooking.pickup.split(" ")[0]}
+                </p>
+              </div>
+              <div className="w-28 h-28 rounded-2xl bg-gradient-to-br from-primary/30 to-secondary/30 flex items-center justify-center backdrop-blur-sm">
+                <Truck className="w-14 h-14 text-background/80" />
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* Tabs */}
+        <div className="flex gap-2">
+          <Button
+            onClick={() => setBookingTab("transport")}
+            className={cn(
+              "h-12 px-8 rounded-xl font-semibold transition-all duration-300",
+              bookingTab === "transport" 
+                ? "bg-foreground text-background shadow-lg" 
+                : "bg-transparent text-muted-foreground hover:bg-muted/50 border border-border"
+            )}
+          >
+            <Truck className="w-4 h-4 mr-2" />
+            Transport
           </Button>
-          <Button variant="outline" size="sm" className="gap-2 h-9">
-            <Download className="w-4 h-4" />
-            Export
+          <Button
+            onClick={() => setBookingTab("klient")}
+            className={cn(
+              "h-12 px-8 rounded-xl font-semibold transition-all duration-300",
+              bookingTab === "klient" 
+                ? "bg-foreground text-background shadow-lg" 
+                : "bg-transparent text-muted-foreground hover:bg-muted/50 border border-border"
+            )}
+          >
+            <Lock className="w-4 h-4 mr-2" />
+            Klient
           </Button>
         </div>
-      </div>
 
-      {/* KPI Cards */}
-      <div className="grid md:grid-cols-4 gap-3">
-        <Card className="border-0 shadow-md bg-gradient-to-br from-amber-500/10 to-amber-500/5 overflow-hidden">
-          <CardContent className="p-4">
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl bg-amber-500/20 flex items-center justify-center">
-                <ClipboardList className="w-5 h-5 text-amber-600" />
-              </div>
-              <div>
-                <p className="text-xl font-bold text-foreground">{kpiData.offeneBuchungen}</p>
-                <p className="text-xs text-muted-foreground">Offen</p>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-
-        <Card className="border-0 shadow-md bg-gradient-to-br from-primary/10 to-primary/5 overflow-hidden">
-          <CardContent className="p-4">
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl bg-primary/20 flex items-center justify-center">
-                <FileText className="w-5 h-5 text-primary" />
-              </div>
-              <div>
-                <p className="text-xl font-bold text-foreground">{kpiData.transportschein}</p>
-                <p className="text-xs text-muted-foreground">Transportschein</p>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-
-        <Card className="border-0 shadow-md bg-gradient-to-br from-secondary/10 to-secondary/5 overflow-hidden">
-          <CardContent className="p-4">
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl bg-secondary/20 flex items-center justify-center">
-                <Euro className="w-5 h-5 text-secondary" />
-              </div>
-              <div>
-                <p className="text-xl font-bold text-foreground">{kpiData.selbstzahler}</p>
-                <p className="text-xs text-muted-foreground">Selbstzahler</p>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-
-        <Card className="border-0 shadow-md bg-gradient-to-br from-violet-500/10 to-violet-500/5 overflow-hidden">
-          <CardContent className="p-4">
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl bg-violet-500/20 flex items-center justify-center">
-                <Target className="w-5 h-5 text-violet-600" />
-              </div>
-              <div>
-                <p className="text-xl font-bold text-foreground">{kpiData.ausschreibungen}</p>
-                <p className="text-xs text-muted-foreground">Ausschreibung</p>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-      </div>
-
-      {/* Bookings Tabs */}
-      <Tabs defaultValue="offen" className="w-full">
-        <TabsList className="bg-muted/30 p-1 h-11 rounded-xl border border-muted">
-          <TabsTrigger 
-            value="offen" 
-            className="h-8 rounded-lg data-[state=active]:bg-foreground data-[state=active]:text-background data-[state=active]:shadow-md font-medium px-6 text-sm"
-          >
-            Offen ({bookings.offen.length})
-          </TabsTrigger>
-          <TabsTrigger 
-            value="bestaetigt" 
-            className="h-8 rounded-lg data-[state=active]:bg-foreground data-[state=active]:text-background data-[state=active]:shadow-md font-medium px-6 text-sm"
-          >
-            Bestätigt ({bookings.bestaetigt.length})
-          </TabsTrigger>
-          <TabsTrigger 
-            value="storniert" 
-            className="h-8 rounded-lg data-[state=active]:bg-foreground data-[state=active]:text-background data-[state=active]:shadow-md font-medium px-6 text-sm"
-          >
-            Storniert ({bookings.storniert.length})
-          </TabsTrigger>
-        </TabsList>
-
-        {(["offen", "bestaetigt", "storniert"] as const).map((status) => (
-          <TabsContent key={status} value={status} className="mt-4">
-            <Card className="border-0 shadow-lg bg-card overflow-hidden">
-              <CardContent className="p-0">
-                {bookings[status].length === 0 ? (
-                  <div className="py-12 text-center">
-                    <div className="w-16 h-16 rounded-full bg-muted/50 flex items-center justify-center mx-auto mb-4">
-                      <ClipboardList className="w-8 h-8 text-muted-foreground" />
+        <div className="grid lg:grid-cols-3 gap-5">
+          {/* Main Content */}
+          <div className="lg:col-span-2 space-y-5">
+            {bookingTab === "transport" ? (
+              <Card className="border-0 shadow-xl bg-gradient-to-br from-card via-card to-muted/10 overflow-hidden">
+                <CardHeader className="pb-4 pt-6 px-6 border-b border-border/30">
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-primary/20 to-secondary/20 flex items-center justify-center shadow-sm">
+                      <Truck className="w-5 h-5 text-primary" />
                     </div>
-                    <p className="text-muted-foreground">Keine Buchungen gefunden</p>
+                    <CardTitle className="text-xl font-bold">Transport</CardTitle>
                   </div>
-                ) : (
-                  <div className="divide-y divide-border/50">
-                    {bookings[status].map((booking) => (
-                      <div key={booking.id} className="flex items-center gap-4 p-4 hover:bg-muted/30 transition-colors">
-                        <div className="w-12 h-12 rounded-xl bg-muted/50 flex items-center justify-center flex-shrink-0">
-                          <Truck className="w-6 h-6 text-muted-foreground" />
-                        </div>
-                        <div className="flex-1 min-w-0">
-                          <div className="flex items-center gap-2 mb-1">
-                            <p className="font-semibold text-sm text-foreground">{booking.from.split(",")[0]}</p>
-                            <ChevronRight className="w-4 h-4 text-muted-foreground" />
-                            <p className="font-semibold text-sm text-foreground">{booking.to.split(",")[0]}</p>
-                          </div>
-                          <div className="flex items-center gap-3 text-xs text-muted-foreground">
-                            <span className="flex items-center gap-1">
-                              <Clock className="w-3 h-3" />
-                              {booking.pickup}
-                            </span>
-                            <span className="flex items-center gap-1">
-                              <User className="w-3 h-3" />
-                              {booking.patient}
-                            </span>
-                          </div>
-                        </div>
-                        <div className="flex items-center gap-3">
-                          <Badge className={cn(
-                            "border-0 text-xs",
-                            booking.kostentraeger === "Transportschein" && "bg-primary/20 text-primary",
-                            booking.kostentraeger === "Selbstzahler" && "bg-secondary/20 text-secondary"
-                          )}>
-                            {booking.kostentraeger}
-                          </Badge>
-                          <Badge className={cn(
-                            "border-0 text-xs",
-                            status === "offen" && "bg-amber-500/20 text-amber-600",
-                            status === "bestaetigt" && "bg-secondary/20 text-secondary",
-                            status === "storniert" && "bg-destructive/20 text-destructive"
-                          )}>
-                            {status}
-                          </Badge>
-                          <Button size="sm" className="h-8 text-xs">
-                            Details
-                          </Button>
-                        </div>
+                </CardHeader>
+                <CardContent className="p-6 space-y-5">
+                  {/* Date & Time */}
+                  <div className="grid md:grid-cols-2 gap-4">
+                    <div className="group p-4 rounded-xl bg-gradient-to-r from-muted/40 to-muted/20 hover:from-primary/10 hover:to-secondary/5 transition-all duration-300 border border-transparent hover:border-primary/20 hover:shadow-md">
+                      <div className="flex items-center gap-2 mb-2">
+                        <CalendarDays className="w-3.5 h-3.5 text-primary" />
+                        <Label className="text-[10px] text-muted-foreground uppercase tracking-wider font-semibold">Datum</Label>
                       </div>
-                    ))}
+                      <p className="text-base font-semibold text-foreground">{selectedBooking.pickup.split(" ")[0]}</p>
+                    </div>
+                    <div className="group p-4 rounded-xl bg-gradient-to-r from-muted/40 to-muted/20 hover:from-primary/10 hover:to-secondary/5 transition-all duration-300 border border-transparent hover:border-primary/20 hover:shadow-md">
+                      <div className="flex items-center gap-2 mb-2">
+                        <Clock className="w-3.5 h-3.5 text-primary" />
+                        <Label className="text-[10px] text-muted-foreground uppercase tracking-wider font-semibold">Uhrzeit</Label>
+                      </div>
+                      <p className="text-base font-semibold text-foreground">{selectedBooking.pickup.split(" ")[1]}</p>
+                    </div>
                   </div>
+
+                  {/* Route */}
+                  <div className="space-y-4">
+                    <div className="group p-4 rounded-xl bg-gradient-to-r from-secondary/10 to-secondary/5 hover:from-secondary/15 hover:to-secondary/10 transition-all duration-300 border border-secondary/20 hover:shadow-md">
+                      <div className="flex items-center gap-2 mb-2">
+                        <div className="w-6 h-6 rounded-full bg-secondary/20 flex items-center justify-center">
+                          <MapPin className="w-3 h-3 text-secondary" />
+                        </div>
+                        <Label className="text-[10px] text-muted-foreground uppercase tracking-wider font-semibold">Start</Label>
+                      </div>
+                      <p className="text-base font-semibold text-foreground pl-8">{selectedBooking.from}</p>
+                    </div>
+                    
+                    <div className="flex justify-center">
+                      <div className="w-0.5 h-8 bg-gradient-to-b from-secondary to-primary rounded-full" />
+                    </div>
+
+                    <div className="group p-4 rounded-xl bg-gradient-to-r from-primary/10 to-primary/5 hover:from-primary/15 hover:to-primary/10 transition-all duration-300 border border-primary/20 hover:shadow-md">
+                      <div className="flex items-center gap-2 mb-2">
+                        <div className="w-6 h-6 rounded-full bg-primary/20 flex items-center justify-center">
+                          <Target className="w-3 h-3 text-primary" />
+                        </div>
+                        <Label className="text-[10px] text-muted-foreground uppercase tracking-wider font-semibold">Ziel</Label>
+                      </div>
+                      <p className="text-base font-semibold text-foreground pl-8">{selectedBooking.to}</p>
+                    </div>
+                  </div>
+
+                  {/* Transport Details */}
+                  <div className="grid md:grid-cols-2 gap-4">
+                    <div className="group p-4 rounded-xl bg-gradient-to-r from-muted/40 to-muted/20 hover:from-amber-500/10 hover:to-amber-500/5 transition-all duration-300 border border-transparent hover:border-amber-500/20 hover:shadow-md">
+                      <div className="flex items-center gap-2 mb-2">
+                        <FileText className="w-3.5 h-3.5 text-amber-600" />
+                        <Label className="text-[10px] text-muted-foreground uppercase tracking-wider font-semibold">Transportart</Label>
+                      </div>
+                      <p className="text-base font-semibold text-foreground">{selectedBooking.kostentraeger}</p>
+                    </div>
+                    <div className="group p-4 rounded-xl bg-gradient-to-r from-muted/40 to-muted/20 hover:from-blue-500/10 hover:to-blue-500/5 transition-all duration-300 border border-transparent hover:border-blue-500/20 hover:shadow-md">
+                      <div className="flex items-center gap-2 mb-2">
+                        <User className="w-3.5 h-3.5 text-blue-600" />
+                        <Label className="text-[10px] text-muted-foreground uppercase tracking-wider font-semibold">Transportmittel</Label>
+                      </div>
+                      <p className="text-base font-semibold text-foreground">Sitzend</p>
+                    </div>
+                  </div>
+
+                  {/* Reason */}
+                  <div className="group p-4 rounded-xl bg-gradient-to-r from-muted/40 to-muted/20 hover:from-violet-500/10 hover:to-violet-500/5 transition-all duration-300 border border-transparent hover:border-violet-500/20 hover:shadow-md">
+                    <div className="flex items-center gap-2 mb-2">
+                      <ClipboardList className="w-3.5 h-3.5 text-violet-600" />
+                      <Label className="text-[10px] text-muted-foreground uppercase tracking-wider font-semibold">Grund</Label>
+                    </div>
+                    <p className="text-base font-semibold text-foreground">Kur- oder Rehaklinik</p>
+                  </div>
+                </CardContent>
+              </Card>
+            ) : (
+              <Card className="border-0 shadow-xl bg-gradient-to-br from-card via-card to-muted/10 overflow-hidden">
+                <CardHeader className="pb-4 pt-6 px-6 border-b border-border/30">
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-primary/20 to-secondary/20 flex items-center justify-center shadow-sm">
+                      <User className="w-5 h-5 text-primary" />
+                    </div>
+                    <CardTitle className="text-xl font-bold">Klient-Informationen</CardTitle>
+                  </div>
+                </CardHeader>
+                <CardContent className="p-6 space-y-5">
+                  <div className="grid md:grid-cols-2 gap-4">
+                    <div className="group p-4 rounded-xl bg-gradient-to-r from-muted/40 to-muted/20 transition-all duration-300 border border-transparent">
+                      <Label className="text-[10px] text-muted-foreground uppercase tracking-wider font-semibold">Name</Label>
+                      <p className="text-base font-semibold text-foreground mt-2">{selectedBooking.patient}</p>
+                    </div>
+                    <div className="group p-4 rounded-xl bg-gradient-to-r from-muted/40 to-muted/20 transition-all duration-300 border border-transparent">
+                      <Label className="text-[10px] text-muted-foreground uppercase tracking-wider font-semibold">Telefon</Label>
+                      <p className="text-base font-semibold text-foreground mt-2">+49 170 ****567</p>
+                    </div>
+                  </div>
+                  <div className="p-6 rounded-xl bg-amber-500/10 border border-amber-500/20">
+                    <div className="flex items-center gap-3">
+                      <Lock className="w-5 h-5 text-amber-600" />
+                      <p className="text-sm text-amber-700 font-medium">Vollständige Kontaktdaten werden nach Bestätigung freigegeben</p>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            )}
+          </div>
+
+          {/* Sidebar */}
+          <div className="space-y-5">
+            {/* Action Card */}
+            <Card className="border-0 shadow-xl bg-gradient-to-br from-card via-card to-muted/10 overflow-hidden">
+              <CardContent className="p-6 space-y-4">
+                <div className="text-center mb-6">
+                  <h3 className="text-2xl font-bold text-foreground">{selectedBooking.kostentraeger}</h3>
+                  <p className="text-muted-foreground text-sm mt-1">Summe: <span className="text-xl font-bold text-foreground">{selectedBooking.preis}</span></p>
+                </div>
+                
+                {selectedBooking.status === "offen" && (
+                  <>
+                    <Button className="w-full h-12 bg-foreground hover:bg-foreground/90 text-background font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-0.5">
+                      <CheckCircle2 className="w-5 h-5 mr-2" />
+                      Bestätigen
+                    </Button>
+                    <Button variant="outline" className="w-full h-12 font-semibold rounded-xl border-2 hover:bg-destructive/10 hover:border-destructive hover:text-destructive transition-all duration-300">
+                      <XCircle className="w-5 h-5 mr-2" />
+                      Ablehnen
+                    </Button>
+                  </>
+                )}
+                
+                {selectedBooking.status === "bestaetigt" && (
+                  <Badge className="w-full py-3 justify-center bg-secondary/20 text-secondary border-0 text-sm">
+                    <CheckCircle2 className="w-4 h-4 mr-2" />
+                    Bestätigt
+                  </Badge>
+                )}
+                
+                {selectedBooking.status === "storniert" && (
+                  <Badge className="w-full py-3 justify-center bg-destructive/20 text-destructive border-0 text-sm">
+                    <XCircle className="w-4 h-4 mr-2" />
+                    Storniert
+                  </Badge>
                 )}
               </CardContent>
             </Card>
-          </TabsContent>
-        ))}
-      </Tabs>
-    </div>
-  );
+
+            {/* Help Card */}
+            <Card className="border-0 shadow-xl bg-gradient-to-br from-card via-card to-muted/10 overflow-hidden">
+              <CardContent className="p-6">
+                <h3 className="text-lg font-bold text-foreground mb-4">Du brauchst Hilfe?</h3>
+                <div className="space-y-3">
+                  <div className="flex items-center gap-3 p-3 rounded-xl bg-muted/30 hover:bg-muted/50 transition-colors cursor-pointer group">
+                    <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
+                      <Clock className="w-5 h-5 text-primary" />
+                    </div>
+                    <span className="font-medium text-sm">24 Stunden</span>
+                  </div>
+                  <div className="flex items-center gap-3 p-3 rounded-xl bg-muted/30 hover:bg-muted/50 transition-colors cursor-pointer group">
+                    <div className="w-10 h-10 rounded-xl bg-secondary/10 flex items-center justify-center group-hover:bg-secondary/20 transition-colors">
+                      <Phone className="w-5 h-5 text-secondary" />
+                    </div>
+                    <span className="font-medium text-sm">Kontakt</span>
+                  </div>
+                  <div className="flex items-center gap-3 p-3 rounded-xl bg-muted/30 hover:bg-muted/50 transition-colors cursor-pointer group">
+                    <div className="w-10 h-10 rounded-xl bg-amber-500/10 flex items-center justify-center group-hover:bg-amber-500/20 transition-colors">
+                      <MessageSquare className="w-5 h-5 text-amber-600" />
+                    </div>
+                    <span className="font-medium text-sm">Hilfezentrum</span>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </div>
+    );
+  };
+
+  const renderBookings = () => {
+    if (selectedBooking) {
+      return renderBookingDetails();
+    }
+
+    return (
+      <div className="space-y-5">
+        <div className="flex items-center justify-between">
+          <div>
+            <h1 className="text-2xl font-bold text-foreground">Buchungen</h1>
+            <p className="text-muted-foreground mt-1 text-sm">Verwalten Sie alle Ihre Buchungen</p>
+          </div>
+          <div className="flex items-center gap-2">
+            <Button variant="outline" size="sm" className="gap-2 h-9">
+              <Filter className="w-4 h-4" />
+              Filter
+            </Button>
+            <Button variant="outline" size="sm" className="gap-2 h-9">
+              <Download className="w-4 h-4" />
+              Export
+            </Button>
+          </div>
+        </div>
+
+        {/* KPI Cards */}
+        <div className="grid md:grid-cols-4 gap-3">
+          <Card className="border-0 shadow-md bg-gradient-to-br from-amber-500/10 to-amber-500/5 overflow-hidden">
+            <CardContent className="p-4">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-xl bg-amber-500/20 flex items-center justify-center">
+                  <ClipboardList className="w-5 h-5 text-amber-600" />
+                </div>
+                <div>
+                  <p className="text-xl font-bold text-foreground">{kpiData.offeneBuchungen}</p>
+                  <p className="text-xs text-muted-foreground">Offen</p>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          <Card className="border-0 shadow-md bg-gradient-to-br from-primary/10 to-primary/5 overflow-hidden">
+            <CardContent className="p-4">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-xl bg-primary/20 flex items-center justify-center">
+                  <FileText className="w-5 h-5 text-primary" />
+                </div>
+                <div>
+                  <p className="text-xl font-bold text-foreground">{kpiData.transportschein}</p>
+                  <p className="text-xs text-muted-foreground">Transportschein</p>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          <Card className="border-0 shadow-md bg-gradient-to-br from-secondary/10 to-secondary/5 overflow-hidden">
+            <CardContent className="p-4">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-xl bg-secondary/20 flex items-center justify-center">
+                  <Euro className="w-5 h-5 text-secondary" />
+                </div>
+                <div>
+                  <p className="text-xl font-bold text-foreground">{kpiData.selbstzahler}</p>
+                  <p className="text-xs text-muted-foreground">Selbstzahler</p>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          <Card className="border-0 shadow-md bg-gradient-to-br from-violet-500/10 to-violet-500/5 overflow-hidden">
+            <CardContent className="p-4">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-xl bg-violet-500/20 flex items-center justify-center">
+                  <Target className="w-5 h-5 text-violet-600" />
+                </div>
+                <div>
+                  <p className="text-xl font-bold text-foreground">{kpiData.ausschreibungen}</p>
+                  <p className="text-xs text-muted-foreground">Ausschreibung</p>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+
+        {/* Bookings Tabs */}
+        <Tabs defaultValue="offen" className="w-full">
+          <TabsList className="bg-muted/30 p-1 h-11 rounded-xl border border-muted">
+            <TabsTrigger 
+              value="offen" 
+              className="h-8 rounded-lg data-[state=active]:bg-foreground data-[state=active]:text-background data-[state=active]:shadow-md font-medium px-6 text-sm"
+            >
+              Offen ({bookings.offen.length})
+            </TabsTrigger>
+            <TabsTrigger 
+              value="bestaetigt" 
+              className="h-8 rounded-lg data-[state=active]:bg-foreground data-[state=active]:text-background data-[state=active]:shadow-md font-medium px-6 text-sm"
+            >
+              Bestätigt ({bookings.bestaetigt.length})
+            </TabsTrigger>
+            <TabsTrigger 
+              value="storniert" 
+              className="h-8 rounded-lg data-[state=active]:bg-foreground data-[state=active]:text-background data-[state=active]:shadow-md font-medium px-6 text-sm"
+            >
+              Storniert ({bookings.storniert.length})
+            </TabsTrigger>
+          </TabsList>
+
+          {(["offen", "bestaetigt", "storniert"] as const).map((status) => (
+            <TabsContent key={status} value={status} className="mt-4">
+              <Card className="border-0 shadow-lg bg-card overflow-hidden">
+                <CardContent className="p-0">
+                  {bookings[status].length === 0 ? (
+                    <div className="py-12 text-center">
+                      <div className="w-16 h-16 rounded-full bg-muted/50 flex items-center justify-center mx-auto mb-4">
+                        <ClipboardList className="w-8 h-8 text-muted-foreground" />
+                      </div>
+                      <p className="text-muted-foreground">Keine Buchungen gefunden</p>
+                    </div>
+                  ) : (
+                    <div className="divide-y divide-border/50">
+                      {bookings[status].map((booking) => (
+                        <div key={booking.id} className="flex items-center gap-4 p-4 hover:bg-muted/30 transition-colors">
+                          <div className="w-12 h-12 rounded-xl bg-muted/50 flex items-center justify-center flex-shrink-0">
+                            <Truck className="w-6 h-6 text-muted-foreground" />
+                          </div>
+                          <div className="flex-1 min-w-0">
+                            <div className="flex items-center gap-2 mb-1">
+                              <p className="font-semibold text-sm text-foreground">{booking.from.split(",")[0]}</p>
+                              <ChevronRight className="w-4 h-4 text-muted-foreground" />
+                              <p className="font-semibold text-sm text-foreground">{booking.to.split(",")[0]}</p>
+                            </div>
+                            <div className="flex items-center gap-3 text-xs text-muted-foreground">
+                              <span className="flex items-center gap-1">
+                                <Clock className="w-3 h-3" />
+                                {booking.pickup}
+                              </span>
+                              <span className="flex items-center gap-1">
+                                <User className="w-3 h-3" />
+                                {booking.patient}
+                              </span>
+                            </div>
+                          </div>
+                          <div className="flex items-center gap-3">
+                            <Badge className={cn(
+                              "border-0 text-xs",
+                              booking.kostentraeger === "Transportschein" && "bg-primary/20 text-primary",
+                              booking.kostentraeger === "Selbstzahler" && "bg-secondary/20 text-secondary"
+                            )}>
+                              {booking.kostentraeger}
+                            </Badge>
+                            <Badge className={cn(
+                              "border-0 text-xs",
+                              status === "offen" && "bg-amber-500/20 text-amber-600",
+                              status === "bestaetigt" && "bg-secondary/20 text-secondary",
+                              status === "storniert" && "bg-destructive/20 text-destructive"
+                            )}>
+                              {status}
+                            </Badge>
+                            <Button 
+                              size="sm" 
+                              className="h-8 text-xs"
+                              onClick={() => setSelectedBooking(booking)}
+                            >
+                              Details
+                            </Button>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </CardContent>
+              </Card>
+            </TabsContent>
+          ))}
+        </Tabs>
+      </div>
+    );
+  };
 
   const renderActivities = () => (
     <div className="space-y-5">
