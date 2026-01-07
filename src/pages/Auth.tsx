@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useSearchParams } from "react-router-dom";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { Button } from "@/components/ui/button";
@@ -11,8 +12,22 @@ import { Building2, Users, Mail, Lock, User, Phone, ArrowRight } from "lucide-re
 type UserType = "anbieter" | "partner";
 
 const Auth = () => {
+  const [searchParams] = useSearchParams();
   const [authMode, setAuthMode] = useState<"login" | "register">("login");
   const [userType, setUserType] = useState<UserType>("anbieter");
+
+  useEffect(() => {
+    const register = searchParams.get("register");
+    const type = searchParams.get("type");
+    
+    if (register === "true") {
+      setAuthMode("register");
+    }
+    if (type === "anbieter" || type === "partner") {
+      setUserType(type);
+      setAuthMode("register");
+    }
+  }, [searchParams]);
 
   return (
     <main className="min-h-screen bg-gradient-to-b from-background via-muted/20 to-background">
