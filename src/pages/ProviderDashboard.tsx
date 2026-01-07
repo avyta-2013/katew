@@ -561,23 +561,32 @@ const ProviderDashboard = () => {
         </TabsList>
 
         <TabsContent value="stammdaten" className="mt-4 space-y-4">
+          {/* Unternehmen Card */}
           <Card className="border-0 shadow-lg bg-gradient-to-br from-card to-muted/20 overflow-hidden">
-            <CardHeader className="pb-3 pt-4 px-4">
-              <CardTitle className="text-base font-bold">Unternehmensdaten</CardTitle>
+            <CardHeader className="pb-3 pt-4 px-4 border-b border-border/50">
+              <CardTitle className="text-base font-bold">Unternehmen</CardTitle>
             </CardHeader>
-            <CardContent className="px-4 pb-4 space-y-4">
+            <CardContent className="px-4 pb-4 pt-4 space-y-4">
+              <div className="space-y-1">
+                <Label className="text-xs font-semibold text-muted-foreground">Unternehmensname <span className="text-destructive">*</span></Label>
+                <Input 
+                  defaultValue="MediTrans GmbH" 
+                  className="h-10 bg-muted/30 border border-muted focus-visible:border-primary focus-visible:ring-0 rounded-lg text-sm"
+                />
+              </div>
+
               <div className="grid md:grid-cols-2 gap-4">
                 <div className="space-y-1">
-                  <Label className="text-xs font-semibold">Unternehmensname <span className="text-destructive">*</span></Label>
+                  <Label className="text-xs font-semibold text-muted-foreground">Vorname <span className="text-destructive">*</span></Label>
                   <Input 
-                    defaultValue="MediTrans GmbH" 
+                    defaultValue="Thomas" 
                     className="h-10 bg-muted/30 border border-muted focus-visible:border-primary focus-visible:ring-0 rounded-lg text-sm"
                   />
                 </div>
                 <div className="space-y-1">
-                  <Label className="text-xs font-semibold">Rechtsform <span className="text-destructive">*</span></Label>
+                  <Label className="text-xs font-semibold text-muted-foreground">Nachname <span className="text-destructive">*</span></Label>
                   <Input 
-                    defaultValue="GmbH" 
+                    defaultValue="Müller" 
                     className="h-10 bg-muted/30 border border-muted focus-visible:border-primary focus-visible:ring-0 rounded-lg text-sm"
                   />
                 </div>
@@ -585,7 +594,49 @@ const ProviderDashboard = () => {
 
               <div className="grid md:grid-cols-2 gap-4">
                 <div className="space-y-1">
-                  <Label className="text-xs font-semibold">Telefon <span className="text-destructive">*</span></Label>
+                  <Label className="text-xs font-semibold text-muted-foreground">Straße <span className="text-destructive">*</span></Label>
+                  <Input 
+                    defaultValue="Hauptstraße 123" 
+                    className="h-10 bg-muted/30 border border-muted focus-visible:border-primary focus-visible:ring-0 rounded-lg text-sm"
+                  />
+                </div>
+                <div className="space-y-1">
+                  <Label className="text-xs font-semibold text-muted-foreground">Postleitzahl <span className="text-destructive">*</span></Label>
+                  <Input 
+                    defaultValue="60311" 
+                    className="h-10 bg-muted/30 border border-muted focus-visible:border-primary focus-visible:ring-0 rounded-lg text-sm"
+                  />
+                </div>
+              </div>
+
+              <div className="grid md:grid-cols-2 gap-4">
+                <div className="space-y-1">
+                  <Label className="text-xs font-semibold text-muted-foreground">Stadt <span className="text-destructive">*</span></Label>
+                  <Input 
+                    defaultValue="Frankfurt am Main" 
+                    className="h-10 bg-muted/30 border border-muted focus-visible:border-primary focus-visible:ring-0 rounded-lg text-sm"
+                  />
+                </div>
+                <div className="space-y-1">
+                  <Label className="text-xs font-semibold text-muted-foreground">Amtsgericht</Label>
+                  <Input 
+                    defaultValue="Frankfurt am Main" 
+                    className="h-10 bg-muted/30 border border-muted focus-visible:border-primary focus-visible:ring-0 rounded-lg text-sm"
+                  />
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Kontakt Card */}
+          <Card className="border-0 shadow-lg bg-gradient-to-br from-card to-muted/20 overflow-hidden">
+            <CardHeader className="pb-3 pt-4 px-4 border-b border-border/50">
+              <CardTitle className="text-base font-bold">Kontakt</CardTitle>
+            </CardHeader>
+            <CardContent className="px-4 pb-4 pt-4 space-y-4">
+              <div className="grid md:grid-cols-2 gap-4">
+                <div className="space-y-1">
+                  <Label className="text-xs font-semibold text-muted-foreground">Telefon <span className="text-destructive">*</span></Label>
                   <Input 
                     type="tel"
                     defaultValue="+49 69 12345678" 
@@ -593,21 +644,32 @@ const ProviderDashboard = () => {
                   />
                 </div>
                 <div className="space-y-1">
-                  <Label className="text-xs font-semibold">E-Mail <span className="text-destructive">*</span></Label>
+                  <Label className="text-xs font-semibold text-muted-foreground">Telefax</Label>
+                  <Input 
+                    type="tel"
+                    defaultValue="+49 69 12345679" 
+                    className="h-10 bg-muted/30 border border-muted focus-visible:border-primary focus-visible:ring-0 rounded-lg text-sm"
+                  />
+                </div>
+              </div>
+
+              <div className="grid md:grid-cols-2 gap-4">
+                <div className="space-y-1">
+                  <Label className="text-xs font-semibold text-muted-foreground">Mobil/WhatsApp <span className="text-destructive">*</span></Label>
+                  <Input 
+                    type="tel"
+                    defaultValue="+49 170 1234567" 
+                    className="h-10 bg-muted/30 border border-muted focus-visible:border-primary focus-visible:ring-0 rounded-lg text-sm"
+                  />
+                </div>
+                <div className="space-y-1">
+                  <Label className="text-xs font-semibold text-muted-foreground">Email <span className="text-destructive">*</span></Label>
                   <Input 
                     type="email"
                     defaultValue="info@meditrans.de" 
                     className="h-10 bg-muted/30 border border-muted focus-visible:border-primary focus-visible:ring-0 rounded-lg text-sm"
                   />
                 </div>
-              </div>
-
-              <div className="space-y-1">
-                <Label className="text-xs font-semibold">Beschreibung</Label>
-                <Textarea 
-                  defaultValue="Professioneller Krankentransport im Rhein-Main-Gebiet. 24/7 erreichbar für alle Arten von Patiententransporten."
-                  className="bg-muted/30 border border-muted focus-visible:border-primary focus-visible:ring-0 rounded-lg text-sm min-h-20"
-                />
               </div>
 
               <div className="flex justify-end pt-2">
@@ -620,49 +682,92 @@ const ProviderDashboard = () => {
         </TabsContent>
 
         <TabsContent value="standort" className="mt-4 space-y-4">
+          {/* Standort Katalog Card */}
           <Card className="border-0 shadow-lg bg-gradient-to-br from-card to-muted/20 overflow-hidden">
-            <CardHeader className="pb-3 pt-4 px-4">
-              <CardTitle className="text-base font-bold">Standort & Einsatzgebiet</CardTitle>
+            <CardHeader className="pb-3 pt-4 px-4 border-b border-border/50">
+              <CardTitle className="text-base font-bold">Katalog</CardTitle>
             </CardHeader>
-            <CardContent className="px-4 pb-4 space-y-4">
+            <CardContent className="px-4 pb-4 pt-4 space-y-4">
               <div className="grid md:grid-cols-2 gap-4">
                 <div className="space-y-1">
-                  <Label className="text-xs font-semibold">Straße & Hausnummer <span className="text-destructive">*</span></Label>
+                  <Label className="text-xs font-semibold text-muted-foreground">Unternehmensname <span className="text-destructive">*</span></Label>
                   <Input 
-                    defaultValue="Hauptstraße 123" 
+                    defaultValue="MediTrans GmbH" 
                     className="h-10 bg-muted/30 border border-muted focus-visible:border-primary focus-visible:ring-0 rounded-lg text-sm"
                   />
                 </div>
                 <div className="space-y-1">
-                  <Label className="text-xs font-semibold">PLZ & Stadt <span className="text-destructive">*</span></Label>
-                  <Input 
-                    defaultValue="60311 Frankfurt" 
-                    className="h-10 bg-muted/30 border border-muted focus-visible:border-primary focus-visible:ring-0 rounded-lg text-sm"
-                  />
+                  <Label className="text-xs font-semibold text-muted-foreground">Anbieter <span className="text-destructive">*</span></Label>
+                  <select className="w-full h-10 bg-muted/30 border border-muted focus:border-primary focus:outline-none rounded-lg text-sm px-3">
+                    <option value="">Bitte wählen</option>
+                    <option value="krankentransport">Krankentransport</option>
+                    <option value="rettungsdienst">Rettungsdienst</option>
+                    <option value="taxiunternehmen">Taxiunternehmen</option>
+                    <option value="mietwagen">Mietwagen</option>
+                  </select>
                 </div>
               </div>
 
-              <div className="space-y-1">
-                <Label className="text-xs font-semibold">Einsatzradius (km) <span className="text-destructive">*</span></Label>
-                <Input 
-                  type="number"
-                  defaultValue="100" 
-                  className="h-10 bg-muted/30 border border-muted focus-visible:border-primary focus-visible:ring-0 rounded-lg text-sm max-w-32"
-                />
+              <div className="grid md:grid-cols-2 gap-4">
+                <div className="space-y-1">
+                  <Label className="text-xs font-semibold text-muted-foreground">Transportart <span className="text-destructive">*</span></Label>
+                  <select className="w-full h-10 bg-muted/30 border border-muted focus:border-primary focus:outline-none rounded-lg text-sm px-3">
+                    <option value="">Bitte wählen</option>
+                    <option value="qualifiziert">Qualifizierter Krankentransport</option>
+                    <option value="nicht-qualifiziert">Nicht-qualifizierter Transport</option>
+                  </select>
+                </div>
+                <div className="space-y-1">
+                  <Label className="text-xs font-semibold text-muted-foreground">Transportmittel <span className="text-destructive">*</span></Label>
+                  <select className="w-full h-10 bg-muted/30 border border-muted focus:border-primary focus:outline-none rounded-lg text-sm px-3">
+                    <option value="">Bitte wählen</option>
+                    <option value="ktw">KTW (Krankentransportwagen)</option>
+                    <option value="rtw">RTW (Rettungswagen)</option>
+                    <option value="nef">NEF (Notarzteinsatzfahrzeug)</option>
+                    <option value="taxi">Taxi/Mietwagen</option>
+                  </select>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Standort & Umkreis Card */}
+          <Card className="border-0 shadow-lg bg-gradient-to-br from-card to-muted/20 overflow-hidden">
+            <CardHeader className="pb-3 pt-4 px-4 border-b border-border/50">
+              <CardTitle className="text-base font-bold">Standort</CardTitle>
+            </CardHeader>
+            <CardContent className="px-4 pb-4 pt-4 space-y-4">
+              <div className="grid md:grid-cols-2 gap-4">
+                <div className="space-y-1">
+                  <Label className="text-xs font-semibold text-muted-foreground">Adresse <span className="text-destructive">*</span></Label>
+                  <Input 
+                    placeholder="Gebe hier deine Betriebssitz Start-Adresse ein"
+                    defaultValue="Hauptstraße 123, 60311 Frankfurt am Main" 
+                    className="h-10 bg-muted/30 border border-muted focus-visible:border-primary focus-visible:ring-0 rounded-lg text-sm"
+                  />
+                </div>
+                <div className="space-y-1">
+                  <Label className="text-xs font-semibold text-muted-foreground">Umkreis festlegen <span className="text-destructive">*</span></Label>
+                  <div className="relative">
+                    <Input 
+                      type="number"
+                      defaultValue="50" 
+                      className="h-10 bg-muted/30 border border-muted focus-visible:border-primary focus-visible:ring-0 rounded-lg text-sm pr-10"
+                    />
+                    <span className="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-muted-foreground">km</span>
+                  </div>
+                </div>
               </div>
 
+              {/* Map Placeholder */}
               <div className="space-y-2">
-                <Label className="text-xs font-semibold">Verfügbare Transportarten</Label>
-                <div className="grid md:grid-cols-2 gap-2">
-                  {["Liegend", "Sitzend", "Rollstuhl", "Tragestuhl"].map((type) => (
-                    <div key={type} className="flex items-center justify-between p-3 bg-muted/30 rounded-xl border border-muted">
-                      <div className="flex items-center gap-2">
-                        <Truck className="w-4 h-4 text-muted-foreground" />
-                        <span className="text-sm font-medium">{type}</span>
-                      </div>
-                      <Switch defaultChecked />
-                    </div>
-                  ))}
+                <div className="w-full h-64 bg-muted/50 rounded-xl border border-muted flex items-center justify-center relative overflow-hidden">
+                  <div className="absolute inset-0 bg-gradient-to-br from-amber-100/30 to-amber-50/30" />
+                  <div className="text-center z-10">
+                    <MapPinned className="w-10 h-10 mx-auto text-primary/50 mb-2" />
+                    <p className="text-sm text-muted-foreground">Kartenansicht</p>
+                    <p className="text-xs text-muted-foreground/70">Frankfurt am Main, Deutschland</p>
+                  </div>
                 </div>
               </div>
 
