@@ -1,23 +1,32 @@
 import { useEffect, useRef, useState } from "react";
 
+type PartnerCategory = "Alle" | "Krankenhaus" | "Reha" | "Pflege" | "Software";
+
 const partnerLogos = [
-  { name: "Mercedes-Benz", logo: "M" },
-  { name: "Volkswagen", logo: "VW" },
-  { name: "Ford", logo: "F" },
-  { name: "Opel", logo: "O" },
-  { name: "Fiat", logo: "FI" },
-  { name: "Stryker", logo: "ST" },
-  { name: "Hartmann", logo: "H" },
-  { name: "Dräger", logo: "DR" },
-  { name: "B. Braun", logo: "BB" },
-  { name: "Fresenius", logo: "FR" },
-  { name: "Siemens", logo: "SI" },
-  { name: "GE Healthcare", logo: "GE" },
+  { name: "Charité Berlin", logo: "CB", category: "Krankenhaus" as PartnerCategory },
+  { name: "Helios Kliniken", logo: "HK", category: "Krankenhaus" as PartnerCategory },
+  { name: "Asklepios", logo: "AS", category: "Krankenhaus" as PartnerCategory },
+  { name: "Universitätsklinik", logo: "UK", category: "Krankenhaus" as PartnerCategory },
+  { name: "MediaReha", logo: "MR", category: "Reha" as PartnerCategory },
+  { name: "Kur + Reha", logo: "KR", category: "Reha" as PartnerCategory },
+  { name: "RehaZentrum", logo: "RZ", category: "Reha" as PartnerCategory },
+  { name: "Caritas Pflege", logo: "CP", category: "Pflege" as PartnerCategory },
+  { name: "AWO Seniorendienste", logo: "AW", category: "Pflege" as PartnerCategory },
+  { name: "Korian", logo: "KO", category: "Pflege" as PartnerCategory },
+  { name: "Alloheim", logo: "AL", category: "Pflege" as PartnerCategory },
+  { name: "Connext Vivendi", logo: "CV", category: "Software" as PartnerCategory },
+  { name: "CGM", logo: "CG", category: "Software" as PartnerCategory },
+  { name: "Medifox", logo: "MF", category: "Software" as PartnerCategory },
 ];
 
 export const PartnersLogoSlider = () => {
   const scrollRef = useRef<HTMLDivElement>(null);
   const [isPaused, setIsPaused] = useState(false);
+  const [selectedCategory, setSelectedCategory] = useState<PartnerCategory>("Alle");
+
+  const filteredPartners = selectedCategory === "Alle" 
+    ? partnerLogos 
+    : partnerLogos.filter(p => p.category === selectedCategory);
 
   useEffect(() => {
     const scrollContainer = scrollRef.current;
@@ -40,7 +49,7 @@ export const PartnersLogoSlider = () => {
     animationId = requestAnimationFrame(scroll);
 
     return () => cancelAnimationFrame(animationId);
-  }, [isPaused]);
+  }, [isPaused, selectedCategory]);
 
   return (
     <section className="py-16 md:py-20 relative overflow-hidden">
@@ -60,6 +69,37 @@ export const PartnersLogoSlider = () => {
           </p>
         </div>
 
+        {/* Partner Categories - Clickable Filters */}
+        <div className="flex flex-wrap justify-center gap-3 mb-10">
+          {(["Alle", "Krankenhaus", "Reha", "Pflege", "Software"] as PartnerCategory[]).map((category) => {
+            const count = category === "Alle" 
+              ? partnerLogos.length 
+              : partnerLogos.filter(p => p.category === category).length;
+            const isActive = selectedCategory === category;
+            
+            return (
+              <button
+                key={category}
+                onClick={() => setSelectedCategory(category)}
+                className={`px-5 py-2.5 rounded-full text-sm font-medium transition-all duration-300 flex items-center gap-2 ${
+                  isActive
+                    ? "bg-gradient-to-r from-primary to-secondary text-primary-foreground shadow-lg shadow-primary/25"
+                    : "bg-card border border-border/50 text-muted-foreground hover:border-primary/40 hover:text-primary"
+                }`}
+              >
+                {category}
+                <span className={`text-xs px-1.5 py-0.5 rounded-full ${
+                  isActive 
+                    ? "bg-white/20 text-primary-foreground" 
+                    : "bg-muted text-muted-foreground"
+                }`}>
+                  {count}
+                </span>
+              </button>
+            );
+          })}
+        </div>
+
         {/* Logo Slider */}
         <div 
           className="relative"
@@ -76,9 +116,9 @@ export const PartnersLogoSlider = () => {
             style={{ scrollBehavior: 'auto' }}
           >
             {/* Double the logos for seamless loop */}
-            {[...partnerLogos, ...partnerLogos].map((partner, index) => (
+            {[...filteredPartners, ...filteredPartners].map((partner, index) => (
               <div
-                key={index}
+                key={`${partner.name}-${index}`}
                 className="flex-shrink-0 group"
               >
                 <div className="w-40 h-24 bg-card border border-border/50 rounded-2xl flex flex-col items-center justify-center gap-2 hover:border-primary/40 hover:shadow-lg hover:shadow-primary/10 transition-all duration-300">
@@ -92,18 +132,6 @@ export const PartnersLogoSlider = () => {
               </div>
             ))}
           </div>
-        </div>
-
-        {/* Partner Categories */}
-        <div className="flex flex-wrap justify-center gap-4 mt-10">
-          {["Krankenhaus", "Reha", "Pflege", "Software"].map((category) => (
-            <div 
-              key={category}
-              className="px-4 py-2 bg-card border border-border/50 rounded-full text-sm font-medium text-muted-foreground hover:border-primary/40 hover:text-primary transition-colors"
-            >
-              {category}
-            </div>
-          ))}
         </div>
       </div>
     </section>
