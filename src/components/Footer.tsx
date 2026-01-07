@@ -1,4 +1,4 @@
-import { Mail, Phone, MapPin, ArrowRight, Facebook, Instagram, Linkedin, Twitter } from "lucide-react";
+import { Mail, Phone, MapPin, ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
 
 const footerLinks = {
@@ -22,13 +22,6 @@ const footerLinks = {
     { label: "AGB", href: "/agb" },
   ],
 };
-
-const socialLinks = [
-  { icon: Facebook, href: "#", label: "Facebook" },
-  { icon: Instagram, href: "#", label: "Instagram" },
-  { icon: Linkedin, href: "#", label: "LinkedIn" },
-  { icon: Twitter, href: "#", label: "Twitter" },
-];
 
 export const Footer = () => {
 
@@ -79,22 +72,6 @@ export const Footer = () => {
                 </div>
               </div>
 
-              {/* Social links */}
-              <div className="flex gap-2">
-                {socialLinks.map((social) => {
-                  const Icon = social.icon;
-                  return (
-                    <a
-                      key={social.label}
-                      href={social.href}
-                      aria-label={social.label}
-                      className="w-10 h-10 rounded-xl bg-card border border-border/50 flex items-center justify-center hover:border-primary/50 hover:bg-primary/10 transition-all duration-300"
-                    >
-                      <Icon className="w-4 h-4 text-muted-foreground" />
-                    </a>
-                  );
-                })}
-              </div>
             </div>
 
             {/* Link columns */}

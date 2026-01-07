@@ -18,6 +18,7 @@ import AGB from "./pages/AGB";
 import Karriere from "./pages/Karriere";
 import JobDetail from "./pages/JobDetail";
 import BlogPost from "./pages/BlogPost";
+import BookingResults from "./pages/BookingResults";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -30,6 +31,7 @@ const App = () => (
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Index />} />
+          <Route path="/buchen" element={<BookingResults />} />
           <Route path="/wir" element={<About />} />
           <Route path="/anmelden" element={<Auth />} />
           <Route path="/fuer-anbieter" element={<ForProviders />} />
