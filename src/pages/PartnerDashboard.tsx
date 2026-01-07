@@ -1126,7 +1126,7 @@ const PartnerDashboard = () => {
     <div className="min-h-screen bg-gradient-to-br from-background via-muted/20 to-background flex flex-col">
       <Header />
       
-      <div className="flex flex-1 pt-16 md:pt-20">
+      <div className="flex flex-1 pt-20 md:pt-24">
         {renderSidebar()}
         
         <main className="flex-1 p-6 max-w-5xl overflow-y-auto">
