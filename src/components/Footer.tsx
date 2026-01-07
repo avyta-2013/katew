@@ -7,6 +7,7 @@ const footerLinks = {
     { label: "Für Anbieter", href: "/fuer-anbieter" },
     { label: "Für Partner", href: "/fuer-partner" },
     { label: "Partner Dashboard", href: "/partner-dashboard" },
+    { label: "Anbieter Dashboard", href: "/anbieter-dashboard" },
   ],
   unternehmen: [
     { label: "Über uns", href: "/wir" },
