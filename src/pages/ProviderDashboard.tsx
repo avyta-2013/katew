@@ -541,6 +541,95 @@ const ProviderDashboard = () => {
         </CardContent>
       </Card>
 
+      {/* Profile Completion Card */}
+      <Card className="border-0 shadow-xl bg-gradient-to-br from-card via-card to-muted/10 overflow-hidden">
+        <CardContent className="px-6 py-5">
+          <div className="flex flex-col md:flex-row md:items-center gap-5">
+            {/* Left: Progress Circle */}
+            <div className="relative flex-shrink-0">
+              <div className="w-24 h-24 rounded-full bg-gradient-to-br from-muted/50 to-muted/30 flex items-center justify-center">
+                <svg className="w-24 h-24 transform -rotate-90 absolute">
+                  <circle
+                    cx="48"
+                    cy="48"
+                    r="40"
+                    stroke="currentColor"
+                    strokeWidth="6"
+                    fill="none"
+                    className="text-muted/30"
+                  />
+                  <circle
+                    cx="48"
+                    cy="48"
+                    r="40"
+                    stroke="url(#progressGradient)"
+                    strokeWidth="6"
+                    fill="none"
+                    strokeDasharray={`${65 * 2.51} ${100 * 2.51}`}
+                    strokeLinecap="round"
+                    className="transition-all duration-1000 ease-out"
+                  />
+                  <defs>
+                    <linearGradient id="progressGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                      <stop offset="0%" stopColor="hsl(var(--primary))" />
+                      <stop offset="100%" stopColor="hsl(var(--secondary))" />
+                    </linearGradient>
+                  </defs>
+                </svg>
+                <div className="text-center z-10">
+                  <span className="text-2xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">65%</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Right: Info */}
+            <div className="flex-1 space-y-3">
+              <div className="flex items-center gap-2">
+                <h3 className="text-lg font-bold text-foreground">Profil-Vervollständigung</h3>
+                <Badge variant="outline" className="bg-amber-500/10 text-amber-600 border-amber-500/30 text-xs font-medium">
+                  In Bearbeitung
+                </Badge>
+              </div>
+              <p className="text-sm text-muted-foreground">
+                Vervollständigen Sie Ihr Profil zu 100%, um freigeschaltet zu werden und Buchungsanfragen zu erhalten.
+              </p>
+              
+              {/* Progress Bar */}
+              <div className="space-y-2">
+                <div className="h-2.5 bg-muted/50 rounded-full overflow-hidden">
+                  <div 
+                    className="h-full bg-gradient-to-r from-primary to-secondary rounded-full transition-all duration-1000 ease-out"
+                    style={{ width: '65%' }}
+                  />
+                </div>
+                <div className="flex items-center justify-between text-xs">
+                  <span className="text-muted-foreground">7 von 12 Feldern ausgefüllt</span>
+                  <span className="font-medium text-foreground">Noch 35% bis zur Freischaltung</span>
+                </div>
+              </div>
+
+              {/* Missing Fields */}
+              <div className="flex flex-wrap gap-2 pt-1">
+                <span className="text-[10px] font-medium text-muted-foreground uppercase tracking-wide">Fehlend:</span>
+                {['Telefax', 'Transportart', 'Transportmittel', 'Tarife', 'Logo'].map((field) => (
+                  <Badge key={field} variant="outline" className="bg-destructive/5 text-destructive border-destructive/20 text-[10px] font-medium">
+                    {field}
+                  </Badge>
+                ))}
+              </div>
+            </div>
+
+            {/* Status Icon */}
+            <div className="hidden lg:flex flex-col items-center gap-2 px-4">
+              <div className="w-14 h-14 rounded-2xl bg-amber-500/10 flex items-center justify-center">
+                <AlertCircle className="w-7 h-7 text-amber-500" />
+              </div>
+              <span className="text-[10px] text-muted-foreground font-medium uppercase tracking-wide">Nicht aktiv</span>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+
       {/* Profile Tabs */}
       <Tabs defaultValue="stammdaten" className="w-full">
         <TabsList className="bg-muted/30 p-1 h-11 rounded-xl border border-muted w-fit">
