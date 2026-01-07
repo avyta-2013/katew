@@ -5,20 +5,20 @@ import { ArrowRight, BookOpen, Mail } from "lucide-react";
 const blogPosts = [
   {
     category: "Ratgeber",
-    title: "Krankentransport richtig beantragen",
+    title: "Krankenfahrt richtig beantragen",
     excerpt: "Alles was Sie über Verordnungen und Kostenübernahme wissen müssen.",
     readTime: "5 Min",
   },
   {
     category: "News",
     title: "Digitalisierung im Gesundheitswesen",
-    excerpt: "Wie moderne Technologie den Patiententransport verändert.",
+    excerpt: "Wie moderne Technologie die Krankenfahrt verändert.",
     readTime: "4 Min",
   },
   {
     category: "Tipps",
     title: "Checkliste für Ihre erste Buchung",
-    excerpt: "Schritt für Schritt zur erfolgreichen Transportanfrage.",
+    excerpt: "Schritt für Schritt zur erfolgreichen Anfrage.",
     readTime: "3 Min",
   },
 ];
@@ -35,7 +35,7 @@ export const BlogNewsletter = () => {
                 <BookOpen className="w-5 h-5 text-primary" />
                 <span className="text-sm font-medium text-muted-foreground">Wissen & Insights</span>
               </div>
-              <h2 className="text-3xl md:text-4xl font-bold mb-8 tracking-tight">
+              <h2 className="text-3xl md:text-4xl font-bold mb-8 tracking-tight bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
                 Aktuelles aus der Branche
               </h2>
 

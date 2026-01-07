@@ -1,4 +1,4 @@
-import { User, Accessibility, Users, Bed, FileText, CreditCard, Building2 } from "lucide-react";
+import { User, Accessibility, Users, Bed, FileText, CreditCard, Gavel } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 const transportTypes = [
@@ -42,10 +42,10 @@ const bookingOptions = [
     features: ["Sofortige Buchung", "Transparente Preise", "Flexible Termine"],
   },
   {
-    icon: Building2,
-    title: "Institutionen",
-    description: "Für Einrichtungen und Unternehmen",
-    features: ["Rahmenverträge", "Sammelrechnungen", "Prioritäts-Buchung"],
+    icon: Gavel,
+    title: "Ausschreibungen",
+    description: "Für Kostenträger und öffentliche Auftraggeber",
+    features: ["Digitale Ausschreibungen", "Qualifizierte Anbieter", "Transparente Vergabe"],
   },
 ];
 
@@ -54,8 +54,8 @@ export const ServicesSection = () => {
     <section className="py-24 md:py-32 bg-muted/30">
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-5xl font-bold mb-4 tracking-tight">
-            Unsere Leistungen
+          <h2 className="text-3xl md:text-5xl font-bold mb-4 tracking-tight bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+            Die Zukunft hat begonnen
           </h2>
           <p className="text-lg text-muted-foreground max-w-xl mx-auto">
             Passende Lösungen für jeden Bedarf

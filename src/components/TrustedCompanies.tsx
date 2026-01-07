@@ -57,7 +57,7 @@ export const TrustedCompanies = () => {
     <section className="py-24 md:py-32 bg-background overflow-hidden">
       <div className="container mx-auto px-4 mb-12">
         <div className="text-center">
-          <h2 className="text-3xl md:text-5xl font-bold mb-4 tracking-tight">
+          <h2 className="text-3xl md:text-5xl font-bold mb-4 tracking-tight bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
             Top bewertete Partner
           </h2>
           <p className="text-lg text-muted-foreground max-w-xl mx-auto">
