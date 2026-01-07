@@ -78,15 +78,9 @@ export const Header = () => {
             >
               Für Partner
             </Link>
-            <Link
-              to="/buchen"
-              className="px-4 py-2 text-sm font-medium bg-gradient-to-r from-primary to-secondary text-primary-foreground rounded-lg hover:opacity-90 transition-opacity"
-            >
-              Fahrt buchen
-            </Link>
           </nav>
 
-          {/* Right side - Language & Account */}
+          {/* Right side - Language, Book & Account */}
           <div className="flex items-center gap-2">
             {/* Language Selector */}
             <DropdownMenu>
@@ -110,6 +104,14 @@ export const Header = () => {
                 ))}
               </DropdownMenuContent>
             </DropdownMenu>
+
+            {/* Fahrt buchen Button */}
+            <Link
+              to="/buchen"
+              className="hidden md:inline-flex px-4 py-2 text-sm font-medium bg-gradient-to-r from-primary to-secondary text-primary-foreground rounded-xl hover:opacity-90 transition-opacity"
+            >
+              Fahrt buchen
+            </Link>
 
             {/* Account Dropdown */}
             <DropdownMenu>
