@@ -54,8 +54,9 @@ const openPositions = [
   {
     title: "Sales Manager/in",
     department: "Vertrieb",
-    location: "Frankfurt",
-    type: "Vollzeit",
+    location: "Frankfurt / Remote",
+    type: "Vollzeit, Teilzeit, Aushilfe",
+    slug: "sales-manager",
   },
 ];
 
@@ -209,9 +210,10 @@ export default function Karriere() {
               
               <div className="space-y-4">
                 {openPositions.map((position, index) => (
-                  <div
+                  <Link
                     key={index}
-                    className="group bg-card rounded-2xl border border-border/50 p-6 hover:border-primary/40 hover:shadow-lg transition-all cursor-pointer"
+                    to={`/karriere/${position.slug}`}
+                    className="group bg-card rounded-2xl border border-border/50 p-6 hover:border-primary/40 hover:shadow-lg transition-all cursor-pointer block"
                   >
                     <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
                       <div className="flex-1">
@@ -238,7 +240,7 @@ export default function Karriere() {
                         <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
                       </Button>
                     </div>
-                  </div>
+                  </Link>
                 ))}
               </div>
               

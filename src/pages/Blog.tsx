@@ -15,6 +15,7 @@ import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
+import { Link } from "react-router-dom";
 
 const categories = [
   { name: "Alle", count: 12 },
@@ -205,10 +206,12 @@ export default function Blog() {
                         {featuredPost.readTime}
                       </span>
                     </div>
-                    <Button className="w-fit bg-gradient-to-r from-primary to-secondary hover:opacity-90">
-                      Artikel lesen
-                      <ArrowRight className="ml-2 w-4 h-4" />
-                    </Button>
+                    <Link to="/blog/zukunft-krankenfahrten-digitalisierung">
+                      <Button className="w-fit bg-gradient-to-r from-primary to-secondary hover:opacity-90">
+                        Artikel lesen
+                        <ArrowRight className="ml-2 w-4 h-4" />
+                      </Button>
+                    </Link>
                   </div>
                 </div>
               </div>
