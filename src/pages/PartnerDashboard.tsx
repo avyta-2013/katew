@@ -1,5 +1,5 @@
 import { useState, useRef } from "react";
-import { User, Calendar, Settings, LogOut, Bell, Lock, Eye, EyeOff, Building2, Phone, Mail, MapPin, CalendarDays, CheckCircle2, XCircle, Clock, LayoutDashboard, TrendingUp, Camera, Upload, ArrowUpRight, Truck, Route, Timer, Sparkles, Ticket, MoreHorizontal, Star, RefreshCw, FileText } from "lucide-react";
+import { User, Calendar, Settings, LogOut, Bell, Lock, Eye, EyeOff, Building2, Phone, Mail, MapPin, CalendarDays, CheckCircle2, XCircle, Clock, LayoutDashboard, TrendingUp, Camera, Upload, ArrowUpRight, Truck, Route, Timer, Sparkles, Ticket, MoreHorizontal, Star, RefreshCw, FileText, Users } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -14,8 +14,11 @@ import { Progress } from "@/components/ui/progress";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { Textarea } from "@/components/ui/textarea";
 import { cn } from "@/lib/utils";
+import { Header } from "@/components/Header";
+import { Footer } from "@/components/Footer";
 
 type NavItem = "uebersicht" | "profil" | "buchungen" | "tickets" | "einstellungen";
+type AccountType = "einrichtung" | "privat";
 
 const PartnerDashboard = () => {
   const [activeNav, setActiveNav] = useState<NavItem>("uebersicht");
@@ -24,6 +27,7 @@ const PartnerDashboard = () => {
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [emailNotifications, setEmailNotifications] = useState(true);
   const [profileImage, setProfileImage] = useState<string | null>(null);
+  const [accountType, setAccountType] = useState<AccountType>("einrichtung");
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const navItems = [
@@ -92,27 +96,22 @@ const PartnerDashboard = () => {
   };
 
   const renderSidebar = () => (
-    <div className="w-80 bg-gradient-to-b from-card via-card to-muted/30 border-r border-border min-h-screen flex flex-col relative overflow-hidden">
-      {/* Decorative Elements */}
-      <div className="absolute top-0 right-0 w-40 h-40 bg-gradient-to-br from-primary/10 to-transparent rounded-full blur-3xl" />
-      <div className="absolute bottom-20 left-0 w-32 h-32 bg-gradient-to-tr from-secondary/10 to-transparent rounded-full blur-3xl" />
-      
-      {/* Profile Section */}
-      <div className="p-8 border-b border-border/50 relative">
-        <div className="flex flex-col items-center">
+    <div className="w-64 bg-card border-r border-border flex flex-col">
+      {/* Profile Section - Compact */}
+      <div className="p-4 border-b border-border/50">
+        <div className="flex items-center gap-3">
           <div className="relative group">
-            <div className="absolute -inset-1 bg-gradient-to-r from-primary via-secondary to-primary rounded-full blur opacity-30 group-hover:opacity-50 transition duration-300" />
-            <Avatar className="w-24 h-24 border-4 border-background relative ring-2 ring-primary/20">
+            <Avatar className="w-12 h-12 border-2 border-background ring-1 ring-primary/20">
               <AvatarImage src={profileImage || ""} />
-              <AvatarFallback className="bg-gradient-to-br from-primary to-secondary text-white text-2xl font-bold">
+              <AvatarFallback className="bg-gradient-to-br from-primary to-secondary text-white text-sm font-bold">
                 DL
               </AvatarFallback>
             </Avatar>
             <button
               onClick={triggerFileInput}
-              className="absolute inset-0 flex items-center justify-center bg-black/60 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-300 cursor-pointer backdrop-blur-sm"
+              className="absolute inset-0 flex items-center justify-center bg-black/60 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-200 cursor-pointer"
             >
-              <Camera className="w-7 h-7 text-white" />
+              <Camera className="w-4 h-4 text-white" />
             </button>
             <input
               ref={fileInputRef}
@@ -121,21 +120,16 @@ const PartnerDashboard = () => {
               onChange={handleImageUpload}
               className="hidden"
             />
-            <div className="absolute -bottom-1 -right-1 w-7 h-7 bg-gradient-to-r from-secondary to-secondary/80 rounded-full flex items-center justify-center ring-4 ring-background shadow-lg">
-              <CheckCircle2 className="w-4 h-4 text-white" />
-            </div>
           </div>
-          <h2 className="mt-5 font-bold text-xl text-foreground">Dino Lalic</h2>
-          <p className="text-sm text-muted-foreground mt-1">AVYTA Pflegegesellschaft</p>
-          <Badge className="mt-3 bg-gradient-to-r from-primary/10 to-secondary/10 text-primary border-0 px-4 py-1.5">
-            <Sparkles className="w-3 h-3 mr-1.5" />
-            Verifizierter Partner
-          </Badge>
+          <div className="flex-1 min-w-0">
+            <h2 className="font-semibold text-sm text-foreground truncate">Dino Lalic</h2>
+            <p className="text-xs text-muted-foreground truncate">AVYTA Pflegegesellschaft</p>
+          </div>
         </div>
       </div>
 
-      {/* Navigation */}
-      <nav className="flex-1 p-5 space-y-2 relative">
+      {/* Navigation - Compact */}
+      <nav className="flex-1 p-2 space-y-0.5">
         {navItems.map((item) => {
           const Icon = item.icon;
           const isActive = activeNav === item.id;
@@ -144,36 +138,18 @@ const PartnerDashboard = () => {
               key={item.id}
               onClick={() => setActiveNav(item.id)}
               className={cn(
-                "w-full flex items-center gap-4 px-5 py-4 rounded-2xl text-left transition-all duration-300 relative overflow-hidden group",
+                "w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-left transition-all duration-200",
                 isActive
-                  ? "bg-gradient-to-r from-primary to-primary/90 text-primary-foreground shadow-xl shadow-primary/30"
+                  ? "bg-primary text-primary-foreground"
                   : "text-muted-foreground hover:bg-muted/80 hover:text-foreground"
               )}
             >
-              {isActive && (
-                <div className="absolute inset-0 bg-gradient-to-r from-white/10 to-transparent" />
-              )}
-              <div className={cn(
-                "w-10 h-10 rounded-xl flex items-center justify-center transition-all duration-300",
-                isActive ? "bg-white/20" : "bg-muted group-hover:bg-primary/10"
-              )}>
-                <Icon className={cn("w-5 h-5", isActive ? "text-white" : "group-hover:text-primary")} />
-              </div>
-              <span className="font-semibold relative">{item.label}</span>
+              <Icon className="w-4 h-4" />
+              <span className="text-sm font-medium">{item.label}</span>
             </button>
           );
         })}
       </nav>
-
-      {/* Logout */}
-      <div className="p-5 border-t border-border/50">
-        <button className="w-full flex items-center gap-4 px-5 py-4 rounded-2xl text-destructive hover:bg-destructive/10 transition-all duration-300 group">
-          <div className="w-10 h-10 rounded-xl bg-destructive/10 flex items-center justify-center group-hover:bg-destructive/20 transition-colors">
-            <LogOut className="w-5 h-5" />
-          </div>
-          <span className="font-semibold">Abmelden</span>
-        </button>
-      </div>
     </div>
   );
 
@@ -485,41 +461,93 @@ const PartnerDashboard = () => {
         </CardContent>
       </Card>
 
-      {/* Privat Section */}
+      {/* Combined Profile Section */}
       <Card className="border-0 shadow-lg bg-gradient-to-br from-card to-muted/20 overflow-hidden">
         <CardHeader className="pb-2 pt-4 px-4">
-          <div className="flex items-center gap-2">
-            <div className="w-9 h-9 rounded-lg bg-gradient-to-br from-violet-500/10 to-violet-500/5 flex items-center justify-center">
-              <User className="w-4 h-4 text-violet-500" />
-            </div>
-            <div>
-              <CardTitle className="text-base font-bold">Privat</CardTitle>
-              <CardDescription className="text-xs">Persönliche Kontaktdaten</CardDescription>
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-2">
+              <div className="w-9 h-9 rounded-lg bg-gradient-to-br from-primary/10 to-secondary/10 flex items-center justify-center">
+                <User className="w-4 h-4 text-primary" />
+              </div>
+              <div>
+                <CardTitle className="text-base font-bold">Kontaktdaten</CardTitle>
+                <CardDescription className="text-xs">Persönliche Informationen</CardDescription>
+              </div>
             </div>
           </div>
         </CardHeader>
         <CardContent className="space-y-4 px-4 pb-4">
-          {/* Anrede - Modern Toggle Style */}
-          <div className="space-y-2">
-            <Label className="text-xs font-semibold">
-              Anrede <span className="text-destructive">*</span>
-            </Label>
-            <div className="flex gap-1 p-1 bg-muted/50 rounded-lg w-fit">
-              <RadioGroup defaultValue="mann" className="flex gap-0.5">
-                {["Mann", "Frau", "Divers"].map((option) => (
-                  <div key={option} className="flex items-center">
-                    <RadioGroupItem value={option.toLowerCase()} id={`anrede-${option.toLowerCase()}`} className="peer sr-only" />
-                    <Label 
-                      htmlFor={`anrede-${option.toLowerCase()}`} 
-                      className="cursor-pointer px-4 py-2 rounded-md bg-transparent peer-data-[state=checked]:bg-primary peer-data-[state=checked]:text-primary-foreground peer-data-[state=checked]:shadow-sm transition-all duration-200 font-medium text-xs text-muted-foreground hover:text-foreground"
-                    >
-                      {option}
-                    </Label>
-                  </div>
-                ))}
-              </RadioGroup>
+          {/* Anrede & Account Type in Row */}
+          <div className="flex flex-wrap items-start gap-6">
+            {/* Anrede */}
+            <div className="space-y-2">
+              <Label className="text-xs font-semibold">
+                Anrede <span className="text-destructive">*</span>
+              </Label>
+              <div className="flex gap-1 p-1 bg-muted/50 rounded-lg w-fit">
+                <RadioGroup defaultValue="mann" className="flex gap-0.5">
+                  {["Mann", "Frau", "Divers"].map((option) => (
+                    <div key={option} className="flex items-center">
+                      <RadioGroupItem value={option.toLowerCase()} id={`anrede-${option.toLowerCase()}`} className="peer sr-only" />
+                      <Label 
+                        htmlFor={`anrede-${option.toLowerCase()}`} 
+                        className="cursor-pointer px-4 py-2 rounded-md bg-transparent peer-data-[state=checked]:bg-primary peer-data-[state=checked]:text-primary-foreground peer-data-[state=checked]:shadow-sm transition-all duration-200 font-medium text-xs text-muted-foreground hover:text-foreground"
+                      >
+                        {option}
+                      </Label>
+                    </div>
+                  ))}
+                </RadioGroup>
+              </div>
+            </div>
+
+            {/* Account Type Toggle */}
+            <div className="space-y-2">
+              <Label className="text-xs font-semibold">
+                Kontotyp <span className="text-destructive">*</span>
+              </Label>
+              <div className="flex gap-1 p-1 bg-muted/50 rounded-lg w-fit">
+                <button
+                  onClick={() => setAccountType("privat")}
+                  className={cn(
+                    "flex items-center gap-1.5 px-4 py-2 rounded-md transition-all duration-200 font-medium text-xs",
+                    accountType === "privat" 
+                      ? "bg-secondary text-secondary-foreground shadow-sm" 
+                      : "text-muted-foreground hover:text-foreground"
+                  )}
+                >
+                  <User className="w-3.5 h-3.5" />
+                  Privatperson
+                </button>
+                <button
+                  onClick={() => setAccountType("einrichtung")}
+                  className={cn(
+                    "flex items-center gap-1.5 px-4 py-2 rounded-md transition-all duration-200 font-medium text-xs",
+                    accountType === "einrichtung" 
+                      ? "bg-secondary text-secondary-foreground shadow-sm" 
+                      : "text-muted-foreground hover:text-foreground"
+                  )}
+                >
+                  <Building2 className="w-3.5 h-3.5" />
+                  Einrichtung
+                </button>
+              </div>
             </div>
           </div>
+
+          {/* Einrichtung Name - Only shown for Einrichtung */}
+          {accountType === "einrichtung" && (
+            <div className="space-y-1">
+              <Label className="text-xs font-semibold flex items-center gap-1.5">
+                <Building2 className="w-3.5 h-3.5 text-muted-foreground" />
+                Name der Einrichtung <span className="text-destructive">*</span>
+              </Label>
+              <Input 
+                defaultValue="AVYTA Pflegegesellschaft mbH" 
+                className="h-10 bg-muted/30 border border-muted focus-visible:border-primary focus-visible:ring-0 rounded-lg text-sm"
+              />
+            </div>
+          )}
 
           {/* Name Grid */}
           <div className="grid md:grid-cols-2 gap-3">
@@ -553,61 +581,6 @@ const PartnerDashboard = () => {
               type="date" 
               defaultValue="1992-06-29" 
               className="h-10 bg-muted/30 border border-muted focus-visible:border-primary focus-visible:ring-0 rounded-lg text-sm max-w-[200px]"
-            />
-          </div>
-
-          {/* Contact */}
-          <div className="grid md:grid-cols-2 gap-3">
-            <div className="space-y-1">
-              <Label className="text-xs font-semibold flex items-center gap-1.5">
-                <Phone className="w-3.5 h-3.5 text-muted-foreground" />
-                Telefon (privat)
-              </Label>
-              <Input 
-                defaultValue="" 
-                placeholder="Optional"
-                className="h-10 bg-muted/30 border border-muted focus-visible:border-primary focus-visible:ring-0 rounded-lg text-sm"
-              />
-            </div>
-            <div className="space-y-1">
-              <Label className="text-xs font-semibold flex items-center gap-1.5">
-                <Mail className="w-3.5 h-3.5 text-muted-foreground" />
-                E-Mail (privat)
-              </Label>
-              <Input 
-                type="email" 
-                defaultValue="" 
-                placeholder="Optional"
-                className="h-10 bg-muted/30 border border-muted focus-visible:border-primary focus-visible:ring-0 rounded-lg text-sm"
-              />
-            </div>
-          </div>
-        </CardContent>
-      </Card>
-
-      {/* Einrichtung Section */}
-      <Card className="border-0 shadow-lg bg-gradient-to-br from-card to-muted/20 overflow-hidden">
-        <CardHeader className="pb-2 pt-4 px-4">
-          <div className="flex items-center gap-2">
-            <div className="w-9 h-9 rounded-lg bg-gradient-to-br from-secondary/10 to-secondary/5 flex items-center justify-center">
-              <Building2 className="w-4 h-4 text-secondary" />
-            </div>
-            <div>
-              <CardTitle className="text-base font-bold">Einrichtung</CardTitle>
-              <CardDescription className="text-xs">Firmendaten</CardDescription>
-            </div>
-          </div>
-        </CardHeader>
-        <CardContent className="space-y-4 px-4 pb-4">
-          {/* Einrichtung Name */}
-          <div className="space-y-1">
-            <Label className="text-xs font-semibold flex items-center gap-1.5">
-              <Building2 className="w-3.5 h-3.5 text-muted-foreground" />
-              Name der Einrichtung <span className="text-destructive">*</span>
-            </Label>
-            <Input 
-              defaultValue="AVYTA Pflegegesellschaft mbH" 
-              className="h-10 bg-muted/30 border border-muted focus-visible:border-primary focus-visible:ring-0 rounded-lg text-sm"
             />
           </div>
 
@@ -645,7 +618,7 @@ const PartnerDashboard = () => {
             </div>
           </div>
 
-          {/* Business Contact */}
+          {/* Contact */}
           <div className="grid md:grid-cols-2 gap-3">
             <div className="space-y-1">
               <Label className="text-xs font-semibold flex items-center gap-1.5">
@@ -691,31 +664,31 @@ const PartnerDashboard = () => {
         <TabsList className="w-full justify-start bg-muted/30 p-1.5 h-12 rounded-xl border border-muted">
           <TabsTrigger 
             value="aktiv" 
-            className="flex-1 h-9 rounded-lg data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-md gap-1.5 font-medium text-sm transition-all duration-300"
+            className="flex-1 h-9 rounded-lg data-[state=active]:bg-primary data-[state=active]:text-white data-[state=active]:shadow-md gap-1.5 font-medium text-sm transition-all duration-300"
           >
             <Clock className="w-3.5 h-3.5" />
             Aktiv
-            <Badge className="ml-1 bg-primary-foreground/20 text-inherit border-0 text-xs px-1.5 py-0">
+            <Badge className="ml-1 bg-white/20 text-inherit border-0 text-xs px-1.5 py-0">
               {bookings.aktiv.length}
             </Badge>
           </TabsTrigger>
           <TabsTrigger 
             value="bestaetigt" 
-            className="flex-1 h-9 rounded-lg data-[state=active]:bg-secondary data-[state=active]:text-secondary-foreground data-[state=active]:shadow-md gap-1.5 font-medium text-sm transition-all duration-300"
+            className="flex-1 h-9 rounded-lg data-[state=active]:bg-secondary data-[state=active]:text-white data-[state=active]:shadow-md gap-1.5 font-medium text-sm transition-all duration-300"
           >
             <CheckCircle2 className="w-3.5 h-3.5" />
             Bestätigt
-            <Badge className="ml-1 bg-secondary-foreground/20 text-inherit border-0 text-xs px-1.5 py-0">
+            <Badge className="ml-1 bg-white/20 text-inherit border-0 text-xs px-1.5 py-0">
               {bookings.bestaetigt.length}
             </Badge>
           </TabsTrigger>
           <TabsTrigger 
             value="storniert" 
-            className="flex-1 h-9 rounded-lg data-[state=active]:bg-destructive data-[state=active]:text-destructive-foreground data-[state=active]:shadow-md gap-1.5 font-medium text-sm transition-all duration-300"
+            className="flex-1 h-9 rounded-lg data-[state=active]:bg-destructive data-[state=active]:text-white data-[state=active]:shadow-md gap-1.5 font-medium text-sm transition-all duration-300"
           >
             <XCircle className="w-3.5 h-3.5" />
             Storniert
-            <Badge className="ml-1 bg-destructive-foreground/20 text-inherit border-0 text-xs px-1.5 py-0">
+            <Badge className="ml-1 bg-white/20 text-inherit border-0 text-xs px-1.5 py-0">
               {bookings.storniert.length}
             </Badge>
           </TabsTrigger>
@@ -1113,26 +1086,56 @@ const PartnerDashboard = () => {
           </div>
 
           <div className="flex justify-end pt-6">
-            <Button className="px-10 h-14 bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary/70 shadow-xl shadow-primary/25 text-base font-semibold rounded-xl">
+            <Button className="px-10 h-14 bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary/70 shadow-xl shadow-primary/25 text-base font-semibold rounded-xl text-primary-foreground">
               Passwort ändern
             </Button>
           </div>
+        </CardContent>
+      </Card>
+
+      {/* Logout Section */}
+      <Card className="border-0 shadow-xl bg-gradient-to-br from-card to-muted/20 overflow-hidden">
+        <CardHeader>
+          <div className="flex items-center gap-3">
+            <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-destructive/10 to-destructive/5 flex items-center justify-center">
+              <LogOut className="w-6 h-6 text-destructive" />
+            </div>
+            <div>
+              <CardTitle className="text-xl font-bold">Abmelden</CardTitle>
+              <CardDescription>Von Ihrem Konto abmelden</CardDescription>
+            </div>
+          </div>
+        </CardHeader>
+        <CardContent>
+          <p className="text-sm text-muted-foreground mb-4">
+            Möchten Sie sich von Ihrem Konto abmelden? Sie können sich jederzeit wieder anmelden.
+          </p>
+          <Button variant="destructive" className="gap-2">
+            <LogOut className="w-4 h-4" />
+            Abmelden
+          </Button>
         </CardContent>
       </Card>
     </div>
   );
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-background via-muted/20 to-background flex">
-      {renderSidebar()}
+    <div className="min-h-screen bg-gradient-to-br from-background via-muted/20 to-background flex flex-col">
+      <Header />
       
-      <main className="flex-1 p-10 max-w-6xl overflow-y-auto">
-        {activeNav === "uebersicht" && renderOverview()}
-        {activeNav === "profil" && renderProfile()}
-        {activeNav === "buchungen" && renderBookings()}
-        {activeNav === "tickets" && renderTickets()}
-        {activeNav === "einstellungen" && renderSettings()}
-      </main>
+      <div className="flex flex-1 pt-16 md:pt-20">
+        {renderSidebar()}
+        
+        <main className="flex-1 p-6 max-w-5xl overflow-y-auto">
+          {activeNav === "uebersicht" && renderOverview()}
+          {activeNav === "profil" && renderProfile()}
+          {activeNav === "buchungen" && renderBookings()}
+          {activeNav === "tickets" && renderTickets()}
+          {activeNav === "einstellungen" && renderSettings()}
+        </main>
+      </div>
+
+      <Footer />
     </div>
   );
 };
