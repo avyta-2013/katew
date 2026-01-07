@@ -373,47 +373,6 @@ const PartnerDashboard = () => {
         </Card>
       </div>
 
-      {/* Quick Actions */}
-      <Card className="border-0 shadow-lg bg-gradient-to-br from-card via-card to-primary/5 overflow-hidden">
-        <CardHeader className="py-3 px-4">
-          <CardTitle className="text-base font-bold">Schnellaktionen</CardTitle>
-          <CardDescription className="text-xs">Häufig verwendete Funktionen</CardDescription>
-        </CardHeader>
-        <CardContent className="px-4 pb-4">
-          <div className="grid md:grid-cols-3 gap-3">
-            <Button 
-              variant="outline" 
-              className="h-auto p-4 flex flex-col items-center gap-2 border border-dashed hover:border-primary hover:bg-primary/5 transition-all duration-300 group rounded-xl"
-              onClick={() => setActiveNav("buchungen")}
-            >
-              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-primary/10 to-primary/5 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                <Calendar className="w-5 h-5 text-primary" />
-              </div>
-              <span className="font-medium text-sm text-foreground">Buchungen</span>
-            </Button>
-            <Button 
-              variant="outline" 
-              className="h-auto p-4 flex flex-col items-center gap-2 border border-dashed hover:border-secondary hover:bg-secondary/5 transition-all duration-300 group rounded-xl"
-              onClick={() => setActiveNav("profil")}
-            >
-              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-secondary/10 to-secondary/5 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                <User className="w-5 h-5 text-secondary" />
-              </div>
-              <span className="font-medium text-sm text-foreground">Profil</span>
-            </Button>
-            <Button 
-              variant="outline" 
-              className="h-auto p-4 flex flex-col items-center gap-2 border border-dashed hover:border-violet-500 hover:bg-violet-500/5 transition-all duration-300 group rounded-xl"
-              onClick={() => setActiveNav("einstellungen")}
-            >
-              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-violet-500/10 to-violet-500/5 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                <Settings className="w-5 h-5 text-violet-500" />
-              </div>
-              <span className="font-medium text-sm text-foreground">Einstellungen</span>
-            </Button>
-          </div>
-        </CardContent>
-      </Card>
     </div>
   );
 
