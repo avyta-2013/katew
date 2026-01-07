@@ -173,80 +173,120 @@ export default function ForProviders() {
         </div>
       </section>
 
-      {/* Combined Benefits & Features Section */}
-      <section className="py-24 md:py-32 bg-gradient-to-b from-background via-muted/20 to-background overflow-hidden">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-20">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-secondary/10 text-secondary text-sm font-medium mb-6">
-              <Sparkles className="w-4 h-4" />
+      {/* Redesigned Benefits Section */}
+      <section className="py-24 md:py-32 relative overflow-hidden">
+        {/* Background with mesh gradient */}
+        <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-background to-secondary/10" />
+        <div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-primary/20 rounded-full blur-[120px] -translate-y-1/2" />
+        <div className="absolute bottom-0 right-1/4 w-[400px] h-[400px] bg-secondary/20 rounded-full blur-[100px] translate-y-1/2" />
+        
+        <div className="container mx-auto px-4 relative">
+          <div className="text-center mb-16">
+            <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-gradient-to-r from-primary/20 to-secondary/20 backdrop-blur-sm border border-primary/20 text-primary text-sm font-semibold mb-6">
+              <Zap className="w-4 h-4" />
               Was hast du zu verlieren?
             </div>
-            <h2 className="text-3xl md:text-5xl font-bold mb-4 tracking-tight">
-              Deine <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">Vorteile</span>
+            <h2 className="text-4xl md:text-6xl font-bold mb-6 tracking-tight">
+              Deine <span className="bg-gradient-to-r from-primary via-secondary to-primary bg-clip-text text-transparent bg-[length:200%_auto] animate-[gradient_3s_linear_infinite]">Vorteile</span>
             </h2>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
               Entdecke alle Vorteile einer Mitgliedschaft bei katew
             </p>
           </div>
 
-          {/* Stats Row */}
-          <div className="max-w-5xl mx-auto mb-16">
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+          {/* Main Stats - Floating Cards */}
+          <div className="max-w-6xl mx-auto mb-20">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
               {benefits.map((benefit, index) => {
                 const Icon = benefit.icon;
+                const delays = ['0ms', '100ms', '200ms', '300ms'];
                 return (
                   <div
                     key={index}
-                    className="group relative bg-card border border-border/50 rounded-2xl p-6 text-center hover:border-primary/40 hover:shadow-xl hover:shadow-primary/10 transition-all duration-500 hover:-translate-y-1"
+                    className="group relative"
+                    style={{ animationDelay: delays[index] }}
                   >
-                    <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-primary to-secondary flex items-center justify-center mx-auto mb-4 shadow-lg group-hover:scale-110 transition-transform duration-300">
-                      <Icon className="w-7 h-7 text-primary-foreground" />
+                    {/* Card glow effect */}
+                    <div className="absolute inset-0 bg-gradient-to-br from-primary/40 to-secondary/40 rounded-3xl blur-xl opacity-0 group-hover:opacity-60 transition-opacity duration-500" />
+                    
+                    <div className="relative h-full backdrop-blur-xl bg-card/60 border border-white/10 rounded-3xl p-8 hover:border-primary/50 transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl overflow-hidden">
+                      {/* Inner gradient on hover */}
+                      <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-secondary/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                      
+                      {/* Decorative corner */}
+                      <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-primary/20 to-transparent rounded-bl-[100px] -translate-y-6 translate-x-6" />
+                      
+                      <div className="relative">
+                        {/* Icon with ring */}
+                        <div className="relative w-16 h-16 mb-6">
+                          <div className="absolute inset-0 bg-gradient-to-br from-primary to-secondary rounded-2xl rotate-6 group-hover:rotate-12 transition-transform duration-300" />
+                          <div className="absolute inset-0 bg-card rounded-2xl flex items-center justify-center">
+                            <Icon className="w-8 h-8 text-primary" />
+                          </div>
+                        </div>
+                        
+                        {/* Stat number with counter animation */}
+                        <div className="text-5xl font-black bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent mb-1">
+                          {benefit.stat}
+                        </div>
+                        <div className="text-sm text-muted-foreground font-medium uppercase tracking-wider mb-4">{benefit.statLabel}</div>
+                        
+                        <h3 className="font-bold text-xl mb-2 group-hover:text-primary transition-colors">{benefit.title}</h3>
+                        <p className="text-muted-foreground text-sm leading-relaxed">{benefit.description}</p>
+                      </div>
                     </div>
-                    <div className="text-3xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent mb-1">
-                      {benefit.stat}
-                    </div>
-                    <div className="text-sm text-muted-foreground mb-2">{benefit.statLabel}</div>
-                    <h3 className="font-bold text-lg mb-1">{benefit.title}</h3>
-                    <p className="text-sm text-muted-foreground leading-relaxed">{benefit.description}</p>
                   </div>
                 );
               })}
             </div>
           </div>
 
-          {/* Features Bento Grid */}
-          <div className="max-w-6xl mx-auto">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-              {features.map((feature, index) => {
-                const Icon = feature.icon;
-                const isLarge = index === 0 || index === 3;
-                return (
-                  <div
-                    key={index}
-                    className={`group relative bg-card border border-border/50 rounded-3xl p-8 hover:border-primary/40 hover:shadow-2xl hover:shadow-primary/10 transition-all duration-500 overflow-hidden ${isLarge ? 'md:col-span-2 lg:col-span-1' : ''}`}
-                  >
-                    {/* Hover gradient */}
-                    <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-secondary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                    
-                    {/* Decorative circles */}
-                    <div className="absolute -top-10 -right-10 w-32 h-32 bg-primary/5 rounded-full blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                    
-                    <div className="relative">
-                      <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-primary/20 to-secondary/20 flex items-center justify-center mb-5 group-hover:scale-110 group-hover:bg-gradient-to-br group-hover:from-primary group-hover:to-secondary transition-all duration-300">
-                        <Icon className="w-7 h-7 text-primary group-hover:text-primary-foreground transition-colors duration-300" />
+          {/* Features - Alternating Layout */}
+          <div className="max-w-5xl mx-auto">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              {/* Left Column */}
+              <div className="space-y-6">
+                {features.filter((_, i) => i % 2 === 0).map((feature, index) => {
+                  const Icon = feature.icon;
+                  return (
+                    <div
+                      key={index}
+                      className="group relative flex items-start gap-5 bg-card/50 backdrop-blur-sm border border-border/50 rounded-2xl p-6 hover:border-primary/40 hover:bg-card transition-all duration-300"
+                    >
+                      <div className="shrink-0 w-14 h-14 rounded-xl bg-gradient-to-br from-primary/10 to-secondary/10 border border-primary/20 flex items-center justify-center group-hover:scale-110 group-hover:border-primary/50 transition-all duration-300">
+                        <Icon className="w-6 h-6 text-primary" />
                       </div>
-                      <h3 className="text-xl font-bold mb-3 group-hover:text-primary transition-colors">{feature.title}</h3>
-                      <p className="text-muted-foreground leading-relaxed">{feature.description}</p>
-                      
-                      {/* Arrow indicator */}
-                      <div className="mt-4 flex items-center gap-2 text-primary opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-x-[-10px] group-hover:translate-x-0">
-                        <span className="text-sm font-medium">Mehr erfahren</span>
-                        <ArrowRight className="w-4 h-4" />
+                      <div className="flex-1">
+                        <h3 className="font-bold text-lg mb-1 group-hover:text-primary transition-colors">{feature.title}</h3>
+                        <p className="text-muted-foreground text-sm">{feature.description}</p>
                       </div>
+                      <ArrowRight className="w-5 h-5 text-muted-foreground opacity-0 group-hover:opacity-100 group-hover:text-primary transition-all duration-300 shrink-0 self-center" />
                     </div>
-                  </div>
-                );
-              })}
+                  );
+                })}
+              </div>
+              
+              {/* Right Column - Offset */}
+              <div className="space-y-6 md:mt-12">
+                {features.filter((_, i) => i % 2 === 1).map((feature, index) => {
+                  const Icon = feature.icon;
+                  return (
+                    <div
+                      key={index}
+                      className="group relative flex items-start gap-5 bg-card/50 backdrop-blur-sm border border-border/50 rounded-2xl p-6 hover:border-secondary/40 hover:bg-card transition-all duration-300"
+                    >
+                      <div className="shrink-0 w-14 h-14 rounded-xl bg-gradient-to-br from-secondary/10 to-primary/10 border border-secondary/20 flex items-center justify-center group-hover:scale-110 group-hover:border-secondary/50 transition-all duration-300">
+                        <Icon className="w-6 h-6 text-secondary" />
+                      </div>
+                      <div className="flex-1">
+                        <h3 className="font-bold text-lg mb-1 group-hover:text-secondary transition-colors">{feature.title}</h3>
+                        <p className="text-muted-foreground text-sm">{feature.description}</p>
+                      </div>
+                      <ArrowRight className="w-5 h-5 text-muted-foreground opacity-0 group-hover:opacity-100 group-hover:text-secondary transition-all duration-300 shrink-0 self-center" />
+                    </div>
+                  );
+                })}
+              </div>
             </div>
           </div>
         </div>
