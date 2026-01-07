@@ -31,32 +31,32 @@ import { ContactFormCTA } from "@/components/ContactFormCTA";
 
 const benefits = [
   {
-    icon: TrendingUp,
-    title: "Mehr Vermittlungen",
-    description: "Erhalten Sie Zugang zu einem stetig wachsenden Netzwerk von Patienten und Einrichtungen.",
-    stat: "+45%",
-    statLabel: "mehr Buchungen",
+    icon: Network,
+    title: "Alle Anbieter auf einen Blick",
+    description: "Zugang zu sämtlichen regionalen Krankenfahrt-Unternehmen über eine zentrale Plattform.",
+    stat: "850+",
+    statLabel: "Anbieter bundesweit",
   },
   {
     icon: Euro,
-    title: "Kosteneinsparung",
-    description: "Optimieren Sie Ihre Transportkosten durch effiziente digitale Prozesse.",
-    stat: "-30%",
-    statLabel: "Kostenreduktion",
+    title: "Transparenter Kostenvergleich",
+    description: "Vergleichen Sie Preise verschiedener Anbieter und sparen Sie bei jeder Buchung.",
+    stat: "-25%",
+    statLabel: "durchschnittliche Ersparnis",
   },
   {
     icon: Clock,
-    title: "Zeitersparnis",
-    description: "Reduzieren Sie den Verwaltungsaufwand durch automatisierte Buchungen und zentrale Abrechnung.",
-    stat: "5h",
-    statLabel: "gespart pro Woche",
+    title: "Schnelle Buchung",
+    description: "Buchen Sie Transporte in Minuten statt Stunden – mit automatischer Bestätigung.",
+    stat: "3min",
+    statLabel: "durchschnittliche Buchungszeit",
   },
   {
     icon: Shield,
-    title: "Qualitätsgarantie",
-    description: "Alle Partner sind geprüft und zertifiziert. Höchste Standards für Ihre Patienten.",
+    title: "Geprüfte Qualität",
+    description: "Jeder Anbieter wird verifiziert. Bewertungen und Erfahrungsberichte für Ihre Sicherheit.",
     stat: "100%",
-    statLabel: "geprüfte Partner",
+    statLabel: "verifizierte Anbieter",
   },
 ];
 
