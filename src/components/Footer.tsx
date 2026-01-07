@@ -5,11 +5,9 @@ const footerLinks = {
   unternehmen: [
     { label: "Wir", href: "#wir" },
     { label: "Blog", href: "#" },
-  ],
-  produkt: [
+    { label: "Funktionen", href: "#" },
     { label: "Für Anbieter", href: "#anbieter" },
     { label: "Für Partner", href: "#partner" },
-    { label: "Funktionen", href: "#" },
   ],
   support: [
     { label: "Hilfe-Center", href: "#" },
@@ -59,19 +57,6 @@ export const Footer = () => {
               <h4 className="font-semibold mb-4 text-sm">Unternehmen</h4>
               <ul className="space-y-3">
                 {footerLinks.unternehmen.map((link) => (
-                  <li key={link.label}>
-                    <a href={link.href} className="text-sm text-muted-foreground hover:text-foreground transition-colors">
-                      {link.label}
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            <div>
-              <h4 className="font-semibold mb-4 text-sm">Produkt</h4>
-              <ul className="space-y-3">
-                {footerLinks.produkt.map((link) => (
                   <li key={link.label}>
                     <a href={link.href} className="text-sm text-muted-foreground hover:text-foreground transition-colors">
                       {link.label}

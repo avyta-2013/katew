@@ -48,13 +48,13 @@ export const Header = () => {
               href="#anbieter"
               className="px-4 py-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors rounded-lg hover:bg-muted/50"
             >
-              Anbieter
+              Für Anbieter
             </a>
             <a
               href="#partner"
               className="px-4 py-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors rounded-lg hover:bg-muted/50"
             >
-              Partner
+              Für Partner
             </a>
           </nav>
 
