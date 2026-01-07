@@ -15,13 +15,15 @@ import {
   CalendarClock,
   Star,
   Quote,
-  Building2
+  Building2,
+  Sparkles
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { CounterCard } from "@/components/CounterCard";
 import { ContactFormCTA } from "@/components/ContactFormCTA";
+import { PartnersLogoSlider } from "@/components/PartnersLogoSlider";
 
 const benefits = [
   {
@@ -84,6 +86,12 @@ const features = [
     icon: HeartHandshake,
     title: "24/7 Kunden-Support",
     description: "Unser Team steht dir bei allen Fragen zur Seite – rund um die Uhr.",
+  },
+  {
+    icon: Award,
+    title: "Exklusive Partnervorteile",
+    description: "Profitiere von Kooperationsverträgen mit Fahrzeugbauern, Verbrauchsmaterial-Lieferanten und mehr.",
+    highlight: true,
   },
 ];
 
@@ -218,19 +226,36 @@ export default function ForProviders() {
               <div className="space-y-6">
                 {features.filter((_, i) => i % 2 === 0).map((feature, index) => {
                   const Icon = feature.icon;
+                  const isHighlight = 'highlight' in feature && feature.highlight;
                   return (
                     <div
                       key={index}
-                      className="group relative flex items-start gap-5 bg-card/50 backdrop-blur-sm border border-border/50 rounded-2xl p-6 hover:border-primary/40 hover:bg-card transition-all duration-300"
+                      className={`group relative flex items-start gap-5 backdrop-blur-sm border rounded-2xl p-6 transition-all duration-300 ${
+                        isHighlight 
+                          ? 'bg-gradient-to-br from-primary/20 to-secondary/20 border-primary/40 ring-2 ring-primary/20' 
+                          : 'bg-card/50 border-border/50 hover:border-primary/40 hover:bg-card'
+                      }`}
                     >
-                      <div className="shrink-0 w-14 h-14 rounded-xl bg-gradient-to-br from-primary/10 to-secondary/10 border border-primary/20 flex items-center justify-center group-hover:scale-110 group-hover:border-primary/50 transition-all duration-300">
-                        <Icon className="w-6 h-6 text-primary" />
+                      {isHighlight && (
+                        <div className="absolute -top-3 left-6 px-3 py-1 bg-gradient-to-r from-primary to-secondary text-primary-foreground text-xs font-bold rounded-full flex items-center gap-1">
+                          <Sparkles className="w-3 h-3" />
+                          NEU
+                        </div>
+                      )}
+                      <div className={`shrink-0 w-14 h-14 rounded-xl flex items-center justify-center group-hover:scale-110 transition-all duration-300 ${
+                        isHighlight 
+                          ? 'bg-gradient-to-br from-primary to-secondary' 
+                          : 'bg-gradient-to-br from-primary/10 to-secondary/10 border border-primary/20 group-hover:border-primary/50'
+                      }`}>
+                        <Icon className={`w-6 h-6 ${isHighlight ? 'text-primary-foreground' : 'text-primary'}`} />
                       </div>
                       <div className="flex-1">
-                        <h3 className="font-bold text-lg mb-1 group-hover:text-primary transition-colors">{feature.title}</h3>
+                        <h3 className={`font-bold text-lg mb-1 transition-colors ${isHighlight ? 'text-primary' : 'group-hover:text-primary'}`}>{feature.title}</h3>
                         <p className="text-muted-foreground text-sm">{feature.description}</p>
                       </div>
-                      <ArrowRight className="w-5 h-5 text-muted-foreground opacity-0 group-hover:opacity-100 group-hover:text-primary transition-all duration-300 shrink-0 self-center" />
+                      <ArrowRight className={`w-5 h-5 shrink-0 self-center transition-all duration-300 ${
+                        isHighlight ? 'text-primary opacity-100' : 'text-muted-foreground opacity-0 group-hover:opacity-100 group-hover:text-primary'
+                      }`} />
                     </div>
                   );
                 })}
@@ -303,7 +328,7 @@ export default function ForProviders() {
               Erfolgsgeschichten
             </div>
             <h2 className="text-3xl md:text-5xl font-bold mb-4 tracking-tight">
-              Das sagen unsere <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">Partner</span>
+              Das sagen unsere <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">Anbieter</span>
             </h2>
             <p className="text-lg text-muted-foreground max-w-xl mx-auto">
               Erfahren Sie, wie andere Unternehmen von katew profitieren
@@ -359,6 +384,9 @@ export default function ForProviders() {
           </div>
         </div>
       </section>
+
+      {/* Partners Logo Slider */}
+      <PartnersLogoSlider />
 
       {/* CTA Section with Contact Form */}
       <ContactFormCTA variant="providers" />
