@@ -4,7 +4,7 @@ import {
   CalendarDays, CheckCircle2, XCircle, Clock, LayoutDashboard, TrendingUp, Camera, Upload, 
   ArrowUpRight, Truck, Route, Timer, Star, FileText, MoreHorizontal, Trophy, MessageSquare,
   MapPinned, Bookmark, BarChart3, PieChart, Euro, ClipboardList, Activity, Users, Zap, Target,
-  AlertCircle, ChevronRight, Filter, Search, Download, RefreshCw
+  AlertCircle, ChevronRight, Filter, Search, Download, RefreshCw, Accessibility, Armchair, BedDouble
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -763,117 +763,155 @@ const ProviderDashboard = () => {
           </Card>
 
           {/* Tarif : Selbstzahler Card */}
-          <Card className="border-0 shadow-lg bg-gradient-to-br from-card to-muted/20 overflow-hidden">
-            <CardHeader className="pb-3 pt-4 px-4 border-b border-border/50">
-              <CardTitle className="text-base font-bold">Tarif : Selbstzahler</CardTitle>
+          <Card className="border-0 shadow-xl bg-gradient-to-br from-card via-card to-muted/10 overflow-hidden">
+            <CardHeader className="pb-4 pt-5 px-6 border-b border-border/30 bg-gradient-to-r from-primary/5 to-transparent">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-primary/20 to-secondary/20 flex items-center justify-center shadow-sm">
+                  <Euro className="w-5 h-5 text-primary" />
+                </div>
+                <div>
+                  <CardTitle className="text-lg font-bold">Tarif : Selbstzahler</CardTitle>
+                  <p className="text-xs text-muted-foreground mt-0.5">Preisgestaltung für private Fahrten</p>
+                </div>
+              </div>
             </CardHeader>
-            <CardContent className="px-4 pb-4 pt-4 space-y-4">
-              {/* Sitzend */}
-              <div className="flex items-center gap-4 flex-wrap">
-                <span className="w-24 font-medium text-sm">Sitzend</span>
-                <div className="flex items-center gap-2">
-                  <Label className="text-xs text-muted-foreground">Grundpreis:<span className="text-destructive">*</span></Label>
-                  <Input 
-                    placeholder="bspw. 65,00€" 
-                    className="w-36 h-9 bg-muted/30 border border-muted focus-visible:border-primary focus-visible:ring-0 rounded-lg text-sm"
-                  />
+            <CardContent className="px-6 pb-6 pt-5">
+              {/* Table Header */}
+              <div className="hidden md:grid md:grid-cols-[140px_1fr_1fr_1fr] gap-4 pb-3 mb-4 border-b border-border/30">
+                <div className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">Transportart</div>
+                <div className="text-xs font-semibold text-muted-foreground uppercase tracking-wider text-center">Grundpreis</div>
+                <div className="text-xs font-semibold text-muted-foreground uppercase tracking-wider text-center">Inkl. Kilometer</div>
+                <div className="text-xs font-semibold text-muted-foreground uppercase tracking-wider text-center">Preis pro km</div>
+              </div>
+
+              <div className="space-y-3">
+                {/* Sitzend */}
+                <div className="group grid md:grid-cols-[140px_1fr_1fr_1fr] gap-3 md:gap-4 p-4 rounded-xl bg-gradient-to-r from-muted/40 to-muted/20 hover:from-primary/10 hover:to-secondary/5 transition-all duration-300 border border-transparent hover:border-primary/20 hover:shadow-md">
+                  <div className="flex items-center gap-3">
+                    <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
+                      <User className="w-4 h-4 text-primary" />
+                    </div>
+                    <span className="font-semibold text-sm text-foreground">Sitzend</span>
+                  </div>
+                  <div className="space-y-1">
+                    <Label className="text-[10px] text-muted-foreground uppercase tracking-wide md:hidden">Grundpreis <span className="text-destructive">*</span></Label>
+                    <Input 
+                      placeholder="bspw. 65,00€" 
+                      className="h-10 bg-background/80 border border-border/50 focus-visible:border-primary focus-visible:ring-1 focus-visible:ring-primary/20 rounded-lg text-sm text-center shadow-sm"
+                    />
+                  </div>
+                  <div className="space-y-1">
+                    <Label className="text-[10px] text-muted-foreground uppercase tracking-wide md:hidden">inkl. km <span className="text-destructive">*</span></Label>
+                    <Input 
+                      placeholder="bspw. 10 km" 
+                      className="h-10 bg-background/80 border border-border/50 focus-visible:border-primary focus-visible:ring-1 focus-visible:ring-primary/20 rounded-lg text-sm text-center shadow-sm"
+                    />
+                  </div>
+                  <div className="space-y-1">
+                    <Label className="text-[10px] text-muted-foreground uppercase tracking-wide md:hidden">+ € / km <span className="text-destructive">*</span></Label>
+                    <Input 
+                      placeholder="bspw. 1,20€" 
+                      className="h-10 bg-background/80 border border-border/50 focus-visible:border-primary focus-visible:ring-1 focus-visible:ring-primary/20 rounded-lg text-sm text-center shadow-sm"
+                    />
+                  </div>
                 </div>
-                <div className="flex items-center gap-2">
-                  <Label className="text-xs text-muted-foreground">inkl. km:<span className="text-destructive">*</span></Label>
-                  <Input 
-                    placeholder="bspw 10 km" 
-                    className="w-28 h-9 bg-muted/30 border border-muted focus-visible:border-primary focus-visible:ring-0 rounded-lg text-sm"
-                  />
+
+                {/* Rollstuhl */}
+                <div className="group grid md:grid-cols-[140px_1fr_1fr_1fr] gap-3 md:gap-4 p-4 rounded-xl bg-gradient-to-r from-muted/40 to-muted/20 hover:from-primary/10 hover:to-secondary/5 transition-all duration-300 border border-transparent hover:border-primary/20 hover:shadow-md">
+                  <div className="flex items-center gap-3">
+                    <div className="w-8 h-8 rounded-lg bg-secondary/10 flex items-center justify-center group-hover:bg-secondary/20 transition-colors">
+                      <Accessibility className="w-4 h-4 text-secondary" />
+                    </div>
+                    <span className="font-semibold text-sm text-foreground">Rollstuhl</span>
+                  </div>
+                  <div className="space-y-1">
+                    <Label className="text-[10px] text-muted-foreground uppercase tracking-wide md:hidden">Grundpreis <span className="text-destructive">*</span></Label>
+                    <Input 
+                      placeholder="bspw. 65,00€" 
+                      className="h-10 bg-background/80 border border-border/50 focus-visible:border-primary focus-visible:ring-1 focus-visible:ring-primary/20 rounded-lg text-sm text-center shadow-sm"
+                    />
+                  </div>
+                  <div className="space-y-1">
+                    <Label className="text-[10px] text-muted-foreground uppercase tracking-wide md:hidden">inkl. km <span className="text-destructive">*</span></Label>
+                    <Input 
+                      placeholder="bspw. 10 km" 
+                      className="h-10 bg-background/80 border border-border/50 focus-visible:border-primary focus-visible:ring-1 focus-visible:ring-primary/20 rounded-lg text-sm text-center shadow-sm"
+                    />
+                  </div>
+                  <div className="space-y-1">
+                    <Label className="text-[10px] text-muted-foreground uppercase tracking-wide md:hidden">+ € / km <span className="text-destructive">*</span></Label>
+                    <Input 
+                      placeholder="bspw. 1,20€" 
+                      className="h-10 bg-background/80 border border-border/50 focus-visible:border-primary focus-visible:ring-1 focus-visible:ring-primary/20 rounded-lg text-sm text-center shadow-sm"
+                    />
+                  </div>
                 </div>
-                <div className="flex items-center gap-2">
-                  <Label className="text-xs text-muted-foreground">+ € / km:<span className="text-destructive">*</span></Label>
-                  <Input 
-                    placeholder="bspw. 1,20€" 
-                    className="w-28 h-9 bg-muted/30 border border-muted focus-visible:border-primary focus-visible:ring-0 rounded-lg text-sm"
-                  />
+
+                {/* Tragestuhl */}
+                <div className="group grid md:grid-cols-[140px_1fr_1fr_1fr] gap-3 md:gap-4 p-4 rounded-xl bg-gradient-to-r from-muted/40 to-muted/20 hover:from-primary/10 hover:to-secondary/5 transition-all duration-300 border border-transparent hover:border-primary/20 hover:shadow-md">
+                  <div className="flex items-center gap-3">
+                    <div className="w-8 h-8 rounded-lg bg-amber-500/10 flex items-center justify-center group-hover:bg-amber-500/20 transition-colors">
+                      <Armchair className="w-4 h-4 text-amber-600" />
+                    </div>
+                    <span className="font-semibold text-sm text-foreground">Tragestuhl</span>
+                  </div>
+                  <div className="space-y-1">
+                    <Label className="text-[10px] text-muted-foreground uppercase tracking-wide md:hidden">Grundpreis <span className="text-destructive">*</span></Label>
+                    <Input 
+                      placeholder="bspw. 65,00€" 
+                      className="h-10 bg-background/80 border border-border/50 focus-visible:border-primary focus-visible:ring-1 focus-visible:ring-primary/20 rounded-lg text-sm text-center shadow-sm"
+                    />
+                  </div>
+                  <div className="space-y-1">
+                    <Label className="text-[10px] text-muted-foreground uppercase tracking-wide md:hidden">inkl. km <span className="text-destructive">*</span></Label>
+                    <Input 
+                      placeholder="bspw. 10 km" 
+                      className="h-10 bg-background/80 border border-border/50 focus-visible:border-primary focus-visible:ring-1 focus-visible:ring-primary/20 rounded-lg text-sm text-center shadow-sm"
+                    />
+                  </div>
+                  <div className="space-y-1">
+                    <Label className="text-[10px] text-muted-foreground uppercase tracking-wide md:hidden">+ € / km <span className="text-destructive">*</span></Label>
+                    <Input 
+                      placeholder="bspw. 1,20€" 
+                      className="h-10 bg-background/80 border border-border/50 focus-visible:border-primary focus-visible:ring-1 focus-visible:ring-primary/20 rounded-lg text-sm text-center shadow-sm"
+                    />
+                  </div>
+                </div>
+
+                {/* Liege */}
+                <div className="group grid md:grid-cols-[140px_1fr_1fr_1fr] gap-3 md:gap-4 p-4 rounded-xl bg-gradient-to-r from-muted/40 to-muted/20 hover:from-primary/10 hover:to-secondary/5 transition-all duration-300 border border-transparent hover:border-primary/20 hover:shadow-md">
+                  <div className="flex items-center gap-3">
+                    <div className="w-8 h-8 rounded-lg bg-blue-500/10 flex items-center justify-center group-hover:bg-blue-500/20 transition-colors">
+                      <BedDouble className="w-4 h-4 text-blue-600" />
+                    </div>
+                    <span className="font-semibold text-sm text-foreground">Liege</span>
+                  </div>
+                  <div className="space-y-1">
+                    <Label className="text-[10px] text-muted-foreground uppercase tracking-wide md:hidden">Grundpreis <span className="text-destructive">*</span></Label>
+                    <Input 
+                      placeholder="bspw. 65,00€" 
+                      className="h-10 bg-background/80 border border-border/50 focus-visible:border-primary focus-visible:ring-1 focus-visible:ring-primary/20 rounded-lg text-sm text-center shadow-sm"
+                    />
+                  </div>
+                  <div className="space-y-1">
+                    <Label className="text-[10px] text-muted-foreground uppercase tracking-wide md:hidden">inkl. km <span className="text-destructive">*</span></Label>
+                    <Input 
+                      placeholder="bspw. 10 km" 
+                      className="h-10 bg-background/80 border border-border/50 focus-visible:border-primary focus-visible:ring-1 focus-visible:ring-primary/20 rounded-lg text-sm text-center shadow-sm"
+                    />
+                  </div>
+                  <div className="space-y-1">
+                    <Label className="text-[10px] text-muted-foreground uppercase tracking-wide md:hidden">+ € / km <span className="text-destructive">*</span></Label>
+                    <Input 
+                      placeholder="bspw. 1,20€" 
+                      className="h-10 bg-background/80 border border-border/50 focus-visible:border-primary focus-visible:ring-1 focus-visible:ring-primary/20 rounded-lg text-sm text-center shadow-sm"
+                    />
+                  </div>
                 </div>
               </div>
 
-              {/* Rollstuhl */}
-              <div className="flex items-center gap-4 flex-wrap">
-                <span className="w-24 font-medium text-sm">Rollstuhl</span>
-                <div className="flex items-center gap-2">
-                  <Label className="text-xs text-muted-foreground">Grundpreis:<span className="text-destructive">*</span></Label>
-                  <Input 
-                    placeholder="bspw. 65,00€" 
-                    className="w-36 h-9 bg-muted/30 border border-muted focus-visible:border-primary focus-visible:ring-0 rounded-lg text-sm"
-                  />
-                </div>
-                <div className="flex items-center gap-2">
-                  <Label className="text-xs text-muted-foreground">inkl. km:<span className="text-destructive">*</span></Label>
-                  <Input 
-                    placeholder="bspw 10 km" 
-                    className="w-28 h-9 bg-muted/30 border border-muted focus-visible:border-primary focus-visible:ring-0 rounded-lg text-sm"
-                  />
-                </div>
-                <div className="flex items-center gap-2">
-                  <Label className="text-xs text-muted-foreground">+ € / km:<span className="text-destructive">*</span></Label>
-                  <Input 
-                    placeholder="bspw. 1,20€" 
-                    className="w-28 h-9 bg-muted/30 border border-muted focus-visible:border-primary focus-visible:ring-0 rounded-lg text-sm"
-                  />
-                </div>
-              </div>
-
-              {/* Tragestuhl */}
-              <div className="flex items-center gap-4 flex-wrap">
-                <span className="w-24 font-medium text-sm">Tragestuhl</span>
-                <div className="flex items-center gap-2">
-                  <Label className="text-xs text-muted-foreground">Grundpreis:<span className="text-destructive">*</span></Label>
-                  <Input 
-                    placeholder="bspw. 65,00€" 
-                    className="w-36 h-9 bg-muted/30 border border-muted focus-visible:border-primary focus-visible:ring-0 rounded-lg text-sm"
-                  />
-                </div>
-                <div className="flex items-center gap-2">
-                  <Label className="text-xs text-muted-foreground">inkl. km:<span className="text-destructive">*</span></Label>
-                  <Input 
-                    placeholder="bspw 10 km" 
-                    className="w-28 h-9 bg-muted/30 border border-muted focus-visible:border-primary focus-visible:ring-0 rounded-lg text-sm"
-                  />
-                </div>
-                <div className="flex items-center gap-2">
-                  <Label className="text-xs text-muted-foreground">+ € / km:<span className="text-destructive">*</span></Label>
-                  <Input 
-                    placeholder="bspw. 1,20€" 
-                    className="w-28 h-9 bg-muted/30 border border-muted focus-visible:border-primary focus-visible:ring-0 rounded-lg text-sm"
-                  />
-                </div>
-              </div>
-
-              {/* Liege */}
-              <div className="flex items-center gap-4 flex-wrap">
-                <span className="w-24 font-medium text-sm">Liege</span>
-                <div className="flex items-center gap-2">
-                  <Label className="text-xs text-muted-foreground">Grundpreis:<span className="text-destructive">*</span></Label>
-                  <Input 
-                    placeholder="bspw. 65,00€" 
-                    className="w-36 h-9 bg-muted/30 border border-muted focus-visible:border-primary focus-visible:ring-0 rounded-lg text-sm"
-                  />
-                </div>
-                <div className="flex items-center gap-2">
-                  <Label className="text-xs text-muted-foreground">inkl. km:<span className="text-destructive">*</span></Label>
-                  <Input 
-                    placeholder="bspw 10 km" 
-                    className="w-28 h-9 bg-muted/30 border border-muted focus-visible:border-primary focus-visible:ring-0 rounded-lg text-sm"
-                  />
-                </div>
-                <div className="flex items-center gap-2">
-                  <Label className="text-xs text-muted-foreground">+ € / km:<span className="text-destructive">*</span></Label>
-                  <Input 
-                    placeholder="bspw. 1,20€" 
-                    className="w-28 h-9 bg-muted/30 border border-muted focus-visible:border-primary focus-visible:ring-0 rounded-lg text-sm"
-                  />
-                </div>
-              </div>
-
-              <div className="flex justify-end pt-2">
-                <Button size="sm" className="px-6 h-9 bg-foreground hover:bg-foreground/90 text-background text-sm font-medium rounded-lg">
+              <div className="flex justify-end pt-6">
+                <Button size="lg" className="px-8 h-11 bg-foreground hover:bg-foreground/90 text-background text-sm font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-0.5">
                   Speichern
                 </Button>
               </div>
