@@ -10,7 +10,7 @@ const footerLinks = {
   unternehmen: [
     { label: "Über uns", href: "/wir" },
     { label: "Blog", href: "/blog" },
-    { label: "Karriere", href: "/kontakt" },
+    { label: "Karriere", href: "/karriere" },
   ],
   support: [
     { label: "Hilfe-Center", href: "/hilfe" },
@@ -72,11 +72,11 @@ export const Footer = () => {
                   </div>
                   <span className="text-sm">+49 155 61 231</span>
                 </a>
-                <div className="flex items-center gap-3 text-muted-foreground">
+              <div className="flex items-center gap-3 text-muted-foreground">
                   <div className="w-9 h-9 rounded-lg bg-secondary/10 flex items-center justify-center">
                     <MapPin className="w-4 h-4 text-secondary" />
                   </div>
-                  <span className="text-sm">Frankfurt, Deutschland</span>
+                  <span className="text-sm">Allerheiligentor 2-4, 60311 Frankfurt</span>
                 </div>
               </div>
 

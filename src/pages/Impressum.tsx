@@ -17,8 +17,8 @@ export default function Impressum() {
                 <h2 className="text-xl font-semibold mb-4">Angaben gemäß § 5 TMG</h2>
                 <p className="text-muted-foreground">
                   katew GmbH<br />
-                  Musterstraße 123<br />
-                  12345 Berlin<br />
+                  Allerheiligentor 2-4<br />
+                  60311 Frankfurt<br />
                   Deutschland
                 </p>
               </section>
@@ -26,8 +26,8 @@ export default function Impressum() {
               <section>
                 <h2 className="text-xl font-semibold mb-4">Kontakt</h2>
                 <p className="text-muted-foreground">
-                  Telefon: 0800 123 4567<br />
-                  E-Mail: info@katew.de
+                  Telefon: +49 155 61 231<br />
+                  E-Mail: support@katew.de
                 </p>
               </section>
 
@@ -59,8 +59,8 @@ export default function Impressum() {
                 <h2 className="text-xl font-semibold mb-4">Verantwortlich für den Inhalt nach § 55 Abs. 2 RStV</h2>
                 <p className="text-muted-foreground">
                   Max Mustermann<br />
-                  Musterstraße 123<br />
-                  12345 Berlin
+                  Allerheiligentor 2-4<br />
+                  60311 Frankfurt
                 </p>
               </section>
 
