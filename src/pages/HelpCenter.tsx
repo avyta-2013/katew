@@ -213,7 +213,7 @@ export default function HelpCenter() {
               </div>
               <h1 className="text-4xl md:text-6xl font-bold mb-6 tracking-tight">
                 <span className="bg-gradient-to-r from-primary via-secondary to-primary bg-clip-text text-transparent">
-                  Hilfe Center
+                  Hilfe-Center
                 </span>
               </h1>
               <p className="text-xl text-muted-foreground mb-10">
