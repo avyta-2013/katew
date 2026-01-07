@@ -13,10 +13,8 @@ import {
   CreditCard,
   Gavel,
   Linkedin,
-  Mail,
   Heart,
-  Target,
-  Lightbulb
+  Target
 } from "lucide-react";
 
 const steps = [
@@ -130,38 +128,6 @@ const About = () => {
         </div>
       </section>
 
-      {/* Our Story Section */}
-      <section className="py-20 md:py-28 bg-background">
-        <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto">
-            <div className="flex items-center gap-3 mb-8">
-              <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center">
-                <Lightbulb className="w-6 h-6 text-primary" />
-              </div>
-              <h2 className="text-3xl md:text-4xl font-bold">Unsere Geschichte</h2>
-            </div>
-            
-            <div className="prose prose-lg max-w-none text-muted-foreground space-y-6">
-              <p>
-                Die Idee zu katew entstand aus langjähriger praktischer Erfahrung im Bereich Krankenfahrten und Patientenbeförderung. Immer wieder zeigte sich, wie entscheidend zuverlässige, pünktliche und sichere Fahrten für Menschen mit gesundheitlichen Einschränkungen sind – und wie aufwendig deren Organisation für Patienten, Angehörige und Pflegeeinrichtungen sein kann. Fehlende Transparenz, zahlreiche Ansprechpartner und geringe Flexibilität führten dabei häufig zu unnötiger Belastung.
-              </p>
-              <p>
-                Vor diesem Hintergrund entstand der Ansatz, Patientenfahrten digital, übersichtlich und bedarfsgerecht zu organisieren. Ziel war es, eine Lösung zu schaffen, die den Zugang zu geeigneten Fahrdiensten vereinfacht und eine strukturierte Planung ermöglicht. Aus dieser Idee entwickelte sich katew – eine Plattform, die Patientenmobilität mit modernen digitalen Prozessen verbindet.
-              </p>
-              <p>
-                katew bietet Nutzern eine zentrale und kostenfreie Anlaufstelle für die Organisation von Fahrten. Sowohl einmalige Fahrten als auch regelmäßig wiederkehrende Termine, etwa zu Dialyse- oder Strahlentherapiebehandlungen, lassen sich über die Plattform übersichtlich planen. Transportangebote können verglichen, passende Optionen ausgewählt und Abläufe transparent koordiniert werden.
-              </p>
-              <p>
-                Die Plattform wurde so konzipiert, dass sie sowohl den Bedürfnissen von Patienten als auch denen von Fahrdienstanbietern gerecht wird. Unterschiedliche Abrechnungsmodelle – etwa ärztlich verordnete Fahrten, Selbstzahlerleistungen oder Ausschreibungen – können berücksichtigt werden. Damit versteht sich katew als digitale Vermittlungs- und Koordinationslösung für Krankenfahrten und Patientenbeförderung.
-              </p>
-              <p className="font-medium text-foreground">
-                katew verfolgt das Ziel, den Zugang zu zuverlässiger Patientenmobilität zu vereinfachen und organisatorische Hürden zu reduzieren – damit sich Betroffene und ihre Angehörigen auf das Wesentliche konzentrieren können.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* How It Works Section */}
       <section className="py-20 md:py-28 bg-muted/30">
         <div className="container mx-auto px-4">
@@ -209,7 +175,7 @@ const About = () => {
         </div>
       </section>
 
-      {/* Features Section - Transport Types */}
+      {/* Features Section */}
       <section className="py-20 md:py-28 bg-background">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
@@ -221,67 +187,111 @@ const About = () => {
             </p>
           </div>
 
-          {/* Transport Types */}
-          <div className="max-w-6xl mx-auto mb-20">
-            <h3 className="text-2xl font-bold mb-8 text-center">Transportarten</h3>
-            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-              {transportTypes.map((type, index) => {
-                const Icon = type.icon;
-                return (
-                  <div
-                    key={index}
-                    className="bg-card border border-border/50 rounded-2xl p-6 hover:border-primary/30 hover:shadow-card transition-all duration-300 group"
-                  >
-                    <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mb-5 group-hover:bg-primary group-hover:scale-105 transition-all">
-                      <Icon className="w-6 h-6 text-primary group-hover:text-primary-foreground transition-colors" />
-                    </div>
-                    <h4 className="text-lg font-semibold mb-2">{type.title}</h4>
-                    <p className="text-sm text-muted-foreground mb-4">{type.description}</p>
-                    <ul className="space-y-2">
-                      {type.features.map((feature, idx) => (
-                        <li key={idx} className="flex items-center gap-2 text-sm text-muted-foreground">
-                          <svg className="w-4 h-4 text-secondary flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                            <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                          </svg>
-                          {feature}
-                        </li>
-                      ))}
-                    </ul>
+          <div className="max-w-6xl mx-auto space-y-16">
+            {/* Transport Types */}
+            <div>
+              <h3 className="text-2xl font-bold mb-8">Transportarten</h3>
+              <div className="bg-card border border-border/50 rounded-3xl overflow-hidden">
+                <div className="grid md:grid-cols-[280px_1fr]">
+                  {/* Left: List */}
+                  <div className="border-r border-border/50 bg-muted/30">
+                    {transportTypes.map((type, index) => {
+                      const Icon = type.icon;
+                      return (
+                        <div
+                          key={index}
+                          className={`flex items-center gap-4 p-5 cursor-pointer hover:bg-primary/5 transition-colors ${
+                            index !== transportTypes.length - 1 ? 'border-b border-border/50' : ''
+                          }`}
+                        >
+                          <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center flex-shrink-0">
+                            <Icon className="w-5 h-5 text-primary" />
+                          </div>
+                          <span className="font-medium">{type.title}</span>
+                        </div>
+                      );
+                    })}
                   </div>
-                );
-              })}
+                  {/* Right: Details */}
+                  <div className="p-8 space-y-8">
+                    {transportTypes.map((type, index) => {
+                      const Icon = type.icon;
+                      return (
+                        <div key={index} className={index !== transportTypes.length - 1 ? 'pb-8 border-b border-border/50' : ''}>
+                          <div className="flex items-center gap-3 mb-4">
+                            <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center">
+                              <Icon className="w-6 h-6 text-primary" />
+                            </div>
+                            <h4 className="text-xl font-semibold">{type.title}</h4>
+                          </div>
+                          <p className="text-muted-foreground mb-4 leading-relaxed">{type.description}</p>
+                          <div className="flex flex-wrap gap-2">
+                            {type.features.map((feature, idx) => (
+                              <span key={idx} className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-muted text-sm text-muted-foreground">
+                                <CheckCircle className="w-3.5 h-3.5 text-secondary" />
+                                {feature}
+                              </span>
+                            ))}
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+              </div>
             </div>
-          </div>
 
-          {/* Booking Options */}
-          <div className="max-w-5xl mx-auto">
-            <h3 className="text-2xl font-bold mb-8 text-center">Buchungsoptionen</h3>
-            <div className="grid sm:grid-cols-3 gap-6">
-              {bookingOptions.map((option, index) => {
-                const Icon = option.icon;
-                return (
-                  <div
-                    key={index}
-                    className="bg-card border border-border/50 rounded-2xl p-6 hover:border-primary/30 hover:shadow-card transition-all duration-300 group"
-                  >
-                    <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mb-5 group-hover:bg-primary group-hover:scale-105 transition-all">
-                      <Icon className="w-6 h-6 text-primary group-hover:text-primary-foreground transition-colors" />
-                    </div>
-                    <h4 className="text-lg font-semibold mb-2">{option.title}</h4>
-                    <p className="text-sm text-muted-foreground mb-4">{option.description}</p>
-                    <ul className="space-y-2">
-                      {option.features.map((feature, idx) => (
-                        <li key={idx} className="flex items-center gap-2 text-sm text-muted-foreground">
-                          <svg className="w-4 h-4 text-secondary flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                            <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                          </svg>
-                          {feature}
-                        </li>
-                      ))}
-                    </ul>
+            {/* Booking Options */}
+            <div>
+              <h3 className="text-2xl font-bold mb-8">Buchungsoptionen</h3>
+              <div className="bg-card border border-border/50 rounded-3xl overflow-hidden">
+                <div className="grid md:grid-cols-[280px_1fr]">
+                  {/* Left: List */}
+                  <div className="border-r border-border/50 bg-muted/30">
+                    {bookingOptions.map((option, index) => {
+                      const Icon = option.icon;
+                      return (
+                        <div
+                          key={index}
+                          className={`flex items-center gap-4 p-5 cursor-pointer hover:bg-primary/5 transition-colors ${
+                            index !== bookingOptions.length - 1 ? 'border-b border-border/50' : ''
+                          }`}
+                        >
+                          <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center flex-shrink-0">
+                            <Icon className="w-5 h-5 text-primary" />
+                          </div>
+                          <span className="font-medium">{option.title}</span>
+                        </div>
+                      );
+                    })}
                   </div>
-                );
-              })}
+                  {/* Right: Details */}
+                  <div className="p-8 space-y-8">
+                    {bookingOptions.map((option, index) => {
+                      const Icon = option.icon;
+                      return (
+                        <div key={index} className={index !== bookingOptions.length - 1 ? 'pb-8 border-b border-border/50' : ''}>
+                          <div className="flex items-center gap-3 mb-4">
+                            <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center">
+                              <Icon className="w-6 h-6 text-primary" />
+                            </div>
+                            <h4 className="text-xl font-semibold">{option.title}</h4>
+                          </div>
+                          <p className="text-muted-foreground mb-4 leading-relaxed">{option.description}</p>
+                          <div className="flex flex-wrap gap-2">
+                            {option.features.map((feature, idx) => (
+                              <span key={idx} className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-muted text-sm text-muted-foreground">
+                                <CheckCircle className="w-3.5 h-3.5 text-secondary" />
+                                {feature}
+                              </span>
+                            ))}
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
