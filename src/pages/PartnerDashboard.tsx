@@ -1,5 +1,5 @@
 import { useState, useRef } from "react";
-import { User, Calendar, Settings, LogOut, Bell, Lock, Eye, EyeOff, Building2, Phone, Mail, MapPin, CalendarDays, CheckCircle2, XCircle, Clock, LayoutDashboard, TrendingUp, Camera, Upload, ArrowUpRight, Truck, Route, Timer, Sparkles } from "lucide-react";
+import { User, Calendar, Settings, LogOut, Bell, Lock, Eye, EyeOff, Building2, Phone, Mail, MapPin, CalendarDays, CheckCircle2, XCircle, Clock, LayoutDashboard, TrendingUp, Camera, Upload, ArrowUpRight, Truck, Route, Timer, Sparkles, Ticket, MoreHorizontal, Star, RefreshCw, FileText } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -11,9 +11,11 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { Progress } from "@/components/ui/progress";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import { Textarea } from "@/components/ui/textarea";
 import { cn } from "@/lib/utils";
 
-type NavItem = "uebersicht" | "profil" | "buchungen" | "einstellungen";
+type NavItem = "uebersicht" | "profil" | "buchungen" | "tickets" | "einstellungen";
 
 const PartnerDashboard = () => {
   const [activeNav, setActiveNav] = useState<NavItem>("uebersicht");
@@ -28,8 +30,18 @@ const PartnerDashboard = () => {
     { id: "uebersicht" as NavItem, label: "Übersicht", icon: LayoutDashboard },
     { id: "profil" as NavItem, label: "Profil", icon: User },
     { id: "buchungen" as NavItem, label: "Buchungen", icon: Calendar },
+    { id: "tickets" as NavItem, label: "Tickets", icon: Ticket },
     { id: "einstellungen" as NavItem, label: "Einstellungen", icon: Settings },
   ];
+
+  // Tickets data
+  const [tickets, setTickets] = useState([
+    { id: 1, subject: "Rechnung nicht erhalten", status: "offen", date: "12.01.2026", priority: "hoch" },
+    { id: 2, subject: "Stornierung Buchung #1234", status: "bearbeitung", date: "10.01.2026", priority: "mittel" },
+  ]);
+  const [newTicketSubject, setNewTicketSubject] = useState("");
+  const [newTicketDescription, setNewTicketDescription] = useState("");
+  const [newTicketPriority, setNewTicketPriority] = useState("mittel");
 
   // Mock bookings data
   const bookings = {
@@ -468,7 +480,7 @@ const PartnerDashboard = () => {
                 onChange={handleImageUpload}
                 className="hidden"
               />
-              <Button onClick={triggerFileInput} className="gap-2 bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary/70 shadow-lg shadow-primary/25">
+              <Button onClick={triggerFileInput} className="gap-2 bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary/70 shadow-lg shadow-primary/25 text-primary-foreground">
                 <Upload className="w-4 h-4" />
                 Bild hochladen
               </Button>
@@ -480,49 +492,40 @@ const PartnerDashboard = () => {
         </CardContent>
       </Card>
 
+      {/* Privat Section */}
       <Card className="border-0 shadow-xl bg-gradient-to-br from-card to-muted/20 overflow-hidden">
         <CardHeader className="pb-4">
           <div className="flex items-center gap-3">
-            <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-primary/10 to-secondary/10 flex items-center justify-center">
-              <User className="w-6 h-6 text-primary" />
+            <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-violet-500/10 to-violet-500/5 flex items-center justify-center">
+              <User className="w-6 h-6 text-violet-500" />
             </div>
             <div>
-              <CardTitle className="text-xl font-bold">Persönliche Informationen</CardTitle>
-              <CardDescription>Ihre Kontaktdaten und Adresse</CardDescription>
+              <CardTitle className="text-xl font-bold">Privat</CardTitle>
+              <CardDescription>Ihre persönlichen Kontaktdaten</CardDescription>
             </div>
           </div>
         </CardHeader>
         <CardContent className="space-y-6">
-          {/* Anrede */}
+          {/* Anrede - Modern Toggle Style */}
           <div className="space-y-3">
             <Label className="text-sm font-semibold">
               Anrede <span className="text-destructive">*</span>
             </Label>
-            <RadioGroup defaultValue="einrichtung" className="flex flex-wrap gap-3">
-              {["Mann", "Frau", "Divers", "Einrichtung"].map((option) => (
-                <div key={option} className="flex items-center">
-                  <RadioGroupItem value={option.toLowerCase()} id={option.toLowerCase()} className="peer sr-only" />
-                  <Label 
-                    htmlFor={option.toLowerCase()} 
-                    className="cursor-pointer px-4 py-2.5 rounded-xl border-2 border-muted bg-muted/30 peer-data-[state=checked]:border-primary peer-data-[state=checked]:bg-primary/10 peer-data-[state=checked]:text-primary transition-all duration-200 font-medium"
-                  >
-                    {option}
-                  </Label>
-                </div>
-              ))}
-            </RadioGroup>
-          </div>
-
-          {/* Einrichtung Name */}
-          <div className="space-y-2">
-            <Label className="text-sm font-semibold flex items-center gap-2">
-              <Building2 className="w-4 h-4 text-muted-foreground" />
-              Name der Einrichtung
-            </Label>
-            <Input 
-              defaultValue="AVYTA Pflegegesellschaft mbH" 
-              className="h-14 bg-muted/30 border-2 border-muted focus-visible:border-primary focus-visible:ring-0 rounded-xl text-base"
-            />
+            <div className="flex gap-2 p-1.5 bg-muted/50 rounded-2xl w-fit">
+              <RadioGroup defaultValue="mann" className="flex gap-1">
+                {["Mann", "Frau", "Divers"].map((option) => (
+                  <div key={option} className="flex items-center">
+                    <RadioGroupItem value={option.toLowerCase()} id={`anrede-${option.toLowerCase()}`} className="peer sr-only" />
+                    <Label 
+                      htmlFor={`anrede-${option.toLowerCase()}`} 
+                      className="cursor-pointer px-6 py-3 rounded-xl bg-transparent peer-data-[state=checked]:bg-gradient-to-r peer-data-[state=checked]:from-primary peer-data-[state=checked]:to-primary/80 peer-data-[state=checked]:text-primary-foreground peer-data-[state=checked]:shadow-lg transition-all duration-300 font-medium text-muted-foreground hover:text-foreground"
+                    >
+                      {option}
+                    </Label>
+                  </div>
+                ))}
+              </RadioGroup>
+            </div>
           </div>
 
           {/* Name Grid */}
@@ -547,29 +550,84 @@ const PartnerDashboard = () => {
             </div>
           </div>
 
-          {/* Date & Address */}
+          {/* Geburtsdatum */}
+          <div className="space-y-2">
+            <Label className="text-sm font-semibold flex items-center gap-2">
+              <CalendarDays className="w-4 h-4 text-muted-foreground" />
+              Geburtsdatum <span className="text-destructive">*</span>
+            </Label>
+            <Input 
+              type="date" 
+              defaultValue="1992-06-29" 
+              className="h-14 bg-muted/30 border-2 border-muted focus-visible:border-primary focus-visible:ring-0 rounded-xl text-base max-w-xs"
+            />
+          </div>
+
+          {/* Contact */}
           <div className="grid md:grid-cols-2 gap-4">
             <div className="space-y-2">
               <Label className="text-sm font-semibold flex items-center gap-2">
-                <CalendarDays className="w-4 h-4 text-muted-foreground" />
-                Geburtsdatum <span className="text-destructive">*</span>
+                <Phone className="w-4 h-4 text-muted-foreground" />
+                Telefon (privat)
               </Label>
               <Input 
-                type="date" 
-                defaultValue="1992-06-29" 
+                defaultValue="" 
+                placeholder="Optional"
                 className="h-14 bg-muted/30 border-2 border-muted focus-visible:border-primary focus-visible:ring-0 rounded-xl text-base"
               />
             </div>
             <div className="space-y-2">
               <Label className="text-sm font-semibold flex items-center gap-2">
-                <MapPin className="w-4 h-4 text-muted-foreground" />
-                Straße <span className="text-destructive">*</span>
+                <Mail className="w-4 h-4 text-muted-foreground" />
+                E-Mail (privat)
               </Label>
               <Input 
-                defaultValue="Allerheiligentor 2-4" 
+                type="email" 
+                defaultValue="" 
+                placeholder="Optional"
                 className="h-14 bg-muted/30 border-2 border-muted focus-visible:border-primary focus-visible:ring-0 rounded-xl text-base"
               />
             </div>
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* Einrichtung Section */}
+      <Card className="border-0 shadow-xl bg-gradient-to-br from-card to-muted/20 overflow-hidden">
+        <CardHeader className="pb-4">
+          <div className="flex items-center gap-3">
+            <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-secondary/10 to-secondary/5 flex items-center justify-center">
+              <Building2 className="w-6 h-6 text-secondary" />
+            </div>
+            <div>
+              <CardTitle className="text-xl font-bold">Einrichtung</CardTitle>
+              <CardDescription>Informationen zu Ihrer Einrichtung oder Firma</CardDescription>
+            </div>
+          </div>
+        </CardHeader>
+        <CardContent className="space-y-6">
+          {/* Einrichtung Name */}
+          <div className="space-y-2">
+            <Label className="text-sm font-semibold flex items-center gap-2">
+              <Building2 className="w-4 h-4 text-muted-foreground" />
+              Name der Einrichtung <span className="text-destructive">*</span>
+            </Label>
+            <Input 
+              defaultValue="AVYTA Pflegegesellschaft mbH" 
+              className="h-14 bg-muted/30 border-2 border-muted focus-visible:border-primary focus-visible:ring-0 rounded-xl text-base"
+            />
+          </div>
+
+          {/* Address */}
+          <div className="space-y-2">
+            <Label className="text-sm font-semibold flex items-center gap-2">
+              <MapPin className="w-4 h-4 text-muted-foreground" />
+              Straße <span className="text-destructive">*</span>
+            </Label>
+            <Input 
+              defaultValue="Allerheiligentor 2-4" 
+              className="h-14 bg-muted/30 border-2 border-muted focus-visible:border-primary focus-visible:ring-0 rounded-xl text-base"
+            />
           </div>
 
           {/* City & PLZ */}
@@ -594,7 +652,7 @@ const PartnerDashboard = () => {
             </div>
           </div>
 
-          {/* Contact */}
+          {/* Business Contact */}
           <div className="grid md:grid-cols-2 gap-4">
             <div className="space-y-2">
               <Label className="text-sm font-semibold flex items-center gap-2">
@@ -609,7 +667,7 @@ const PartnerDashboard = () => {
             <div className="space-y-2">
               <Label className="text-sm font-semibold flex items-center gap-2">
                 <Mail className="w-4 h-4 text-muted-foreground" />
-                E-Mail
+                E-Mail <span className="text-destructive">*</span>
               </Label>
               <Input 
                 type="email" 
@@ -620,7 +678,7 @@ const PartnerDashboard = () => {
           </div>
 
           <div className="flex justify-end pt-6">
-            <Button className="px-10 h-14 bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary/70 shadow-xl shadow-primary/25 text-base font-semibold rounded-xl">
+            <Button className="px-10 h-14 bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary/70 shadow-xl shadow-primary/25 text-base font-semibold rounded-xl text-primary-foreground">
               Änderungen speichern
             </Button>
           </div>
@@ -712,14 +770,38 @@ const PartnerDashboard = () => {
                             </Badge>
                           </div>
                         </div>
-                        <Badge className={cn(
-                          "capitalize px-4 py-2 text-sm font-semibold rounded-xl",
-                          status === "aktiv" && "bg-gradient-to-r from-primary/20 to-primary/10 text-primary border-0",
-                          status === "bestaetigt" && "bg-gradient-to-r from-secondary/20 to-secondary/10 text-secondary border-0",
-                          status === "storniert" && "bg-gradient-to-r from-destructive/20 to-destructive/10 text-destructive border-0"
-                        )}>
-                          {status === "aktiv" ? "Aktiv" : status === "bestaetigt" ? "Bestätigt" : "Storniert"}
-                        </Badge>
+                        <div className="flex items-center gap-3">
+                          <Badge className={cn(
+                            "capitalize px-4 py-2 text-sm font-semibold rounded-xl",
+                            status === "aktiv" && "bg-gradient-to-r from-primary/20 to-primary/10 text-primary border-0",
+                            status === "bestaetigt" && "bg-gradient-to-r from-secondary/20 to-secondary/10 text-secondary border-0",
+                            status === "storniert" && "bg-gradient-to-r from-destructive/20 to-destructive/10 text-destructive border-0"
+                          )}>
+                            {status === "aktiv" ? "Aktiv" : status === "bestaetigt" ? "Bestätigt" : "Storniert"}
+                          </Badge>
+                          <DropdownMenu>
+                            <DropdownMenuTrigger asChild>
+                              <Button variant="outline" size="sm" className="h-10 px-4 rounded-xl border-2 hover:bg-muted/50 gap-2">
+                                <MoreHorizontal className="w-4 h-4" />
+                                Optionen
+                              </Button>
+                            </DropdownMenuTrigger>
+                            <DropdownMenuContent align="end" className="w-48 rounded-xl border-2 shadow-xl bg-card">
+                              <DropdownMenuItem className="gap-3 py-3 px-4 cursor-pointer rounded-lg hover:bg-muted/50 focus:bg-muted/50">
+                                <FileText className="w-4 h-4 text-primary" />
+                                <span className="font-medium">Details</span>
+                              </DropdownMenuItem>
+                              <DropdownMenuItem className="gap-3 py-3 px-4 cursor-pointer rounded-lg hover:bg-muted/50 focus:bg-muted/50">
+                                <RefreshCw className="w-4 h-4 text-secondary" />
+                                <span className="font-medium">Wiederholen</span>
+                              </DropdownMenuItem>
+                              <DropdownMenuItem className="gap-3 py-3 px-4 cursor-pointer rounded-lg hover:bg-muted/50 focus:bg-muted/50">
+                                <Star className="w-4 h-4 text-amber-500" />
+                                <span className="font-medium">Bewerten</span>
+                              </DropdownMenuItem>
+                            </DropdownMenuContent>
+                          </DropdownMenu>
+                        </div>
                       </div>
                       <Separator className="my-5" />
                       <div className="grid md:grid-cols-2 gap-4">
@@ -750,6 +832,180 @@ const PartnerDashboard = () => {
           </TabsContent>
         ))}
       </Tabs>
+    </div>
+  );
+
+  const handleCreateTicket = () => {
+    if (newTicketSubject.trim()) {
+      const newTicket = {
+        id: tickets.length + 1,
+        subject: newTicketSubject,
+        status: "offen" as const,
+        date: new Date().toLocaleDateString("de-DE"),
+        priority: newTicketPriority
+      };
+      setTickets([newTicket, ...tickets]);
+      setNewTicketSubject("");
+      setNewTicketDescription("");
+      setNewTicketPriority("mittel");
+    }
+  };
+
+  const renderTickets = () => (
+    <div className="space-y-8">
+      <div className="relative">
+        <div className="absolute -top-4 -left-4 w-24 h-24 bg-primary/10 rounded-full blur-3xl" />
+        <h1 className="text-3xl font-bold text-foreground relative">Tickets</h1>
+        <p className="text-muted-foreground mt-2 text-lg">Erstellen und verwalten Sie Support-Tickets</p>
+      </div>
+
+      {/* Create Ticket Card */}
+      <Card className="border-0 shadow-xl bg-gradient-to-br from-card to-muted/20 overflow-hidden">
+        <CardHeader className="pb-4">
+          <div className="flex items-center gap-3">
+            <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-primary/10 to-secondary/10 flex items-center justify-center">
+              <Ticket className="w-6 h-6 text-primary" />
+            </div>
+            <div>
+              <CardTitle className="text-xl font-bold">Neues Ticket erstellen</CardTitle>
+              <CardDescription>Beschreiben Sie Ihr Anliegen</CardDescription>
+            </div>
+          </div>
+        </CardHeader>
+        <CardContent className="space-y-4">
+          <div className="space-y-2">
+            <Label className="text-sm font-semibold">
+              Betreff <span className="text-destructive">*</span>
+            </Label>
+            <Input 
+              value={newTicketSubject}
+              onChange={(e) => setNewTicketSubject(e.target.value)}
+              placeholder="Kurze Beschreibung Ihres Anliegens..."
+              className="h-14 bg-muted/30 border-2 border-muted focus-visible:border-primary focus-visible:ring-0 rounded-xl text-base"
+            />
+          </div>
+
+          <div className="space-y-2">
+            <Label className="text-sm font-semibold">Beschreibung</Label>
+            <Textarea 
+              value={newTicketDescription}
+              onChange={(e) => setNewTicketDescription(e.target.value)}
+              placeholder="Beschreiben Sie Ihr Anliegen ausführlich..."
+              className="min-h-32 bg-muted/30 border-2 border-muted focus-visible:border-primary focus-visible:ring-0 rounded-xl text-base resize-none"
+            />
+          </div>
+
+          <div className="space-y-3">
+            <Label className="text-sm font-semibold">Priorität</Label>
+            <div className="flex gap-2 p-1.5 bg-muted/50 rounded-2xl w-fit">
+              <RadioGroup value={newTicketPriority} onValueChange={setNewTicketPriority} className="flex gap-1">
+                {[
+                  { value: "niedrig", label: "Niedrig", color: "from-secondary to-secondary/80" },
+                  { value: "mittel", label: "Mittel", color: "from-amber-500 to-amber-500/80" },
+                  { value: "hoch", label: "Hoch", color: "from-destructive to-destructive/80" }
+                ].map((option) => (
+                  <div key={option.value} className="flex items-center">
+                    <RadioGroupItem value={option.value} id={`priority-${option.value}`} className="peer sr-only" />
+                    <Label 
+                      htmlFor={`priority-${option.value}`} 
+                      className={cn(
+                        "cursor-pointer px-6 py-3 rounded-xl bg-transparent transition-all duration-300 font-medium text-muted-foreground hover:text-foreground",
+                        newTicketPriority === option.value && `bg-gradient-to-r ${option.color} text-white shadow-lg`
+                      )}
+                    >
+                      {option.label}
+                    </Label>
+                  </div>
+                ))}
+              </RadioGroup>
+            </div>
+          </div>
+
+          <div className="flex justify-end pt-4">
+            <Button 
+              onClick={handleCreateTicket}
+              disabled={!newTicketSubject.trim()}
+              className="px-10 h-14 bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary/70 shadow-xl shadow-primary/25 text-base font-semibold rounded-xl text-primary-foreground"
+            >
+              Ticket erstellen
+            </Button>
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* Existing Tickets */}
+      <Card className="border-0 shadow-xl bg-gradient-to-br from-card to-muted/20 overflow-hidden">
+        <CardHeader className="pb-4">
+          <div className="flex items-center gap-3">
+            <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-violet-500/10 to-violet-500/5 flex items-center justify-center">
+              <FileText className="w-6 h-6 text-violet-500" />
+            </div>
+            <div>
+              <CardTitle className="text-xl font-bold">Meine Tickets</CardTitle>
+              <CardDescription>Übersicht Ihrer erstellten Tickets</CardDescription>
+            </div>
+          </div>
+        </CardHeader>
+        <CardContent>
+          {tickets.length === 0 ? (
+            <div className="py-12 text-center">
+              <div className="w-16 h-16 mx-auto mb-4 rounded-2xl bg-muted/50 flex items-center justify-center">
+                <Ticket className="w-8 h-8 text-muted-foreground" />
+              </div>
+              <p className="text-muted-foreground">Keine Tickets vorhanden</p>
+            </div>
+          ) : (
+            <div className="space-y-4">
+              {tickets.map((ticket) => (
+                <div 
+                  key={ticket.id} 
+                  className="p-5 rounded-2xl bg-muted/30 border-2 border-muted hover:border-primary/30 transition-all duration-300 group cursor-pointer"
+                >
+                  <div className="flex items-start justify-between">
+                    <div className="flex items-start gap-4">
+                      <div className={cn(
+                        "w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0",
+                        ticket.status === "offen" && "bg-gradient-to-br from-amber-500/20 to-amber-500/10",
+                        ticket.status === "bearbeitung" && "bg-gradient-to-br from-primary/20 to-primary/10",
+                        ticket.status === "geschlossen" && "bg-gradient-to-br from-secondary/20 to-secondary/10"
+                      )}>
+                        <Ticket className={cn(
+                          "w-6 h-6",
+                          ticket.status === "offen" && "text-amber-500",
+                          ticket.status === "bearbeitung" && "text-primary",
+                          ticket.status === "geschlossen" && "text-secondary"
+                        )} />
+                      </div>
+                      <div>
+                        <h3 className="font-bold text-foreground">{ticket.subject}</h3>
+                        <p className="text-sm text-muted-foreground mt-1">Erstellt am {ticket.date}</p>
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-3">
+                      <Badge className={cn(
+                        "px-3 py-1.5 text-xs font-semibold rounded-lg border-0",
+                        ticket.priority === "hoch" && "bg-destructive/20 text-destructive",
+                        ticket.priority === "mittel" && "bg-amber-500/20 text-amber-600",
+                        ticket.priority === "niedrig" && "bg-secondary/20 text-secondary"
+                      )}>
+                        {ticket.priority.charAt(0).toUpperCase() + ticket.priority.slice(1)}
+                      </Badge>
+                      <Badge className={cn(
+                        "px-3 py-1.5 text-xs font-semibold rounded-lg border-0",
+                        ticket.status === "offen" && "bg-amber-500/20 text-amber-600",
+                        ticket.status === "bearbeitung" && "bg-primary/20 text-primary",
+                        ticket.status === "geschlossen" && "bg-secondary/20 text-secondary"
+                      )}>
+                        {ticket.status === "offen" ? "Offen" : ticket.status === "bearbeitung" ? "In Bearbeitung" : "Geschlossen"}
+                      </Badge>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+        </CardContent>
+      </Card>
     </div>
   );
 
@@ -882,6 +1138,7 @@ const PartnerDashboard = () => {
         {activeNav === "uebersicht" && renderOverview()}
         {activeNav === "profil" && renderProfile()}
         {activeNav === "buchungen" && renderBookings()}
+        {activeNav === "tickets" && renderTickets()}
         {activeNav === "einstellungen" && renderSettings()}
       </main>
     </div>
