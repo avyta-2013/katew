@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { Button } from "@/components/ui/button";
+import { ContactFormCTA } from "@/components/ContactFormCTA";
 import { 
   UserPlus, 
   FileText, 
@@ -533,6 +534,9 @@ const About = () => {
           </div>
         </div>
       </section>
+
+      {/* Contact Form CTA */}
+      <ContactFormCTA variant="about" />
 
       <Footer />
     </main>
