@@ -52,27 +52,9 @@ const benefits = [
 
 const openPositions = [
   {
-    title: "Senior Full-Stack Developer",
-    department: "Engineering",
-    location: "Remote / Frankfurt",
-    type: "Vollzeit",
-  },
-  {
-    title: "Product Manager",
-    department: "Product",
+    title: "Sales Manager/in",
+    department: "Vertrieb",
     location: "Frankfurt",
-    type: "Vollzeit",
-  },
-  {
-    title: "Customer Success Manager",
-    department: "Operations",
-    location: "Frankfurt",
-    type: "Vollzeit",
-  },
-  {
-    title: "UX/UI Designer",
-    department: "Design",
-    location: "Remote / Frankfurt",
     type: "Vollzeit",
   },
 ];
