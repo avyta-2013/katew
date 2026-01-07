@@ -13,10 +13,16 @@ import {
   Smartphone,
   Zap,
   Award,
-  HeartHandshake
+  HeartHandshake,
+  FileText,
+  Briefcase,
+  Send,
+  CalendarClock
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
+import { Header } from "@/components/Header";
+import { Footer } from "@/components/Footer";
 
 const benefits = [
   {
@@ -55,34 +61,34 @@ const benefits = [
 
 const features = [
   {
-    icon: Calendar,
-    title: "Intelligente Disposition",
-    description: "Optimieren Sie Ihre Touren automatisch mit unserem KI-gestützten Dispositionssystem.",
+    icon: FileText,
+    title: "Transportschein",
+    description: "Erhalte Buchungsanfragen via Transportschein direkt über die Plattform.",
   },
   {
-    icon: Smartphone,
-    title: "Mobile App für Fahrer",
-    description: "Ihre Fahrer erhalten alle Informationen in Echtzeit auf ihr Smartphone.",
+    icon: Euro,
+    title: "Selbstzahler",
+    description: "Akzeptiere Buchungen von Selbstzahlern zu deinen eigenen Tarifen.",
   },
   {
-    icon: BarChart3,
-    title: "Umfangreiche Statistiken",
-    description: "Behalten Sie den Überblick mit detaillierten Auswertungen und Berichten.",
+    icon: Briefcase,
+    title: "Ausschreibungen",
+    description: "Biete mit bei bundesweiten lukrativen Ausschreibungen für Sonderfahrten.",
   },
   {
     icon: Building2,
-    title: "Klinik-Anbindung",
-    description: "Direkte Integration mit Krankenhäusern und Pflegeeinrichtungen.",
+    title: "Kooperationen",
+    description: "Kostenträger, Pflege- und Gesundheitseinrichtungen vertrauen auf uns.",
   },
   {
-    icon: Zap,
-    title: "Echtzeit-Updates",
-    description: "Live-Tracking und sofortige Benachrichtigungen für alle Beteiligten.",
+    icon: CalendarClock,
+    title: "Flexible Arbeitszeiten",
+    description: "Melde dich ab und genieße den Feierabend – du entscheidest, wann du fährst.",
   },
   {
     icon: HeartHandshake,
-    title: "Persönlicher Support",
-    description: "Unser Team steht Ihnen bei allen Fragen zur Seite – 7 Tage die Woche.",
+    title: "24/7 Kunden-Support",
+    description: "Unser Team steht dir bei allen Fragen zur Seite – rund um die Uhr.",
   },
 ];
 
@@ -121,7 +127,9 @@ const testimonials = [
 
 export default function ForProviders() {
   return (
-    <div className="min-h-screen bg-background">
+    <>
+      <Header />
+      <div className="min-h-screen bg-background">
       {/* Hero Section */}
       <section className="relative pt-32 pb-20 md:pt-40 md:pb-32 overflow-hidden">
         {/* Background Effects */}
@@ -132,20 +140,30 @@ export default function ForProviders() {
         <div className="container mx-auto px-4 relative">
           <div className="max-w-4xl mx-auto text-center">
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-medium mb-8 animate-fade-in">
-              <Award className="w-4 h-4" />
-              Werden Sie Partner
+              <Send className="w-4 h-4" />
+              Dein Schritt in die Zukunft
             </div>
             <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 tracking-tight">
               <span className="bg-gradient-to-r from-primary via-secondary to-primary bg-clip-text text-transparent">
-                Wachsen Sie mit uns
+                Premium Mitgliedschaft
               </span>
             </h1>
-            <p className="text-xl md:text-2xl text-muted-foreground mb-10 max-w-2xl mx-auto leading-relaxed">
-              Schließen Sie sich dem größten Netzwerk für Krankenfahrten in Deutschland an und profitieren Sie von mehr Aufträgen, höheren Einnahmen und weniger Verwaltung.
+            <p className="text-xl md:text-2xl text-muted-foreground mb-6 max-w-2xl mx-auto leading-relaxed">
+              Ganz einfach, transparent und übersichtlich – werde Teil des größten Netzwerks für Krankenfahrten in Deutschland.
             </p>
+            
+            {/* Pricing Highlight */}
+            <div className="inline-flex items-center gap-4 bg-card border border-border/50 rounded-2xl px-8 py-4 mb-10 shadow-lg">
+              <div className="text-5xl md:text-6xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">0€</div>
+              <div className="text-left">
+                <div className="text-sm text-muted-foreground">pro Monat</div>
+                <div className="font-semibold text-foreground">Einmaliger Einstiegspreis</div>
+              </div>
+            </div>
+            
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button size="lg" className="bg-gradient-to-r from-primary to-secondary hover:opacity-90 text-lg px-8 py-6 h-auto shadow-lg shadow-primary/25">
-                Jetzt Partner werden
+                Jetzt Anbieter werden
                 <ArrowRight className="ml-2 w-5 h-5" />
               </Button>
               <Button size="lg" variant="outline" className="text-lg px-8 py-6 h-auto border-2">
@@ -161,9 +179,9 @@ export default function ForProviders() {
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
             {[
-              { value: "850+", label: "Partner bundesweit" },
-              { value: "2.5M+", label: "Fahrten pro Jahr" },
-              { value: "98%", label: "Zufriedenheit" },
+              { value: "Unbegrenzt", label: "Standorte" },
+              { value: "Unbegrenzt", label: "Buchungen" },
+              { value: "0€", label: "Monatlich" },
               { value: "24/7", label: "Support" },
             ].map((stat, index) => (
               <div key={index} className="group">
@@ -183,13 +201,13 @@ export default function ForProviders() {
           <div className="text-center mb-16">
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-secondary/10 text-secondary text-sm font-medium mb-6">
               <Sparkles className="w-4 h-4" />
-              Ihre Vorteile
+              Was hast du zu verlieren?
             </div>
             <h2 className="text-3xl md:text-5xl font-bold mb-4 tracking-tight">
-              Warum Partner <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">werden?</span>
+              Deine <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">Vorteile</span>
             </h2>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Entdecken Sie die Vorteile einer Partnerschaft mit katew
+              Entdecke die Vorteile einer Mitgliedschaft bei katew
             </p>
           </div>
 
@@ -350,6 +368,8 @@ export default function ForProviders() {
           </div>
         </div>
       </section>
-    </div>
+      </div>
+      <Footer />
+    </>
   );
 }
