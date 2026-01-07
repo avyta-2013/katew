@@ -64,7 +64,7 @@ export const ProvidersSection = () => {
     <section id="anbieter" className="py-24 md:py-32 bg-background">
       <div className="container mx-auto px-4">
         <div className="max-w-6xl mx-auto">
-          <div className="grid lg:grid-cols-2 gap-16 items-center mb-20">
+          <div className="grid lg:grid-cols-[1fr_1.3fr] gap-16 items-center mb-20">
             {/* Left content */}
             <div>
               <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-primary/10 text-primary text-sm font-medium mb-6">
@@ -111,15 +111,10 @@ export const ProvidersSection = () => {
             </div>
 
             {/* Right visual - Germany Network Map */}
-            <div className="relative">
+            <div className="relative lg:col-span-1">
               <div className="bg-card border border-border/50 rounded-3xl p-6 shadow-elevated overflow-hidden">
-                <div className="text-center mb-4">
-                  <h3 className="font-semibold text-lg mb-1">Unser Netzwerk</h3>
-                  <p className="text-sm text-muted-foreground">Deutschlandweit vertreten</p>
-                </div>
-                
-                {/* Interactive SVG Map */}
-                <div className="relative h-[400px] rounded-2xl overflow-hidden bg-gradient-to-br from-primary/5 via-transparent to-secondary/5">
+                {/* Interactive SVG Map - extended height */}
+                <div className="relative h-[520px] rounded-2xl overflow-hidden bg-gradient-to-br from-primary/5 via-transparent to-secondary/5">
                   <GermanyMap />
                 </div>
 
@@ -130,7 +125,7 @@ export const ProvidersSection = () => {
                     <p className="text-xs text-muted-foreground">Partner</p>
                   </div>
                   <div className="bg-muted/50 rounded-xl p-3 text-center">
-                    <p className="text-2xl font-bold text-secondary">30+</p>
+                    <p className="text-2xl font-bold text-primary">30+</p>
                     <p className="text-xs text-muted-foreground">Städte</p>
                   </div>
                   <div className="bg-muted/50 rounded-xl p-3 text-center">
