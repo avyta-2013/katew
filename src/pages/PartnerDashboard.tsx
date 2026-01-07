@@ -1,5 +1,6 @@
 import { useState, useRef } from "react";
-import { User, Calendar, Settings, LogOut, Bell, Lock, Eye, EyeOff, Building2, Phone, Mail, MapPin, CalendarDays, CheckCircle2, XCircle, Clock, LayoutDashboard, TrendingUp, Camera, Upload, ArrowUpRight, Truck, Route, Timer, Sparkles, Ticket, MoreHorizontal, Star, RefreshCw, FileText, Users } from "lucide-react";
+import { User, Calendar, Settings, LogOut, Bell, Lock, Eye, EyeOff, Building2, Phone, Mail, MapPin, CalendarDays, CheckCircle2, XCircle, Clock, LayoutDashboard, TrendingUp, Camera, Upload, ArrowUpRight, Truck, Route, Timer, Sparkles, Ticket, MoreHorizontal, Star, RefreshCw, FileText, Users, Plus } from "lucide-react";
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -30,11 +31,13 @@ const PartnerDashboard = () => {
   const [accountType, setAccountType] = useState<AccountType>("einrichtung");
   const fileInputRef = useRef<HTMLInputElement>(null);
 
+  const [ticketDialogOpen, setTicketDialogOpen] = useState(false);
+
   const navItems = [
+    { id: "tickets" as NavItem, label: "Meine Tickets", icon: Ticket },
     { id: "uebersicht" as NavItem, label: "Übersicht", icon: LayoutDashboard },
     { id: "profil" as NavItem, label: "Profil", icon: User },
     { id: "buchungen" as NavItem, label: "Buchungen", icon: Calendar },
-    { id: "tickets" as NavItem, label: "Tickets", icon: Ticket },
     { id: "einstellungen" as NavItem, label: "Einstellungen", icon: Settings },
   ];
 
@@ -813,142 +816,143 @@ const PartnerDashboard = () => {
       setNewTicketSubject("");
       setNewTicketDescription("");
       setNewTicketPriority("mittel");
+      setTicketDialogOpen(false);
     }
   };
 
   const renderTickets = () => (
-    <div className="space-y-8">
-      <div className="relative">
-        <div className="absolute -top-4 -left-4 w-24 h-24 bg-primary/10 rounded-full blur-3xl" />
-        <h1 className="text-3xl font-bold text-foreground relative">Tickets</h1>
-        <p className="text-muted-foreground mt-2 text-lg">Erstellen und verwalten Sie Support-Tickets</p>
+    <div className="space-y-5">
+      <div className="flex items-center justify-between">
+        <div className="relative">
+          <h1 className="text-2xl font-bold text-foreground relative">Meine Tickets</h1>
+          <p className="text-muted-foreground mt-1 text-sm">Übersicht Ihrer Support-Tickets</p>
+        </div>
+        <Dialog open={ticketDialogOpen} onOpenChange={setTicketDialogOpen}>
+          <DialogTrigger asChild>
+            <Button className="gap-2 bg-primary hover:bg-primary/90 text-primary-foreground">
+              <Plus className="w-4 h-4" />
+              Ticket hinzufügen
+            </Button>
+          </DialogTrigger>
+          <DialogContent className="sm:max-w-lg">
+            <DialogHeader>
+              <DialogTitle className="text-xl font-bold">Neues Ticket erstellen</DialogTitle>
+              <DialogDescription>Beschreiben Sie Ihr Anliegen</DialogDescription>
+            </DialogHeader>
+            <div className="space-y-4 pt-4">
+              <div className="space-y-2">
+                <Label className="text-sm font-semibold">
+                  Betreff <span className="text-destructive">*</span>
+                </Label>
+                <Input 
+                  value={newTicketSubject}
+                  onChange={(e) => setNewTicketSubject(e.target.value)}
+                  placeholder="Kurze Beschreibung Ihres Anliegens..."
+                  className="h-11 bg-muted/30 border border-muted focus-visible:border-primary focus-visible:ring-0 rounded-lg"
+                />
+              </div>
+
+              <div className="space-y-2">
+                <Label className="text-sm font-semibold">Beschreibung</Label>
+                <Textarea 
+                  value={newTicketDescription}
+                  onChange={(e) => setNewTicketDescription(e.target.value)}
+                  placeholder="Beschreiben Sie Ihr Anliegen ausführlich..."
+                  className="min-h-24 bg-muted/30 border border-muted focus-visible:border-primary focus-visible:ring-0 rounded-lg resize-none"
+                />
+              </div>
+
+              <div className="space-y-2">
+                <Label className="text-sm font-semibold">Priorität</Label>
+                <div className="flex gap-1 p-1 bg-muted/50 rounded-lg w-fit">
+                  <RadioGroup value={newTicketPriority} onValueChange={setNewTicketPriority} className="flex gap-1">
+                    {[
+                      { value: "niedrig", label: "Niedrig", color: "from-secondary to-secondary/80" },
+                      { value: "mittel", label: "Mittel", color: "from-amber-500 to-amber-500/80" },
+                      { value: "hoch", label: "Hoch", color: "from-destructive to-destructive/80" }
+                    ].map((option) => (
+                      <div key={option.value} className="flex items-center">
+                        <RadioGroupItem value={option.value} id={`dialog-priority-${option.value}`} className="peer sr-only" />
+                        <Label 
+                          htmlFor={`dialog-priority-${option.value}`} 
+                          className={cn(
+                            "cursor-pointer px-4 py-2 rounded-md bg-transparent transition-all duration-300 font-medium text-muted-foreground hover:text-foreground text-sm",
+                            newTicketPriority === option.value && `bg-gradient-to-r ${option.color} text-white shadow-md`
+                          )}
+                        >
+                          {option.label}
+                        </Label>
+                      </div>
+                    ))}
+                  </RadioGroup>
+                </div>
+              </div>
+
+              <div className="flex justify-end pt-2">
+                <Button 
+                  onClick={handleCreateTicket}
+                  disabled={!newTicketSubject.trim()}
+                  className="px-6 h-10 bg-primary hover:bg-primary/90 text-primary-foreground font-medium rounded-lg"
+                >
+                  Ticket erstellen
+                </Button>
+              </div>
+            </div>
+          </DialogContent>
+        </Dialog>
       </div>
 
-      {/* Create Ticket Card */}
-      <Card className="border-0 shadow-xl bg-gradient-to-br from-card to-muted/20 overflow-hidden">
-        <CardHeader className="pb-4">
-          <div className="flex items-center gap-3">
-            <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-primary/10 to-secondary/10 flex items-center justify-center">
-              <Ticket className="w-6 h-6 text-primary" />
-            </div>
-            <div>
-              <CardTitle className="text-xl font-bold">Neues Ticket erstellen</CardTitle>
-              <CardDescription>Beschreiben Sie Ihr Anliegen</CardDescription>
-            </div>
-          </div>
-        </CardHeader>
-        <CardContent className="space-y-4">
-          <div className="space-y-2">
-            <Label className="text-sm font-semibold">
-              Betreff <span className="text-destructive">*</span>
-            </Label>
-            <Input 
-              value={newTicketSubject}
-              onChange={(e) => setNewTicketSubject(e.target.value)}
-              placeholder="Kurze Beschreibung Ihres Anliegens..."
-              className="h-14 bg-muted/30 border-2 border-muted focus-visible:border-primary focus-visible:ring-0 rounded-xl text-base"
-            />
-          </div>
-
-          <div className="space-y-2">
-            <Label className="text-sm font-semibold">Beschreibung</Label>
-            <Textarea 
-              value={newTicketDescription}
-              onChange={(e) => setNewTicketDescription(e.target.value)}
-              placeholder="Beschreiben Sie Ihr Anliegen ausführlich..."
-              className="min-h-32 bg-muted/30 border-2 border-muted focus-visible:border-primary focus-visible:ring-0 rounded-xl text-base resize-none"
-            />
-          </div>
-
-          <div className="space-y-3">
-            <Label className="text-sm font-semibold">Priorität</Label>
-            <div className="flex gap-2 p-1.5 bg-muted/50 rounded-2xl w-fit">
-              <RadioGroup value={newTicketPriority} onValueChange={setNewTicketPriority} className="flex gap-1">
-                {[
-                  { value: "niedrig", label: "Niedrig", color: "from-secondary to-secondary/80" },
-                  { value: "mittel", label: "Mittel", color: "from-amber-500 to-amber-500/80" },
-                  { value: "hoch", label: "Hoch", color: "from-destructive to-destructive/80" }
-                ].map((option) => (
-                  <div key={option.value} className="flex items-center">
-                    <RadioGroupItem value={option.value} id={`priority-${option.value}`} className="peer sr-only" />
-                    <Label 
-                      htmlFor={`priority-${option.value}`} 
-                      className={cn(
-                        "cursor-pointer px-6 py-3 rounded-xl bg-transparent transition-all duration-300 font-medium text-muted-foreground hover:text-foreground",
-                        newTicketPriority === option.value && `bg-gradient-to-r ${option.color} text-white shadow-lg`
-                      )}
-                    >
-                      {option.label}
-                    </Label>
-                  </div>
-                ))}
-              </RadioGroup>
-            </div>
-          </div>
-
-          <div className="flex justify-end pt-4">
-            <Button 
-              onClick={handleCreateTicket}
-              disabled={!newTicketSubject.trim()}
-              className="px-10 h-14 bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary/70 shadow-xl shadow-primary/25 text-base font-semibold rounded-xl text-primary-foreground"
-            >
-              Ticket erstellen
-            </Button>
-          </div>
-        </CardContent>
-      </Card>
-
       {/* Existing Tickets */}
-      <Card className="border-0 shadow-xl bg-gradient-to-br from-card to-muted/20 overflow-hidden">
-        <CardHeader className="pb-4">
+      <Card className="border-0 shadow-lg bg-gradient-to-br from-card to-muted/20 overflow-hidden">
+        <CardHeader className="pb-3 pt-4 px-4">
           <div className="flex items-center gap-3">
-            <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-violet-500/10 to-violet-500/5 flex items-center justify-center">
-              <FileText className="w-6 h-6 text-violet-500" />
+            <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-violet-500/10 to-violet-500/5 flex items-center justify-center">
+              <FileText className="w-5 h-5 text-violet-500" />
             </div>
             <div>
-              <CardTitle className="text-xl font-bold">Meine Tickets</CardTitle>
-              <CardDescription>Übersicht Ihrer erstellten Tickets</CardDescription>
+              <CardTitle className="text-base font-bold">Ticket-Übersicht</CardTitle>
+              <CardDescription className="text-xs">Alle Ihre Tickets auf einen Blick</CardDescription>
             </div>
           </div>
         </CardHeader>
-        <CardContent>
+        <CardContent className="px-4 pb-4">
           {tickets.length === 0 ? (
-            <div className="py-12 text-center">
-              <div className="w-16 h-16 mx-auto mb-4 rounded-2xl bg-muted/50 flex items-center justify-center">
-                <Ticket className="w-8 h-8 text-muted-foreground" />
+            <div className="py-8 text-center">
+              <div className="w-12 h-12 mx-auto mb-3 rounded-xl bg-muted/50 flex items-center justify-center">
+                <Ticket className="w-6 h-6 text-muted-foreground" />
               </div>
-              <p className="text-muted-foreground">Keine Tickets vorhanden</p>
+              <p className="text-sm text-muted-foreground">Keine Tickets vorhanden</p>
             </div>
           ) : (
-            <div className="space-y-4">
+            <div className="space-y-3">
               {tickets.map((ticket) => (
                 <div 
                   key={ticket.id} 
-                  className="p-5 rounded-2xl bg-muted/30 border-2 border-muted hover:border-primary/30 transition-all duration-300 group cursor-pointer"
+                  className="p-4 rounded-xl bg-muted/30 border border-muted hover:border-primary/30 transition-all duration-300 group cursor-pointer"
                 >
-                  <div className="flex items-start justify-between">
-                    <div className="flex items-start gap-4">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-3">
                       <div className={cn(
-                        "w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0",
+                        "w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0",
                         ticket.status === "offen" && "bg-gradient-to-br from-amber-500/20 to-amber-500/10",
                         ticket.status === "bearbeitung" && "bg-gradient-to-br from-primary/20 to-primary/10",
                         ticket.status === "geschlossen" && "bg-gradient-to-br from-secondary/20 to-secondary/10"
                       )}>
                         <Ticket className={cn(
-                          "w-6 h-6",
+                          "w-5 h-5",
                           ticket.status === "offen" && "text-amber-500",
                           ticket.status === "bearbeitung" && "text-primary",
                           ticket.status === "geschlossen" && "text-secondary"
                         )} />
                       </div>
                       <div>
-                        <h3 className="font-bold text-foreground">{ticket.subject}</h3>
-                        <p className="text-sm text-muted-foreground mt-1">Erstellt am {ticket.date}</p>
+                        <h3 className="font-semibold text-sm text-foreground">{ticket.subject}</h3>
+                        <p className="text-xs text-muted-foreground">Erstellt am {ticket.date}</p>
                       </div>
                     </div>
-                    <div className="flex items-center gap-3">
+                    <div className="flex items-center gap-2">
                       <Badge className={cn(
-                        "px-3 py-1.5 text-xs font-semibold rounded-lg border-0",
+                        "px-2 py-1 text-xs font-medium rounded-md border-0",
                         ticket.priority === "hoch" && "bg-destructive/20 text-destructive",
                         ticket.priority === "mittel" && "bg-amber-500/20 text-amber-600",
                         ticket.priority === "niedrig" && "bg-secondary/20 text-secondary"
@@ -956,7 +960,7 @@ const PartnerDashboard = () => {
                         {ticket.priority.charAt(0).toUpperCase() + ticket.priority.slice(1)}
                       </Badge>
                       <Badge className={cn(
-                        "px-3 py-1.5 text-xs font-semibold rounded-lg border-0",
+                        "px-2 py-1 text-xs font-medium rounded-md border-0",
                         ticket.status === "offen" && "bg-amber-500/20 text-amber-600",
                         ticket.status === "bearbeitung" && "bg-primary/20 text-primary",
                         ticket.status === "geschlossen" && "bg-secondary/20 text-secondary"
@@ -975,42 +979,41 @@ const PartnerDashboard = () => {
   );
 
   const renderSettings = () => (
-    <div className="space-y-8">
+    <div className="space-y-5">
       <div className="relative">
-        <div className="absolute -top-4 -left-4 w-24 h-24 bg-primary/10 rounded-full blur-3xl" />
-        <h1 className="text-3xl font-bold text-foreground relative">Einstellungen</h1>
-        <p className="text-muted-foreground mt-2 text-lg">Verwalten Sie Ihre Kontoeinstellungen</p>
+        <h1 className="text-2xl font-bold text-foreground relative">Einstellungen</h1>
+        <p className="text-muted-foreground mt-1 text-sm">Verwalten Sie Ihre Kontoeinstellungen</p>
       </div>
 
       {/* Notifications */}
-      <Card className="border-0 shadow-xl bg-gradient-to-br from-card to-muted/20 overflow-hidden">
-        <CardHeader>
+      <Card className="border-0 shadow-lg bg-gradient-to-br from-card to-muted/20 overflow-hidden">
+        <CardHeader className="pb-3 pt-4 px-4">
           <div className="flex items-center gap-3">
-            <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-primary/10 to-secondary/10 flex items-center justify-center">
-              <Bell className="w-6 h-6 text-primary" />
+            <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-primary/10 to-secondary/10 flex items-center justify-center">
+              <Bell className="w-5 h-5 text-primary" />
             </div>
             <div>
-              <CardTitle className="text-xl font-bold">Benachrichtigungen</CardTitle>
-              <CardDescription>Konfigurieren Sie Ihre Benachrichtigungseinstellungen</CardDescription>
+              <CardTitle className="text-base font-bold">Benachrichtigungen</CardTitle>
+              <CardDescription className="text-xs">Benachrichtigungseinstellungen konfigurieren</CardDescription>
             </div>
           </div>
         </CardHeader>
-        <CardContent>
-          <div className="flex items-center justify-between p-5 rounded-2xl bg-muted/30 border-2 border-muted">
+        <CardContent className="px-4 pb-4">
+          <div className="flex items-center justify-between p-4 rounded-xl bg-muted/30 border border-muted">
             <div className="flex-1">
-              <p className="font-semibold text-foreground">Statusänderungen per E-Mail erhalten</p>
-              <p className="text-sm text-muted-foreground mt-1">
-                Erhalten Sie Benachrichtigungen über wichtige Updates zu Ihren Buchungen
+              <p className="font-semibold text-sm text-foreground">Statusänderungen per E-Mail erhalten</p>
+              <p className="text-xs text-muted-foreground mt-0.5">
+                Benachrichtigungen über Updates zu Ihren Buchungen
               </p>
             </div>
             <Switch 
               checked={emailNotifications} 
               onCheckedChange={setEmailNotifications}
-              className="data-[state=checked]:bg-gradient-to-r data-[state=checked]:from-primary data-[state=checked]:to-primary/80 scale-125"
+              className="data-[state=checked]:bg-primary"
             />
           </div>
-          <div className="flex justify-end mt-6">
-            <Button className="px-10 h-14 bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary/70 shadow-xl shadow-primary/25 text-base font-semibold rounded-xl">
+          <div className="flex justify-end mt-4">
+            <Button size="sm" className="px-6 h-9 bg-primary hover:bg-primary/90 text-sm font-medium rounded-lg text-primary-foreground">
               Speichern
             </Button>
           </div>
@@ -1018,75 +1021,75 @@ const PartnerDashboard = () => {
       </Card>
 
       {/* Password */}
-      <Card className="border-0 shadow-xl bg-gradient-to-br from-card to-muted/20 overflow-hidden">
-        <CardHeader>
+      <Card className="border-0 shadow-lg bg-gradient-to-br from-card to-muted/20 overflow-hidden">
+        <CardHeader className="pb-3 pt-4 px-4">
           <div className="flex items-center gap-3">
-            <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-primary/10 to-secondary/10 flex items-center justify-center">
-              <Lock className="w-6 h-6 text-primary" />
+            <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-primary/10 to-secondary/10 flex items-center justify-center">
+              <Lock className="w-5 h-5 text-primary" />
             </div>
             <div>
-              <CardTitle className="text-xl font-bold">Passwort ändern</CardTitle>
-              <CardDescription>Aktualisieren Sie Ihr Passwort für mehr Sicherheit</CardDescription>
+              <CardTitle className="text-base font-bold">Passwort ändern</CardTitle>
+              <CardDescription className="text-xs">Aktualisieren Sie Ihr Passwort</CardDescription>
             </div>
           </div>
         </CardHeader>
-        <CardContent className="space-y-4">
-          <div className="space-y-2">
-            <Label className="text-sm font-semibold">Aktuelles Passwort</Label>
+        <CardContent className="space-y-3 px-4 pb-4">
+          <div className="space-y-1">
+            <Label className="text-xs font-semibold">Aktuelles Passwort</Label>
             <div className="relative">
               <Input 
                 type={showCurrentPassword ? "text" : "password"} 
                 placeholder="••••••••"
-                className="h-14 bg-muted/30 border-2 border-muted focus-visible:border-primary focus-visible:ring-0 rounded-xl text-base pr-14"
+                className="h-10 bg-muted/30 border border-muted focus-visible:border-primary focus-visible:ring-0 rounded-lg text-sm pr-10"
               />
               <button
                 type="button"
                 onClick={() => setShowCurrentPassword(!showCurrentPassword)}
-                className="absolute right-5 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
               >
-                {showCurrentPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
+                {showCurrentPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
               </button>
             </div>
           </div>
 
-          <div className="space-y-2">
-            <Label className="text-sm font-semibold">Neues Passwort</Label>
+          <div className="space-y-1">
+            <Label className="text-xs font-semibold">Neues Passwort</Label>
             <div className="relative">
               <Input 
                 type={showNewPassword ? "text" : "password"} 
                 placeholder="••••••••"
-                className="h-14 bg-muted/30 border-2 border-muted focus-visible:border-primary focus-visible:ring-0 rounded-xl text-base pr-14"
+                className="h-10 bg-muted/30 border border-muted focus-visible:border-primary focus-visible:ring-0 rounded-lg text-sm pr-10"
               />
               <button
                 type="button"
                 onClick={() => setShowNewPassword(!showNewPassword)}
-                className="absolute right-5 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
               >
-                {showNewPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
+                {showNewPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
               </button>
             </div>
           </div>
 
-          <div className="space-y-2">
-            <Label className="text-sm font-semibold">Passwort bestätigen</Label>
+          <div className="space-y-1">
+            <Label className="text-xs font-semibold">Passwort bestätigen</Label>
             <div className="relative">
               <Input 
                 type={showConfirmPassword ? "text" : "password"} 
                 placeholder="••••••••"
-                className="h-14 bg-muted/30 border-2 border-muted focus-visible:border-primary focus-visible:ring-0 rounded-xl text-base pr-14"
+                className="h-10 bg-muted/30 border border-muted focus-visible:border-primary focus-visible:ring-0 rounded-lg text-sm pr-10"
               />
               <button
                 type="button"
                 onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                className="absolute right-5 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
               >
-                {showConfirmPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
+                {showConfirmPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
               </button>
             </div>
           </div>
 
-          <div className="flex justify-end pt-6">
-            <Button className="px-10 h-14 bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary/70 shadow-xl shadow-primary/25 text-base font-semibold rounded-xl text-primary-foreground">
+          <div className="flex justify-end pt-3">
+            <Button size="sm" className="px-6 h-9 bg-primary hover:bg-primary/90 text-sm font-medium rounded-lg text-primary-foreground">
               Passwort ändern
             </Button>
           </div>
@@ -1094,23 +1097,23 @@ const PartnerDashboard = () => {
       </Card>
 
       {/* Logout Section */}
-      <Card className="border-0 shadow-xl bg-gradient-to-br from-card to-muted/20 overflow-hidden">
-        <CardHeader>
+      <Card className="border-0 shadow-lg bg-gradient-to-br from-card to-muted/20 overflow-hidden">
+        <CardHeader className="pb-3 pt-4 px-4">
           <div className="flex items-center gap-3">
-            <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-destructive/10 to-destructive/5 flex items-center justify-center">
-              <LogOut className="w-6 h-6 text-destructive" />
+            <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-destructive/10 to-destructive/5 flex items-center justify-center">
+              <LogOut className="w-5 h-5 text-destructive" />
             </div>
             <div>
-              <CardTitle className="text-xl font-bold">Abmelden</CardTitle>
-              <CardDescription>Von Ihrem Konto abmelden</CardDescription>
+              <CardTitle className="text-base font-bold">Abmelden</CardTitle>
+              <CardDescription className="text-xs">Von Ihrem Konto abmelden</CardDescription>
             </div>
           </div>
         </CardHeader>
-        <CardContent>
-          <p className="text-sm text-muted-foreground mb-4">
-            Möchten Sie sich von Ihrem Konto abmelden? Sie können sich jederzeit wieder anmelden.
+        <CardContent className="px-4 pb-4">
+          <p className="text-xs text-muted-foreground mb-3">
+            Möchten Sie sich abmelden? Sie können sich jederzeit wieder anmelden.
           </p>
-          <Button variant="destructive" className="gap-2">
+          <Button variant="destructive" size="sm" className="gap-2">
             <LogOut className="w-4 h-4" />
             Abmelden
           </Button>
