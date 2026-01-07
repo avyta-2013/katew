@@ -5,7 +5,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Send, CheckCircle, ArrowRight, Phone, Mail, Sparkles } from "lucide-react";
 
 interface ContactFormCTAProps {
-  variant?: "providers" | "about";
+  variant?: "providers" | "about" | "partners";
 }
 
 export const ContactFormCTA = ({ variant = "providers" }: ContactFormCTAProps) => {
@@ -25,6 +25,7 @@ export const ContactFormCTA = ({ variant = "providers" }: ContactFormCTAProps) =
   };
 
   const isProviders = variant === "providers";
+  const isPartners = variant === "partners";
 
   return (
     <section className="py-24 md:py-32 relative overflow-hidden">
@@ -40,7 +41,7 @@ export const ContactFormCTA = ({ variant = "providers" }: ContactFormCTAProps) =
             <div className="text-center lg:text-left">
               <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-primary/20 to-secondary/20 backdrop-blur-sm border border-primary/20 text-primary text-sm font-semibold mb-6">
                 <Sparkles className="w-4 h-4" />
-                {isProviders ? "Bereit durchzustarten?" : "Kontaktieren Sie uns"}
+                {isProviders ? "Bereit durchzustarten?" : isPartners ? "Interesse geweckt?" : "Kontaktieren Sie uns"}
               </div>
               
               <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 tracking-tight">
@@ -48,6 +49,13 @@ export const ContactFormCTA = ({ variant = "providers" }: ContactFormCTAProps) =
                   <>
                     Werden Sie{" "}
                     <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+                      Anbieter
+                    </span>
+                  </>
+                ) : isPartners ? (
+                  <>
+                    Werden Sie{" "}
+                    <span className="bg-gradient-to-r from-secondary to-primary bg-clip-text text-transparent">
                       Partner
                     </span>
                   </>
@@ -64,6 +72,8 @@ export const ContactFormCTA = ({ variant = "providers" }: ContactFormCTAProps) =
               <p className="text-xl text-muted-foreground mb-8 max-w-lg">
                 {isProviders
                   ? "Werden Sie noch heute Teil unseres Netzwerks und profitieren Sie von mehr Aufträgen und weniger Aufwand."
+                  : isPartners
+                  ? "Verbinden Sie Ihre Einrichtung mit dem führenden Netzwerk für Krankenfahrten in Deutschland."
                   : "Haben Sie Fragen oder möchten mehr erfahren? Wir freuen uns auf Ihre Nachricht."}
               </p>
 

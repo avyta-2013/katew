@@ -299,7 +299,7 @@ export default function ForProviders() {
               In 3 Schritten starten
             </div>
             <h2 className="text-3xl md:text-5xl font-bold mb-4 tracking-tight">
-              So werden Sie <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">Partner</span>
+              So werden Sie <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">Anbieter</span>
             </h2>
           </div>
 
