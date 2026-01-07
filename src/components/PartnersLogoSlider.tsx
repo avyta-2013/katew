@@ -53,7 +53,7 @@ export const PartnersLogoSlider = () => {
             Kooperationspartner
           </p>
           <h3 className="text-2xl md:text-3xl font-bold">
-            Exklusive <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">Partnervorteile</span>
+            Exklusive <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">Mitgliedsvorteile</span>
           </h3>
           <p className="text-muted-foreground mt-3 max-w-lg mx-auto">
             Als Mitglied profitieren Sie von unseren Rahmenverträgen mit führenden Unternehmen
@@ -96,7 +96,7 @@ export const PartnersLogoSlider = () => {
 
         {/* Partner Categories */}
         <div className="flex flex-wrap justify-center gap-4 mt-10">
-          {["Fahrzeugbauer", "Verbrauchsmaterial", "Medizintechnik", "Software"].map((category) => (
+          {["Fahrzeugbauer", "Verbrauchsmaterial"].map((category) => (
             <div 
               key={category}
               className="px-4 py-2 bg-card border border-border/50 rounded-full text-sm font-medium text-muted-foreground hover:border-primary/40 hover:text-primary transition-colors"

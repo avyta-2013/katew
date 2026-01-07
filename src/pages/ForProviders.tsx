@@ -89,7 +89,7 @@ const features = [
   },
   {
     icon: Award,
-    title: "Exklusive Partnervorteile",
+    title: "Exklusive Mitgliedsvorteile",
     description: "Profitiere von Kooperationsverträgen mit Fahrzeugbauern, Verbrauchsmaterial-Lieferanten und mehr.",
     highlight: true,
   },
@@ -287,6 +287,9 @@ export default function ForProviders() {
         </div>
       </section>
 
+      {/* Partners Logo Slider - moved here */}
+      <PartnersLogoSlider />
+
       {/* How to Join */}
       <section className="py-24 md:py-32">
         <div className="container mx-auto px-4">
@@ -385,8 +388,6 @@ export default function ForProviders() {
         </div>
       </section>
 
-      {/* Partners Logo Slider */}
-      <PartnersLogoSlider />
 
       {/* CTA Section with Contact Form */}
       <ContactFormCTA variant="providers" />

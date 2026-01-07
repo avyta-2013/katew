@@ -6,13 +6,11 @@ const footerLinks = {
     { label: "Fahrt buchen", href: "/" },
     { label: "Für Anbieter", href: "/fuer-anbieter" },
     { label: "Für Partner", href: "/fuer-partner" },
-    { label: "Ausschreibungen", href: "#" },
   ],
   unternehmen: [
     { label: "Über uns", href: "/wir" },
     { label: "Blog", href: "#" },
     { label: "Karriere", href: "#" },
-    { label: "Presse", href: "#" },
   ],
   support: [
     { label: "Hilfe-Center", href: "#" },
