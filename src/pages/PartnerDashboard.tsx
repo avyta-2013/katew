@@ -34,11 +34,11 @@ const PartnerDashboard = () => {
   const [ticketDialogOpen, setTicketDialogOpen] = useState(false);
 
   const navItems = [
-    { id: "tickets" as NavItem, label: "Meine Tickets", icon: Ticket },
     { id: "uebersicht" as NavItem, label: "Übersicht", icon: LayoutDashboard },
     { id: "profil" as NavItem, label: "Profil", icon: User },
     { id: "buchungen" as NavItem, label: "Buchungen", icon: Calendar },
     { id: "einstellungen" as NavItem, label: "Einstellungen", icon: Settings },
+    { id: "tickets" as NavItem, label: "Meine Tickets", icon: Ticket },
   ];
 
   // Tickets data
@@ -152,6 +152,15 @@ const PartnerDashboard = () => {
             </button>
           );
         })}
+        
+        {/* Abmelden Button */}
+        <button
+          onClick={() => window.location.href = "/"}
+          className="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-left transition-all duration-200 text-destructive hover:bg-destructive/10"
+        >
+          <LogOut className="w-4 h-4" />
+          <span className="text-sm font-medium">Abmelden</span>
+        </button>
       </nav>
     </div>
   );
