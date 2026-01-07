@@ -6,6 +6,7 @@ const footerLinks = {
     { label: "Fahrt buchen", href: "/" },
     { label: "Für Anbieter", href: "/fuer-anbieter" },
     { label: "Für Partner", href: "/fuer-partner" },
+    { label: "Admin Bereich", href: "/admin" },
   ],
   unternehmen: [
     { label: "Über uns", href: "/wir" },
