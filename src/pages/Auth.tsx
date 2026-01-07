@@ -39,7 +39,7 @@ const Auth = () => {
             {/* Header */}
             <div className="text-center mb-8">
               <h1 className="text-3xl md:text-4xl font-bold mb-3 bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
-                {authMode === "login" ? "Willkommen zurück" : "Jetzt registrieren"}
+                {authMode === "login" ? "Anmelden" : "Jetzt registrieren"}
               </h1>
               <p className="text-muted-foreground">
                 {authMode === "login" 
