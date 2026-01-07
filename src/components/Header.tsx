@@ -44,7 +44,12 @@ export const Header = () => {
         <div className="flex items-center justify-between h-16 md:h-20">
           {/* Logo */}
           <a href="/" className="flex items-center gap-2">
-            <img src={logo} alt="katew Logo" className="h-8 md:h-10" />
+            <div className="w-9 h-9 md:w-10 md:h-10 rounded-xl bg-gradient-to-br from-primary to-secondary flex items-center justify-center">
+              <svg viewBox="0 0 24 24" className="w-5 h-5 md:w-6 md:h-6 text-primary-foreground" fill="currentColor">
+                <path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-9 12h-2v-2h2v2zm0-4h-2V6h2v4z"/>
+              </svg>
+            </div>
+            <span className="text-xl md:text-2xl font-light tracking-widest bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">katew</span>
           </a>
 
           {/* Navigation - Center */}
