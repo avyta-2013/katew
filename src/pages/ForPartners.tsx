@@ -21,13 +21,17 @@ import {
   Users,
   HeartPulse,
   Stethoscope,
-  Hospital
+  Hospital,
+  Globe,
+  Smartphone,
+  Settings
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { CounterCard } from "@/components/CounterCard";
 import { ContactFormCTA } from "@/components/ContactFormCTA";
+import { PartnersLogoSlider } from "@/components/PartnersLogoSlider";
 
 const benefits = [
   {
@@ -99,21 +103,40 @@ const features = [
   },
 ];
 
-const steps = [
+const partnerMethods = [
   {
-    number: "01",
-    title: "Erstgespräch",
-    description: "Wir analysieren Ihre Anforderungen und zeigen Ihnen die Möglichkeiten.",
+    icon: Globe,
+    title: "WebApp nutzen",
+    description: "Die einfachste Art zu starten – direkt im Browser",
+    color: "from-blue-500 to-cyan-500",
+    steps: [
+      { number: "01", title: "Registrieren", description: "Kostenloses Konto in wenigen Minuten erstellen" },
+      { number: "02", title: "Daten hinterlegen", description: "Einrichtungsdaten und Ansprechpartner angeben" },
+      { number: "03", title: "Buchungen anfragen", description: "Sofort Krankenfahrten buchen und verwalten" },
+    ],
   },
   {
-    number: "02",
-    title: "Konzeption",
-    description: "Gemeinsam entwickeln wir eine maßgeschneiderte Lösung für Ihre Einrichtung.",
+    icon: Smartphone,
+    title: "Mobile App nutzen",
+    description: "Flexibel unterwegs buchen – für iOS und Android",
+    color: "from-purple-500 to-pink-500",
+    steps: [
+      { number: "01", title: "App herunterladen", description: "Im App Store oder Google Play verfügbar" },
+      { number: "02", title: "Profil einrichten", description: "Einrichtungsdaten und Präferenzen speichern" },
+      { number: "03", title: "Mobil buchen", description: "Jederzeit und überall Transporte organisieren" },
+    ],
   },
   {
-    number: "03",
-    title: "Integration",
-    description: "Unser Team bindet katew nahtlos in Ihre bestehenden Prozesse ein.",
+    icon: Settings,
+    title: "Systemintegration",
+    description: "Nahtlose Anbindung an Ihre bestehenden Systeme",
+    color: "from-orange-500 to-red-500",
+    highlight: true,
+    steps: [
+      { number: "01", title: "Erstgespräch", description: "Wir analysieren Ihre Anforderungen" },
+      { number: "02", title: "Konzeption", description: "Maßgeschneiderte Integrationslösung entwickeln" },
+      { number: "03", title: "Integration", description: "Nahtlose Einbindung in Ihre Prozesse" },
+    ],
   },
 ];
 
@@ -291,33 +314,92 @@ export default function ForPartners() {
         </div>
       </section>
 
-      {/* How to Join */}
-      <section className="py-24 md:py-32">
+      {/* Partners Logo Slider */}
+      <PartnersLogoSlider />
+
+      {/* How to Join - 3 Methods */}
+      <section className="py-24 md:py-32 bg-muted/30">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-secondary/10 text-secondary text-sm font-medium mb-6">
               <Users className="w-4 h-4" />
-              In 3 Schritten starten
+              3 Wege zur Partnerschaft
             </div>
             <h2 className="text-3xl md:text-5xl font-bold mb-4 tracking-tight">
               So werden Sie <span className="bg-gradient-to-r from-secondary to-primary bg-clip-text text-transparent">Partner</span>
             </h2>
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+              Wählen Sie die Methode, die am besten zu Ihrer Einrichtung passt
+            </p>
           </div>
 
-          <div className="max-w-4xl mx-auto">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 relative">
-              {/* Connection Line */}
-              <div className="hidden md:block absolute top-12 left-[20%] right-[20%] h-0.5 bg-gradient-to-r from-secondary to-primary" />
-              
-              {steps.map((step, index) => (
-                <div key={index} className="relative text-center">
-                  <div className="w-24 h-24 rounded-full bg-gradient-to-br from-secondary to-primary flex items-center justify-center mx-auto mb-6 shadow-lg shadow-secondary/25 relative z-10">
-                    <span className="text-3xl font-bold text-primary-foreground">{step.number}</span>
+          <div className="max-w-6xl mx-auto">
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+              {partnerMethods.map((method, methodIndex) => {
+                const Icon = method.icon;
+                const isHighlight = 'highlight' in method && method.highlight;
+                return (
+                  <div 
+                    key={methodIndex}
+                    className={`relative bg-card rounded-3xl border p-8 transition-all duration-300 hover:shadow-2xl ${
+                      isHighlight 
+                        ? 'border-primary/40 ring-2 ring-primary/20 shadow-xl shadow-primary/10' 
+                        : 'border-border/50 hover:border-primary/40'
+                    }`}
+                  >
+                    {isHighlight && (
+                      <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-4 py-1 bg-gradient-to-r from-primary to-secondary text-primary-foreground text-xs font-bold rounded-full flex items-center gap-1">
+                        <Sparkles className="w-3 h-3" />
+                        EMPFOHLEN
+                      </div>
+                    )}
+                    
+                    {/* Method Header */}
+                    <div className="text-center mb-8">
+                      <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${method.color} flex items-center justify-center mx-auto mb-4 shadow-lg`}>
+                        <Icon className="w-8 h-8 text-white" />
+                      </div>
+                      <h3 className="text-xl font-bold mb-2">{method.title}</h3>
+                      <p className="text-sm text-muted-foreground">{method.description}</p>
+                    </div>
+                    
+                    {/* Steps */}
+                    <div className="space-y-4">
+                      {method.steps.map((step, stepIndex) => (
+                        <div key={stepIndex} className="relative">
+                          {stepIndex < method.steps.length - 1 && (
+                            <div className="absolute left-5 top-12 bottom-0 w-0.5 bg-gradient-to-b from-border to-transparent" />
+                          )}
+                          <div className="flex gap-4">
+                            <div className={`shrink-0 w-10 h-10 rounded-full bg-gradient-to-br ${method.color} flex items-center justify-center text-white font-bold text-sm shadow-md`}>
+                              {step.number}
+                            </div>
+                            <div className="flex-1 pt-1">
+                              <h4 className="font-semibold mb-1">{step.title}</h4>
+                              <p className="text-sm text-muted-foreground">{step.description}</p>
+                            </div>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                    
+                    {/* CTA Button */}
+                    <div className="mt-8">
+                      <Button 
+                        className={`w-full ${
+                          isHighlight 
+                            ? 'bg-gradient-to-r from-primary to-secondary hover:opacity-90' 
+                            : 'bg-card border border-border hover:border-primary hover:text-primary'
+                        }`}
+                        variant={isHighlight ? "default" : "outline"}
+                      >
+                        {isHighlight ? "Beratung anfragen" : "Jetzt starten"}
+                        <ArrowRight className="ml-2 w-4 h-4" />
+                      </Button>
+                    </div>
                   </div>
-                  <h3 className="text-xl font-bold mb-2">{step.title}</h3>
-                  <p className="text-muted-foreground">{step.description}</p>
-                </div>
-              ))}
+                );
+              })}
             </div>
           </div>
         </div>
