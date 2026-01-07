@@ -488,9 +488,9 @@ const PartnerDashboard = () => {
             </div>
           </div>
         </CardHeader>
-        <CardContent className="space-y-4 px-4 pb-4">
-          {/* Anrede & Account Type in Row */}
-          <div className="flex flex-wrap items-start gap-6">
+        <CardContent className="space-y-5 px-4 pb-4">
+          {/* Row 1: Anrede & Account Type */}
+          <div className="grid md:grid-cols-2 gap-4">
             {/* Anrede */}
             <div className="space-y-2">
               <Label className="text-xs font-semibold">
@@ -561,8 +561,8 @@ const PartnerDashboard = () => {
             </div>
           )}
 
-          {/* Name Grid */}
-          <div className="grid md:grid-cols-2 gap-3">
+          {/* Row 2: Vorname, Nachname, Geburtsdatum */}
+          <div className="grid md:grid-cols-3 gap-3">
             <div className="space-y-1">
               <Label className="text-xs font-semibold">
                 Vorname <span className="text-destructive">*</span>
@@ -581,35 +581,40 @@ const PartnerDashboard = () => {
                 className="h-10 bg-muted/30 border border-muted focus-visible:border-primary focus-visible:ring-0 rounded-lg text-sm"
               />
             </div>
+            <div className="space-y-1">
+              <Label className="text-xs font-semibold flex items-center gap-1.5">
+                <CalendarDays className="w-3.5 h-3.5 text-muted-foreground" />
+                Geburtsdatum <span className="text-destructive">*</span>
+              </Label>
+              <Input 
+                type="date" 
+                defaultValue="1992-06-29" 
+                className="h-10 bg-muted/30 border border-muted focus-visible:border-primary focus-visible:ring-0 rounded-lg text-sm"
+              />
+            </div>
           </div>
 
-          {/* Geburtsdatum */}
-          <div className="space-y-1">
-            <Label className="text-xs font-semibold flex items-center gap-1.5">
-              <CalendarDays className="w-3.5 h-3.5 text-muted-foreground" />
-              Geburtsdatum <span className="text-destructive">*</span>
-            </Label>
-            <Input 
-              type="date" 
-              defaultValue="1992-06-29" 
-              className="h-10 bg-muted/30 border border-muted focus-visible:border-primary focus-visible:ring-0 rounded-lg text-sm max-w-[200px]"
-            />
-          </div>
-
-          {/* Address */}
-          <div className="space-y-1">
-            <Label className="text-xs font-semibold flex items-center gap-1.5">
-              <MapPin className="w-3.5 h-3.5 text-muted-foreground" />
-              Straße <span className="text-destructive">*</span>
-            </Label>
-            <Input 
-              defaultValue="Allerheiligentor 2-4" 
-              className="h-10 bg-muted/30 border border-muted focus-visible:border-primary focus-visible:ring-0 rounded-lg text-sm"
-            />
-          </div>
-
-          {/* City & PLZ */}
-          <div className="grid md:grid-cols-2 gap-3">
+          {/* Row 3: Straße, PLZ, Stadt */}
+          <div className="grid md:grid-cols-[2fr_1fr_1fr] gap-3">
+            <div className="space-y-1">
+              <Label className="text-xs font-semibold flex items-center gap-1.5">
+                <MapPin className="w-3.5 h-3.5 text-muted-foreground" />
+                Straße <span className="text-destructive">*</span>
+              </Label>
+              <Input 
+                defaultValue="Allerheiligentor 2-4" 
+                className="h-10 bg-muted/30 border border-muted focus-visible:border-primary focus-visible:ring-0 rounded-lg text-sm"
+              />
+            </div>
+            <div className="space-y-1">
+              <Label className="text-xs font-semibold">
+                PLZ <span className="text-destructive">*</span>
+              </Label>
+              <Input 
+                defaultValue="60311" 
+                className="h-10 bg-muted/30 border border-muted focus-visible:border-primary focus-visible:ring-0 rounded-lg text-sm"
+              />
+            </div>
             <div className="space-y-1">
               <Label className="text-xs font-semibold">
                 Stadt <span className="text-destructive">*</span>
@@ -619,18 +624,9 @@ const PartnerDashboard = () => {
                 className="h-10 bg-muted/30 border border-muted focus-visible:border-primary focus-visible:ring-0 rounded-lg text-sm"
               />
             </div>
-            <div className="space-y-1">
-              <Label className="text-xs font-semibold">
-                Postleitzahl <span className="text-destructive">*</span>
-              </Label>
-              <Input 
-                defaultValue="60311" 
-                className="h-10 bg-muted/30 border border-muted focus-visible:border-primary focus-visible:ring-0 rounded-lg text-sm"
-              />
-            </div>
           </div>
 
-          {/* Contact */}
+          {/* Row 4: Telefon & E-Mail */}
           <div className="grid md:grid-cols-2 gap-3">
             <div className="space-y-1">
               <Label className="text-xs font-semibold flex items-center gap-1.5">
@@ -638,7 +634,7 @@ const PartnerDashboard = () => {
                 Telefon <span className="text-destructive">*</span>
               </Label>
               <Input 
-                defaultValue="6915391405" 
+                defaultValue="+49 69 15391405" 
                 className="h-10 bg-muted/30 border border-muted focus-visible:border-primary focus-visible:ring-0 rounded-lg text-sm"
               />
             </div>
