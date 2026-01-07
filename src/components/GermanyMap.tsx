@@ -160,7 +160,7 @@ export const GermanyMap = () => {
   }, [selectedCity, ratingFilter, availabilityFilter]);
 
   return (
-    <div className="relative w-full h-full" style={{ perspective: "1000px" }}>
+    <div className="relative w-full h-full px-4" style={{ perspective: "1000px" }}>
       {/* CSS for animations */}
       <style>{`
         @keyframes dash-move {

@@ -58,13 +58,9 @@ export const ServicesSection = () => {
           <h2 className="text-3xl md:text-5xl font-bold mb-4 tracking-tight bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
             Die Zukunft hat begonnen
           </h2>
-          <p className="text-lg text-muted-foreground max-w-xl mx-auto mb-8">
+          <p className="text-lg text-muted-foreground max-w-xl mx-auto">
             Passende Lösungen für jeden Bedarf
           </p>
-          <Button size="lg" variant="outline" className="h-12 px-6 rounded-xl font-semibold">
-            Mehr erfahren
-            <ArrowRight className="ml-2 w-5 h-5" />
-          </Button>
         </div>
 
         <Tabs defaultValue="transport" className="max-w-6xl mx-auto">
@@ -137,6 +133,14 @@ export const ServicesSection = () => {
             </div>
           </TabsContent>
         </Tabs>
+
+        {/* CTA Button at the end */}
+        <div className="text-center mt-12">
+          <Button size="lg" variant="outline" className="h-12 px-6 rounded-xl font-semibold">
+            Mehr erfahren
+            <ArrowRight className="ml-2 w-5 h-5" />
+          </Button>
+        </div>
       </div>
     </section>
   );
