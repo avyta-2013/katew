@@ -41,7 +41,7 @@ export const HowItWorks = () => {
             Einfach & Schnell
           </div>
           <h2 className="text-3xl md:text-5xl font-bold mb-4 tracking-tight bg-gradient-to-r from-primary via-secondary to-primary bg-clip-text text-transparent">
-            So funktioniert's
+            In 3 einfachen Schritten
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
             In drei einfachen Schritten zu Ihrer Krankenfahrt
