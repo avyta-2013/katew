@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Zap, TrendingUp, Handshake, ArrowRight, Globe, Navigation, Star, MapPin, ChevronLeft, ChevronRight } from "lucide-react";
 import { useState, useRef } from "react";
+import { Link } from "react-router-dom";
 import { GermanyMap } from "./GermanyMap";
 
 const benefits = [
@@ -101,9 +102,11 @@ export const ProvidersSection = () => {
                 zahlen Sie nur bei erfolgreicher Vermittlung.
               </p>
 
-              <Button size="lg" className="h-12 px-6 rounded-xl font-semibold">
-                Jetzt ausprobieren
-                <ArrowRight className="ml-2 w-5 h-5" />
+              <Button asChild size="lg" className="h-12 px-6 rounded-xl font-semibold">
+                <Link to="/anmelden?type=anbieter">
+                  Jetzt ausprobieren
+                  <ArrowRight className="ml-2 w-5 h-5" />
+                </Link>
               </Button>
             </div>
 

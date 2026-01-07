@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { ChevronDown, User, LogIn, UserPlus, HelpCircle } from "lucide-react";
+import { Link } from "react-router-dom";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -75,13 +76,17 @@ export const Header = () => {
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end" className="w-48 rounded-xl border-border/50 shadow-elevated">
-                <DropdownMenuItem className="gap-3 py-3 cursor-pointer">
-                  <LogIn className="w-4 h-4" />
-                  Anmelden
+                <DropdownMenuItem asChild className="gap-3 py-3 cursor-pointer">
+                  <Link to="/anmelden">
+                    <LogIn className="w-4 h-4" />
+                    Anmelden
+                  </Link>
                 </DropdownMenuItem>
-                <DropdownMenuItem className="gap-3 py-3 cursor-pointer">
-                  <UserPlus className="w-4 h-4" />
-                  Registrieren
+                <DropdownMenuItem asChild className="gap-3 py-3 cursor-pointer">
+                  <Link to="/anmelden?register=true">
+                    <UserPlus className="w-4 h-4" />
+                    Registrieren
+                  </Link>
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem className="gap-3 py-3 cursor-pointer">

@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Calendar, Shield, Eye, ArrowRight, User, Building } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const benefits = [
   {
@@ -111,9 +112,11 @@ export const PartnersSection = () => {
                 unserer Plattform ist für Partner unverbindlich und kostenfrei.
               </p>
 
-              <Button size="lg" className="h-12 px-6 rounded-xl font-semibold bg-secondary hover:bg-secondary/90">
-                Jetzt ausprobieren
-                <ArrowRight className="ml-2 w-5 h-5" />
+              <Button asChild size="lg" className="h-12 px-6 rounded-xl font-semibold bg-secondary hover:bg-secondary/90">
+                <Link to="/anmelden?type=partner">
+                  Jetzt ausprobieren
+                  <ArrowRight className="ml-2 w-5 h-5" />
+                </Link>
               </Button>
             </div>
           </div>
