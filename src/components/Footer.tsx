@@ -1,9 +1,5 @@
-import { Mail, Phone, MapPin, ArrowRight, Send, Facebook, Instagram, Linkedin, Twitter } from "lucide-react";
+import { Mail, Phone, MapPin, ArrowRight, Facebook, Instagram, Linkedin, Twitter } from "lucide-react";
 import { Link } from "react-router-dom";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import logo from "@/assets/logo.png";
-import { useState } from "react";
 
 const footerLinks = {
   plattform: [
@@ -38,17 +34,6 @@ const socialLinks = [
 ];
 
 export const Footer = () => {
-  const [email, setEmail] = useState("");
-  const [isSubscribed, setIsSubscribed] = useState(false);
-
-  const handleSubscribe = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (email) {
-      setIsSubscribed(true);
-      setEmail("");
-      setTimeout(() => setIsSubscribed(false), 3000);
-    }
-  };
 
   return (
     <footer className="relative overflow-hidden">
@@ -58,55 +43,18 @@ export const Footer = () => {
       <div className="absolute bottom-0 right-1/4 w-[400px] h-[250px] bg-secondary/5 rounded-full blur-[80px]" />
 
       <div className="container mx-auto px-4 relative">
-        {/* Newsletter Section */}
-        <div className="py-16 border-b border-border/30">
-          <div className="max-w-4xl mx-auto">
-            <div className="bg-gradient-to-r from-primary/10 via-secondary/10 to-primary/10 backdrop-blur-sm border border-border/50 rounded-3xl p-8 md:p-12">
-              <div className="grid md:grid-cols-2 gap-8 items-center">
-                <div>
-                  <h3 className="text-2xl md:text-3xl font-bold mb-3">
-                    Bleiben Sie <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">informiert</span>
-                  </h3>
-                  <p className="text-muted-foreground">
-                    Erhalten Sie Updates zu neuen Funktionen und Branchen-News direkt in Ihr Postfach.
-                  </p>
-                </div>
-                <form onSubmit={handleSubscribe} className="flex gap-3">
-                  {isSubscribed ? (
-                    <div className="flex items-center gap-2 text-primary font-medium">
-                      <div className="w-8 h-8 rounded-full bg-primary/20 flex items-center justify-center">
-                        <Send className="w-4 h-4" />
-                      </div>
-                      Vielen Dank für Ihre Anmeldung!
-                    </div>
-                  ) : (
-                    <>
-                      <Input
-                        type="email"
-                        placeholder="ihre@email.de"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        className="h-12 bg-background/50 border-border/50 focus:border-primary flex-1"
-                        required
-                      />
-                      <Button type="submit" size="lg" className="h-12 px-6 bg-gradient-to-r from-primary to-secondary hover:opacity-90">
-                        <ArrowRight className="w-5 h-5" />
-                      </Button>
-                    </>
-                  )}
-                </form>
-              </div>
-            </div>
-          </div>
-        </div>
 
         {/* Main footer */}
         <div className="py-16">
           <div className="grid grid-cols-2 md:grid-cols-6 gap-8 md:gap-12">
-            {/* Brand column */}
             <div className="col-span-2">
-              <Link to="/" className="inline-block mb-6">
-                <img src={logo} alt="katew Logo" className="h-10" />
+              <Link to="/" className="inline-flex items-center gap-2 mb-6">
+                <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-primary to-secondary flex items-center justify-center">
+                  <svg viewBox="0 0 24 24" className="w-6 h-6 text-primary-foreground" fill="currentColor">
+                    <path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-9 12h-2v-2h2v2zm0-4h-2V6h2v4z"/>
+                  </svg>
+                </div>
+                <span className="text-2xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">katew</span>
               </Link>
               <p className="text-muted-foreground mb-6 leading-relaxed max-w-xs">
                 Die moderne Plattform für Krankenfahrten in Deutschland. Einfach, digital, zuverlässig.
