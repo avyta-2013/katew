@@ -101,38 +101,7 @@ const PartnerDashboard = () => {
 
   const renderSidebar = () => (
     <div className="w-64 bg-card border-r border-border flex flex-col">
-      {/* Profile Section - Compact */}
-      <div className="p-4 border-b border-border/50">
-        <div className="flex items-center gap-3">
-          <div className="relative group">
-            <Avatar className="w-12 h-12 border-2 border-background ring-1 ring-primary/20">
-              <AvatarImage src={profileImage || ""} />
-              <AvatarFallback className="bg-gradient-to-br from-primary to-secondary text-white text-sm font-bold">
-                DL
-              </AvatarFallback>
-            </Avatar>
-            <button
-              onClick={triggerFileInput}
-              className="absolute inset-0 flex items-center justify-center bg-black/60 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-200 cursor-pointer"
-            >
-              <Camera className="w-4 h-4 text-white" />
-            </button>
-            <input
-              ref={fileInputRef}
-              type="file"
-              accept="image/*"
-              onChange={handleImageUpload}
-              className="hidden"
-            />
-          </div>
-          <div className="flex-1 min-w-0">
-            <h2 className="font-semibold text-sm text-foreground truncate">Dino Lalic</h2>
-            <p className="text-xs text-muted-foreground truncate">AVYTA Pflegegesellschaft</p>
-          </div>
-        </div>
-      </div>
-
-      {/* Navigation - Compact */}
+      {/* Navigation */}
       <nav className="flex-1 p-2 space-y-0.5">
         {navItems.map((item) => {
           const Icon = item.icon;
@@ -153,16 +122,51 @@ const PartnerDashboard = () => {
             </button>
           );
         })}
+      </nav>
+
+      {/* Profile Section - Bottom */}
+      <div className="mt-auto border-t border-border/50">
+        <div className="p-3">
+          <div className="flex items-center gap-3 p-2 rounded-lg bg-muted/30">
+            <div className="relative group">
+              <Avatar className="w-10 h-10 border-2 border-background ring-1 ring-primary/20">
+                <AvatarImage src={profileImage || ""} />
+                <AvatarFallback className="bg-gradient-to-br from-primary to-secondary text-white text-xs font-bold">
+                  DL
+                </AvatarFallback>
+              </Avatar>
+              <button
+                onClick={triggerFileInput}
+                className="absolute inset-0 flex items-center justify-center bg-black/60 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-200 cursor-pointer"
+              >
+                <Camera className="w-3 h-3 text-white" />
+              </button>
+              <input
+                ref={fileInputRef}
+                type="file"
+                accept="image/*"
+                onChange={handleImageUpload}
+                className="hidden"
+              />
+            </div>
+            <div className="flex-1 min-w-0">
+              <h2 className="font-semibold text-xs text-foreground truncate">Dino Lalic</h2>
+              <p className="text-[10px] text-muted-foreground truncate">AVYTA Pflegegesellschaft</p>
+            </div>
+          </div>
+        </div>
         
         {/* Abmelden Button */}
-        <button
-          onClick={() => window.location.href = "/"}
-          className="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-left transition-all duration-200 text-destructive hover:bg-destructive/10"
-        >
-          <LogOut className="w-4 h-4" />
-          <span className="text-sm font-medium">Abmelden</span>
-        </button>
-      </nav>
+        <div className="px-3 pb-3">
+          <button
+            onClick={() => window.location.href = "/"}
+            className="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-left transition-all duration-200 text-destructive hover:bg-destructive/10"
+          >
+            <LogOut className="w-4 h-4" />
+            <span className="text-sm font-medium">Abmelden</span>
+          </button>
+        </div>
+      </div>
     </div>
   );
 
