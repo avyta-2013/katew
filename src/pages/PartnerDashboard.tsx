@@ -1119,30 +1119,6 @@ const PartnerDashboard = () => {
           </div>
         </CardContent>
       </Card>
-
-      {/* Logout Section */}
-      <Card className="border-0 shadow-lg bg-gradient-to-br from-card to-muted/20 overflow-hidden">
-        <CardHeader className="pb-3 pt-4 px-4">
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-destructive/10 to-destructive/5 flex items-center justify-center">
-              <LogOut className="w-5 h-5 text-destructive" />
-            </div>
-            <div>
-              <CardTitle className="text-base font-bold">Abmelden</CardTitle>
-              <CardDescription className="text-xs">Von Ihrem Konto abmelden</CardDescription>
-            </div>
-          </div>
-        </CardHeader>
-        <CardContent className="px-4 pb-4">
-          <p className="text-xs text-muted-foreground mb-3">
-            Möchten Sie sich abmelden? Sie können sich jederzeit wieder anmelden.
-          </p>
-          <Button variant="destructive" size="sm" className="gap-2">
-            <LogOut className="w-4 h-4" />
-            Abmelden
-          </Button>
-        </CardContent>
-      </Card>
     </div>
   );
 
