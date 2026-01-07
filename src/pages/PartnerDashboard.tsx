@@ -53,14 +53,14 @@ const PartnerDashboard = () => {
   // Mock bookings data
   const bookings = {
     aktiv: [
-      { id: 1, patient: "Max Mustermann", date: "15.01.2026", time: "09:00", type: "Liegend", status: "aktiv", from: "Berlin Charité", to: "München Klinikum" },
-      { id: 2, patient: "Anna Schmidt", date: "16.01.2026", time: "14:30", type: "Sitzend", status: "aktiv", from: "Hamburg UKE", to: "Bremen Klinikum" },
+      { id: 1, patient: "Max Mustermann", date: "15.01.2026", time: "09:00", type: "Liegend", status: "aktiv", from: "Berlin Charité", to: "München Klinikum", provider: "MediTrans GmbH" },
+      { id: 2, patient: "Anna Schmidt", date: "16.01.2026", time: "14:30", type: "Sitzend", status: "aktiv", from: "Hamburg UKE", to: "Bremen Klinikum", provider: "Krankentransport Nord" },
     ],
     bestaetigt: [
-      { id: 3, patient: "Peter Weber", date: "10.01.2026", time: "11:00", type: "Rollstuhl", status: "bestaetigt", from: "Frankfurt Uniklinik", to: "Mainz Klinikum" },
+      { id: 3, patient: "Peter Weber", date: "10.01.2026", time: "11:00", type: "Rollstuhl", status: "bestaetigt", from: "Frankfurt Uniklinik", to: "Mainz Klinikum", provider: "RheinMain Transport" },
     ],
     storniert: [
-      { id: 4, patient: "Lisa Müller", date: "05.01.2026", time: "08:00", type: "Tragestuhl", status: "storniert", from: "Köln Uniklinik", to: "Düsseldorf Klinikum" },
+      { id: 4, patient: "Lisa Müller", date: "05.01.2026", time: "08:00", type: "Tragestuhl", status: "storniert", from: "Köln Uniklinik", to: "Düsseldorf Klinikum", provider: "KölnCare Transporte" },
     ],
   };
 
@@ -749,6 +749,10 @@ const PartnerDashboard = () => {
                             )} />
                           </div>
                           <div>
+                            <div className="flex items-center gap-2 mb-1">
+                              <Truck className="w-3.5 h-3.5 text-muted-foreground" />
+                              <span className="text-xs font-medium text-muted-foreground">{booking.provider}</span>
+                            </div>
                             <h3 className="font-bold text-lg text-foreground">{booking.patient}</h3>
                             <p className="text-muted-foreground mt-1">
                               {booking.date} um {booking.time} Uhr
