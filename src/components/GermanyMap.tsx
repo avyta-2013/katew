@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import {
   Dialog,
   DialogContent,
@@ -6,7 +6,14 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
-import { MapPin, Star, ArrowRight } from "lucide-react";
+import { MapPin, Star, ArrowRight, Filter, Check } from "lucide-react";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 // City type definition
 type City = {
@@ -39,40 +46,40 @@ const networkCities: City[] = [
   { name: "Rostock", x: 66, y: 12, size: 4, partners: 11 },
 ];
 
-// Partner data per city
-const cityPartners: Record<string, { name: string; rating: number; reviews: number }[]> = {
+// Partner data per city with availability
+const cityPartners: Record<string, { name: string; rating: number; reviews: number; available: boolean }[]> = {
   Berlin: [
-    { name: "MediTrans Berlin", rating: 4.9, reviews: 234 },
-    { name: "Hauptstadt Krankenfahrt", rating: 4.8, reviews: 189 },
-    { name: "Berlin Care Mobil", rating: 4.7, reviews: 156 },
-    { name: "Spree MediService", rating: 4.8, reviews: 122 },
+    { name: "MediTrans Berlin", rating: 4.9, reviews: 234, available: true },
+    { name: "Hauptstadt Krankenfahrt", rating: 4.8, reviews: 189, available: true },
+    { name: "Berlin Care Mobil", rating: 4.7, reviews: 156, available: false },
+    { name: "Spree MediService", rating: 4.8, reviews: 122, available: true },
   ],
   Hamburg: [
-    { name: "Hanseatic MediTrans", rating: 4.9, reviews: 198 },
-    { name: "Elbe Krankenfahrt", rating: 4.7, reviews: 145 },
-    { name: "Nord Care Hamburg", rating: 4.8, reviews: 167 },
+    { name: "Hanseatic MediTrans", rating: 4.9, reviews: 198, available: true },
+    { name: "Elbe Krankenfahrt", rating: 4.7, reviews: 145, available: false },
+    { name: "Nord Care Hamburg", rating: 4.8, reviews: 167, available: true },
   ],
   München: [
-    { name: "Bavaria MediTrans", rating: 4.9, reviews: 312 },
-    { name: "Isar Krankenfahrt", rating: 4.8, reviews: 245 },
-    { name: "München Care Plus", rating: 4.7, reviews: 189 },
-    { name: "Alpen MediService", rating: 4.9, reviews: 156 },
+    { name: "Bavaria MediTrans", rating: 4.9, reviews: 312, available: true },
+    { name: "Isar Krankenfahrt", rating: 4.8, reviews: 245, available: true },
+    { name: "München Care Plus", rating: 4.7, reviews: 189, available: false },
+    { name: "Alpen MediService", rating: 4.9, reviews: 156, available: true },
   ],
   Frankfurt: [
-    { name: "Frankfurt Krankenfahrt", rating: 4.9, reviews: 89 },
-    { name: "Main-Taunus Care", rating: 4.8, reviews: 67 },
-    { name: "Rhein-Main MediTaxi", rating: 4.7, reviews: 54 },
-    { name: "Hessen Mobil Plus", rating: 4.9, reviews: 112 },
+    { name: "Frankfurt Krankenfahrt", rating: 4.9, reviews: 89, available: true },
+    { name: "Main-Taunus Care", rating: 4.8, reviews: 67, available: true },
+    { name: "Rhein-Main MediTaxi", rating: 4.7, reviews: 54, available: false },
+    { name: "Hessen Mobil Plus", rating: 4.9, reviews: 112, available: true },
   ],
   Köln: [
-    { name: "Dom City MediTrans", rating: 4.8, reviews: 178 },
-    { name: "Rheinland Krankenfahrt", rating: 4.7, reviews: 145 },
-    { name: "Köln Care Service", rating: 4.8, reviews: 123 },
+    { name: "Dom City MediTrans", rating: 4.8, reviews: 178, available: true },
+    { name: "Rheinland Krankenfahrt", rating: 4.7, reviews: 145, available: true },
+    { name: "Köln Care Service", rating: 4.8, reviews: 123, available: false },
   ],
   Stuttgart: [
-    { name: "Schwaben MediTrans", rating: 4.9, reviews: 156 },
-    { name: "Neckar Krankenfahrt", rating: 4.7, reviews: 134 },
-    { name: "Stuttgart Care Plus", rating: 4.8, reviews: 112 },
+    { name: "Schwaben MediTrans", rating: 4.9, reviews: 156, available: true },
+    { name: "Neckar Krankenfahrt", rating: 4.7, reviews: 134, available: false },
+    { name: "Stuttgart Care Plus", rating: 4.8, reviews: 112, available: true },
   ],
 };
 
@@ -122,6 +129,8 @@ export const GermanyMap = () => {
   const connections = getConnections();
   const [hoveredCity, setHoveredCity] = useState<City | null>(null);
   const [selectedCity, setSelectedCity] = useState<City | null>(null);
+  const [ratingFilter, setRatingFilter] = useState<string>("all");
+  const [availabilityFilter, setAvailabilityFilter] = useState<string>("all");
 
   const handleCityClick = (city: City) => {
     setSelectedCity(city);
@@ -129,10 +138,26 @@ export const GermanyMap = () => {
 
   const getPartnersForCity = (cityName: string) => {
     return cityPartners[cityName] || [
-      { name: `${cityName} MediTrans`, rating: 4.7, reviews: 45 },
-      { name: `${cityName} Care Service`, rating: 4.6, reviews: 32 },
+      { name: `${cityName} MediTrans`, rating: 4.7, reviews: 45, available: true },
+      { name: `${cityName} Care Service`, rating: 4.6, reviews: 32, available: false },
     ];
   };
+
+  const filteredPartners = useMemo(() => {
+    if (!selectedCity) return [];
+    let partners = getPartnersForCity(selectedCity.name);
+    
+    if (ratingFilter !== "all") {
+      const minRating = parseFloat(ratingFilter);
+      partners = partners.filter(p => p.rating >= minRating);
+    }
+    
+    if (availabilityFilter === "available") {
+      partners = partners.filter(p => p.available);
+    }
+    
+    return partners;
+  }, [selectedCity, ratingFilter, availabilityFilter]);
 
   return (
     <div className="relative w-full h-full" style={{ perspective: "1000px" }}>
@@ -347,36 +372,80 @@ export const GermanyMap = () => {
       
       {/* City Partners Modal */}
       <Dialog open={!!selectedCity} onOpenChange={() => setSelectedCity(null)}>
-        <DialogContent className="max-w-md">
+        <DialogContent className="max-w-md max-h-[85vh] overflow-hidden flex flex-col">
           <DialogHeader>
             <DialogTitle className="flex items-center gap-2">
               <MapPin className="w-5 h-5 text-primary" />
               Partner in {selectedCity?.name}
             </DialogTitle>
           </DialogHeader>
-          <div className="space-y-3 mt-4">
-            {selectedCity && getPartnersForCity(selectedCity.name).map((partner, index) => (
-              <div 
-                key={index}
-                className="flex items-center justify-between p-4 bg-muted/50 rounded-xl hover:bg-muted transition-colors"
-              >
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
-                    <MapPin className="w-5 h-5 text-primary" />
-                  </div>
-                  <div>
-                    <p className="font-medium text-sm">{partner.name}</p>
-                    <p className="text-xs text-muted-foreground">{partner.reviews} Bewertungen</p>
-                  </div>
-                </div>
-                <div className="flex items-center gap-2">
-                  <div className="flex items-center gap-1 px-2 py-1 bg-yellow-500/10 rounded-lg">
-                    <Star className="w-3 h-3 text-yellow-500 fill-yellow-500" />
-                    <span className="font-semibold text-xs">{partner.rating}</span>
-                  </div>
-                </div>
+          
+          {/* Filters */}
+          <div className="flex gap-3 py-3 border-b border-border/50">
+            <div className="flex-1">
+              <label className="text-xs text-muted-foreground mb-1 block">Bewertung</label>
+              <Select value={ratingFilter} onValueChange={setRatingFilter}>
+                <SelectTrigger className="h-9">
+                  <SelectValue placeholder="Alle Bewertungen" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="all">Alle Bewertungen</SelectItem>
+                  <SelectItem value="4.9">4.9+ Sterne</SelectItem>
+                  <SelectItem value="4.8">4.8+ Sterne</SelectItem>
+                  <SelectItem value="4.7">4.7+ Sterne</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+            <div className="flex-1">
+              <label className="text-xs text-muted-foreground mb-1 block">Verfügbarkeit</label>
+              <Select value={availabilityFilter} onValueChange={setAvailabilityFilter}>
+                <SelectTrigger className="h-9">
+                  <SelectValue placeholder="Alle" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="all">Alle Partner</SelectItem>
+                  <SelectItem value="available">Nur verfügbar</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+          </div>
+          
+          <div className="space-y-3 mt-4 overflow-y-auto flex-1">
+            {filteredPartners.length === 0 ? (
+              <div className="text-center py-8 text-muted-foreground">
+                <Filter className="w-8 h-8 mx-auto mb-2 opacity-50" />
+                <p className="text-sm">Keine Partner mit diesen Filtern gefunden</p>
               </div>
-            ))}
+            ) : (
+              filteredPartners.map((partner, index) => (
+                <div 
+                  key={index}
+                  className="flex items-center justify-between p-4 bg-muted/50 rounded-xl hover:bg-muted transition-colors"
+                >
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
+                      <MapPin className="w-5 h-5 text-primary" />
+                    </div>
+                    <div>
+                      <p className="font-medium text-sm">{partner.name}</p>
+                      <p className="text-xs text-muted-foreground">{partner.reviews} Bewertungen</p>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    {partner.available && (
+                      <div className="flex items-center gap-1 px-2 py-1 bg-green-500/10 rounded-lg">
+                        <Check className="w-3 h-3 text-green-500" />
+                        <span className="text-xs text-green-600">Verfügbar</span>
+                      </div>
+                    )}
+                    <div className="flex items-center gap-1 px-2 py-1 bg-yellow-500/10 rounded-lg">
+                      <Star className="w-3 h-3 text-yellow-500 fill-yellow-500" />
+                      <span className="font-semibold text-xs">{partner.rating}</span>
+                    </div>
+                  </div>
+                </div>
+              ))
+            )}
           </div>
           <Button className="w-full mt-4">
             Alle Partner in {selectedCity?.name} anzeigen
