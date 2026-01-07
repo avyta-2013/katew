@@ -9,18 +9,18 @@ const footerLinks = {
   ],
   unternehmen: [
     { label: "Über uns", href: "/wir" },
-    { label: "Blog", href: "#" },
-    { label: "Karriere", href: "#" },
+    { label: "Blog", href: "/blog" },
+    { label: "Karriere", href: "/kontakt" },
   ],
   support: [
-    { label: "Hilfe-Center", href: "#" },
-    { label: "Kontakt", href: "#" },
-    { label: "FAQ", href: "#" },
+    { label: "Hilfe-Center", href: "/hilfe" },
+    { label: "Kontakt", href: "/kontakt" },
+    { label: "FAQ", href: "/faq" },
   ],
   rechtliches: [
-    { label: "Impressum", href: "#" },
-    { label: "Datenschutz", href: "#" },
-    { label: "AGB", href: "#" },
+    { label: "Impressum", href: "/impressum" },
+    { label: "Datenschutz", href: "/datenschutz" },
+    { label: "AGB", href: "/agb" },
   ],
 };
 
