@@ -121,8 +121,8 @@ export default function BookingResults() {
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
   
-  // Mock: Check if user is logged in (replace with actual auth check)
-  const [isLoggedIn] = useState(false);
+  // Mock: User is logged in
+  const isLoggedIn = true;
   
   const [startAddress, setStartAddress] = useState(searchParams.get("start") || "Frankfurt am Main");
   const [endAddress, setEndAddress] = useState(searchParams.get("end") || "Darmstadt");
