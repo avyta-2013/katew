@@ -178,101 +178,96 @@ const PartnerDashboard = () => {
   );
 
   const renderOverview = () => (
-    <div className="space-y-8">
+    <div className="space-y-5">
       {/* Header */}
       <div className="relative">
-        <div className="absolute -top-4 -left-4 w-24 h-24 bg-primary/10 rounded-full blur-3xl" />
-        <h1 className="text-3xl font-bold text-foreground relative">
+        <h1 className="text-2xl font-bold text-foreground relative">
           Willkommen zurück, <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">Dino</span>! 👋
         </h1>
-        <p className="text-muted-foreground mt-2 text-lg">Hier ist Ihre aktuelle Dashboard-Übersicht.</p>
+        <p className="text-muted-foreground mt-1 text-sm">Hier ist Ihre aktuelle Dashboard-Übersicht.</p>
       </div>
 
       {/* KPI Cards */}
-      <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-5">
+      <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
         {/* Total Bookings */}
-        <Card className="border-0 shadow-xl bg-gradient-to-br from-card to-muted/30 overflow-hidden relative group hover:shadow-2xl transition-all duration-300 hover:-translate-y-1">
-          <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-primary/20 to-transparent rounded-full blur-2xl group-hover:scale-110 transition-transform duration-500" />
-          <CardContent className="p-6 relative">
+        <Card className="border-0 shadow-lg bg-gradient-to-br from-card to-muted/30 overflow-hidden relative group hover:shadow-xl transition-all duration-300">
+          <CardContent className="p-4 relative">
             <div className="flex items-start justify-between">
               <div>
-                <p className="text-sm text-muted-foreground font-medium">Gesamtbuchungen</p>
-                <p className="text-4xl font-bold text-foreground mt-3 tracking-tight">{kpiData.totalBookings}</p>
-                <div className="flex items-center gap-1.5 mt-3">
-                  <div className="flex items-center gap-1 text-secondary text-sm font-medium bg-secondary/10 px-2 py-1 rounded-full">
-                    <ArrowUpRight className="w-4 h-4" />
+                <p className="text-xs text-muted-foreground font-medium">Gesamtbuchungen</p>
+                <p className="text-2xl font-bold text-foreground mt-1">{kpiData.totalBookings}</p>
+                <div className="flex items-center gap-1 mt-2">
+                  <div className="flex items-center gap-1 text-secondary text-xs font-medium bg-secondary/10 px-1.5 py-0.5 rounded-full">
+                    <ArrowUpRight className="w-3 h-3" />
                     <span>+{kpiData.monthlyGrowth}%</span>
                   </div>
                 </div>
               </div>
-              <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-primary to-primary/70 flex items-center justify-center shadow-lg shadow-primary/30">
-                <Calendar className="w-7 h-7 text-white" />
+              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-primary to-primary/70 flex items-center justify-center shadow-md">
+                <Calendar className="w-5 h-5 text-primary-foreground" />
               </div>
             </div>
           </CardContent>
         </Card>
 
         {/* Active Bookings */}
-        <Card className="border-0 shadow-xl bg-gradient-to-br from-card to-muted/30 overflow-hidden relative group hover:shadow-2xl transition-all duration-300 hover:-translate-y-1">
-          <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-secondary/20 to-transparent rounded-full blur-2xl group-hover:scale-110 transition-transform duration-500" />
-          <CardContent className="p-6 relative">
+        <Card className="border-0 shadow-lg bg-gradient-to-br from-card to-muted/30 overflow-hidden relative group hover:shadow-xl transition-all duration-300">
+          <CardContent className="p-4 relative">
             <div className="flex items-start justify-between">
               <div>
-                <p className="text-sm text-muted-foreground font-medium">Aktive Fahrten</p>
-                <p className="text-4xl font-bold text-foreground mt-3 tracking-tight">{kpiData.activeBookings}</p>
-                <div className="flex items-center gap-1.5 mt-3">
-                  <div className="flex items-center gap-1 text-primary text-sm font-medium bg-primary/10 px-2 py-1 rounded-full">
-                    <Clock className="w-4 h-4" />
+                <p className="text-xs text-muted-foreground font-medium">Aktive Fahrten</p>
+                <p className="text-2xl font-bold text-foreground mt-1">{kpiData.activeBookings}</p>
+                <div className="flex items-center gap-1 mt-2">
+                  <div className="flex items-center gap-1 text-primary text-xs font-medium bg-primary/10 px-1.5 py-0.5 rounded-full">
+                    <Clock className="w-3 h-3" />
                     <span>In Bearbeitung</span>
                   </div>
                 </div>
               </div>
-              <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-secondary to-secondary/70 flex items-center justify-center shadow-lg shadow-secondary/30">
-                <Truck className="w-7 h-7 text-white" />
+              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-secondary to-secondary/70 flex items-center justify-center shadow-md">
+                <Truck className="w-5 h-5 text-secondary-foreground" />
               </div>
             </div>
           </CardContent>
         </Card>
 
         {/* Average Distance */}
-        <Card className="border-0 shadow-xl bg-gradient-to-br from-card to-muted/30 overflow-hidden relative group hover:shadow-2xl transition-all duration-300 hover:-translate-y-1">
-          <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-amber-500/20 to-transparent rounded-full blur-2xl group-hover:scale-110 transition-transform duration-500" />
-          <CardContent className="p-6 relative">
+        <Card className="border-0 shadow-lg bg-gradient-to-br from-card to-muted/30 overflow-hidden relative group hover:shadow-xl transition-all duration-300">
+          <CardContent className="p-4 relative">
             <div className="flex items-start justify-between">
               <div>
-                <p className="text-sm text-muted-foreground font-medium">⌀ Fahrstrecke</p>
-                <p className="text-4xl font-bold text-foreground mt-3 tracking-tight">{kpiData.avgDistance} <span className="text-xl font-normal text-muted-foreground">km</span></p>
-                <div className="flex items-center gap-1.5 mt-3">
-                  <div className="flex items-center gap-1 text-amber-600 text-sm font-medium bg-amber-500/10 px-2 py-1 rounded-full">
-                    <Route className="w-4 h-4" />
+                <p className="text-xs text-muted-foreground font-medium">⌀ Fahrstrecke</p>
+                <p className="text-2xl font-bold text-foreground mt-1">{kpiData.avgDistance} <span className="text-sm font-normal text-muted-foreground">km</span></p>
+                <div className="flex items-center gap-1 mt-2">
+                  <div className="flex items-center gap-1 text-amber-600 text-xs font-medium bg-amber-500/10 px-1.5 py-0.5 rounded-full">
+                    <Route className="w-3 h-3" />
                     <span>Pro Transport</span>
                   </div>
                 </div>
               </div>
-              <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-amber-500 to-amber-500/70 flex items-center justify-center shadow-lg shadow-amber-500/30">
-                <Route className="w-7 h-7 text-white" />
+              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-amber-500 to-amber-500/70 flex items-center justify-center shadow-md">
+                <Route className="w-5 h-5 text-white" />
               </div>
             </div>
           </CardContent>
         </Card>
 
         {/* Response Time */}
-        <Card className="border-0 shadow-xl bg-gradient-to-br from-card to-muted/30 overflow-hidden relative group hover:shadow-2xl transition-all duration-300 hover:-translate-y-1">
-          <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-violet-500/20 to-transparent rounded-full blur-2xl group-hover:scale-110 transition-transform duration-500" />
-          <CardContent className="p-6 relative">
+        <Card className="border-0 shadow-lg bg-gradient-to-br from-card to-muted/30 overflow-hidden relative group hover:shadow-xl transition-all duration-300">
+          <CardContent className="p-4 relative">
             <div className="flex items-start justify-between">
               <div>
-                <p className="text-sm text-muted-foreground font-medium">⌀ Antwortzeit</p>
-                <p className="text-4xl font-bold text-foreground mt-3 tracking-tight">{kpiData.avgResponseTime} <span className="text-xl font-normal text-muted-foreground">Std</span></p>
-                <div className="flex items-center gap-1.5 mt-3">
-                  <div className="flex items-center gap-1 text-violet-600 text-sm font-medium bg-violet-500/10 px-2 py-1 rounded-full">
-                    <Timer className="w-4 h-4" />
+                <p className="text-xs text-muted-foreground font-medium">⌀ Antwortzeit</p>
+                <p className="text-2xl font-bold text-foreground mt-1">{kpiData.avgResponseTime} <span className="text-sm font-normal text-muted-foreground">Std</span></p>
+                <div className="flex items-center gap-1 mt-2">
+                  <div className="flex items-center gap-1 text-violet-600 text-xs font-medium bg-violet-500/10 px-1.5 py-0.5 rounded-full">
+                    <Timer className="w-3 h-3" />
                     <span>Schnelle Reaktion</span>
                   </div>
                 </div>
               </div>
-              <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-violet-500 to-violet-500/70 flex items-center justify-center shadow-lg shadow-violet-500/30">
-                <Timer className="w-7 h-7 text-white" />
+              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-violet-500 to-violet-500/70 flex items-center justify-center shadow-md">
+                <Timer className="w-5 h-5 text-white" />
               </div>
             </div>
           </CardContent>
@@ -280,62 +275,62 @@ const PartnerDashboard = () => {
       </div>
 
       {/* Stats Overview */}
-      <div className="grid md:grid-cols-2 gap-6">
+      <div className="grid md:grid-cols-2 gap-4">
         {/* Booking Stats */}
-        <Card className="border-0 shadow-xl bg-gradient-to-br from-card to-muted/20 overflow-hidden">
-          <CardHeader className="pb-2">
+        <Card className="border-0 shadow-lg bg-gradient-to-br from-card to-muted/20 overflow-hidden">
+          <CardHeader className="pb-1 pt-4 px-4">
             <div className="flex items-center justify-between">
               <div>
-                <CardTitle className="text-xl font-bold">Buchungsstatistik</CardTitle>
-                <CardDescription className="mt-1">Verteilung nach Status</CardDescription>
+                <CardTitle className="text-base font-bold">Buchungsstatistik</CardTitle>
+                <CardDescription className="text-xs mt-0.5">Verteilung nach Status</CardDescription>
               </div>
-              <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-primary/10 to-secondary/10 flex items-center justify-center">
-                <TrendingUp className="w-6 h-6 text-primary" />
+              <div className="w-9 h-9 rounded-lg bg-gradient-to-br from-primary/10 to-secondary/10 flex items-center justify-center">
+                <TrendingUp className="w-4 h-4 text-primary" />
               </div>
             </div>
           </CardHeader>
-          <CardContent className="space-y-5 pt-4">
-            <div className="space-y-3">
-              <div className="flex items-center justify-between text-sm">
-                <div className="flex items-center gap-2">
-                  <div className="w-3 h-3 rounded-full bg-gradient-to-r from-secondary to-secondary/70" />
+          <CardContent className="space-y-3 pt-2 px-4 pb-4">
+            <div className="space-y-1.5">
+              <div className="flex items-center justify-between text-xs">
+                <div className="flex items-center gap-1.5">
+                  <div className="w-2 h-2 rounded-full bg-secondary" />
                   <span className="font-medium">Abgeschlossen</span>
                 </div>
                 <span className="font-bold text-foreground">{kpiData.completedBookings}</span>
               </div>
-              <div className="relative h-3 bg-muted rounded-full overflow-hidden">
+              <div className="relative h-2 bg-muted rounded-full overflow-hidden">
                 <div 
-                  className="absolute inset-y-0 left-0 bg-gradient-to-r from-secondary to-secondary/70 rounded-full transition-all duration-500"
+                  className="absolute inset-y-0 left-0 bg-secondary rounded-full"
                   style={{ width: `${(kpiData.completedBookings / kpiData.totalBookings) * 100}%` }}
                 />
               </div>
             </div>
-            <div className="space-y-3">
-              <div className="flex items-center justify-between text-sm">
-                <div className="flex items-center gap-2">
-                  <div className="w-3 h-3 rounded-full bg-gradient-to-r from-primary to-primary/70" />
+            <div className="space-y-1.5">
+              <div className="flex items-center justify-between text-xs">
+                <div className="flex items-center gap-1.5">
+                  <div className="w-2 h-2 rounded-full bg-primary" />
                   <span className="font-medium">Aktiv</span>
                 </div>
                 <span className="font-bold text-foreground">{kpiData.activeBookings}</span>
               </div>
-              <div className="relative h-3 bg-muted rounded-full overflow-hidden">
+              <div className="relative h-2 bg-muted rounded-full overflow-hidden">
                 <div 
-                  className="absolute inset-y-0 left-0 bg-gradient-to-r from-primary to-primary/70 rounded-full transition-all duration-500"
+                  className="absolute inset-y-0 left-0 bg-primary rounded-full"
                   style={{ width: `${(kpiData.activeBookings / kpiData.totalBookings) * 100}%` }}
                 />
               </div>
             </div>
-            <div className="space-y-3">
-              <div className="flex items-center justify-between text-sm">
-                <div className="flex items-center gap-2">
-                  <div className="w-3 h-3 rounded-full bg-gradient-to-r from-destructive to-destructive/70" />
+            <div className="space-y-1.5">
+              <div className="flex items-center justify-between text-xs">
+                <div className="flex items-center gap-1.5">
+                  <div className="w-2 h-2 rounded-full bg-destructive" />
                   <span className="font-medium">Storniert</span>
                 </div>
                 <span className="font-bold text-foreground">{kpiData.cancelledBookings}</span>
               </div>
-              <div className="relative h-3 bg-muted rounded-full overflow-hidden">
+              <div className="relative h-2 bg-muted rounded-full overflow-hidden">
                 <div 
-                  className="absolute inset-y-0 left-0 bg-gradient-to-r from-destructive to-destructive/70 rounded-full transition-all duration-500"
+                  className="absolute inset-y-0 left-0 bg-destructive rounded-full"
                   style={{ width: `${(kpiData.cancelledBookings / kpiData.totalBookings) * 100}%` }}
                 />
               </div>
@@ -344,45 +339,45 @@ const PartnerDashboard = () => {
         </Card>
 
         {/* Recent Activity */}
-        <Card className="border-0 shadow-xl bg-gradient-to-br from-card to-muted/20 overflow-hidden">
-          <CardHeader className="pb-2">
+        <Card className="border-0 shadow-lg bg-gradient-to-br from-card to-muted/20 overflow-hidden">
+          <CardHeader className="pb-1 pt-4 px-4">
             <div className="flex items-center justify-between">
               <div>
-                <CardTitle className="text-xl font-bold">Letzte Aktivitäten</CardTitle>
-                <CardDescription className="mt-1">Ihre neuesten Updates</CardDescription>
+                <CardTitle className="text-base font-bold">Letzte Aktivitäten</CardTitle>
+                <CardDescription className="text-xs mt-0.5">Ihre neuesten Updates</CardDescription>
               </div>
-              <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-primary/10 to-secondary/10 flex items-center justify-center">
-                <Clock className="w-6 h-6 text-primary" />
+              <div className="w-9 h-9 rounded-lg bg-gradient-to-br from-primary/10 to-secondary/10 flex items-center justify-center">
+                <Clock className="w-4 h-4 text-primary" />
               </div>
             </div>
           </CardHeader>
-          <CardContent className="pt-4">
-            <div className="space-y-3">
+          <CardContent className="pt-2 px-4 pb-4">
+            <div className="space-y-2">
               {recentActivity.map((activity, index) => (
                 <div 
                   key={activity.id} 
                   className={cn(
-                    "flex items-center gap-4 p-4 rounded-2xl hover:bg-muted/50 transition-all duration-200 group cursor-pointer",
-                    index === 0 && "bg-gradient-to-r from-primary/5 to-transparent"
+                    "flex items-center gap-3 p-2.5 rounded-xl hover:bg-muted/50 transition-all duration-200 cursor-pointer",
+                    index === 0 && "bg-primary/5"
                   )}
                 >
                   <div className={cn(
-                    "w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 transition-transform duration-200 group-hover:scale-105",
-                    activity.type === "booking" && "bg-gradient-to-br from-primary/20 to-primary/10",
-                    activity.type === "confirmed" && "bg-gradient-to-br from-secondary/20 to-secondary/10",
-                    activity.type === "completed" && "bg-gradient-to-br from-secondary/20 to-secondary/10",
-                    activity.type === "request" && "bg-gradient-to-br from-amber-500/20 to-amber-500/10"
+                    "w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0",
+                    activity.type === "booking" && "bg-primary/15",
+                    activity.type === "confirmed" && "bg-secondary/15",
+                    activity.type === "completed" && "bg-secondary/15",
+                    activity.type === "request" && "bg-amber-500/15"
                   )}>
-                    {activity.type === "booking" && <Calendar className="w-5 h-5 text-primary" />}
-                    {activity.type === "confirmed" && <CheckCircle2 className="w-5 h-5 text-secondary" />}
-                    {activity.type === "completed" && <CheckCircle2 className="w-5 h-5 text-secondary" />}
-                    {activity.type === "request" && <Clock className="w-5 h-5 text-amber-500" />}
+                    {activity.type === "booking" && <Calendar className="w-4 h-4 text-primary" />}
+                    {activity.type === "confirmed" && <CheckCircle2 className="w-4 h-4 text-secondary" />}
+                    {activity.type === "completed" && <CheckCircle2 className="w-4 h-4 text-secondary" />}
+                    {activity.type === "request" && <Clock className="w-4 h-4 text-amber-500" />}
                   </div>
                   <div className="flex-1 min-w-0">
-                    <p className="font-semibold text-sm text-foreground">{activity.action}</p>
-                    <p className="text-sm text-muted-foreground truncate">{activity.patient}</p>
+                    <p className="font-medium text-xs text-foreground">{activity.action}</p>
+                    <p className="text-xs text-muted-foreground truncate">{activity.patient}</p>
                   </div>
-                  <span className="text-xs text-muted-foreground whitespace-nowrap bg-muted/50 px-3 py-1.5 rounded-full">{activity.time}</span>
+                  <span className="text-[10px] text-muted-foreground whitespace-nowrap bg-muted/50 px-2 py-1 rounded-full">{activity.time}</span>
                 </div>
               ))}
             </div>
@@ -391,42 +386,42 @@ const PartnerDashboard = () => {
       </div>
 
       {/* Quick Actions */}
-      <Card className="border-0 shadow-xl bg-gradient-to-br from-card via-card to-primary/5 overflow-hidden">
-        <CardHeader>
-          <CardTitle className="text-xl font-bold">Schnellaktionen</CardTitle>
-          <CardDescription>Häufig verwendete Funktionen</CardDescription>
+      <Card className="border-0 shadow-lg bg-gradient-to-br from-card via-card to-primary/5 overflow-hidden">
+        <CardHeader className="py-3 px-4">
+          <CardTitle className="text-base font-bold">Schnellaktionen</CardTitle>
+          <CardDescription className="text-xs">Häufig verwendete Funktionen</CardDescription>
         </CardHeader>
-        <CardContent>
-          <div className="grid md:grid-cols-3 gap-4">
+        <CardContent className="px-4 pb-4">
+          <div className="grid md:grid-cols-3 gap-3">
             <Button 
               variant="outline" 
-              className="h-auto p-6 flex flex-col items-center gap-4 border-2 border-dashed hover:border-primary hover:bg-primary/5 transition-all duration-300 group rounded-2xl"
+              className="h-auto p-4 flex flex-col items-center gap-2 border border-dashed hover:border-primary hover:bg-primary/5 transition-all duration-300 group rounded-xl"
               onClick={() => setActiveNav("buchungen")}
             >
-              <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-primary/10 to-primary/5 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                <Calendar className="w-8 h-8 text-primary" />
+              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-primary/10 to-primary/5 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                <Calendar className="w-5 h-5 text-primary" />
               </div>
-              <span className="font-semibold text-foreground">Buchungen anzeigen</span>
+              <span className="font-medium text-sm text-foreground">Buchungen</span>
             </Button>
             <Button 
               variant="outline" 
-              className="h-auto p-6 flex flex-col items-center gap-4 border-2 border-dashed hover:border-secondary hover:bg-secondary/5 transition-all duration-300 group rounded-2xl"
+              className="h-auto p-4 flex flex-col items-center gap-2 border border-dashed hover:border-secondary hover:bg-secondary/5 transition-all duration-300 group rounded-xl"
               onClick={() => setActiveNav("profil")}
             >
-              <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-secondary/10 to-secondary/5 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                <User className="w-8 h-8 text-secondary" />
+              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-secondary/10 to-secondary/5 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                <User className="w-5 h-5 text-secondary" />
               </div>
-              <span className="font-semibold text-foreground">Profil bearbeiten</span>
+              <span className="font-medium text-sm text-foreground">Profil</span>
             </Button>
             <Button 
               variant="outline" 
-              className="h-auto p-6 flex flex-col items-center gap-4 border-2 border-dashed hover:border-violet-500 hover:bg-violet-500/5 transition-all duration-300 group rounded-2xl"
+              className="h-auto p-4 flex flex-col items-center gap-2 border border-dashed hover:border-violet-500 hover:bg-violet-500/5 transition-all duration-300 group rounded-xl"
               onClick={() => setActiveNav("einstellungen")}
             >
-              <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-violet-500/10 to-violet-500/5 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                <Settings className="w-8 h-8 text-violet-500" />
+              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-violet-500/10 to-violet-500/5 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                <Settings className="w-5 h-5 text-violet-500" />
               </div>
-              <span className="font-semibold text-foreground">Einstellungen</span>
+              <span className="font-medium text-sm text-foreground">Einstellungen</span>
             </Button>
           </div>
         </CardContent>
@@ -435,41 +430,39 @@ const PartnerDashboard = () => {
   );
 
   const renderProfile = () => (
-    <div className="space-y-8">
+    <div className="space-y-5">
       <div className="relative">
-        <div className="absolute -top-4 -left-4 w-24 h-24 bg-primary/10 rounded-full blur-3xl" />
-        <h1 className="text-3xl font-bold text-foreground relative">Profil</h1>
-        <p className="text-muted-foreground mt-2 text-lg">Verwalten Sie Ihre persönlichen Daten</p>
+        <h1 className="text-2xl font-bold text-foreground relative">Profil</h1>
+        <p className="text-muted-foreground mt-1 text-sm">Verwalten Sie Ihre persönlichen Daten</p>
       </div>
 
       {/* Profile Image Upload Card */}
-      <Card className="border-0 shadow-xl bg-gradient-to-br from-card to-muted/20 overflow-hidden">
-        <CardHeader className="pb-4">
-          <div className="flex items-center gap-3">
-            <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-primary/10 to-secondary/10 flex items-center justify-center">
-              <Camera className="w-6 h-6 text-primary" />
+      <Card className="border-0 shadow-lg bg-gradient-to-br from-card to-muted/20 overflow-hidden">
+        <CardHeader className="pb-2 pt-4 px-4">
+          <div className="flex items-center gap-2">
+            <div className="w-9 h-9 rounded-lg bg-gradient-to-br from-primary/10 to-secondary/10 flex items-center justify-center">
+              <Camera className="w-4 h-4 text-primary" />
             </div>
             <div>
-              <CardTitle className="text-xl font-bold">Profilbild</CardTitle>
-              <CardDescription>Laden Sie ein Bild hoch, um Ihr Konto zu personalisieren</CardDescription>
+              <CardTitle className="text-base font-bold">Profilbild</CardTitle>
+              <CardDescription className="text-xs">Bild hochladen</CardDescription>
             </div>
           </div>
         </CardHeader>
-        <CardContent>
-          <div className="flex items-center gap-8">
+        <CardContent className="px-4 pb-4">
+          <div className="flex items-center gap-5">
             <div className="relative group">
-              <div className="absolute -inset-2 bg-gradient-to-r from-primary via-secondary to-primary rounded-full blur opacity-20 group-hover:opacity-40 transition duration-300" />
-              <Avatar className="w-28 h-28 border-4 border-background relative ring-2 ring-primary/20">
+              <Avatar className="w-20 h-20 border-2 border-background ring-1 ring-primary/20">
                 <AvatarImage src={profileImage || ""} />
-                <AvatarFallback className="bg-gradient-to-br from-primary to-secondary text-white text-3xl font-bold">
+                <AvatarFallback className="bg-gradient-to-br from-primary to-secondary text-white text-xl font-bold">
                   DL
                 </AvatarFallback>
               </Avatar>
               <button
                 onClick={triggerFileInput}
-                className="absolute inset-0 flex items-center justify-center bg-black/60 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-300 cursor-pointer backdrop-blur-sm"
+                className="absolute inset-0 flex items-center justify-center bg-black/60 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-300 cursor-pointer"
               >
-                <Camera className="w-10 h-10 text-white" />
+                <Camera className="w-6 h-6 text-white" />
               </button>
             </div>
             <div className="flex-1">
@@ -480,12 +473,12 @@ const PartnerDashboard = () => {
                 onChange={handleImageUpload}
                 className="hidden"
               />
-              <Button onClick={triggerFileInput} className="gap-2 bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary/70 shadow-lg shadow-primary/25 text-primary-foreground">
-                <Upload className="w-4 h-4" />
-                Bild hochladen
+              <Button onClick={triggerFileInput} size="sm" className="gap-2 bg-primary hover:bg-primary/90 text-primary-foreground">
+                <Upload className="w-3.5 h-3.5" />
+                Hochladen
               </Button>
-              <p className="text-sm text-muted-foreground mt-3">
-                JPG, PNG oder GIF • Max. 5MB
+              <p className="text-xs text-muted-foreground mt-2">
+                JPG, PNG • Max. 5MB
               </p>
             </div>
           </div>
@@ -493,32 +486,32 @@ const PartnerDashboard = () => {
       </Card>
 
       {/* Privat Section */}
-      <Card className="border-0 shadow-xl bg-gradient-to-br from-card to-muted/20 overflow-hidden">
-        <CardHeader className="pb-4">
-          <div className="flex items-center gap-3">
-            <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-violet-500/10 to-violet-500/5 flex items-center justify-center">
-              <User className="w-6 h-6 text-violet-500" />
+      <Card className="border-0 shadow-lg bg-gradient-to-br from-card to-muted/20 overflow-hidden">
+        <CardHeader className="pb-2 pt-4 px-4">
+          <div className="flex items-center gap-2">
+            <div className="w-9 h-9 rounded-lg bg-gradient-to-br from-violet-500/10 to-violet-500/5 flex items-center justify-center">
+              <User className="w-4 h-4 text-violet-500" />
             </div>
             <div>
-              <CardTitle className="text-xl font-bold">Privat</CardTitle>
-              <CardDescription>Ihre persönlichen Kontaktdaten</CardDescription>
+              <CardTitle className="text-base font-bold">Privat</CardTitle>
+              <CardDescription className="text-xs">Persönliche Kontaktdaten</CardDescription>
             </div>
           </div>
         </CardHeader>
-        <CardContent className="space-y-6">
+        <CardContent className="space-y-4 px-4 pb-4">
           {/* Anrede - Modern Toggle Style */}
-          <div className="space-y-3">
-            <Label className="text-sm font-semibold">
+          <div className="space-y-2">
+            <Label className="text-xs font-semibold">
               Anrede <span className="text-destructive">*</span>
             </Label>
-            <div className="flex gap-2 p-1.5 bg-muted/50 rounded-2xl w-fit">
-              <RadioGroup defaultValue="mann" className="flex gap-1">
+            <div className="flex gap-1 p-1 bg-muted/50 rounded-lg w-fit">
+              <RadioGroup defaultValue="mann" className="flex gap-0.5">
                 {["Mann", "Frau", "Divers"].map((option) => (
                   <div key={option} className="flex items-center">
                     <RadioGroupItem value={option.toLowerCase()} id={`anrede-${option.toLowerCase()}`} className="peer sr-only" />
                     <Label 
                       htmlFor={`anrede-${option.toLowerCase()}`} 
-                      className="cursor-pointer px-6 py-3 rounded-xl bg-transparent peer-data-[state=checked]:bg-gradient-to-r peer-data-[state=checked]:from-primary peer-data-[state=checked]:to-primary/80 peer-data-[state=checked]:text-primary-foreground peer-data-[state=checked]:shadow-lg transition-all duration-300 font-medium text-muted-foreground hover:text-foreground"
+                      className="cursor-pointer px-4 py-2 rounded-md bg-transparent peer-data-[state=checked]:bg-primary peer-data-[state=checked]:text-primary-foreground peer-data-[state=checked]:shadow-sm transition-all duration-200 font-medium text-xs text-muted-foreground hover:text-foreground"
                     >
                       {option}
                     </Label>
@@ -529,63 +522,63 @@ const PartnerDashboard = () => {
           </div>
 
           {/* Name Grid */}
-          <div className="grid md:grid-cols-2 gap-4">
-            <div className="space-y-2">
-              <Label className="text-sm font-semibold">
+          <div className="grid md:grid-cols-2 gap-3">
+            <div className="space-y-1">
+              <Label className="text-xs font-semibold">
                 Vorname <span className="text-destructive">*</span>
               </Label>
               <Input 
                 defaultValue="Dino" 
-                className="h-14 bg-muted/30 border-2 border-muted focus-visible:border-primary focus-visible:ring-0 rounded-xl text-base"
+                className="h-10 bg-muted/30 border border-muted focus-visible:border-primary focus-visible:ring-0 rounded-lg text-sm"
               />
             </div>
-            <div className="space-y-2">
-              <Label className="text-sm font-semibold">
+            <div className="space-y-1">
+              <Label className="text-xs font-semibold">
                 Nachname <span className="text-destructive">*</span>
               </Label>
               <Input 
                 defaultValue="Lalic" 
-                className="h-14 bg-muted/30 border-2 border-muted focus-visible:border-primary focus-visible:ring-0 rounded-xl text-base"
+                className="h-10 bg-muted/30 border border-muted focus-visible:border-primary focus-visible:ring-0 rounded-lg text-sm"
               />
             </div>
           </div>
 
           {/* Geburtsdatum */}
-          <div className="space-y-2">
-            <Label className="text-sm font-semibold flex items-center gap-2">
-              <CalendarDays className="w-4 h-4 text-muted-foreground" />
+          <div className="space-y-1">
+            <Label className="text-xs font-semibold flex items-center gap-1.5">
+              <CalendarDays className="w-3.5 h-3.5 text-muted-foreground" />
               Geburtsdatum <span className="text-destructive">*</span>
             </Label>
             <Input 
               type="date" 
               defaultValue="1992-06-29" 
-              className="h-14 bg-muted/30 border-2 border-muted focus-visible:border-primary focus-visible:ring-0 rounded-xl text-base max-w-xs"
+              className="h-10 bg-muted/30 border border-muted focus-visible:border-primary focus-visible:ring-0 rounded-lg text-sm max-w-[200px]"
             />
           </div>
 
           {/* Contact */}
-          <div className="grid md:grid-cols-2 gap-4">
-            <div className="space-y-2">
-              <Label className="text-sm font-semibold flex items-center gap-2">
-                <Phone className="w-4 h-4 text-muted-foreground" />
+          <div className="grid md:grid-cols-2 gap-3">
+            <div className="space-y-1">
+              <Label className="text-xs font-semibold flex items-center gap-1.5">
+                <Phone className="w-3.5 h-3.5 text-muted-foreground" />
                 Telefon (privat)
               </Label>
               <Input 
                 defaultValue="" 
                 placeholder="Optional"
-                className="h-14 bg-muted/30 border-2 border-muted focus-visible:border-primary focus-visible:ring-0 rounded-xl text-base"
+                className="h-10 bg-muted/30 border border-muted focus-visible:border-primary focus-visible:ring-0 rounded-lg text-sm"
               />
             </div>
-            <div className="space-y-2">
-              <Label className="text-sm font-semibold flex items-center gap-2">
-                <Mail className="w-4 h-4 text-muted-foreground" />
+            <div className="space-y-1">
+              <Label className="text-xs font-semibold flex items-center gap-1.5">
+                <Mail className="w-3.5 h-3.5 text-muted-foreground" />
                 E-Mail (privat)
               </Label>
               <Input 
                 type="email" 
                 defaultValue="" 
                 placeholder="Optional"
-                className="h-14 bg-muted/30 border-2 border-muted focus-visible:border-primary focus-visible:ring-0 rounded-xl text-base"
+                className="h-10 bg-muted/30 border border-muted focus-visible:border-primary focus-visible:ring-0 rounded-lg text-sm"
               />
             </div>
           </div>
@@ -593,93 +586,93 @@ const PartnerDashboard = () => {
       </Card>
 
       {/* Einrichtung Section */}
-      <Card className="border-0 shadow-xl bg-gradient-to-br from-card to-muted/20 overflow-hidden">
-        <CardHeader className="pb-4">
-          <div className="flex items-center gap-3">
-            <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-secondary/10 to-secondary/5 flex items-center justify-center">
-              <Building2 className="w-6 h-6 text-secondary" />
+      <Card className="border-0 shadow-lg bg-gradient-to-br from-card to-muted/20 overflow-hidden">
+        <CardHeader className="pb-2 pt-4 px-4">
+          <div className="flex items-center gap-2">
+            <div className="w-9 h-9 rounded-lg bg-gradient-to-br from-secondary/10 to-secondary/5 flex items-center justify-center">
+              <Building2 className="w-4 h-4 text-secondary" />
             </div>
             <div>
-              <CardTitle className="text-xl font-bold">Einrichtung</CardTitle>
-              <CardDescription>Informationen zu Ihrer Einrichtung oder Firma</CardDescription>
+              <CardTitle className="text-base font-bold">Einrichtung</CardTitle>
+              <CardDescription className="text-xs">Firmendaten</CardDescription>
             </div>
           </div>
         </CardHeader>
-        <CardContent className="space-y-6">
+        <CardContent className="space-y-4 px-4 pb-4">
           {/* Einrichtung Name */}
-          <div className="space-y-2">
-            <Label className="text-sm font-semibold flex items-center gap-2">
-              <Building2 className="w-4 h-4 text-muted-foreground" />
+          <div className="space-y-1">
+            <Label className="text-xs font-semibold flex items-center gap-1.5">
+              <Building2 className="w-3.5 h-3.5 text-muted-foreground" />
               Name der Einrichtung <span className="text-destructive">*</span>
             </Label>
             <Input 
               defaultValue="AVYTA Pflegegesellschaft mbH" 
-              className="h-14 bg-muted/30 border-2 border-muted focus-visible:border-primary focus-visible:ring-0 rounded-xl text-base"
+              className="h-10 bg-muted/30 border border-muted focus-visible:border-primary focus-visible:ring-0 rounded-lg text-sm"
             />
           </div>
 
           {/* Address */}
-          <div className="space-y-2">
-            <Label className="text-sm font-semibold flex items-center gap-2">
-              <MapPin className="w-4 h-4 text-muted-foreground" />
+          <div className="space-y-1">
+            <Label className="text-xs font-semibold flex items-center gap-1.5">
+              <MapPin className="w-3.5 h-3.5 text-muted-foreground" />
               Straße <span className="text-destructive">*</span>
             </Label>
             <Input 
               defaultValue="Allerheiligentor 2-4" 
-              className="h-14 bg-muted/30 border-2 border-muted focus-visible:border-primary focus-visible:ring-0 rounded-xl text-base"
+              className="h-10 bg-muted/30 border border-muted focus-visible:border-primary focus-visible:ring-0 rounded-lg text-sm"
             />
           </div>
 
           {/* City & PLZ */}
-          <div className="grid md:grid-cols-2 gap-4">
-            <div className="space-y-2">
-              <Label className="text-sm font-semibold">
+          <div className="grid md:grid-cols-2 gap-3">
+            <div className="space-y-1">
+              <Label className="text-xs font-semibold">
                 Stadt <span className="text-destructive">*</span>
               </Label>
               <Input 
                 defaultValue="Frankfurt Am Main" 
-                className="h-14 bg-muted/30 border-2 border-muted focus-visible:border-primary focus-visible:ring-0 rounded-xl text-base"
+                className="h-10 bg-muted/30 border border-muted focus-visible:border-primary focus-visible:ring-0 rounded-lg text-sm"
               />
             </div>
-            <div className="space-y-2">
-              <Label className="text-sm font-semibold">
+            <div className="space-y-1">
+              <Label className="text-xs font-semibold">
                 Postleitzahl <span className="text-destructive">*</span>
               </Label>
               <Input 
                 defaultValue="60311" 
-                className="h-14 bg-muted/30 border-2 border-muted focus-visible:border-primary focus-visible:ring-0 rounded-xl text-base"
+                className="h-10 bg-muted/30 border border-muted focus-visible:border-primary focus-visible:ring-0 rounded-lg text-sm"
               />
             </div>
           </div>
 
           {/* Business Contact */}
-          <div className="grid md:grid-cols-2 gap-4">
-            <div className="space-y-2">
-              <Label className="text-sm font-semibold flex items-center gap-2">
-                <Phone className="w-4 h-4 text-muted-foreground" />
+          <div className="grid md:grid-cols-2 gap-3">
+            <div className="space-y-1">
+              <Label className="text-xs font-semibold flex items-center gap-1.5">
+                <Phone className="w-3.5 h-3.5 text-muted-foreground" />
                 Telefon <span className="text-destructive">*</span>
               </Label>
               <Input 
                 defaultValue="6915391405" 
-                className="h-14 bg-muted/30 border-2 border-muted focus-visible:border-primary focus-visible:ring-0 rounded-xl text-base"
+                className="h-10 bg-muted/30 border border-muted focus-visible:border-primary focus-visible:ring-0 rounded-lg text-sm"
               />
             </div>
-            <div className="space-y-2">
-              <Label className="text-sm font-semibold flex items-center gap-2">
-                <Mail className="w-4 h-4 text-muted-foreground" />
+            <div className="space-y-1">
+              <Label className="text-xs font-semibold flex items-center gap-1.5">
+                <Mail className="w-3.5 h-3.5 text-muted-foreground" />
                 E-Mail <span className="text-destructive">*</span>
               </Label>
               <Input 
                 type="email" 
                 defaultValue="info@avyta.de" 
-                className="h-14 bg-muted/30 border-2 border-muted focus-visible:border-primary focus-visible:ring-0 rounded-xl text-base"
+                className="h-10 bg-muted/30 border border-muted focus-visible:border-primary focus-visible:ring-0 rounded-lg text-sm"
               />
             </div>
           </div>
 
-          <div className="flex justify-end pt-6">
-            <Button className="px-10 h-14 bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary/70 shadow-xl shadow-primary/25 text-base font-semibold rounded-xl text-primary-foreground">
-              Änderungen speichern
+          <div className="flex justify-end pt-3">
+            <Button size="sm" className="px-6 h-9 bg-primary hover:bg-primary/90 text-sm font-medium rounded-lg text-primary-foreground">
+              Speichern
             </Button>
           </div>
         </CardContent>
@@ -688,42 +681,41 @@ const PartnerDashboard = () => {
   );
 
   const renderBookings = () => (
-    <div className="space-y-8">
+    <div className="space-y-5">
       <div className="relative">
-        <div className="absolute -top-4 -left-4 w-24 h-24 bg-primary/10 rounded-full blur-3xl" />
-        <h1 className="text-3xl font-bold text-foreground relative">Buchungen</h1>
-        <p className="text-muted-foreground mt-2 text-lg">Übersicht aller Ihrer Transportbuchungen</p>
+        <h1 className="text-2xl font-bold text-foreground relative">Buchungen</h1>
+        <p className="text-muted-foreground mt-1 text-sm">Übersicht aller Ihrer Transportbuchungen</p>
       </div>
 
       <Tabs defaultValue="aktiv" className="w-full">
-        <TabsList className="w-full justify-start bg-muted/30 p-2 h-16 rounded-2xl border-2 border-muted">
+        <TabsList className="w-full justify-start bg-muted/30 p-1.5 h-12 rounded-xl border border-muted">
           <TabsTrigger 
             value="aktiv" 
-            className="flex-1 h-12 rounded-xl data-[state=active]:bg-gradient-to-r data-[state=active]:from-primary data-[state=active]:to-primary/80 data-[state=active]:text-white data-[state=active]:shadow-lg data-[state=active]:shadow-primary/25 gap-2 font-semibold transition-all duration-300"
+            className="flex-1 h-9 rounded-lg data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-md gap-1.5 font-medium text-sm transition-all duration-300"
           >
-            <Clock className="w-4 h-4" />
+            <Clock className="w-3.5 h-3.5" />
             Aktiv
-            <Badge className="ml-1 bg-white/20 text-current border-0">
+            <Badge className="ml-1 bg-primary-foreground/20 text-inherit border-0 text-xs px-1.5 py-0">
               {bookings.aktiv.length}
             </Badge>
           </TabsTrigger>
           <TabsTrigger 
             value="bestaetigt" 
-            className="flex-1 h-12 rounded-xl data-[state=active]:bg-gradient-to-r data-[state=active]:from-secondary data-[state=active]:to-secondary/80 data-[state=active]:text-white data-[state=active]:shadow-lg data-[state=active]:shadow-secondary/25 gap-2 font-semibold transition-all duration-300"
+            className="flex-1 h-9 rounded-lg data-[state=active]:bg-secondary data-[state=active]:text-secondary-foreground data-[state=active]:shadow-md gap-1.5 font-medium text-sm transition-all duration-300"
           >
-            <CheckCircle2 className="w-4 h-4" />
+            <CheckCircle2 className="w-3.5 h-3.5" />
             Bestätigt
-            <Badge className="ml-1 bg-white/20 text-current border-0">
+            <Badge className="ml-1 bg-secondary-foreground/20 text-inherit border-0 text-xs px-1.5 py-0">
               {bookings.bestaetigt.length}
             </Badge>
           </TabsTrigger>
           <TabsTrigger 
             value="storniert" 
-            className="flex-1 h-12 rounded-xl data-[state=active]:bg-gradient-to-r data-[state=active]:from-destructive data-[state=active]:to-destructive/80 data-[state=active]:text-white data-[state=active]:shadow-lg data-[state=active]:shadow-destructive/25 gap-2 font-semibold transition-all duration-300"
+            className="flex-1 h-9 rounded-lg data-[state=active]:bg-destructive data-[state=active]:text-destructive-foreground data-[state=active]:shadow-md gap-1.5 font-medium text-sm transition-all duration-300"
           >
-            <XCircle className="w-4 h-4" />
+            <XCircle className="w-3.5 h-3.5" />
             Storniert
-            <Badge className="ml-1 bg-white/20 text-current border-0">
+            <Badge className="ml-1 bg-destructive-foreground/20 text-inherit border-0 text-xs px-1.5 py-0">
               {bookings.storniert.length}
             </Badge>
           </TabsTrigger>
