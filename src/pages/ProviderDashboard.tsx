@@ -4,8 +4,10 @@ import {
   CalendarDays, CheckCircle2, XCircle, Clock, LayoutDashboard, TrendingUp, Camera, Upload, 
   ArrowUpRight, Truck, Route, Timer, Star, FileText, MoreHorizontal, Trophy, MessageSquare,
   MapPinned, Bookmark, BarChart3, PieChart, Euro, ClipboardList, Activity, Users, Zap, Target,
-  AlertCircle, ChevronRight, Filter, Search, Download, RefreshCw, Accessibility, Armchair, BedDouble
+  AlertCircle, ChevronRight, Filter, Search, Download, RefreshCw, Accessibility, Armchair, BedDouble, Ticket, Plus
 } from "lucide-react";
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -22,7 +24,7 @@ import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart as RechartsPieChart, Pie, Cell, LineChart, Line, Area, AreaChart } from "recharts";
 
-type NavItem = "uebersicht" | "profil" | "buchungen" | "aktivitaeten" | "bewertungen" | "einstellungen";
+type NavItem = "uebersicht" | "profil" | "buchungen" | "aktivitaeten" | "bewertungen" | "einstellungen" | "tickets";
 
 const ProviderDashboard = () => {
   const [activeNav, setActiveNav] = useState<NavItem>("uebersicht");
@@ -34,7 +36,18 @@ const ProviderDashboard = () => {
   const [profileImage, setProfileImage] = useState<string | null>(null);
   const [selectedBooking, setSelectedBooking] = useState<typeof bookings.offen[0] | null>(null);
   const [bookingTab, setBookingTab] = useState<"transport" | "klient">("transport");
+  const [bookingSearch, setBookingSearch] = useState("");
   const fileInputRef = useRef<HTMLInputElement>(null);
+
+  // Tickets state
+  const [ticketDialogOpen, setTicketDialogOpen] = useState(false);
+  const [tickets, setTickets] = useState([
+    { id: 1, subject: "Abrechnung Buchung #1189", status: "offen", date: "12.01.2026", priority: "hoch" },
+    { id: 2, subject: "Frage zu Transportschein", status: "bearbeitung", date: "10.01.2026", priority: "mittel" },
+  ]);
+  const [newTicketSubject, setNewTicketSubject] = useState("");
+  const [newTicketDescription, setNewTicketDescription] = useState("");
+  const [newTicketPriority, setNewTicketPriority] = useState("mittel");
 
   const navItems = [
     { id: "uebersicht" as NavItem, label: "Übersicht", icon: LayoutDashboard },
@@ -43,6 +56,7 @@ const ProviderDashboard = () => {
     { id: "aktivitaeten" as NavItem, label: "Aktivitäten", icon: Activity },
     { id: "bewertungen" as NavItem, label: "Bewertungen", icon: Star },
     { id: "einstellungen" as NavItem, label: "Einstellungen", icon: Settings },
+    { id: "tickets" as NavItem, label: "Meine Tickets", icon: FileText },
   ];
 
   // Chart data
@@ -1405,13 +1419,18 @@ const ProviderDashboard = () => {
             <p className="text-muted-foreground mt-1 text-sm">Verwalten Sie alle Ihre Buchungen</p>
           </div>
           <div className="flex items-center gap-2">
+            <div className="relative">
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+              <Input 
+                placeholder="Buchung suchen..."
+                value={bookingSearch}
+                onChange={(e) => setBookingSearch(e.target.value)}
+                className="pl-9 h-9 w-64 bg-background border-muted"
+              />
+            </div>
             <Button variant="outline" size="sm" className="gap-2 h-9">
               <Filter className="w-4 h-4" />
               Filter
-            </Button>
-            <Button variant="outline" size="sm" className="gap-2 h-9">
-              <Download className="w-4 h-4" />
-              Export
             </Button>
           </div>
         </div>
@@ -1849,6 +1868,181 @@ const ProviderDashboard = () => {
     </div>
   );
 
+  const handleCreateTicket = () => {
+    if (newTicketSubject.trim()) {
+      const newTicket = {
+        id: tickets.length + 1,
+        subject: newTicketSubject,
+        status: "offen" as const,
+        date: new Date().toLocaleDateString('de-DE'),
+        priority: newTicketPriority
+      };
+      setTickets([newTicket, ...tickets]);
+      setNewTicketSubject("");
+      setNewTicketDescription("");
+      setNewTicketPriority("mittel");
+      setTicketDialogOpen(false);
+    }
+  };
+
+  const renderTickets = () => (
+    <div className="space-y-5">
+      <div className="flex items-center justify-between">
+        <div className="relative">
+          <h1 className="text-2xl font-bold text-foreground relative">Meine Tickets</h1>
+          <p className="text-muted-foreground mt-1 text-sm">Übersicht Ihrer Support-Tickets</p>
+        </div>
+        <Dialog open={ticketDialogOpen} onOpenChange={setTicketDialogOpen}>
+          <DialogTrigger asChild>
+            <Button className="gap-2 bg-primary hover:bg-primary/90 text-primary-foreground">
+              <Plus className="w-4 h-4" />
+              Ticket hinzufügen
+            </Button>
+          </DialogTrigger>
+          <DialogContent className="sm:max-w-lg">
+            <DialogHeader>
+              <DialogTitle className="text-xl font-bold">Neues Ticket erstellen</DialogTitle>
+              <DialogDescription>Beschreiben Sie Ihr Anliegen</DialogDescription>
+            </DialogHeader>
+            <div className="space-y-4 pt-4">
+              <div className="space-y-2">
+                <Label className="text-sm font-semibold">
+                  Betreff <span className="text-destructive">*</span>
+                </Label>
+                <Input 
+                  value={newTicketSubject}
+                  onChange={(e) => setNewTicketSubject(e.target.value)}
+                  placeholder="Kurze Beschreibung Ihres Anliegens..."
+                  className="h-11 bg-muted/30 border border-muted focus-visible:border-primary focus-visible:ring-0 rounded-lg"
+                />
+              </div>
+
+              <div className="space-y-2">
+                <Label className="text-sm font-semibold">Beschreibung</Label>
+                <Textarea 
+                  value={newTicketDescription}
+                  onChange={(e) => setNewTicketDescription(e.target.value)}
+                  placeholder="Beschreiben Sie Ihr Anliegen ausführlich..."
+                  className="min-h-24 bg-muted/30 border border-muted focus-visible:border-primary focus-visible:ring-0 rounded-lg resize-none"
+                />
+              </div>
+
+              <div className="space-y-2">
+                <Label className="text-sm font-semibold">Priorität</Label>
+                <div className="flex gap-1 p-1 bg-muted/50 rounded-lg w-fit">
+                  <RadioGroup value={newTicketPriority} onValueChange={setNewTicketPriority} className="flex gap-1">
+                    {[
+                      { value: "niedrig", label: "Niedrig", color: "from-secondary to-secondary/80" },
+                      { value: "mittel", label: "Mittel", color: "from-amber-500 to-amber-500/80" },
+                      { value: "hoch", label: "Hoch", color: "from-destructive to-destructive/80" }
+                    ].map((option) => (
+                      <div key={option.value} className="flex items-center">
+                        <RadioGroupItem value={option.value} id={`provider-priority-${option.value}`} className="peer sr-only" />
+                        <Label 
+                          htmlFor={`provider-priority-${option.value}`} 
+                          className={cn(
+                            "cursor-pointer px-4 py-2 rounded-md bg-transparent transition-all duration-300 font-medium text-muted-foreground hover:text-foreground text-sm",
+                            newTicketPriority === option.value && `bg-gradient-to-r ${option.color} text-white shadow-md`
+                          )}
+                        >
+                          {option.label}
+                        </Label>
+                      </div>
+                    ))}
+                  </RadioGroup>
+                </div>
+              </div>
+
+              <div className="flex justify-end pt-2">
+                <Button 
+                  onClick={handleCreateTicket}
+                  disabled={!newTicketSubject.trim()}
+                  className="px-6 h-10 bg-primary hover:bg-primary/90 text-primary-foreground font-medium rounded-lg"
+                >
+                  Ticket erstellen
+                </Button>
+              </div>
+            </div>
+          </DialogContent>
+        </Dialog>
+      </div>
+
+      {/* Existing Tickets */}
+      <Card className="border-0 shadow-lg bg-gradient-to-br from-card to-muted/20 overflow-hidden">
+        <CardHeader className="pb-3 pt-4 px-4">
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-violet-500/10 to-violet-500/5 flex items-center justify-center">
+              <Ticket className="w-5 h-5 text-violet-500" />
+            </div>
+            <div>
+              <CardTitle className="text-base font-bold">Ticket-Übersicht</CardTitle>
+              <CardDescription className="text-xs">Alle Ihre Tickets auf einen Blick</CardDescription>
+            </div>
+          </div>
+        </CardHeader>
+        <CardContent className="px-4 pb-4">
+          {tickets.length === 0 ? (
+            <div className="py-8 text-center">
+              <div className="w-12 h-12 mx-auto mb-3 rounded-xl bg-muted/50 flex items-center justify-center">
+                <Ticket className="w-6 h-6 text-muted-foreground" />
+              </div>
+              <p className="text-sm text-muted-foreground">Keine Tickets vorhanden</p>
+            </div>
+          ) : (
+            <div className="space-y-3">
+              {tickets.map((ticket) => (
+                <div 
+                  key={ticket.id} 
+                  className="p-4 rounded-xl bg-muted/30 border border-muted hover:border-primary/30 transition-all duration-300 group cursor-pointer"
+                >
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-3">
+                      <div className={cn(
+                        "w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0",
+                        ticket.status === "offen" && "bg-gradient-to-br from-amber-500/20 to-amber-500/10",
+                        ticket.status === "bearbeitung" && "bg-gradient-to-br from-primary/20 to-primary/10",
+                        ticket.status === "geschlossen" && "bg-gradient-to-br from-secondary/20 to-secondary/10"
+                      )}>
+                        <Ticket className={cn(
+                          "w-5 h-5",
+                          ticket.status === "offen" && "text-amber-500",
+                          ticket.status === "bearbeitung" && "text-primary",
+                          ticket.status === "geschlossen" && "text-secondary"
+                        )} />
+                      </div>
+                      <div>
+                        <h3 className="font-semibold text-sm text-foreground">{ticket.subject}</h3>
+                        <p className="text-xs text-muted-foreground">Erstellt am {ticket.date}</p>
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <Badge className={cn(
+                        "px-2 py-1 text-xs font-medium rounded-md border-0",
+                        ticket.priority === "hoch" && "bg-destructive/20 text-destructive",
+                        ticket.priority === "mittel" && "bg-amber-500/20 text-amber-600",
+                        ticket.priority === "niedrig" && "bg-secondary/20 text-secondary"
+                      )}>
+                        {ticket.priority.charAt(0).toUpperCase() + ticket.priority.slice(1)}
+                      </Badge>
+                      <Badge className={cn(
+                        "px-2 py-1 text-xs font-medium rounded-md border-0",
+                        ticket.status === "offen" && "bg-amber-500/20 text-amber-600",
+                        ticket.status === "bearbeitung" && "bg-primary/20 text-primary",
+                        ticket.status === "geschlossen" && "bg-secondary/20 text-secondary"
+                      )}>
+                        {ticket.status === "offen" ? "Offen" : ticket.status === "bearbeitung" ? "In Bearbeitung" : "Geschlossen"}
+                      </Badge>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+        </CardContent>
+      </Card>
+    </div>
+  );
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-background via-muted/20 to-background flex flex-col">
       <Header />
@@ -1863,6 +2057,7 @@ const ProviderDashboard = () => {
           {activeNav === "aktivitaeten" && renderActivities()}
           {activeNav === "bewertungen" && renderRatings()}
           {activeNav === "einstellungen" && renderSettings()}
+          {activeNav === "tickets" && renderTickets()}
         </main>
       </div>
 

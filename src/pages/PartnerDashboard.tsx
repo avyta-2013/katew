@@ -1,5 +1,5 @@
 import { useState, useRef } from "react";
-import { User, Calendar, Settings, LogOut, Bell, Lock, Eye, EyeOff, Building2, Phone, Mail, MapPin, CalendarDays, CheckCircle2, XCircle, Clock, LayoutDashboard, TrendingUp, Camera, Upload, ArrowUpRight, Truck, Route, Timer, Sparkles, Ticket, MoreHorizontal, Star, RefreshCw, FileText, Users, Plus } from "lucide-react";
+import { User, Calendar, Settings, LogOut, Bell, Lock, Eye, EyeOff, Building2, Phone, Mail, MapPin, CalendarDays, CheckCircle2, XCircle, Clock, LayoutDashboard, TrendingUp, Camera, Upload, ArrowUpRight, Truck, Route, Timer, Sparkles, Ticket, MoreHorizontal, Star, RefreshCw, FileText, Users, Plus, Search } from "lucide-react";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -30,6 +30,7 @@ const PartnerDashboard = () => {
   const [profileImage, setProfileImage] = useState<string | null>(null);
   const [accountType, setAccountType] = useState<AccountType>("einrichtung");
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const [bookingSearch, setBookingSearch] = useState("");
 
   const [ticketDialogOpen, setTicketDialogOpen] = useState(false);
 
@@ -646,9 +647,20 @@ const PartnerDashboard = () => {
 
   const renderBookings = () => (
     <div className="space-y-5">
-      <div className="relative">
-        <h1 className="text-2xl font-bold text-foreground relative">Buchungen</h1>
-        <p className="text-muted-foreground mt-1 text-sm">Übersicht aller Ihrer Transportbuchungen</p>
+      <div className="flex items-center justify-between">
+        <div className="relative">
+          <h1 className="text-2xl font-bold text-foreground relative">Buchungen</h1>
+          <p className="text-muted-foreground mt-1 text-sm">Übersicht aller Ihrer Transportbuchungen</p>
+        </div>
+        <div className="relative">
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+          <Input 
+            placeholder="Buchung suchen..."
+            value={bookingSearch}
+            onChange={(e) => setBookingSearch(e.target.value)}
+            className="pl-9 h-9 w-64 bg-background border-muted"
+          />
+        </div>
       </div>
 
       <Tabs defaultValue="aktiv" className="w-full">
