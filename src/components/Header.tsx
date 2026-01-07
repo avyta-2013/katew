@@ -51,18 +51,18 @@ export const Header = () => {
             >
               Die Zukunft hat begonnen
             </a>
-            <a
-              href="/#anbieter"
+            <Link
+              to="/fuer-anbieter"
               className="px-4 py-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors rounded-lg hover:bg-muted/50"
             >
               Für Anbieter
-            </a>
-            <a
-              href="/#partner"
+            </Link>
+            <Link
+              to="/fuer-partner"
               className="px-4 py-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors rounded-lg hover:bg-muted/50"
             >
               Für Partner
-            </a>
+            </Link>
           </nav>
 
           {/* Right side - Account dropdown */}
