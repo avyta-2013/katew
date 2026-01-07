@@ -127,12 +127,12 @@ export const ProvidersSection = () => {
                     <p className="text-xs text-muted-foreground">Partner</p>
                   </div>
                   <div className="bg-muted/50 rounded-xl p-3 text-center">
-                    <p className="text-2xl font-bold text-secondary">16</p>
-                    <p className="text-xs text-muted-foreground">Bundesländer</p>
+                    <p className="text-2xl font-bold text-secondary">30+</p>
+                    <p className="text-xs text-muted-foreground">Städte</p>
                   </div>
                   <div className="bg-muted/50 rounded-xl p-3 text-center">
-                    <p className="text-2xl font-bold text-primary">24/7</p>
-                    <p className="text-xs text-muted-foreground">Erreichbar</p>
+                    <p className="text-2xl font-bold text-primary">98%</p>
+                    <p className="text-xs text-muted-foreground">Zufriedenheit</p>
                   </div>
                 </div>
               </div>
