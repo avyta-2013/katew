@@ -40,14 +40,6 @@ export const Footer = () => {
         <div className="py-16">
           <div className="grid grid-cols-2 md:grid-cols-6 gap-8 md:gap-12">
             <div className="col-span-2">
-              <Link to="/" className="inline-flex items-center gap-2 mb-6">
-                <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-primary to-secondary flex items-center justify-center">
-                  <svg viewBox="0 0 24 24" className="w-6 h-6 text-primary-foreground" fill="currentColor">
-                    <path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-9 12h-2v-2h2v2zm0-4h-2V6h2v4z"/>
-                  </svg>
-                </div>
-                <span className="text-2xl font-light tracking-widest bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">katew</span>
-              </Link>
               <p className="text-muted-foreground mb-6 leading-relaxed max-w-xs">
                 Die moderne Plattform für Krankenfahrten in Deutschland. Einfach, digital, zuverlässig.
               </p>
