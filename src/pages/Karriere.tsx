@@ -69,11 +69,8 @@ const values = [
 const benefits = [
   { icon: Laptop, text: "Remote-First Kultur", description: "Arbeite von überall" },
   { icon: Clock, text: "Flexible Arbeitszeiten", description: "Work-Life-Balance" },
-  { icon: GraduationCap, text: "Weiterbildungsbudget", description: "2.000€ jährlich" },
-  { icon: Heart, text: "Gesundheitsvorsorge", description: "Betriebliche Leistungen" },
   { icon: PartyPopper, text: "Team-Events", description: "Quarterly Offsites" },
   { icon: Zap, text: "Neueste Tech", description: "Beste Tools & Hardware" },
-  { icon: Leaf, text: "30 Urlaubstage", description: "Plus Sonderurlaub" },
   { icon: HeartHandshake, text: "Mentoring", description: "Persönliche Entwicklung" },
 ];
 
@@ -89,10 +86,9 @@ const openPositions = [
 ];
 
 const stats = [
-  { value: "50+", label: "Teammitglieder", icon: Users },
-  { value: "100K+", label: "Fahrten vermittelt", icon: TrendingUp },
-  { value: "4.9", label: "Kununu Bewertung", icon: Star },
-  { value: "2022", label: "Gegründet", icon: Calendar },
+  { value: "2+", label: "Teammitglieder", icon: Users },
+  { value: "1K+", label: "Fahrten vermittelt", icon: TrendingUp },
+  { value: "2025", label: "Gegründet", icon: Calendar },
 ];
 
 const testimonials = [
@@ -203,7 +199,7 @@ export default function Karriere() {
 
               {/* Subheadline */}
               <p className="text-xl md:text-2xl text-muted-foreground mb-12 max-w-3xl mx-auto leading-relaxed animate-fade-in" style={{ animationDelay: "0.2s" }}>
-                Bei katew revolutionieren wir den Krankentransport in Deutschland. 
+                Bei katew revolutionieren wir die Krankenfahrt in Deutschland. 
                 Werde Teil eines Teams, das täglich Leben verbessert.
               </p>
 
@@ -218,21 +214,12 @@ export default function Karriere() {
                     <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
                   </span>
                 </Button>
-                <Button 
-                  size="lg" 
-                  variant="outline" 
-                  className="rounded-2xl px-8 py-6 text-lg border-2 hover:bg-muted/50"
-                >
-                  <Play className="mr-2 w-5 h-5" />
-                  Team kennenlernen
-                </Button>
               </div>
 
               {/* Trust Badges */}
               <div className="flex flex-wrap justify-center gap-8 animate-fade-in" style={{ animationDelay: "0.4s" }}>
                 {[
-                  { icon: Shield, text: "Top Arbeitgeber 2024" },
-                  { icon: Star, text: "4.9/5 auf Kununu" },
+                  { icon: Shield, text: "Top Arbeitgeber 2025" },
                   { icon: Globe, text: "Remote-First" },
                 ].map((badge, i) => (
                   <div key={i} className="flex items-center gap-2 text-muted-foreground">
@@ -581,22 +568,6 @@ export default function Karriere() {
                 ))}
               </div>
               
-              {/* No Position CTA */}
-              <div className="text-center bg-card/50 rounded-2xl border border-border/50 p-8">
-                <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-primary/10 to-secondary/10 flex items-center justify-center mx-auto mb-4">
-                  <Sparkles className="w-8 h-8 text-primary" />
-                </div>
-                <h3 className="font-bold text-xl mb-2">Keine passende Stelle gefunden?</h3>
-                <p className="text-muted-foreground mb-6">
-                  Wir sind immer auf der Suche nach Talenten. Bewirb dich initiativ!
-                </p>
-                <Link to="/kontakt">
-                  <Button variant="outline" size="lg" className="rounded-xl border-2">
-                    Initiativbewerbung senden
-                    <ArrowRight className="ml-2 w-4 h-4" />
-                  </Button>
-                </Link>
-              </div>
             </div>
           </div>
         </section>
@@ -644,21 +615,13 @@ export default function Karriere() {
                     <ArrowRight className="ml-2 w-5 h-5" />
                   </Button>
                 </Link>
-                <Button 
-                  size="lg" 
-                  variant="outline" 
-                  className="border-2 border-white text-white hover:bg-white/10 rounded-2xl px-8 py-6 text-lg"
-                >
-                  <MapPin className="mr-2 w-5 h-5" />
-                  Büro besuchen
-                </Button>
               </div>
               
               <div className="flex items-center justify-center gap-2 text-white/70">
                 <CheckCircle className="w-5 h-5" />
                 <span>Fragen? Schreib uns an </span>
-                <a href="mailto:karriere@katew.de" className="text-white font-semibold hover:underline">
-                  karriere@katew.de
+                <a href="mailto:support@katew.de" className="text-white font-semibold hover:underline">
+                  support@katew.de
                 </a>
               </div>
             </div>
