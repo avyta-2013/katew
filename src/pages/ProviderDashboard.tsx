@@ -4,7 +4,7 @@ import {
   CalendarDays, CheckCircle2, XCircle, Clock, LayoutDashboard, TrendingUp, Camera, Upload, 
   ArrowUpRight, Truck, Route, Timer, Star, FileText, MoreHorizontal, Trophy, MessageSquare,
   MapPinned, Bookmark, BarChart3, PieChart, Euro, ClipboardList, Activity, Users, Zap, Target,
-  AlertCircle, ChevronRight, ChevronLeft, Filter, Search, Download, RefreshCw, Accessibility, Armchair, BedDouble, Ticket, Plus, HelpCircle
+  AlertCircle, ChevronRight, ChevronLeft, Filter, Search, Download, RefreshCw, Accessibility, Armchair, BedDouble, Ticket, Plus, HelpCircle, Home
 } from "lucide-react";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
@@ -2324,6 +2324,10 @@ const ProviderDashboard = () => {
               </div>
             </div>
             <div className="py-2">
+              <DropdownMenuItem onClick={() => window.location.href = "/"} className="cursor-pointer py-3 px-4">
+                <Home className="w-4 h-4 mr-3" />
+                Start
+              </DropdownMenuItem>
               <DropdownMenuItem onClick={() => setActiveNav("profil")} className="cursor-pointer py-3 px-4">
                 <User className="w-4 h-4 mr-3" />
                 Unternehmensprofil

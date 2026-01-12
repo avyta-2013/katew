@@ -1,5 +1,5 @@
 import { useState, useRef } from "react";
-import { User, Calendar, Settings, LogOut, Bell, Lock, Eye, EyeOff, Building2, Phone, Mail, MapPin, CalendarDays, CheckCircle2, XCircle, Clock, LayoutDashboard, TrendingUp, Camera, Upload, ArrowUpRight, Truck, Route, Timer, Sparkles, Ticket, MoreHorizontal, Star, RefreshCw, FileText, Users, Plus, Search, ChevronLeft, ChevronRight, Menu, HelpCircle, MessageSquare, ArrowLeftRight, Zap, Activity, Headphones, Target, ChevronDown, ChevronUp, Navigation, ArrowUpDown } from "lucide-react";
+import { User, Calendar, Settings, LogOut, Bell, Lock, Eye, EyeOff, Building2, Phone, Mail, MapPin, CalendarDays, CheckCircle2, XCircle, Clock, LayoutDashboard, TrendingUp, Camera, Upload, ArrowUpRight, Truck, Route, Timer, Sparkles, Ticket, MoreHorizontal, Star, RefreshCw, FileText, Users, Plus, Search, ChevronLeft, ChevronRight, Menu, HelpCircle, MessageSquare, ArrowLeftRight, Zap, Activity, Headphones, Target, ChevronDown, ChevronUp, Navigation, ArrowUpDown, Home } from "lucide-react";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
@@ -2088,6 +2088,10 @@ const PartnerDashboard = () => {
               </div>
             </div>
             <div className="py-2">
+              <DropdownMenuItem onClick={() => window.location.href = "/"} className="cursor-pointer py-3 px-4">
+                <Home className="w-4 h-4 mr-3" />
+                Start
+              </DropdownMenuItem>
               <DropdownMenuItem onClick={() => setActiveNav("profil")} className="cursor-pointer py-3 px-4">
                 <User className="w-4 h-4 mr-3" />
                 Mein Profil
