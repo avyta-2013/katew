@@ -156,22 +156,6 @@ const PartnerDashboard = () => {
         </Link>
       </div>
 
-      {/* Quick Stats Cards */}
-      <div className="p-4">
-        <div className="grid grid-cols-2 gap-3">
-          <div className="relative overflow-hidden rounded-xl bg-gradient-to-br from-primary/10 to-primary/5 p-3 border border-primary/20">
-            <div className="absolute top-0 right-0 w-12 h-12 bg-primary/10 rounded-full blur-xl" />
-            <p className="text-2xl font-bold text-primary">{kpiData.activeBookings}</p>
-            <p className="text-[10px] text-muted-foreground font-medium">Aktive Fahrten</p>
-          </div>
-          <div className="relative overflow-hidden rounded-xl bg-gradient-to-br from-secondary/10 to-secondary/5 p-3 border border-secondary/20">
-            <div className="absolute top-0 right-0 w-12 h-12 bg-secondary/10 rounded-full blur-xl" />
-            <p className="text-2xl font-bold text-secondary">{kpiData.totalBookings}</p>
-            <p className="text-[10px] text-muted-foreground font-medium">Gesamt</p>
-          </div>
-        </div>
-      </div>
-
       {/* Navigation Section */}
       <div className="px-3 mb-2">
         <p className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider px-3">Navigation</p>
