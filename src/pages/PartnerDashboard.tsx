@@ -16,7 +16,6 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSepara
 import { Textarea } from "@/components/ui/textarea";
 import { cn } from "@/lib/utils";
 import { Link } from "react-router-dom";
-import logoTransparent from "@/assets/katew-logo-transparent.png";
 
 type NavItem = "uebersicht" | "profil" | "buchungen" | "tickets" | "einstellungen";
 type AccountType = "einrichtung" | "privat";
@@ -1151,8 +1150,21 @@ const PartnerDashboard = () => {
     <header className="h-16 bg-card border-b border-border flex items-center justify-between px-6 sticky top-0 z-50">
       {/* Left side - Logo & Breadcrumb */}
       <div className="flex items-center gap-6">
-        <Link to="/" className="flex items-center gap-2">
-          <img src={logoTransparent} alt="katew" className="h-8 w-auto" />
+        <Link to="/" className="flex items-center gap-3 group">
+          <div className="relative w-9 h-9 rounded-xl bg-gradient-to-br from-primary via-primary to-secondary flex items-center justify-center shadow-md">
+            <div className="absolute inset-0 rounded-xl bg-gradient-to-br from-white/20 to-transparent" />
+            <svg viewBox="0 0 24 24" className="w-5 h-5 text-primary-foreground relative z-10" fill="currentColor">
+              <path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-9 12h-2v-2h2v2zm0-4h-2V6h2v4z"/>
+            </svg>
+          </div>
+          <div className="flex flex-col">
+            <span className="text-lg font-black tracking-tight bg-gradient-to-r from-primary via-primary to-secondary bg-clip-text text-transparent leading-none" style={{ fontFamily: "'Inter', system-ui, sans-serif", letterSpacing: '-0.03em' }}>
+              katew
+            </span>
+            <span className="text-[8px] font-semibold text-muted-foreground uppercase tracking-[0.25em]" style={{ fontFamily: "'Inter', system-ui, sans-serif" }}>
+              Medical Transport
+            </span>
+          </div>
         </Link>
         <Separator orientation="vertical" className="h-6" />
         <div className="flex items-center gap-2 text-sm">
