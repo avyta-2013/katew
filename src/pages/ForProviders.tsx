@@ -219,68 +219,131 @@ export default function ForProviders() {
             </div>
           </div>
 
-          {/* Features - Alternating Layout */}
-          <div className="max-w-5xl mx-auto">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              {/* Left Column */}
-              <div className="space-y-6">
-                {features.filter((_, i) => i % 2 === 0).map((feature, index) => {
-                  const Icon = feature.icon;
-                  const isHighlight = 'highlight' in feature && feature.highlight;
-                  return (
-                    <div
-                      key={index}
-                      className={`group relative flex items-start gap-5 backdrop-blur-sm border rounded-2xl p-6 transition-all duration-300 ${
-                        isHighlight 
-                          ? 'bg-gradient-to-br from-primary/20 to-secondary/20 border-primary/40 ring-2 ring-primary/20' 
-                          : 'bg-card/50 border-border/50 hover:border-primary/40 hover:bg-card'
-                      }`}
-                    >
+          {/* Features - Premium Bento Grid */}
+          <div className="max-w-6xl mx-auto">
+            <div className="text-center mb-12">
+              <h3 className="text-2xl md:text-3xl font-bold mb-3">
+                <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">Unsere Leistungen</span>
+              </h3>
+              <p className="text-muted-foreground">Alles was du brauchst, um erfolgreich zu sein</p>
+            </div>
+
+            {/* Bento Grid Layout */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {features.map((feature, index) => {
+                const Icon = feature.icon;
+                const isHighlight = 'highlight' in feature && feature.highlight;
+                const isLarge = index === 0 || index === 6;
+                
+                return (
+                  <div
+                    key={index}
+                    className={`group relative overflow-hidden ${isLarge ? 'md:col-span-2 lg:col-span-1' : ''} ${isHighlight ? 'lg:row-span-1' : ''}`}
+                  >
+                    {/* Card Glow */}
+                    <div className={`absolute -inset-0.5 rounded-[1.75rem] bg-gradient-to-r ${
+                      isHighlight 
+                        ? 'from-primary via-secondary to-primary' 
+                        : index % 2 === 0 
+                          ? 'from-primary/50 to-secondary/50' 
+                          : 'from-secondary/50 to-primary/50'
+                    } opacity-0 group-hover:opacity-100 blur-sm transition-all duration-500`} />
+                    
+                    {/* Main Card */}
+                    <div className={`relative h-full rounded-3xl border backdrop-blur-xl transition-all duration-500 ${
+                      isHighlight 
+                        ? 'bg-gradient-to-br from-primary/20 via-card to-secondary/20 border-primary/40' 
+                        : 'bg-card/80 border-border/50 hover:border-primary/40'
+                    } p-8`}>
+                      
+                      {/* Highlight Badge */}
                       {isHighlight && (
-                        <div className="absolute -top-3 left-6 px-3 py-1 bg-gradient-to-r from-primary to-secondary text-primary-foreground text-xs font-bold rounded-full flex items-center gap-1">
-                          <Sparkles className="w-3 h-3" />
-                          NEU
+                        <div className="absolute -top-px left-1/2 -translate-x-1/2">
+                          <div className="px-4 py-1.5 bg-gradient-to-r from-primary to-secondary text-primary-foreground text-xs font-bold rounded-b-xl flex items-center gap-1.5 shadow-lg">
+                            <Sparkles className="w-3 h-3" />
+                            EXKLUSIV
+                          </div>
                         </div>
                       )}
-                      <div className={`shrink-0 w-14 h-14 rounded-xl flex items-center justify-center group-hover:scale-110 transition-all duration-300 ${
+
+                      {/* Background Pattern */}
+                      <div className="absolute inset-0 opacity-[0.02] rounded-3xl overflow-hidden">
+                        <div className="absolute inset-0" style={{
+                          backgroundImage: `radial-gradient(circle at 2px 2px, currentColor 1px, transparent 0)`,
+                          backgroundSize: '20px 20px'
+                        }} />
+                      </div>
+
+                      {/* Floating Decorative Elements */}
+                      <div className="absolute top-4 right-4 w-20 h-20 rounded-full bg-gradient-to-br from-primary/10 to-secondary/10 blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+
+                      <div className="relative">
+                        {/* Icon Container */}
+                        <div className="mb-6 relative">
+                          <div className={`w-16 h-16 rounded-2xl flex items-center justify-center transition-all duration-500 group-hover:scale-110 group-hover:rotate-3 ${
+                            isHighlight 
+                              ? 'bg-gradient-to-br from-primary to-secondary shadow-lg shadow-primary/30' 
+                              : 'bg-gradient-to-br from-primary/10 to-secondary/10 border border-primary/20 group-hover:border-primary/50 group-hover:shadow-lg group-hover:shadow-primary/20'
+                          }`}>
+                            <Icon className={`w-7 h-7 ${isHighlight ? 'text-primary-foreground' : 'text-primary'}`} />
+                          </div>
+                          
+                          {/* Animated Ring */}
+                          <div className={`absolute -inset-2 rounded-3xl border-2 border-dashed ${
+                            isHighlight ? 'border-primary/40' : 'border-primary/20'
+                          } opacity-0 group-hover:opacity-100 transition-opacity duration-500`} style={{
+                            animation: 'spin 20s linear infinite'
+                          }} />
+                        </div>
+
+                        {/* Content */}
+                        <h3 className={`font-bold text-xl mb-3 transition-colors duration-300 ${
+                          isHighlight ? 'text-primary' : 'group-hover:text-primary'
+                        }`}>
+                          {feature.title}
+                        </h3>
+                        
+                        <p className="text-muted-foreground leading-relaxed mb-6">
+                          {feature.description}
+                        </p>
+
+                        {/* Action Link */}
+                        <div className={`flex items-center gap-2 text-sm font-medium transition-all duration-300 ${
+                          isHighlight 
+                            ? 'text-primary' 
+                            : 'text-muted-foreground group-hover:text-primary'
+                        }`}>
+                          <span>Mehr erfahren</span>
+                          <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" />
+                        </div>
+                      </div>
+
+                      {/* Bottom Accent */}
+                      <div className={`absolute bottom-0 left-6 right-6 h-1 rounded-full bg-gradient-to-r ${
                         isHighlight 
-                          ? 'bg-gradient-to-br from-primary to-secondary' 
-                          : 'bg-gradient-to-br from-primary/10 to-secondary/10 border border-primary/20 group-hover:border-primary/50'
-                      }`}>
-                        <Icon className={`w-6 h-6 ${isHighlight ? 'text-primary-foreground' : 'text-primary'}`} />
-                      </div>
-                      <div className="flex-1">
-                        <h3 className={`font-bold text-lg mb-1 transition-colors ${isHighlight ? 'text-primary' : 'group-hover:text-primary'}`}>{feature.title}</h3>
-                        <p className="text-muted-foreground text-sm">{feature.description}</p>
-                      </div>
-                      <ArrowRight className={`w-5 h-5 shrink-0 self-center transition-all duration-300 ${
-                        isHighlight ? 'text-primary opacity-100' : 'text-muted-foreground opacity-0 group-hover:opacity-100 group-hover:text-primary'
-                      }`} />
+                          ? 'from-primary to-secondary opacity-100' 
+                          : 'from-primary to-secondary opacity-0 group-hover:opacity-100'
+                      } transition-opacity duration-500`} />
                     </div>
-                  );
-                })}
-              </div>
-              
-              {/* Right Column - Offset */}
-              <div className="space-y-6 md:mt-12">
-                {features.filter((_, i) => i % 2 === 1).map((feature, index) => {
-                  const Icon = feature.icon;
-                  return (
-                    <div
-                      key={index}
-                      className="group relative flex items-start gap-5 bg-card/50 backdrop-blur-sm border border-border/50 rounded-2xl p-6 hover:border-secondary/40 hover:bg-card transition-all duration-300"
-                    >
-                      <div className="shrink-0 w-14 h-14 rounded-xl bg-gradient-to-br from-secondary/10 to-primary/10 border border-secondary/20 flex items-center justify-center group-hover:scale-110 group-hover:border-secondary/50 transition-all duration-300">
-                        <Icon className="w-6 h-6 text-secondary" />
-                      </div>
-                      <div className="flex-1">
-                        <h3 className="font-bold text-lg mb-1 group-hover:text-secondary transition-colors">{feature.title}</h3>
-                        <p className="text-muted-foreground text-sm">{feature.description}</p>
-                      </div>
-                      <ArrowRight className="w-5 h-5 text-muted-foreground opacity-0 group-hover:opacity-100 group-hover:text-secondary transition-all duration-300 shrink-0 self-center" />
+                  </div>
+                );
+              })}
+            </div>
+
+            {/* Bottom CTA */}
+            <div className="mt-12 text-center">
+              <div className="inline-flex items-center gap-4 px-8 py-4 rounded-2xl bg-gradient-to-r from-primary/10 to-secondary/10 border border-primary/20 backdrop-blur-sm">
+                <div className="flex -space-x-2">
+                  {['MS', 'AK', 'TL'].map((initials, i) => (
+                    <div key={i} className="w-10 h-10 rounded-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center text-primary-foreground text-sm font-bold border-2 border-background">
+                      {initials}
                     </div>
-                  );
-                })}
+                  ))}
+                </div>
+                <div className="text-left">
+                  <div className="font-semibold text-foreground">500+ Anbieter vertrauen uns</div>
+                  <div className="text-sm text-muted-foreground">Werde Teil des Netzwerks</div>
+                </div>
               </div>
             </div>
           </div>
