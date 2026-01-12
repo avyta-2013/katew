@@ -1,7 +1,8 @@
 import { useState, useRef } from "react";
-import { User, Calendar, Settings, LogOut, Bell, Lock, Eye, EyeOff, Building2, Phone, Mail, MapPin, CalendarDays, CheckCircle2, XCircle, Clock, LayoutDashboard, TrendingUp, Camera, Upload, ArrowUpRight, Truck, Route, Timer, Sparkles, Ticket, MoreHorizontal, Star, RefreshCw, FileText, Users, Plus, Search, ChevronLeft, ChevronRight, Menu, HelpCircle, MessageSquare, ArrowLeftRight, Zap, Activity, Headphones, Target } from "lucide-react";
+import { User, Calendar, Settings, LogOut, Bell, Lock, Eye, EyeOff, Building2, Phone, Mail, MapPin, CalendarDays, CheckCircle2, XCircle, Clock, LayoutDashboard, TrendingUp, Camera, Upload, ArrowUpRight, Truck, Route, Timer, Sparkles, Ticket, MoreHorizontal, Star, RefreshCw, FileText, Users, Plus, Search, ChevronLeft, ChevronRight, Menu, HelpCircle, MessageSquare, ArrowLeftRight, Zap, Activity, Headphones, Target, ChevronDown, ChevronUp, Navigation, ArrowUpDown } from "lucide-react";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -47,6 +48,7 @@ const PartnerDashboard = () => {
   const [repeatTime, setRepeatTime] = useState("");
   const [repeatNote, setRepeatNote] = useState("");
   const [selectedProviders, setSelectedProviders] = useState<number[]>([]);
+  const [providersExpanded, setProvidersExpanded] = useState(true);
 
   const navItems = [
     { id: "uebersicht" as NavItem, label: "Übersicht", icon: LayoutDashboard },
@@ -1184,118 +1186,184 @@ const PartnerDashboard = () => {
           </DialogContent>
         </Dialog>
 
-        {/* Repeat Booking Dialog */}
+        {/* Repeat Booking Dialog - Modern Redesign */}
         <Dialog open={repeatDialogOpen} onOpenChange={setRepeatDialogOpen}>
-          <DialogContent className="sm:max-w-lg max-h-[90vh] overflow-y-auto">
-            <DialogHeader>
-              <DialogTitle className="text-xl font-bold">Wiederholen</DialogTitle>
-            </DialogHeader>
-            <div className="space-y-5 pt-2">
-              {/* Start Address */}
-              <div className="space-y-2">
-                <Label className="text-xs text-muted-foreground">Start (Rückfahrt)</Label>
-                <Input 
-                  defaultValue={dialogBooking?.to || ""}
-                  className="h-12 rounded-xl border-2"
-                />
+          <DialogContent className="sm:max-w-xl max-h-[90vh] overflow-y-auto p-0 gap-0 border-0 shadow-2xl">
+            {/* Header with Gradient */}
+            <div className="relative bg-gradient-to-br from-foreground via-foreground to-foreground/90 p-6 rounded-t-lg overflow-hidden">
+              <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-bl from-secondary/30 to-transparent rounded-bl-full" />
+              <div className="absolute bottom-0 left-0 w-24 h-24 bg-gradient-to-tr from-primary/20 to-transparent rounded-tr-full" />
+              <div className="relative">
+                <div className="flex items-center gap-3 mb-2">
+                  <div className="w-12 h-12 rounded-2xl bg-white/10 backdrop-blur-sm flex items-center justify-center">
+                    <RefreshCw className="w-6 h-6 text-white" />
+                  </div>
+                  <div>
+                    <DialogTitle className="text-2xl font-bold text-white">Fahrt wiederholen</DialogTitle>
+                    <p className="text-white/60 text-sm">Buchung #{dialogBooking ? 49703707 + dialogBooking.id : ""}</p>
+                  </div>
+                </div>
               </div>
+            </div>
 
-              {/* Swap Icon */}
-              <div className="flex justify-center">
-                <div className="w-10 h-10 rounded-full bg-foreground flex items-center justify-center">
-                  <ArrowLeftRight className="w-5 h-5 text-background" />
+            <div className="p-6 space-y-6 bg-background">
+              {/* Route Section */}
+              <div className="relative">
+                <div className="absolute left-6 top-[60px] bottom-[60px] w-0.5 bg-gradient-to-b from-secondary via-muted to-primary z-0" />
+                
+                {/* Start Address */}
+                <div className="relative z-10 space-y-2">
+                  <div className="flex items-center gap-2">
+                    <div className="w-3 h-3 rounded-full bg-secondary ring-4 ring-secondary/20" />
+                    <Label className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">Start (Rückfahrt)</Label>
+                  </div>
+                  <div className="ml-5">
+                    <div className="relative group">
+                      <div className="absolute inset-0 bg-gradient-to-r from-secondary/10 to-transparent rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity" />
+                      <Input 
+                        defaultValue={dialogBooking?.to || "Mainzer Landstraße 265, 60326 Frankfurt am Main"}
+                        className="h-14 pl-4 pr-12 rounded-2xl border-2 border-muted bg-card focus-visible:border-secondary focus-visible:ring-2 focus-visible:ring-secondary/20 text-sm font-medium transition-all"
+                      />
+                      <div className="absolute right-3 top-1/2 -translate-y-1/2 w-8 h-8 rounded-xl bg-muted/50 flex items-center justify-center">
+                        <Navigation className="w-4 h-4 text-muted-foreground" />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Swap Button */}
+                <div className="flex justify-center my-3 relative z-20">
+                  <button className="w-12 h-12 rounded-2xl bg-foreground shadow-xl flex items-center justify-center hover:scale-110 transition-transform duration-300 group">
+                    <ArrowUpDown className="w-5 h-5 text-background group-hover:rotate-180 transition-transform duration-500" />
+                  </button>
+                </div>
+
+                {/* Destination Address */}
+                <div className="relative z-10 space-y-2">
+                  <div className="flex items-center gap-2">
+                    <div className="w-3 h-3 rounded-full bg-primary ring-4 ring-primary/20" />
+                    <Label className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">Ziel (Rückfahrt)</Label>
+                  </div>
+                  <div className="ml-5">
+                    <div className="relative group">
+                      <div className="absolute inset-0 bg-gradient-to-r from-primary/10 to-transparent rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity" />
+                      <Input 
+                        defaultValue={dialogBooking?.from || "Mittlerer Hasenpfad 37, 60598 Frankfurt am Main"}
+                        className="h-14 pl-4 pr-12 rounded-2xl border-2 border-muted bg-card focus-visible:border-primary focus-visible:ring-2 focus-visible:ring-primary/20 text-sm font-medium transition-all"
+                      />
+                      <div className="absolute right-3 top-1/2 -translate-y-1/2 w-8 h-8 rounded-xl bg-muted/50 flex items-center justify-center">
+                        <MapPin className="w-4 h-4 text-muted-foreground" />
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
 
-              {/* Destination Address */}
-              <div className="space-y-2">
-                <Label className="text-xs text-muted-foreground">Ziel (Rückfahrt)</Label>
-                <Input 
-                  defaultValue={dialogBooking?.from || ""}
-                  className="h-12 rounded-xl border-2"
-                />
+              {/* Distance Badge */}
+              <div className="flex justify-center">
+                <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-muted/50 border border-border">
+                  <Route className="w-4 h-4 text-muted-foreground" />
+                  <span className="text-sm font-medium text-muted-foreground">Entfernung: <span className="text-foreground font-bold">5.5 km</span></span>
+                </div>
               </div>
-
-              {/* Distance */}
-              <p className="text-center text-sm text-muted-foreground">Entfernung: 5.5 km</p>
 
               {/* Quick Option */}
               <div className="flex justify-center">
-                <Button className="bg-secondary hover:bg-secondary/90 text-secondary-foreground gap-2 rounded-xl">
-                  <Zap className="w-4 h-4" />
-                  Schnellstmöglich
+                <Button className="h-12 px-8 bg-gradient-to-r from-secondary to-secondary/80 hover:from-secondary/90 hover:to-secondary/70 text-secondary-foreground gap-3 rounded-2xl shadow-lg shadow-secondary/25 hover:shadow-xl hover:shadow-secondary/30 transition-all duration-300 hover:-translate-y-0.5">
+                  <Zap className="w-5 h-5" />
+                  <span className="font-semibold">Schnellstmöglich</span>
                 </Button>
               </div>
 
-              {/* Date & Time */}
+              {/* Date & Time Cards */}
               <div className="grid grid-cols-2 gap-4">
-                <div className="space-y-2">
-                  <Label className="text-xs text-muted-foreground">Datum*</Label>
+                <div className="group p-4 rounded-2xl bg-gradient-to-br from-card to-muted/20 border-2 border-muted hover:border-primary/30 transition-all duration-300 hover:shadow-lg">
+                  <div className="flex items-center gap-2 mb-3">
+                    <div className="w-8 h-8 rounded-xl bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
+                      <CalendarDays className="w-4 h-4 text-primary" />
+                    </div>
+                    <Label className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">Datum <span className="text-destructive">*</span></Label>
+                  </div>
                   <Input 
                     type="date"
                     value={repeatDate}
                     onChange={(e) => setRepeatDate(e.target.value)}
-                    className="h-12 rounded-xl border-2"
+                    className="h-12 rounded-xl border-0 bg-background/80 focus-visible:ring-2 focus-visible:ring-primary/20 font-medium"
                   />
                 </div>
-                <div className="space-y-2">
-                  <Label className="text-xs text-muted-foreground">Uhrzeit*</Label>
+                <div className="group p-4 rounded-2xl bg-gradient-to-br from-card to-muted/20 border-2 border-muted hover:border-secondary/30 transition-all duration-300 hover:shadow-lg">
+                  <div className="flex items-center gap-2 mb-3">
+                    <div className="w-8 h-8 rounded-xl bg-secondary/10 flex items-center justify-center group-hover:bg-secondary/20 transition-colors">
+                      <Clock className="w-4 h-4 text-secondary" />
+                    </div>
+                    <Label className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">Uhrzeit <span className="text-destructive">*</span></Label>
+                  </div>
                   <Input 
                     type="time"
                     value={repeatTime}
                     onChange={(e) => setRepeatTime(e.target.value)}
-                    className="h-12 rounded-xl border-2"
+                    className="h-12 rounded-xl border-0 bg-background/80 focus-visible:ring-2 focus-visible:ring-secondary/20 font-medium"
                   />
                 </div>
               </div>
 
-              {/* Note */}
-              <div className="space-y-2">
-                <Label className="text-xs text-muted-foreground">Notiz (Optional)</Label>
+              {/* Note Section */}
+              <div className="group p-4 rounded-2xl bg-gradient-to-br from-card to-muted/20 border-2 border-muted hover:border-amber-500/30 transition-all duration-300">
+                <div className="flex items-center gap-2 mb-3">
+                  <div className="w-8 h-8 rounded-xl bg-amber-500/10 flex items-center justify-center group-hover:bg-amber-500/20 transition-colors">
+                    <MessageSquare className="w-4 h-4 text-amber-600" />
+                  </div>
+                  <Label className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">Notiz (Optional)</Label>
+                </div>
                 <Textarea 
-                  placeholder="Notiz hinzufügen (optional)"
+                  placeholder="Besondere Hinweise oder Anforderungen hinzufügen..."
                   value={repeatNote}
                   onChange={(e) => setRepeatNote(e.target.value)}
-                  className="min-h-[80px] rounded-xl border-2"
+                  className="min-h-[80px] rounded-xl border-0 bg-background/80 focus-visible:ring-2 focus-visible:ring-amber-500/20 resize-none"
                 />
               </div>
 
-              {/* Filter */}
-              <div className="space-y-3">
-                <h4 className="font-bold text-sm">Filter</h4>
+              {/* Filter Section */}
+              <div className="p-4 rounded-2xl bg-muted/30 border border-border">
+                <div className="flex items-center gap-2 mb-4">
+                  <div className="w-8 h-8 rounded-xl bg-foreground/10 flex items-center justify-center">
+                    <Settings className="w-4 h-4 text-foreground" />
+                  </div>
+                  <h4 className="font-bold text-sm">Filter</h4>
+                </div>
                 <div className="grid grid-cols-3 gap-3">
-                  <div className="space-y-1">
-                    <Label className="text-xs text-muted-foreground">Anbieter</Label>
+                  <div className="space-y-2">
+                    <Label className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider">Anbieter</Label>
                     <Select defaultValue="alle">
-                      <SelectTrigger className="h-10 rounded-lg">
+                      <SelectTrigger className="h-11 rounded-xl border-2 bg-background">
                         <SelectValue />
                       </SelectTrigger>
-                      <SelectContent>
+                      <SelectContent className="rounded-xl">
                         <SelectItem value="alle">Alle</SelectItem>
                         <SelectItem value="krankentransport">Krankentransport</SelectItem>
                         <SelectItem value="taxi">Taxi</SelectItem>
                       </SelectContent>
                     </Select>
                   </div>
-                  <div className="space-y-1">
-                    <Label className="text-xs text-muted-foreground">Transportart</Label>
+                  <div className="space-y-2">
+                    <Label className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider">Transportart</Label>
                     <Select defaultValue="transportschein">
-                      <SelectTrigger className="h-10 rounded-lg">
+                      <SelectTrigger className="h-11 rounded-xl border-2 bg-background">
                         <SelectValue />
                       </SelectTrigger>
-                      <SelectContent>
+                      <SelectContent className="rounded-xl">
                         <SelectItem value="transportschein">Transportschein</SelectItem>
                         <SelectItem value="selbstzahler">Selbstzahler</SelectItem>
                       </SelectContent>
                     </Select>
                   </div>
-                  <div className="space-y-1">
-                    <Label className="text-xs text-muted-foreground">Transportmittel</Label>
+                  <div className="space-y-2">
+                    <Label className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider">Transportmittel</Label>
                     <Select defaultValue="sitzend">
-                      <SelectTrigger className="h-10 rounded-lg">
+                      <SelectTrigger className="h-11 rounded-xl border-2 bg-background">
                         <SelectValue />
                       </SelectTrigger>
-                      <SelectContent>
+                      <SelectContent className="rounded-xl">
                         <SelectItem value="sitzend">Sitzend</SelectItem>
                         <SelectItem value="liegend">Liegend</SelectItem>
                         <SelectItem value="rollstuhl">Rollstuhl</SelectItem>
@@ -1306,62 +1374,98 @@ const PartnerDashboard = () => {
                 </div>
               </div>
 
-              {/* Available Providers */}
-              <div className="space-y-3">
-                <div className="flex items-center justify-between">
-                  <h4 className="font-bold text-sm">Verfügbare Anbieter ({availableProviders.length})</h4>
-                  <Button 
-                    variant="outline" 
-                    size="sm" 
-                    className="text-xs h-7 rounded-lg"
-                    onClick={() => {
-                      if (selectedProviders.length === availableProviders.length) {
-                        setSelectedProviders([]);
-                      } else {
-                        setSelectedProviders(availableProviders.map(p => p.id));
-                      }
-                    }}
-                  >
-                    Alle auswählen
-                  </Button>
-                </div>
-                <div className="space-y-2 max-h-[200px] overflow-y-auto">
-                  {availableProviders.map((provider) => (
-                    <div 
-                      key={provider.id}
-                      className={cn(
-                        "flex items-center gap-3 p-3 rounded-xl border-2 transition-all cursor-pointer",
-                        selectedProviders.includes(provider.id)
-                          ? "border-primary bg-primary/5"
-                          : "border-border hover:border-muted-foreground/30"
-                      )}
-                      onClick={() => {
-                        if (selectedProviders.includes(provider.id)) {
-                          setSelectedProviders(selectedProviders.filter(id => id !== provider.id));
-                        } else {
-                          setSelectedProviders([...selectedProviders, provider.id]);
-                        }
-                      }}
-                    >
-                      <Checkbox 
-                        checked={selectedProviders.includes(provider.id)}
-                        className="data-[state=checked]:bg-primary"
-                      />
-                      <div className="w-8 h-8 rounded-lg bg-destructive/10 flex items-center justify-center">
-                        <MapPin className="w-4 h-4 text-destructive" />
+              {/* Available Providers - Collapsible */}
+              <Collapsible open={providersExpanded} onOpenChange={setProvidersExpanded}>
+                <div className="rounded-2xl border-2 border-border overflow-hidden bg-card">
+                  <CollapsibleTrigger asChild>
+                    <button className="w-full p-4 flex items-center justify-between hover:bg-muted/30 transition-colors">
+                      <div className="flex items-center gap-3">
+                        <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-primary/20 to-secondary/20 flex items-center justify-center">
+                          <Truck className="w-5 h-5 text-primary" />
+                        </div>
+                        <div className="text-left">
+                          <h4 className="font-bold text-sm">Verfügbare Anbieter</h4>
+                          <p className="text-xs text-muted-foreground">{availableProviders.length} Anbieter verfügbar • {selectedProviders.length} ausgewählt</p>
+                        </div>
                       </div>
-                      <span className="font-semibold text-sm flex-1">{provider.name}</span>
-                      <span className="font-bold text-sm">{provider.price}</span>
+                      <div className="flex items-center gap-3">
+                        <Button 
+                          variant="outline" 
+                          size="sm" 
+                          className="text-xs h-8 rounded-lg border-2"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            if (selectedProviders.length === availableProviders.length) {
+                              setSelectedProviders([]);
+                            } else {
+                              setSelectedProviders(availableProviders.map(p => p.id));
+                            }
+                          }}
+                        >
+                          {selectedProviders.length === availableProviders.length ? "Keine" : "Alle"}
+                        </Button>
+                        <div className={cn(
+                          "w-8 h-8 rounded-lg bg-muted flex items-center justify-center transition-transform duration-300",
+                          providersExpanded && "rotate-180"
+                        )}>
+                          <ChevronDown className="w-4 h-4 text-muted-foreground" />
+                        </div>
+                      </div>
+                    </button>
+                  </CollapsibleTrigger>
+                  
+                  <CollapsibleContent>
+                    <div className="px-4 pb-4 space-y-2 max-h-[250px] overflow-y-auto">
+                      {availableProviders.map((provider, index) => (
+                        <div 
+                          key={provider.id}
+                          className={cn(
+                            "flex items-center gap-4 p-4 rounded-xl border-2 transition-all duration-300 cursor-pointer group animate-fade-in",
+                            selectedProviders.includes(provider.id)
+                              ? "border-primary bg-gradient-to-r from-primary/10 to-primary/5 shadow-md"
+                              : "border-transparent bg-muted/30 hover:bg-muted/50 hover:border-muted"
+                          )}
+                          style={{ animationDelay: `${index * 50}ms` }}
+                          onClick={() => {
+                            if (selectedProviders.includes(provider.id)) {
+                              setSelectedProviders(selectedProviders.filter(id => id !== provider.id));
+                            } else {
+                              setSelectedProviders([...selectedProviders, provider.id]);
+                            }
+                          }}
+                        >
+                          <div className={cn(
+                            "w-6 h-6 rounded-lg border-2 flex items-center justify-center transition-all duration-300",
+                            selectedProviders.includes(provider.id)
+                              ? "bg-primary border-primary"
+                              : "border-muted-foreground/30 group-hover:border-primary/50"
+                          )}>
+                            {selectedProviders.includes(provider.id) && (
+                              <CheckCircle2 className="w-4 h-4 text-primary-foreground" />
+                            )}
+                          </div>
+                          <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-destructive/20 to-destructive/10 flex items-center justify-center">
+                            <MapPin className="w-5 h-5 text-destructive" />
+                          </div>
+                          <div className="flex-1">
+                            <span className="font-semibold text-sm block">{provider.name}</span>
+                            <span className="text-xs text-muted-foreground">Verfügbar</span>
+                          </div>
+                          <div className="text-right">
+                            <span className="font-bold text-lg text-foreground">{provider.price}</span>
+                          </div>
+                        </div>
+                      ))}
                     </div>
-                  ))}
+                  </CollapsibleContent>
                 </div>
-              </div>
+              </Collapsible>
 
               {/* Action Buttons */}
-              <div className="flex gap-3 pt-2">
+              <div className="flex gap-4 pt-2">
                 <Button 
                   variant="outline" 
-                  className="flex-1 h-12 rounded-xl border-2"
+                  className="flex-1 h-14 rounded-2xl border-2 font-semibold text-base hover:bg-muted/50 transition-all duration-300"
                   onClick={() => {
                     setRepeatDialogOpen(false);
                     setRepeatDate("");
@@ -1373,7 +1477,13 @@ const PartnerDashboard = () => {
                   Abbrechen
                 </Button>
                 <Button 
-                  className="flex-1 h-12 rounded-xl bg-secondary hover:bg-secondary/90 text-secondary-foreground"
+                  className={cn(
+                    "flex-1 h-14 rounded-2xl font-semibold text-base shadow-lg transition-all duration-300 hover:-translate-y-0.5",
+                    selectedProviders.length > 0
+                      ? "bg-gradient-to-r from-secondary to-secondary/80 hover:shadow-xl hover:shadow-secondary/30 text-secondary-foreground"
+                      : "bg-muted text-muted-foreground cursor-not-allowed"
+                  )}
+                  disabled={selectedProviders.length === 0}
                   onClick={() => {
                     setRepeatDialogOpen(false);
                     setRepeatDate("");
@@ -1382,6 +1492,7 @@ const PartnerDashboard = () => {
                     setSelectedProviders([]);
                   }}
                 >
+                  <CheckCircle2 className="w-5 h-5 mr-2" />
                   Buchen ({selectedProviders.length} ausgewählt)
                 </Button>
               </div>
