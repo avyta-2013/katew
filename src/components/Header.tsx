@@ -43,21 +43,12 @@ export const Header = () => {
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16 md:h-20">
           {/* Logo */}
-          <a href="/" className="flex items-center gap-3 group">
-            <div className="relative w-10 h-10 md:w-11 md:h-11 rounded-2xl bg-gradient-to-br from-primary via-primary to-secondary flex items-center justify-center shadow-lg group-hover:shadow-xl transition-all duration-300 group-hover:scale-105">
-              <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-white/20 to-transparent" />
-              <svg viewBox="0 0 24 24" className="w-5 h-5 md:w-6 md:h-6 text-primary-foreground relative z-10" fill="currentColor">
-                <path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-9 12h-2v-2h2v2zm0-4h-2V6h2v4z"/>
-              </svg>
-            </div>
-            <div className="flex flex-col">
-              <span className="text-xl md:text-2xl font-bold tracking-tight bg-gradient-to-r from-primary via-primary to-secondary bg-clip-text text-transparent leading-none">
-                katew
-              </span>
-              <span className="text-[9px] md:text-[10px] font-medium text-muted-foreground uppercase tracking-[0.2em] mt-0.5">
-                Medical Transport
-              </span>
-            </div>
+          <a href="/" className="flex items-center group">
+            <img 
+              src="/katew-logo.png" 
+              alt="katew Medical Transport" 
+              className="h-10 md:h-12 w-auto object-contain group-hover:scale-105 transition-transform duration-300"
+            />
           </a>
 
           {/* Navigation - Center */}
