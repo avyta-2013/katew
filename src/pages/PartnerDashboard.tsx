@@ -1,5 +1,5 @@
 import { useState, useRef } from "react";
-import { User, Calendar, Settings, LogOut, Bell, Lock, Eye, EyeOff, Building2, Phone, Mail, MapPin, CalendarDays, CheckCircle2, XCircle, Clock, LayoutDashboard, TrendingUp, Camera, Upload, ArrowUpRight, Truck, Route, Timer, Sparkles, Ticket, MoreHorizontal, Star, RefreshCw, FileText, Users, Plus, Search, ChevronLeft, ChevronRight } from "lucide-react";
+import { User, Calendar, Settings, LogOut, Bell, Lock, Eye, EyeOff, Building2, Phone, Mail, MapPin, CalendarDays, CheckCircle2, XCircle, Clock, LayoutDashboard, TrendingUp, Camera, Upload, ArrowUpRight, Truck, Route, Timer, Sparkles, Ticket, MoreHorizontal, Star, RefreshCw, FileText, Users, Plus, Search, ChevronLeft, ChevronRight, Menu, HelpCircle, MessageSquare } from "lucide-react";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -12,11 +12,11 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { Progress } from "@/components/ui/progress";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { Textarea } from "@/components/ui/textarea";
 import { cn } from "@/lib/utils";
-import { Header } from "@/components/Header";
-import { Footer } from "@/components/Footer";
+import { Link } from "react-router-dom";
+import logoTransparent from "@/assets/katew-logo-transparent.png";
 
 type NavItem = "uebersicht" | "profil" | "buchungen" | "tickets" | "einstellungen";
 type AccountType = "einrichtung" | "privat";
@@ -1147,11 +1147,137 @@ const PartnerDashboard = () => {
     </div>
   );
 
+  const renderAdminHeader = () => (
+    <header className="h-16 bg-card border-b border-border flex items-center justify-between px-6 sticky top-0 z-50">
+      {/* Left side - Logo & Breadcrumb */}
+      <div className="flex items-center gap-6">
+        <Link to="/" className="flex items-center gap-2">
+          <img src={logoTransparent} alt="katew" className="h-8 w-auto" />
+        </Link>
+        <Separator orientation="vertical" className="h-6" />
+        <div className="flex items-center gap-2 text-sm">
+          <span className="text-muted-foreground">Partner</span>
+          <span className="text-muted-foreground">/</span>
+          <span className="font-medium text-foreground capitalize">
+            {activeNav === "uebersicht" && "Übersicht"}
+            {activeNav === "profil" && "Profil"}
+            {activeNav === "buchungen" && "Buchungen"}
+            {activeNav === "tickets" && "Meine Tickets"}
+            {activeNav === "einstellungen" && "Einstellungen"}
+          </span>
+        </div>
+      </div>
+
+      {/* Right side - Actions */}
+      <div className="flex items-center gap-3">
+        {/* Search */}
+        <div className="relative hidden md:block">
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+          <Input 
+            placeholder="Suchen..." 
+            className="w-64 h-9 pl-9 bg-muted/50 border-0 focus-visible:ring-1 focus-visible:ring-primary/50 rounded-lg text-sm"
+          />
+        </div>
+
+        {/* Help */}
+        <Button variant="ghost" size="icon" className="h-9 w-9 text-muted-foreground hover:text-foreground">
+          <HelpCircle className="w-5 h-5" />
+        </Button>
+
+        {/* Notifications */}
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button variant="ghost" size="icon" className="h-9 w-9 text-muted-foreground hover:text-foreground relative">
+              <Bell className="w-5 h-5" />
+              <span className="absolute -top-0.5 -right-0.5 w-4 h-4 bg-destructive text-destructive-foreground text-[10px] font-bold rounded-full flex items-center justify-center">
+                3
+              </span>
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="end" className="w-80">
+            <div className="p-3 border-b border-border">
+              <h4 className="font-semibold text-sm">Benachrichtigungen</h4>
+            </div>
+            <div className="py-2">
+              <DropdownMenuItem className="flex flex-col items-start gap-1 p-3 cursor-pointer">
+                <div className="flex items-center gap-2">
+                  <div className="w-2 h-2 rounded-full bg-primary" />
+                  <span className="font-medium text-sm">Neue Buchungsbestätigung</span>
+                </div>
+                <span className="text-xs text-muted-foreground pl-4">Vor 10 Minuten</span>
+              </DropdownMenuItem>
+              <DropdownMenuItem className="flex flex-col items-start gap-1 p-3 cursor-pointer">
+                <div className="flex items-center gap-2">
+                  <div className="w-2 h-2 rounded-full bg-secondary" />
+                  <span className="font-medium text-sm">Transport abgeschlossen</span>
+                </div>
+                <span className="text-xs text-muted-foreground pl-4">Vor 2 Stunden</span>
+              </DropdownMenuItem>
+              <DropdownMenuItem className="flex flex-col items-start gap-1 p-3 cursor-pointer">
+                <div className="flex items-center gap-2">
+                  <div className="w-2 h-2 rounded-full bg-amber-500" />
+                  <span className="font-medium text-sm">Ticket-Antwort erhalten</span>
+                </div>
+                <span className="text-xs text-muted-foreground pl-4">Vor 1 Tag</span>
+              </DropdownMenuItem>
+            </div>
+            <DropdownMenuSeparator />
+            <DropdownMenuItem className="justify-center text-primary font-medium cursor-pointer">
+              Alle anzeigen
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
+
+        <Separator orientation="vertical" className="h-6" />
+
+        {/* User Menu */}
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button variant="ghost" className="h-9 gap-2 px-2 hover:bg-muted/50">
+              <Avatar className="w-7 h-7 border border-border">
+                <AvatarImage src={profileImage || ""} />
+                <AvatarFallback className="bg-gradient-to-br from-primary to-secondary text-white text-xs font-bold">
+                  DL
+                </AvatarFallback>
+              </Avatar>
+              <div className="hidden md:flex flex-col items-start">
+                <span className="text-sm font-medium">Dino Lalic</span>
+              </div>
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="end" className="w-56">
+            <div className="p-3 border-b border-border">
+              <p className="font-semibold text-sm">Dino Lalic</p>
+              <p className="text-xs text-muted-foreground">AVYTA Pflegegesellschaft</p>
+            </div>
+            <DropdownMenuItem onClick={() => setActiveNav("profil")} className="cursor-pointer">
+              <User className="w-4 h-4 mr-2" />
+              Mein Profil
+            </DropdownMenuItem>
+            <DropdownMenuItem onClick={() => setActiveNav("einstellungen")} className="cursor-pointer">
+              <Settings className="w-4 h-4 mr-2" />
+              Einstellungen
+            </DropdownMenuItem>
+            <DropdownMenuItem className="cursor-pointer">
+              <MessageSquare className="w-4 h-4 mr-2" />
+              Support
+            </DropdownMenuItem>
+            <DropdownMenuSeparator />
+            <DropdownMenuItem onClick={() => window.location.href = "/"} className="text-destructive cursor-pointer">
+              <LogOut className="w-4 h-4 mr-2" />
+              Abmelden
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
+      </div>
+    </header>
+  );
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-background via-muted/20 to-background flex flex-col">
-      <Header />
+      {renderAdminHeader()}
       
-      <div className="flex flex-1 pt-20 md:pt-24">
+      <div className="flex flex-1">
         {renderSidebar()}
         
         <main className="flex-1 p-6 max-w-5xl overflow-y-auto">
@@ -1162,8 +1288,6 @@ const PartnerDashboard = () => {
           {activeNav === "einstellungen" && renderSettings()}
         </main>
       </div>
-
-      <Footer />
     </div>
   );
 };
