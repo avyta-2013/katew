@@ -185,19 +185,6 @@ export default function Karriere() {
                   </span>
                 </Button>
               </div>
-
-              {/* Trust Badges */}
-              <div className="flex flex-wrap justify-center gap-8 animate-fade-in" style={{ animationDelay: "0.4s" }}>
-                {[
-                  { icon: Shield, text: "Top Arbeitgeber 2025" },
-                  { icon: Globe, text: "Remote-First" },
-                ].map((badge, i) => (
-                  <div key={i} className="flex items-center gap-2 text-muted-foreground">
-                    <badge.icon className="w-5 h-5 text-primary" />
-                    <span className="font-medium">{badge.text}</span>
-                  </div>
-                ))}
-              </div>
             </div>
           </div>
         </section>
