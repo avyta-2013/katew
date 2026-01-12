@@ -47,8 +47,7 @@ const partnerTypes = [
 const processSteps = [
   { step: "01", title: "Registrieren", description: "Kostenlos in 30 Sekunden" },
   { step: "02", title: "Anfrage stellen", description: "Fahrtdetails eingeben" },
-  { step: "03", title: "Angebote erhalten", description: "Von geprüften Anbietern" },
-  { step: "04", title: "Buchen", description: "Bestes Angebot wählen" },
+  { step: "03", title: "Buchen", description: "Bestes Angebot wählen" },
 ];
 
 export const PartnersSection = () => {
@@ -173,10 +172,10 @@ export const PartnersSection = () => {
           >
             <div className="text-center mb-10">
               <h3 className="text-2xl md:text-3xl font-bold mb-2">So einfach geht's</h3>
-              <p className="text-muted-foreground">In 4 Schritten zur gebuchten Fahrt</p>
+              <p className="text-muted-foreground">In 3 Schritten zur gebuchten Fahrt</p>
             </div>
 
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto">
+            <div className="grid grid-cols-3 gap-4 max-w-3xl mx-auto">
               {processSteps.map((step, index) => (
                 <motion.div
                   key={index}
