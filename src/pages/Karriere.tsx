@@ -35,36 +35,6 @@ import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { Link } from "react-router-dom";
 
-const values = [
-  {
-    icon: Heart,
-    title: "Menschen im Fokus",
-    description: "Wir verbessern täglich das Leben tausender Patienten durch zuverlässige Krankenfahrten.",
-    gradient: "from-rose-500 to-pink-500",
-    bgGradient: "from-rose-500/10 to-pink-500/10",
-  },
-  {
-    icon: Lightbulb,
-    title: "Innovation leben",
-    description: "Wir digitalisieren eine traditionelle Branche und setzen neue Standards.",
-    gradient: "from-amber-500 to-orange-500",
-    bgGradient: "from-amber-500/10 to-orange-500/10",
-  },
-  {
-    icon: Users,
-    title: "Teamgeist",
-    description: "Gemeinsam erreichen wir mehr. Offene Kommunikation und gegenseitige Unterstützung.",
-    gradient: "from-blue-500 to-cyan-500",
-    bgGradient: "from-blue-500/10 to-cyan-500/10",
-  },
-  {
-    icon: Rocket,
-    title: "Wachstum",
-    description: "Persönliche Entwicklung und Karrierechancen in einem wachsenden Unternehmen.",
-    gradient: "from-violet-500 to-purple-500",
-    bgGradient: "from-violet-500/10 to-purple-500/10",
-  },
-];
 
 const benefits = [
   { icon: Laptop, text: "Remote-First Kultur", description: "Arbeite von überall" },
@@ -122,7 +92,7 @@ const perks = [
 export default function Karriere() {
   const [animatedStats, setAnimatedStats] = useState(false);
   const [activeTestimonial, setActiveTestimonial] = useState(0);
-  const [hoveredValue, setHoveredValue] = useState<number | null>(null);
+  const [hoveredBenefit, setHoveredBenefit] = useState<number | null>(null);
 
   useEffect(() => {
     const timer = setTimeout(() => setAnimatedStats(true), 500);
@@ -264,105 +234,108 @@ export default function Karriere() {
           </div>
         </section>
 
-        {/* Values & Benefits Combined Section */}
+        {/* Benefits Section */}
         <section className="py-20 md:py-32 relative overflow-hidden">
           {/* Background */}
-          <div className="absolute inset-0 bg-gradient-to-b from-muted/30 via-muted/50 to-muted/30" />
+          <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-background to-secondary/5" />
           <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-border to-transparent" />
           <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-border to-transparent" />
+          
+          {/* Decorative Elements */}
+          <div className="absolute top-20 right-10 w-72 h-72 bg-primary/10 rounded-full blur-[100px]" />
+          <div className="absolute bottom-20 left-10 w-64 h-64 bg-secondary/10 rounded-full blur-[80px]" />
           
           <div className="container mx-auto px-4 relative">
             <div className="max-w-6xl mx-auto">
               {/* Section Header */}
               <div className="text-center mb-16">
                 <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-medium mb-4">
-                  <Target className="w-4 h-4" />
-                  Was uns ausmacht
+                  <Award className="w-4 h-4" />
+                  Deine Vorteile
                 </div>
                 <h2 className="text-4xl md:text-5xl font-bold mb-4">
-                  Unsere <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">Werte & Vorteile</span>
+                  Was wir <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">bieten</span>
                 </h2>
                 <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-                  Diese Prinzipien leiten uns – und das bieten wir dir
+                  Bei katew investieren wir in unser Team – für ein Arbeitsumfeld, das inspiriert
                 </p>
               </div>
-              
-              {/* Values Grid */}
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
-                {values.map((value, index) => {
-                  const Icon = value.icon;
-                  const isHovered = hoveredValue === index;
+
+              {/* Main Benefits - Large Cards */}
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-10">
+                {benefits.slice(0, 3).map((benefit, index) => {
+                  const Icon = benefit.icon;
+                  const isHovered = hoveredBenefit === index;
+                  const gradients = [
+                    "from-blue-500 to-cyan-500",
+                    "from-violet-500 to-purple-500",
+                    "from-rose-500 to-pink-500"
+                  ];
                   return (
                     <div
                       key={index}
                       className="group relative"
-                      onMouseEnter={() => setHoveredValue(index)}
-                      onMouseLeave={() => setHoveredValue(null)}
+                      onMouseEnter={() => setHoveredBenefit(index)}
+                      onMouseLeave={() => setHoveredBenefit(null)}
                     >
-                      {/* Glow Effect */}
-                      <div className={`absolute inset-0 bg-gradient-to-br ${value.bgGradient} rounded-3xl blur-xl transition-opacity duration-500 ${isHovered ? "opacity-100" : "opacity-0"}`} />
+                      <div className={`absolute inset-0 bg-gradient-to-br ${gradients[index]}/20 rounded-3xl blur-xl transition-opacity duration-500 ${isHovered ? "opacity-100" : "opacity-0"}`} />
                       
-                      <div className={`relative bg-card rounded-3xl border border-border/50 p-8 text-center transition-all duration-500 ${isHovered ? "border-primary/40 -translate-y-2 shadow-2xl" : "hover:shadow-lg"}`}>
-                        {/* Icon */}
-                        <div className={`w-20 h-20 rounded-3xl bg-gradient-to-br ${value.gradient} flex items-center justify-center mx-auto mb-6 transition-transform duration-500 ${isHovered ? "scale-110 rotate-3" : ""}`}>
-                          <Icon className="w-10 h-10 text-white" />
+                      <div className={`relative h-full bg-card rounded-3xl border border-border/50 p-8 transition-all duration-500 ${isHovered ? "border-primary/40 -translate-y-2 shadow-2xl" : "hover:shadow-lg"}`}>
+                        <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${gradients[index]} flex items-center justify-center mb-6 transition-transform duration-500 ${isHovered ? "scale-110 rotate-3" : ""}`}>
+                          <Icon className="w-8 h-8 text-white" />
                         </div>
                         
-                        <h3 className="font-bold text-xl mb-3">{value.title}</h3>
-                        <p className="text-muted-foreground leading-relaxed">{value.description}</p>
+                        <h3 className="font-bold text-xl mb-2">{benefit.text}</h3>
+                        <p className="text-muted-foreground leading-relaxed">{benefit.description}</p>
                         
-                        {/* Decorative Line */}
-                        <div className={`absolute bottom-0 left-1/2 -translate-x-1/2 h-1 bg-gradient-to-r ${value.gradient} rounded-full transition-all duration-500 ${isHovered ? "w-20" : "w-0"}`} />
+                        <div className={`absolute bottom-0 left-1/2 -translate-x-1/2 h-1 bg-gradient-to-r ${gradients[index]} rounded-full transition-all duration-500 ${isHovered ? "w-16" : "w-0"}`} />
                       </div>
                     </div>
                   );
                 })}
               </div>
 
-              {/* Divider */}
-              <div className="flex items-center gap-4 mb-16">
-                <div className="flex-1 h-px bg-gradient-to-r from-transparent via-border to-border" />
-                <div className="px-4 py-2 rounded-full bg-card border border-border/50">
-                  <Award className="w-5 h-5 text-primary" />
-                </div>
-                <div className="flex-1 h-px bg-gradient-to-l from-transparent via-border to-border" />
-              </div>
-
-              {/* Benefits Grid */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-5 mb-12">
-                {benefits.map((benefit, index) => {
+              {/* Secondary Benefits - Smaller Cards */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-10">
+                {benefits.slice(3).map((benefit, index) => {
                   const Icon = benefit.icon;
                   return (
                     <div
                       key={index}
-                      className="group relative bg-card rounded-2xl border border-border/50 p-6 hover:border-primary/40 hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
+                      className="group flex items-center gap-5 bg-card rounded-2xl border border-border/50 p-6 hover:border-primary/40 hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
                     >
-                      <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-primary/10 to-secondary/10 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                      <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-primary/10 to-secondary/10 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
                         <Icon className="w-7 h-7 text-primary" />
                       </div>
-                      <h3 className="font-bold text-lg mb-1">{benefit.text}</h3>
-                      <p className="text-sm text-muted-foreground">{benefit.description}</p>
+                      <div>
+                        <h3 className="font-bold text-lg mb-0.5">{benefit.text}</h3>
+                        <p className="text-sm text-muted-foreground">{benefit.description}</p>
+                      </div>
                     </div>
                   );
                 })}
               </div>
 
-              {/* Perks Cards */}
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
-                {perks.map((perk, index) => {
-                  const Icon = perk.icon;
-                  return (
-                    <div key={index} className="flex items-start gap-4 p-5 bg-card/50 rounded-xl border border-border/30">
-                      <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center flex-shrink-0">
-                        <Icon className="w-5 h-5 text-primary" />
-                      </div>
-                      <div>
-                        <h4 className="font-semibold mb-0.5">{perk.title}</h4>
-                        <p className="text-sm text-muted-foreground">{perk.desc}</p>
-                      </div>
-                    </div>
-                  );
-                })}
+              {/* Perks Strip */}
+              <div className="bg-gradient-to-r from-primary/10 via-secondary/10 to-primary/10 rounded-2xl p-1">
+                <div className="bg-card rounded-xl p-6">
+                  <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+                    {perks.map((perk, index) => {
+                      const Icon = perk.icon;
+                      return (
+                        <div key={index} className="flex items-center gap-3 group">
+                          <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-primary/10 to-secondary/10 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
+                            <Icon className="w-5 h-5 text-primary" />
+                          </div>
+                          <div>
+                            <h4 className="font-semibold text-sm">{perk.title}</h4>
+                            <p className="text-xs text-muted-foreground">{perk.desc}</p>
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
               </div>
             </div>
           </div>
