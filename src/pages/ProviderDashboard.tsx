@@ -146,23 +146,51 @@ const ProviderDashboard = () => {
   };
 
   const renderSidebar = () => (
-    <div className="w-64 bg-card border-r border-border flex flex-col">
-      {/* Quick Stats */}
-      <div className="p-3 border-b border-border/50 bg-muted/20">
-        <div className="grid grid-cols-2 gap-2">
-          <div className="text-center p-2 rounded-lg bg-card">
-            <p className="text-lg font-bold text-foreground">{kpiData.avgRating}</p>
-            <p className="text-[10px] text-muted-foreground">Bewertung</p>
+    <div className="w-72 bg-gradient-to-b from-card via-card to-muted/20 border-r border-border/50 flex flex-col shadow-xl">
+      {/* Logo Section */}
+      <div className="p-5 border-b border-border/30">
+        <Link to="/" className="flex items-center gap-3 group">
+          <div className="relative w-10 h-10 rounded-2xl bg-gradient-to-br from-primary via-primary to-secondary flex items-center justify-center shadow-lg group-hover:shadow-xl transition-all duration-300 group-hover:scale-105">
+            <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-white/20 to-transparent" />
+            <svg viewBox="0 0 24 24" className="w-5 h-5 text-primary-foreground relative z-10" fill="currentColor">
+              <path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-9 12h-2v-2h2v2zm0-4h-2V6h2v4z"/>
+            </svg>
           </div>
-          <div className="text-center p-2 rounded-lg bg-card">
-            <p className="text-lg font-bold text-foreground">{kpiData.completionRate}%</p>
-            <p className="text-[10px] text-muted-foreground">Erfolgsrate</p>
+          <div className="flex flex-col">
+            <span className="text-xl font-black tracking-tight bg-gradient-to-r from-primary via-primary to-secondary bg-clip-text text-transparent leading-none" style={{ fontFamily: "'Inter', system-ui, sans-serif", letterSpacing: '-0.03em' }}>
+              katew
+            </span>
+            <span className="text-[9px] font-semibold text-muted-foreground uppercase tracking-[0.2em]" style={{ fontFamily: "'Inter', system-ui, sans-serif" }}>
+              Anbieter Portal
+            </span>
+          </div>
+        </Link>
+      </div>
+
+      {/* Quick Stats Cards */}
+      <div className="p-4">
+        <div className="grid grid-cols-2 gap-3">
+          <div className="relative overflow-hidden rounded-xl bg-gradient-to-br from-secondary/10 to-secondary/5 p-3 border border-secondary/20">
+            <div className="absolute top-0 right-0 w-12 h-12 bg-secondary/10 rounded-full blur-xl" />
+            <div className="flex items-center gap-1">
+              <Star className="w-3 h-3 text-secondary fill-secondary" />
+              <p className="text-xl font-bold text-secondary">{kpiData.avgRating}</p>
+            </div>
+            <p className="text-[10px] text-muted-foreground font-medium">Bewertung</p>
+          </div>
+          <div className="relative overflow-hidden rounded-xl bg-gradient-to-br from-primary/10 to-primary/5 p-3 border border-primary/20">
+            <div className="absolute top-0 right-0 w-12 h-12 bg-primary/10 rounded-full blur-xl" />
+            <p className="text-xl font-bold text-primary">{kpiData.completionRate}%</p>
+            <p className="text-[10px] text-muted-foreground font-medium">Erfolgsrate</p>
           </div>
         </div>
       </div>
 
-      {/* Navigation */}
-      <nav className="flex-1 p-2 space-y-0.5">
+      {/* Navigation Section */}
+      <div className="px-3 mb-2">
+        <p className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider px-3">Navigation</p>
+      </div>
+      <nav className="flex-1 px-3 space-y-1 overflow-y-auto">
         {navItems.map((item) => {
           const Icon = item.icon;
           const isActive = activeNav === item.id;
@@ -171,69 +199,50 @@ const ProviderDashboard = () => {
               key={item.id}
               onClick={() => setActiveNav(item.id)}
               className={cn(
-                "w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-left transition-all duration-200",
+                "w-full flex items-center gap-3 px-4 py-3 rounded-xl text-left transition-all duration-300 group relative overflow-hidden",
                 isActive
-                  ? "bg-primary text-primary-foreground shadow-md"
-                  : "text-muted-foreground hover:bg-muted/80 hover:text-foreground"
+                  ? "bg-gradient-to-r from-secondary to-secondary/80 text-secondary-foreground shadow-lg shadow-secondary/25"
+                  : "text-muted-foreground hover:bg-muted/60 hover:text-foreground"
               )}
             >
-              <Icon className="w-4 h-4" />
-              <span className="text-sm font-medium">{item.label}</span>
+              {isActive && (
+                <div className="absolute inset-0 bg-gradient-to-r from-white/10 to-transparent" />
+              )}
+              <div className={cn(
+                "w-8 h-8 rounded-lg flex items-center justify-center transition-all duration-300",
+                isActive 
+                  ? "bg-white/20" 
+                  : "bg-muted/50 group-hover:bg-muted"
+              )}>
+                <Icon className="w-4 h-4" />
+              </div>
+              <span className="text-sm font-medium relative z-10">{item.label}</span>
               {item.id === "buchungen" && kpiData.offeneBuchungen > 0 && (
-                <Badge className="ml-auto text-[10px] h-5 px-1.5 bg-destructive text-destructive-foreground border-0">
+                <Badge className="ml-auto text-[10px] h-5 px-1.5 bg-destructive text-destructive-foreground border-0 shadow-md">
                   {kpiData.offeneBuchungen}
                 </Badge>
+              )}
+              {isActive && (
+                <div className="ml-auto w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
               )}
             </button>
           );
         })}
       </nav>
 
-      {/* Profile Section - Bottom */}
-      <div className="mt-auto border-t border-border/50">
-        <div className="p-3">
-          <div className="flex items-center gap-3 p-2 rounded-lg bg-muted/30">
-            <div className="relative group">
-              <Avatar className="w-10 h-10 border-2 border-background ring-2 ring-secondary/30">
-                <AvatarImage src={profileImage || ""} />
-                <AvatarFallback className="bg-gradient-to-br from-secondary to-primary text-white text-xs font-bold">
-                  MT
-                </AvatarFallback>
-              </Avatar>
-              <button
-                onClick={triggerFileInput}
-                className="absolute inset-0 flex items-center justify-center bg-black/60 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-200 cursor-pointer"
-              >
-                <Camera className="w-3 h-3 text-white" />
-              </button>
-              <input
-                ref={fileInputRef}
-                type="file"
-                accept="image/*"
-                onChange={handleImageUpload}
-                className="hidden"
-              />
-            </div>
-            <div className="flex-1 min-w-0">
-              <h2 className="font-semibold text-xs text-foreground truncate">MediTrans GmbH</h2>
-              <p className="text-[10px] text-muted-foreground truncate">Krankentransport</p>
-            </div>
-            <Badge className="text-[9px] bg-secondary/20 text-secondary border-0 px-1.5">
-              Verifiziert
-            </Badge>
-          </div>
-        </div>
-        
-        {/* Abmelden Button */}
-        <div className="px-3 pb-3">
-          <button
-            onClick={() => window.location.href = "/"}
-            className="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-left transition-all duration-200 text-destructive hover:bg-destructive/10"
-          >
+      {/* Bottom Actions */}
+      <div className="mt-auto p-4 space-y-2">
+        <Separator className="mb-4 bg-border/30" />
+        <Button
+          variant="ghost"
+          onClick={() => window.location.href = "/"}
+          className="w-full justify-start gap-3 h-11 text-destructive hover:text-destructive hover:bg-destructive/10 rounded-xl"
+        >
+          <div className="w-8 h-8 rounded-lg bg-destructive/10 flex items-center justify-center">
             <LogOut className="w-4 h-4" />
-            <span className="text-sm font-medium">Abmelden</span>
-          </button>
-        </div>
+          </div>
+          <span className="text-sm font-medium">Abmelden</span>
+        </Button>
       </div>
     </div>
   );
@@ -2096,138 +2105,134 @@ const ProviderDashboard = () => {
   );
 
   const renderAdminHeader = () => (
-    <header className="h-16 bg-card border-b border-border flex items-center justify-between px-6 sticky top-0 z-50">
-      {/* Left side - Logo & Breadcrumb */}
-      <div className="flex items-center gap-6">
-        <Link to="/" className="flex items-center gap-3 group">
-          <div className="relative w-9 h-9 rounded-xl bg-gradient-to-br from-primary via-primary to-secondary flex items-center justify-center shadow-md">
-            <div className="absolute inset-0 rounded-xl bg-gradient-to-br from-white/20 to-transparent" />
-            <svg viewBox="0 0 24 24" className="w-5 h-5 text-primary-foreground relative z-10" fill="currentColor">
-              <path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-9 12h-2v-2h2v2zm0-4h-2V6h2v4z"/>
-            </svg>
-          </div>
-          <div className="flex flex-col">
-            <span className="text-lg font-black tracking-tight bg-gradient-to-r from-primary via-primary to-secondary bg-clip-text text-transparent leading-none" style={{ fontFamily: "'Inter', system-ui, sans-serif", letterSpacing: '-0.03em' }}>
-              katew
-            </span>
-            <span className="text-[8px] font-semibold text-muted-foreground uppercase tracking-[0.25em]" style={{ fontFamily: "'Inter', system-ui, sans-serif" }}>
-              Medical Transport
-            </span>
-          </div>
-        </Link>
-        <Separator orientation="vertical" className="h-6" />
-        <div className="flex items-center gap-2 text-sm">
-          <span className="text-muted-foreground">Anbieter</span>
-          <span className="text-muted-foreground">/</span>
-          <span className="font-medium text-foreground capitalize">
-            {activeNav === "uebersicht" && "Übersicht"}
-            {activeNav === "profil" && "Profil"}
-            {activeNav === "buchungen" && "Buchungen"}
-            {activeNav === "aktivitaeten" && "Aktivitäten"}
-            {activeNav === "bewertungen" && "Bewertungen"}
-            {activeNav === "tickets" && "Meine Tickets"}
-            {activeNav === "einstellungen" && "Einstellungen"}
-          </span>
+    <header className="h-16 bg-gradient-to-r from-card via-card to-muted/30 border-b border-border/50 flex items-center justify-between px-6 sticky top-0 z-50 backdrop-blur-xl">
+      {/* Left side - Search */}
+      <div className="flex items-center gap-4">
+        <div className="relative group">
+          <div className="absolute inset-0 bg-gradient-to-r from-secondary/20 to-primary/20 rounded-xl blur-lg opacity-0 group-focus-within:opacity-100 transition-opacity duration-300" />
+          <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground group-focus-within:text-secondary transition-colors" />
+          <Input 
+            placeholder="Suchen..." 
+            className="w-80 h-10 pl-11 bg-muted/40 border-0 focus-visible:ring-2 focus-visible:ring-secondary/30 rounded-xl text-sm relative"
+          />
         </div>
       </div>
 
       {/* Right side - Actions */}
-      <div className="flex items-center gap-3">
-        {/* Search */}
-        <div className="relative hidden md:block">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-          <Input 
-            placeholder="Suchen..." 
-            className="w-64 h-9 pl-9 bg-muted/50 border-0 focus-visible:ring-1 focus-visible:ring-primary/50 rounded-lg text-sm"
-          />
-        </div>
-
+      <div className="flex items-center gap-2">
         {/* Help */}
-        <Button variant="ghost" size="icon" className="h-9 w-9 text-muted-foreground hover:text-foreground">
+        <Button variant="ghost" size="icon" className="h-10 w-10 text-muted-foreground hover:text-foreground rounded-xl hover:bg-muted/60 transition-all duration-200">
           <HelpCircle className="w-5 h-5" />
         </Button>
 
         {/* Notifications */}
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button variant="ghost" size="icon" className="h-9 w-9 text-muted-foreground hover:text-foreground relative">
+            <Button variant="ghost" size="icon" className="h-10 w-10 text-muted-foreground hover:text-foreground rounded-xl hover:bg-muted/60 transition-all duration-200 relative">
               <Bell className="w-5 h-5" />
-              <span className="absolute -top-0.5 -right-0.5 w-4 h-4 bg-destructive text-destructive-foreground text-[10px] font-bold rounded-full flex items-center justify-center">
+              <span className="absolute top-1 right-1 w-4 h-4 bg-gradient-to-r from-destructive to-destructive/80 text-destructive-foreground text-[10px] font-bold rounded-full flex items-center justify-center shadow-lg animate-pulse">
                 5
               </span>
             </Button>
           </DropdownMenuTrigger>
-          <DropdownMenuContent align="end" className="w-80">
-            <div className="p-3 border-b border-border">
-              <h4 className="font-semibold text-sm">Benachrichtigungen</h4>
+          <DropdownMenuContent align="end" className="w-80 rounded-xl border-border/50 shadow-2xl">
+            <div className="p-4 border-b border-border/50 bg-gradient-to-r from-muted/50 to-transparent">
+              <h4 className="font-bold text-sm">Benachrichtigungen</h4>
+              <p className="text-xs text-muted-foreground">5 ungelesene Nachrichten</p>
             </div>
-            <div className="py-2">
-              <DropdownMenuItem className="flex flex-col items-start gap-1 p-3 cursor-pointer">
-                <div className="flex items-center gap-2">
-                  <div className="w-2 h-2 rounded-full bg-primary" />
-                  <span className="font-medium text-sm">Neue Buchungsanfrage</span>
+            <div className="py-2 max-h-80 overflow-y-auto">
+              <DropdownMenuItem className="flex items-start gap-3 p-4 cursor-pointer hover:bg-muted/50 transition-colors">
+                <div className="w-10 h-10 rounded-xl bg-secondary/10 flex items-center justify-center flex-shrink-0">
+                  <ClipboardList className="w-5 h-5 text-secondary" />
                 </div>
-                <span className="text-xs text-muted-foreground pl-4">Vor 5 Minuten</span>
+                <div className="flex-1 min-w-0">
+                  <p className="font-medium text-sm">Neue Buchungsanfrage</p>
+                  <p className="text-xs text-muted-foreground mt-0.5">Transport nach Hamburg angefragt</p>
+                  <p className="text-[10px] text-muted-foreground mt-1">Vor 5 Minuten</p>
+                </div>
               </DropdownMenuItem>
-              <DropdownMenuItem className="flex flex-col items-start gap-1 p-3 cursor-pointer">
-                <div className="flex items-center gap-2">
-                  <div className="w-2 h-2 rounded-full bg-secondary" />
-                  <span className="font-medium text-sm">Neue Bewertung erhalten</span>
+              <DropdownMenuItem className="flex items-start gap-3 p-4 cursor-pointer hover:bg-muted/50 transition-colors">
+                <div className="w-10 h-10 rounded-xl bg-amber-500/10 flex items-center justify-center flex-shrink-0">
+                  <Star className="w-5 h-5 text-amber-500" />
                 </div>
-                <span className="text-xs text-muted-foreground pl-4">Vor 1 Stunde</span>
+                <div className="flex-1 min-w-0">
+                  <p className="font-medium text-sm">Neue Bewertung erhalten</p>
+                  <p className="text-xs text-muted-foreground mt-0.5">5 Sterne von Max M.</p>
+                  <p className="text-[10px] text-muted-foreground mt-1">Vor 1 Stunde</p>
+                </div>
               </DropdownMenuItem>
-              <DropdownMenuItem className="flex flex-col items-start gap-1 p-3 cursor-pointer">
-                <div className="flex items-center gap-2">
-                  <div className="w-2 h-2 rounded-full bg-amber-500" />
-                  <span className="font-medium text-sm">Ticket-Antwort erhalten</span>
+              <DropdownMenuItem className="flex items-start gap-3 p-4 cursor-pointer hover:bg-muted/50 transition-colors">
+                <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center flex-shrink-0">
+                  <Ticket className="w-5 h-5 text-primary" />
                 </div>
-                <span className="text-xs text-muted-foreground pl-4">Vor 2 Stunden</span>
+                <div className="flex-1 min-w-0">
+                  <p className="font-medium text-sm">Ticket-Antwort</p>
+                  <p className="text-xs text-muted-foreground mt-0.5">Support hat geantwortet</p>
+                  <p className="text-[10px] text-muted-foreground mt-1">Vor 2 Stunden</p>
+                </div>
               </DropdownMenuItem>
             </div>
             <DropdownMenuSeparator />
-            <DropdownMenuItem className="justify-center text-primary font-medium cursor-pointer">
-              Alle anzeigen
+            <DropdownMenuItem className="justify-center text-secondary font-medium cursor-pointer py-3">
+              Alle Benachrichtigungen anzeigen
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
 
-        <Separator orientation="vertical" className="h-6" />
+        <Separator orientation="vertical" className="h-8 mx-2" />
 
         {/* User Menu */}
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button variant="ghost" className="h-9 gap-2 px-2 hover:bg-muted/50">
-              <Avatar className="w-7 h-7 border border-border">
-                <AvatarImage src={profileImage || ""} />
-                <AvatarFallback className="bg-gradient-to-br from-primary to-secondary text-white text-xs font-bold">
-                  MT
-                </AvatarFallback>
-              </Avatar>
+            <Button variant="ghost" className="h-10 gap-3 px-3 hover:bg-muted/60 rounded-xl transition-all duration-200">
+              <div className="relative">
+                <Avatar className="w-8 h-8 border-2 border-secondary/20 ring-2 ring-secondary/10">
+                  <AvatarImage src={profileImage || ""} />
+                  <AvatarFallback className="bg-gradient-to-br from-secondary to-primary text-white text-xs font-bold">
+                    MT
+                  </AvatarFallback>
+                </Avatar>
+                <div className="absolute -bottom-0.5 -right-0.5 w-3 h-3 bg-secondary rounded-full border-2 border-card" />
+              </div>
               <div className="hidden md:flex flex-col items-start">
-                <span className="text-sm font-medium">MediTrans GmbH</span>
+                <span className="text-sm font-semibold">MediTrans GmbH</span>
+                <span className="text-[10px] text-muted-foreground">Anbieter</span>
               </div>
             </Button>
           </DropdownMenuTrigger>
-          <DropdownMenuContent align="end" className="w-56">
-            <div className="p-3 border-b border-border">
-              <p className="font-semibold text-sm">MediTrans GmbH</p>
-              <p className="text-xs text-muted-foreground">Krankentransport-Anbieter</p>
+          <DropdownMenuContent align="end" className="w-64 rounded-xl border-border/50 shadow-2xl">
+            <div className="p-4 border-b border-border/50 bg-gradient-to-r from-secondary/5 to-primary/5">
+              <div className="flex items-center gap-3">
+                <Avatar className="w-12 h-12 border-2 border-secondary/20">
+                  <AvatarImage src={profileImage || ""} />
+                  <AvatarFallback className="bg-gradient-to-br from-secondary to-primary text-white font-bold">
+                    MT
+                  </AvatarFallback>
+                </Avatar>
+                <div>
+                  <p className="font-bold text-sm">MediTrans GmbH</p>
+                  <p className="text-xs text-muted-foreground">Krankentransport-Anbieter</p>
+                  <Badge className="mt-1 text-[9px] bg-secondary/20 text-secondary border-0 px-2">Verifiziert</Badge>
+                </div>
+              </div>
             </div>
-            <DropdownMenuItem onClick={() => setActiveNav("profil")} className="cursor-pointer">
-              <User className="w-4 h-4 mr-2" />
-              Unternehmensprofil
-            </DropdownMenuItem>
-            <DropdownMenuItem onClick={() => setActiveNav("einstellungen")} className="cursor-pointer">
-              <Settings className="w-4 h-4 mr-2" />
-              Einstellungen
-            </DropdownMenuItem>
-            <DropdownMenuItem className="cursor-pointer">
-              <MessageSquare className="w-4 h-4 mr-2" />
-              Support
-            </DropdownMenuItem>
+            <div className="py-2">
+              <DropdownMenuItem onClick={() => setActiveNav("profil")} className="cursor-pointer py-3 px-4">
+                <User className="w-4 h-4 mr-3" />
+                Unternehmensprofil
+              </DropdownMenuItem>
+              <DropdownMenuItem onClick={() => setActiveNav("einstellungen")} className="cursor-pointer py-3 px-4">
+                <Settings className="w-4 h-4 mr-3" />
+                Einstellungen
+              </DropdownMenuItem>
+              <DropdownMenuItem className="cursor-pointer py-3 px-4">
+                <MessageSquare className="w-4 h-4 mr-3" />
+                Support kontaktieren
+              </DropdownMenuItem>
+            </div>
             <DropdownMenuSeparator />
-            <DropdownMenuItem onClick={() => window.location.href = "/"} className="text-destructive cursor-pointer">
-              <LogOut className="w-4 h-4 mr-2" />
+            <DropdownMenuItem onClick={() => window.location.href = "/"} className="text-destructive cursor-pointer py-3 px-4">
+              <LogOut className="w-4 h-4 mr-3" />
               Abmelden
             </DropdownMenuItem>
           </DropdownMenuContent>
@@ -2235,6 +2240,7 @@ const ProviderDashboard = () => {
       </div>
     </header>
   );
+
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-background via-muted/20 to-background flex flex-col">
