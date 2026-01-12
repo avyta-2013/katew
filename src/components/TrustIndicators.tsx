@@ -12,7 +12,7 @@ const trustItems = [
   },
   {
     icon: Award,
-    title: "Höchste Qualitätsstandards",
+    title: "Qualitätsstandards",
     description: "Alle Lizenzen, Versicherungen und Zertifizierungen verifiziert",
     stat: "98%",
     statLabel: "Zufriedenheitsrate",
@@ -86,7 +86,7 @@ export const TrustIndicators = () => {
           </motion.div>
           <h2 className="text-4xl md:text-6xl font-black mb-6 tracking-tight">
             <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
-              Warum katew?
+              Ihre Meinung gibt uns Recht
             </span>
           </h2>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
