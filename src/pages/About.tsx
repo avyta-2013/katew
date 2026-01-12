@@ -427,44 +427,139 @@ const About = () => {
         </div>
       </section>
 
-      {/* Team Section */}
-      <section className="py-20 md:py-28 bg-muted/30">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-16">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-medium mb-6">
-              Das Team
+      {/* Team Section - Premium Design */}
+      <section className="py-24 md:py-32 relative overflow-hidden">
+        {/* Animated Background */}
+        <div className="absolute inset-0">
+          <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-muted/50 to-secondary/5" />
+          <div className="absolute top-1/4 left-0 w-[600px] h-[600px] bg-primary/10 rounded-full blur-[150px] animate-pulse" />
+          <div className="absolute bottom-0 right-1/4 w-[500px] h-[500px] bg-secondary/10 rounded-full blur-[120px] animate-pulse" style={{ animationDelay: '1s' }} />
+        </div>
+
+        {/* Floating Decorative Elements */}
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+          <div className="absolute top-20 left-[10%] w-3 h-3 bg-primary/30 rounded-full animate-bounce" style={{ animationDuration: '3s' }} />
+          <div className="absolute top-40 right-[15%] w-2 h-2 bg-secondary/40 rounded-full animate-bounce" style={{ animationDuration: '2.5s', animationDelay: '0.5s' }} />
+          <div className="absolute bottom-32 left-[20%] w-4 h-4 bg-primary/20 rounded-full animate-bounce" style={{ animationDuration: '3.5s', animationDelay: '1s' }} />
+          <div className="absolute top-1/2 right-[10%] w-2 h-2 bg-secondary/30 rounded-full animate-bounce" style={{ animationDuration: '2.8s', animationDelay: '0.3s' }} />
+        </div>
+
+        <div className="container mx-auto px-4 relative">
+          {/* Section Header */}
+          <div className="text-center mb-20">
+            <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-gradient-to-r from-primary/10 to-secondary/10 backdrop-blur-sm border border-primary/20 text-primary text-sm font-medium mb-8">
+              <Users className="w-4 h-4" />
+              <span>Das Team hinter katew</span>
             </div>
-            <h2 className="text-3xl md:text-5xl font-bold mb-4 tracking-tight bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
-              Team
+            <h2 className="text-4xl md:text-6xl font-bold mb-6 tracking-tight">
+              <span className="bg-gradient-to-r from-foreground via-foreground to-foreground/70 bg-clip-text text-transparent">
+                Visionäre mit
+              </span>
+              <br />
+              <span className="bg-gradient-to-r from-primary via-secondary to-primary bg-clip-text text-transparent">
+                Leidenschaft
+              </span>
             </h2>
-            <p className="text-lg text-muted-foreground max-w-xl mx-auto">
-              Ohne das Team könnten wir nichts bewirken
+            <p className="text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
+              Gemeinsam gestalten wir die Zukunft der Patientenmobilität – mit Innovation, Hingabe und dem Fokus auf das Wesentliche.
             </p>
           </div>
 
-          <div className="max-w-3xl mx-auto">
-            <div className="grid md:grid-cols-2 gap-8">
+          {/* Team Cards */}
+          <div className="max-w-5xl mx-auto">
+            <div className="grid md:grid-cols-2 gap-8 lg:gap-12">
               {teamMembers.map((member, index) => (
                 <div
                   key={index}
-                  className="bg-card border border-border/50 rounded-2xl p-8 hover:border-primary/30 hover:shadow-card transition-all duration-300 text-center group"
+                  className="group relative"
                 >
-                  <div className="w-24 h-24 rounded-full bg-gradient-to-br from-primary/20 to-secondary/20 flex items-center justify-center mx-auto mb-6 group-hover:scale-105 transition-transform">
-                    <span className="text-3xl font-bold text-primary">
-                      {member.name.split(' ').map(n => n[0]).join('')}
-                    </span>
+                  {/* Card Glow Effect */}
+                  <div className={`absolute -inset-1 rounded-[2rem] bg-gradient-to-r ${index === 0 ? 'from-primary/50 to-secondary/50' : 'from-secondary/50 to-primary/50'} opacity-0 group-hover:opacity-100 blur-xl transition-all duration-700`} />
+                  
+                  {/* Main Card */}
+                  <div className="relative bg-card/80 backdrop-blur-xl border border-border/50 rounded-[2rem] p-10 hover:border-primary/40 transition-all duration-500 overflow-hidden">
+                    {/* Card Background Pattern */}
+                    <div className="absolute inset-0 opacity-[0.03]">
+                      <div className="absolute inset-0" style={{
+                        backgroundImage: `radial-gradient(circle at 2px 2px, currentColor 1px, transparent 0)`,
+                        backgroundSize: '24px 24px'
+                      }} />
+                    </div>
+
+                    {/* Gradient Overlay */}
+                    <div className={`absolute inset-0 bg-gradient-to-br ${index === 0 ? 'from-primary/5 via-transparent to-secondary/5' : 'from-secondary/5 via-transparent to-primary/5'} opacity-0 group-hover:opacity-100 transition-opacity duration-500`} />
+
+                    <div className="relative">
+                      {/* Avatar Section */}
+                      <div className="flex justify-center mb-8">
+                        <div className="relative">
+                          {/* Rotating Ring */}
+                          <div className={`absolute -inset-3 rounded-full bg-gradient-to-r ${index === 0 ? 'from-primary via-secondary to-primary' : 'from-secondary via-primary to-secondary'} opacity-20 group-hover:opacity-40 transition-opacity duration-500`} style={{ 
+                            animation: 'spin 8s linear infinite',
+                          }} />
+                          
+                          {/* Avatar Container */}
+                          <div className={`relative w-32 h-32 rounded-full bg-gradient-to-br ${index === 0 ? 'from-primary to-secondary' : 'from-secondary to-primary'} p-1 group-hover:scale-105 transition-transform duration-500 shadow-2xl`}>
+                            <div className="w-full h-full rounded-full bg-card flex items-center justify-center">
+                              <span className={`text-5xl font-bold bg-gradient-to-br ${index === 0 ? 'from-primary to-secondary' : 'from-secondary to-primary'} bg-clip-text text-transparent`}>
+                                {member.name.split(' ').map(n => n[0]).join('')}
+                              </span>
+                            </div>
+                          </div>
+
+                          {/* Status Indicator */}
+                          <div className="absolute -bottom-1 -right-1 w-8 h-8 rounded-full bg-card border-4 border-card shadow-lg flex items-center justify-center">
+                            <div className="w-4 h-4 rounded-full bg-green-500 animate-pulse" />
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Info Section */}
+                      <div className="text-center">
+                        <h3 className="text-2xl md:text-3xl font-bold mb-2 group-hover:text-primary transition-colors duration-300">
+                          {member.name}
+                        </h3>
+                        
+                        {/* Role Badge */}
+                        <div className={`inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r ${index === 0 ? 'from-primary/10 to-secondary/10' : 'from-secondary/10 to-primary/10'} border ${index === 0 ? 'border-primary/20' : 'border-secondary/20'} mb-6`}>
+                          <Target className={`w-4 h-4 ${index === 0 ? 'text-primary' : 'text-secondary'}`} />
+                          <span className={`font-semibold ${index === 0 ? 'text-primary' : 'text-secondary'}`}>
+                            {member.role}
+                          </span>
+                        </div>
+
+                        {/* Divider */}
+                        <div className="flex items-center gap-4 mb-6">
+                          <div className="flex-1 h-px bg-gradient-to-r from-transparent via-border to-transparent" />
+                          <Sparkles className="w-4 h-4 text-muted-foreground/50" />
+                          <div className="flex-1 h-px bg-gradient-to-r from-transparent via-border to-transparent" />
+                        </div>
+
+                        {/* LinkedIn Button */}
+                        <a 
+                          href={member.linkedin}
+                          className={`inline-flex items-center gap-3 px-6 py-3 rounded-xl bg-gradient-to-r ${index === 0 ? 'from-primary/10 to-primary/5 hover:from-primary/20 hover:to-primary/10' : 'from-secondary/10 to-secondary/5 hover:from-secondary/20 hover:to-secondary/10'} border ${index === 0 ? 'border-primary/20 hover:border-primary/40' : 'border-secondary/20 hover:border-secondary/40'} transition-all duration-300 group/link`}
+                        >
+                          <div className={`w-8 h-8 rounded-lg bg-gradient-to-br ${index === 0 ? 'from-primary to-primary/80' : 'from-secondary to-secondary/80'} flex items-center justify-center shadow-lg group-hover/link:scale-110 transition-transform duration-300`}>
+                            <Linkedin className="w-4 h-4 text-white" />
+                          </div>
+                          <span className="font-medium text-foreground">Auf LinkedIn verbinden</span>
+                          <ArrowRight className={`w-4 h-4 ${index === 0 ? 'text-primary' : 'text-secondary'} group-hover/link:translate-x-1 transition-transform duration-300`} />
+                        </a>
+                      </div>
+                    </div>
                   </div>
-                  <h3 className="text-xl font-semibold mb-1">{member.name}</h3>
-                  <p className="text-primary font-medium mb-6">{member.role}</p>
-                  <a 
-                    href={member.linkedin}
-                    className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors"
-                  >
-                    <Linkedin className="w-4 h-4" />
-                    LinkedIn
-                  </a>
                 </div>
               ))}
+            </div>
+          </div>
+
+          {/* Bottom Accent */}
+          <div className="flex justify-center mt-16">
+            <div className="flex items-center gap-3">
+              <div className="w-2 h-2 rounded-full bg-primary/40 animate-pulse" />
+              <div className="w-3 h-3 rounded-full bg-gradient-to-r from-primary to-secondary animate-pulse" style={{ animationDelay: '0.2s' }} />
+              <div className="w-2 h-2 rounded-full bg-secondary/40 animate-pulse" style={{ animationDelay: '0.4s' }} />
             </div>
           </div>
         </div>
