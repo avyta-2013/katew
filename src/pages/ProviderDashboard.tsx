@@ -177,25 +177,6 @@ const ProviderDashboard = () => {
         </Link>
       </div>
 
-      {/* Quick Stats Cards */}
-      <div className="p-4">
-        <div className="grid grid-cols-2 gap-3">
-          <div className="relative overflow-hidden rounded-xl bg-gradient-to-br from-secondary/10 to-secondary/5 p-3 border border-secondary/20">
-            <div className="absolute top-0 right-0 w-12 h-12 bg-secondary/10 rounded-full blur-xl" />
-            <div className="flex items-center gap-1">
-              <Star className="w-3 h-3 text-secondary fill-secondary" />
-              <p className="text-xl font-bold text-secondary">{kpiData.avgRating}</p>
-            </div>
-            <p className="text-[10px] text-muted-foreground font-medium">Bewertung</p>
-          </div>
-          <div className="relative overflow-hidden rounded-xl bg-gradient-to-br from-primary/10 to-primary/5 p-3 border border-primary/20">
-            <div className="absolute top-0 right-0 w-12 h-12 bg-primary/10 rounded-full blur-xl" />
-            <p className="text-xl font-bold text-primary">{kpiData.completionRate}%</p>
-            <p className="text-[10px] text-muted-foreground font-medium">Erfolgsrate</p>
-          </div>
-        </div>
-      </div>
-
       {/* Navigation Section */}
       <div className="px-3 mb-2">
         <p className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider px-3">Navigation</p>
@@ -311,22 +292,22 @@ const ProviderDashboard = () => {
           </CardContent>
         </Card>
 
-        {/* Transportschein */}
+        {/* Erfolgsrate */}
         <Card className="border-0 shadow-lg bg-gradient-to-br from-card to-muted/30 overflow-hidden relative group hover:shadow-xl transition-all duration-300">
           <CardContent className="p-4 relative">
             <div className="flex items-start justify-between">
               <div>
-                <p className="text-xs text-muted-foreground font-medium">Transportscheine</p>
-                <p className="text-2xl font-bold text-foreground mt-1">{kpiData.transportschein}</p>
+                <p className="text-xs text-muted-foreground font-medium">Erfolgsrate</p>
+                <p className="text-2xl font-bold text-foreground mt-1">{kpiData.completionRate}%</p>
                 <div className="flex items-center gap-1 mt-2">
                   <div className="flex items-center gap-1 text-primary text-xs font-medium bg-primary/10 px-1.5 py-0.5 rounded-full">
-                    <FileText className="w-3 h-3" />
-                    <span>Diesen Monat</span>
+                    <CheckCircle2 className="w-3 h-3" />
+                    <span>Abgeschlossen</span>
                   </div>
                 </div>
               </div>
               <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-primary to-primary/70 flex items-center justify-center shadow-md">
-                <FileText className="w-5 h-5 text-primary-foreground" />
+                <Target className="w-5 h-5 text-primary-foreground" />
               </div>
             </div>
           </CardContent>
