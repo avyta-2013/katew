@@ -80,17 +80,17 @@ const reasons = [
 
 const quickActions = [
   {
-    icon: Building2,
-    title: "Für Unternehmen",
-    description: "Partner werden und von unserer Plattform profitieren",
+    icon: Users,
+    title: "Für Partner",
+    description: "Krankenfahrten einfach buchen und verwalten",
     href: "/partner",
     gradient: "from-primary to-primary/80",
   },
   {
-    icon: Users,
-    title: "Karriere",
-    description: "Werde Teil unseres wachsenden Teams",
-    href: "/karriere",
+    icon: Building2,
+    title: "Für Anbieter",
+    description: "Teil unseres Netzwerks werden und Aufträge erhalten",
+    href: "/anbieter",
     gradient: "from-secondary to-secondary/80",
   },
 ];
