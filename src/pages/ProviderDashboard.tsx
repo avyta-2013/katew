@@ -44,12 +44,22 @@ const ProviderDashboard = () => {
   // Tickets state
   const [ticketDialogOpen, setTicketDialogOpen] = useState(false);
   const [tickets, setTickets] = useState([
-    { id: 1, subject: "Abrechnung Buchung #1189", status: "offen", date: "12.01.2026", priority: "hoch" },
-    { id: 2, subject: "Frage zu Transportschein", status: "bearbeitung", date: "10.01.2026", priority: "mittel" },
+    { id: 1, subject: "Abrechnung Buchung #1189", status: "offen", date: "12.01.2026", priority: "hoch", description: "Frage zur Abrechnung der Buchung #1189 - Kilometerberechnung scheint nicht korrekt.", messages: [
+      { sender: "user", text: "Die Kilometerberechnung für Buchung #1189 stimmt nicht. Es waren 45km, nicht 32km.", date: "12.01.2026 08:45" },
+      { sender: "support", text: "Wir prüfen die Route und melden uns zeitnah.", date: "12.01.2026 09:30" }
+    ]},
+    { id: 2, subject: "Frage zu Transportschein", status: "bearbeitung", date: "10.01.2026", priority: "mittel", description: "Benötige Informationen zum digitalen Transportschein-Upload.", messages: [
+      { sender: "user", text: "Wie kann ich Transportscheine digital hochladen?", date: "10.01.2026 11:00" },
+      { sender: "support", text: "Im Profil-Bereich finden Sie unter 'Dokumente' die Upload-Funktion.", date: "10.01.2026 12:15" },
+      { sender: "user", text: "Perfekt, danke!", date: "10.01.2026 12:30" }
+    ]},
   ]);
   const [newTicketSubject, setNewTicketSubject] = useState("");
   const [newTicketDescription, setNewTicketDescription] = useState("");
   const [newTicketPriority, setNewTicketPriority] = useState("mittel");
+  const [selectedTicket, setSelectedTicket] = useState<typeof tickets[0] | null>(null);
+  const [ticketDetailOpen, setTicketDetailOpen] = useState(false);
+  const [newTicketMessage, setNewTicketMessage] = useState("");
 
   const navItems = [
     { id: "uebersicht" as NavItem, label: "Übersicht", icon: LayoutDashboard },
@@ -1935,14 +1945,43 @@ const ProviderDashboard = () => {
         id: tickets.length + 1,
         subject: newTicketSubject,
         status: "offen" as const,
-        date: new Date().toLocaleDateString('de-DE'),
-        priority: newTicketPriority
+        date: new Date().toLocaleDateString("de-DE"),
+        priority: newTicketPriority,
+        description: newTicketDescription,
+        messages: [
+          { sender: "user", text: newTicketDescription || newTicketSubject, date: new Date().toLocaleString("de-DE") }
+        ]
       };
       setTickets([newTicket, ...tickets]);
       setNewTicketSubject("");
       setNewTicketDescription("");
       setNewTicketPriority("mittel");
       setTicketDialogOpen(false);
+    }
+  };
+
+  const handleOpenTicket = (ticket: typeof tickets[0]) => {
+    setSelectedTicket(ticket);
+    setTicketDetailOpen(true);
+  };
+
+  const handleSendTicketMessage = () => {
+    if (newTicketMessage.trim() && selectedTicket) {
+      const updatedTickets = tickets.map(t => {
+        if (t.id === selectedTicket.id) {
+          return {
+            ...t,
+            messages: [...t.messages, { sender: "user", text: newTicketMessage, date: new Date().toLocaleString("de-DE") }]
+          };
+        }
+        return t;
+      });
+      setTickets(updatedTickets);
+      setSelectedTicket({
+        ...selectedTicket,
+        messages: [...selectedTicket.messages, { sender: "user", text: newTicketMessage, date: new Date().toLocaleString("de-DE") }]
+      });
+      setNewTicketMessage("");
     }
   };
 
@@ -2054,7 +2093,8 @@ const ProviderDashboard = () => {
               {tickets.map((ticket) => (
                 <div 
                   key={ticket.id} 
-                  className="p-4 rounded-xl bg-muted/30 border border-muted hover:border-primary/30 transition-all duration-300 group cursor-pointer"
+                  onClick={() => handleOpenTicket(ticket)}
+                  className="p-4 rounded-xl bg-muted/30 border border-muted hover:border-secondary/30 hover:shadow-md transition-all duration-300 group cursor-pointer"
                 >
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-3">
@@ -2072,8 +2112,8 @@ const ProviderDashboard = () => {
                         )} />
                       </div>
                       <div>
-                        <h3 className="font-semibold text-sm text-foreground">{ticket.subject}</h3>
-                        <p className="text-xs text-muted-foreground">Erstellt am {ticket.date}</p>
+                        <h3 className="font-semibold text-sm text-foreground group-hover:text-secondary transition-colors">{ticket.subject}</h3>
+                        <p className="text-xs text-muted-foreground">Erstellt am {ticket.date} • {ticket.messages.length} Nachrichten</p>
                       </div>
                     </div>
                     <div className="flex items-center gap-2">
@@ -2093,6 +2133,7 @@ const ProviderDashboard = () => {
                       )}>
                         {ticket.status === "offen" ? "Offen" : ticket.status === "bearbeitung" ? "In Bearbeitung" : "Geschlossen"}
                       </Badge>
+                      <ChevronRight className="w-4 h-4 text-muted-foreground group-hover:text-secondary transition-colors" />
                     </div>
                   </div>
                 </div>
@@ -2101,6 +2142,104 @@ const ProviderDashboard = () => {
           )}
         </CardContent>
       </Card>
+
+      {/* Ticket Detail Dialog */}
+      <Dialog open={ticketDetailOpen} onOpenChange={setTicketDetailOpen}>
+        <DialogContent className="sm:max-w-2xl max-h-[85vh] overflow-hidden flex flex-col">
+          <DialogHeader className="pb-4 border-b border-border/50">
+            <div className="flex items-start justify-between">
+              <div className="flex items-center gap-3">
+                <div className={cn(
+                  "w-12 h-12 rounded-xl flex items-center justify-center",
+                  selectedTicket?.status === "offen" && "bg-gradient-to-br from-amber-500/20 to-amber-500/10",
+                  selectedTicket?.status === "bearbeitung" && "bg-gradient-to-br from-primary/20 to-primary/10",
+                  selectedTicket?.status === "geschlossen" && "bg-gradient-to-br from-secondary/20 to-secondary/10"
+                )}>
+                  <Ticket className={cn(
+                    "w-6 h-6",
+                    selectedTicket?.status === "offen" && "text-amber-500",
+                    selectedTicket?.status === "bearbeitung" && "text-primary",
+                    selectedTicket?.status === "geschlossen" && "text-secondary"
+                  )} />
+                </div>
+                <div>
+                  <DialogTitle className="text-lg font-bold">{selectedTicket?.subject}</DialogTitle>
+                  <DialogDescription className="text-xs mt-1">
+                    Ticket #{selectedTicket?.id} • Erstellt am {selectedTicket?.date}
+                  </DialogDescription>
+                </div>
+              </div>
+              <div className="flex items-center gap-2">
+                <Badge className={cn(
+                  "px-2 py-1 text-xs font-medium rounded-md border-0",
+                  selectedTicket?.priority === "hoch" && "bg-destructive/20 text-destructive",
+                  selectedTicket?.priority === "mittel" && "bg-amber-500/20 text-amber-600",
+                  selectedTicket?.priority === "niedrig" && "bg-secondary/20 text-secondary"
+                )}>
+                  {selectedTicket?.priority && selectedTicket.priority.charAt(0).toUpperCase() + selectedTicket.priority.slice(1)}
+                </Badge>
+                <Badge className={cn(
+                  "px-2 py-1 text-xs font-medium rounded-md border-0",
+                  selectedTicket?.status === "offen" && "bg-amber-500/20 text-amber-600",
+                  selectedTicket?.status === "bearbeitung" && "bg-primary/20 text-primary",
+                  selectedTicket?.status === "geschlossen" && "bg-secondary/20 text-secondary"
+                )}>
+                  {selectedTicket?.status === "offen" ? "Offen" : selectedTicket?.status === "bearbeitung" ? "In Bearbeitung" : "Geschlossen"}
+                </Badge>
+              </div>
+            </div>
+          </DialogHeader>
+          
+          {/* Messages */}
+          <div className="flex-1 overflow-y-auto py-4 space-y-4 min-h-[300px]">
+            {selectedTicket?.messages.map((message, index) => (
+              <div 
+                key={index} 
+                className={cn(
+                  "flex",
+                  message.sender === "user" ? "justify-end" : "justify-start"
+                )}
+              >
+                <div className={cn(
+                  "max-w-[80%] rounded-2xl px-4 py-3",
+                  message.sender === "user" 
+                    ? "bg-gradient-to-r from-secondary to-secondary/80 text-secondary-foreground rounded-br-md" 
+                    : "bg-muted/50 border border-border/50 rounded-bl-md"
+                )}>
+                  <p className="text-sm">{message.text}</p>
+                  <p className={cn(
+                    "text-[10px] mt-1",
+                    message.sender === "user" ? "text-secondary-foreground/70" : "text-muted-foreground"
+                  )}>
+                    {message.sender === "user" ? "Sie" : "Support"} • {message.date}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Reply Input */}
+          {selectedTicket?.status !== "geschlossen" && (
+            <div className="pt-4 border-t border-border/50">
+              <div className="flex gap-3">
+                <Textarea 
+                  value={newTicketMessage}
+                  onChange={(e) => setNewTicketMessage(e.target.value)}
+                  placeholder="Ihre Antwort eingeben..."
+                  className="min-h-[60px] bg-muted/30 border border-muted focus-visible:border-secondary focus-visible:ring-0 rounded-xl resize-none"
+                />
+                <Button 
+                  onClick={handleSendTicketMessage}
+                  disabled={!newTicketMessage.trim()}
+                  className="px-6 bg-secondary hover:bg-secondary/90 text-secondary-foreground rounded-xl"
+                >
+                  <MessageSquare className="w-4 h-4" />
+                </Button>
+              </div>
+            </div>
+          )}
+        </DialogContent>
+      </Dialog>
     </div>
   );
 
