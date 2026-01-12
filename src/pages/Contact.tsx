@@ -51,15 +51,6 @@ const contactMethods = [
     bgGlow: "bg-violet-500/20",
     action: "E-Mail senden",
   },
-  {
-    icon: MessageSquare,
-    title: "Live-Chat",
-    value: "Sofort verfügbar",
-    description: "Mo-Fr 8-18 Uhr",
-    gradient: "from-emerald-500 to-teal-500",
-    bgGlow: "bg-emerald-500/20",
-    action: "Chat starten",
-  },
 ];
 
 const stats = [
@@ -186,7 +177,7 @@ export default function Contact() {
         <section className="py-8 relative">
           <div className="container mx-auto px-4">
             <div className="max-w-5xl mx-auto">
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-3xl mx-auto">
                 {contactMethods.map((method, index) => {
                   const Icon = method.icon;
                   return (
