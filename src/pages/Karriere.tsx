@@ -56,8 +56,8 @@ const openPositions = [
 ];
 
 const stats = [
-  { value: "2+", label: "Teammitglieder", icon: Users },
-  { value: "1K+", label: "Fahrten vermittelt", icon: TrendingUp },
+  { value: "5+", label: "Teammitglieder", icon: Users },
+  { value: "1000+", label: "Fahrten vermittelt", icon: TrendingUp },
   { value: "2025", label: "Gegründet", icon: Calendar },
 ];
 
