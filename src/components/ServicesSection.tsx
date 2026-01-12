@@ -1,44 +1,42 @@
 import { useRef, useState } from "react";
 import { motion, useInView, AnimatePresence } from "framer-motion";
-import { User, Accessibility, Users, Bed, FileText, CreditCard, Gavel, ArrowRight, Sparkles } from "lucide-react";
+import { FileText, CreditCard, Gavel, ArrowRight, Sparkles, CheckCircle2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+
+// Import transport images
+import transportSitting from "@/assets/transport-sitting-new.jpg";
+import transportWheelchair from "@/assets/transport-wheelchair-new.jpg";
+import transportStairchair from "@/assets/transport-stairchair-new.jpg";
+import transportStretcher from "@/assets/transport-stretcher-new.jpg";
 
 const transportTypes = [
   {
-    icon: User,
+    image: transportSitting,
     title: "Sitzend",
     description: "Für gehfähige Patienten mit leichten Einschränkungen",
     features: ["Komfortabler Sitzplatz", "Begleitung möglich", "Schnelle Verfügbarkeit"],
     color: "from-blue-500 to-blue-600",
-    bgColor: "bg-blue-500/10",
-    textColor: "text-blue-500",
   },
   {
-    icon: Accessibility,
+    image: transportWheelchair,
     title: "Rollstuhl",
     description: "Spezialisierter Transport für Rollstuhlfahrer",
     features: ["Barrierefreier Zugang", "Sichere Befestigung", "Rampen-Ausstattung"],
     color: "from-violet-500 to-violet-600",
-    bgColor: "bg-violet-500/10",
-    textColor: "text-violet-500",
   },
   {
-    icon: Users,
+    image: transportStairchair,
     title: "Tragestuhl",
     description: "Optimal für enge Treppenhäuser und schwierige Zugänge",
     features: ["Treppengängig", "Schonender Transport", "Erfahrenes Personal"],
     color: "from-emerald-500 to-emerald-600",
-    bgColor: "bg-emerald-500/10",
-    textColor: "text-emerald-500",
   },
   {
-    icon: Bed,
+    image: transportStretcher,
     title: "Liegend",
     description: "Vollausgestatteter Transport auf Trage",
     features: ["Medizinische Betreuung", "Klimatisiert", "Intensiv-Ausstattung"],
     color: "from-rose-500 to-rose-600",
-    bgColor: "bg-rose-500/10",
-    textColor: "text-rose-500",
   },
 ];
 
@@ -77,6 +75,18 @@ export const ServicesSection = () => {
       {/* Decorative elements */}
       <div className="absolute top-0 left-0 w-full h-32 bg-gradient-to-b from-background to-transparent" />
       <div className="absolute bottom-0 left-0 w-full h-32 bg-gradient-to-t from-background to-transparent" />
+      
+      {/* Animated background orbs */}
+      <motion.div 
+        className="absolute top-1/4 -left-32 w-64 h-64 rounded-full bg-primary/5 blur-3xl"
+        animate={{ x: [0, 30, 0], y: [0, 20, 0] }}
+        transition={{ duration: 12, repeat: Infinity }}
+      />
+      <motion.div 
+        className="absolute bottom-1/4 -right-32 w-64 h-64 rounded-full bg-secondary/5 blur-3xl"
+        animate={{ x: [0, -30, 0], y: [0, -20, 0] }}
+        transition={{ duration: 15, repeat: Infinity }}
+      />
 
       <div className="container mx-auto px-4 relative z-10">
         {/* Header */}
@@ -150,56 +160,57 @@ export const ServicesSection = () => {
               transition={{ duration: 0.3 }}
               className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto"
             >
-              {transportTypes.map((type, index) => {
-                const Icon = type.icon;
-                return (
-                  <motion.div
-                    key={index}
-                    initial={{ opacity: 0, y: 30 }}
-                    animate={isInView ? { opacity: 1, y: 0 } : {}}
-                    transition={{ duration: 0.5, delay: 0.1 + index * 0.1 }}
-                    onMouseEnter={() => setHoveredCard(index)}
-                    onMouseLeave={() => setHoveredCard(null)}
-                    className="group cursor-pointer"
+              {transportTypes.map((type, index) => (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, y: 30 }}
+                  animate={isInView ? { opacity: 1, y: 0 } : {}}
+                  transition={{ duration: 0.5, delay: 0.1 + index * 0.1 }}
+                  onMouseEnter={() => setHoveredCard(index)}
+                  onMouseLeave={() => setHoveredCard(null)}
+                  className="group cursor-pointer"
+                >
+                  <motion.div 
+                    className="relative h-full bg-card border border-border/50 rounded-3xl overflow-hidden"
+                    animate={{
+                      borderColor: hoveredCard === index ? "hsl(var(--primary) / 0.5)" : "hsl(var(--border) / 0.5)",
+                      boxShadow: hoveredCard === index ? "0 25px 50px -12px rgba(0,0,0,0.25)" : "none",
+                    }}
+                    whileHover={{ y: -8 }}
                   >
-                    <motion.div 
-                      className="relative h-full bg-card border border-border/50 rounded-3xl p-6 overflow-hidden"
-                      animate={{
-                        borderColor: hoveredCard === index ? "hsl(var(--primary) / 0.3)" : "hsl(var(--border) / 0.5)",
-                        boxShadow: hoveredCard === index ? "0 25px 50px -12px rgba(0,0,0,0.15)" : "none",
-                      }}
-                    >
-                      {/* Gradient background on hover */}
-                      <motion.div 
-                        className={`absolute inset-0 bg-gradient-to-br ${type.color} opacity-0`}
-                        animate={{ opacity: hoveredCard === index ? 0.05 : 0 }}
-                      />
-
-                      <motion.div 
-                        className={`w-16 h-16 rounded-2xl ${type.bgColor} flex items-center justify-center mb-5 relative z-10`}
+                    {/* Image */}
+                    <div className="relative h-48 overflow-hidden">
+                      <motion.img 
+                        src={type.image} 
+                        alt={type.title}
+                        className="w-full h-full object-cover"
                         animate={{
                           scale: hoveredCard === index ? 1.1 : 1,
-                          backgroundColor: hoveredCard === index ? undefined : undefined,
+                        }}
+                        transition={{ duration: 0.5 }}
+                      />
+                      {/* Gradient overlay */}
+                      <div className={`absolute inset-0 bg-gradient-to-t ${type.color} opacity-20`} />
+                      <div className="absolute inset-0 bg-gradient-to-t from-card via-transparent to-transparent" />
+                      
+                      {/* Title badge */}
+                      <motion.div 
+                        className={`absolute bottom-4 left-4 px-4 py-2 rounded-xl bg-gradient-to-r ${type.color} text-white font-bold shadow-lg`}
+                        animate={{
+                          y: hoveredCard === index ? -4 : 0,
                         }}
                       >
-                        <motion.div
-                          animate={{
-                            scale: hoveredCard === index ? [1, 1.2, 1] : 1,
-                          }}
-                          transition={{ duration: 0.3 }}
-                        >
-                          <Icon className={`w-8 h-8 ${type.textColor}`} />
-                        </motion.div>
-                      </motion.div>
-
-                      <h3 className="text-xl font-bold mb-2 group-hover:text-primary transition-colors relative z-10">
                         {type.title}
-                      </h3>
-                      <p className="text-sm text-muted-foreground mb-5 relative z-10">
+                      </motion.div>
+                    </div>
+
+                    {/* Content */}
+                    <div className="p-6">
+                      <p className="text-muted-foreground mb-4 text-sm leading-relaxed">
                         {type.description}
                       </p>
 
-                      <ul className="space-y-2 relative z-10">
+                      <ul className="space-y-2">
                         {type.features.map((feature, idx) => (
                           <motion.li 
                             key={idx} 
@@ -208,7 +219,7 @@ export const ServicesSection = () => {
                             animate={{ opacity: 1, x: 0 }}
                             transition={{ delay: 0.3 + idx * 0.1 }}
                           >
-                            <div className={`w-1.5 h-1.5 rounded-full bg-gradient-to-r ${type.color}`} />
+                            <CheckCircle2 className="w-4 h-4 text-secondary flex-shrink-0" />
                             {feature}
                           </motion.li>
                         ))}
@@ -216,16 +227,18 @@ export const ServicesSection = () => {
 
                       {/* Arrow indicator */}
                       <motion.div 
-                        className="absolute bottom-6 right-6"
-                        initial={{ opacity: 0, x: -10 }}
-                        animate={{ opacity: hoveredCard === index ? 1 : 0, x: hoveredCard === index ? 0 : -10 }}
+                        className="flex items-center gap-2 mt-4 pt-4 border-t border-border/50 text-primary font-medium text-sm"
+                        animate={{
+                          x: hoveredCard === index ? 4 : 0,
+                        }}
                       >
-                        <ArrowRight className={`w-5 h-5 ${type.textColor}`} />
+                        Mehr erfahren
+                        <ArrowRight className="w-4 h-4" />
                       </motion.div>
-                    </motion.div>
+                    </div>
                   </motion.div>
-                );
-              })}
+                </motion.div>
+              ))}
             </motion.div>
           ) : (
             <motion.div
@@ -274,7 +287,7 @@ export const ServicesSection = () => {
                       <ul className="space-y-2">
                         {option.features.map((feature, idx) => (
                           <li key={idx} className={`flex items-center gap-2 text-sm ${option.highlight ? "text-primary-foreground/90" : "text-muted-foreground"}`}>
-                            <div className={`w-1.5 h-1.5 rounded-full ${option.highlight ? "bg-secondary" : "bg-secondary"}`} />
+                            <CheckCircle2 className={`w-4 h-4 ${option.highlight ? "text-secondary" : "text-secondary"}`} />
                             {feature}
                           </li>
                         ))}
