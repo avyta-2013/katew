@@ -22,15 +22,19 @@ import { Footer } from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 
-const categories = [
+const partnerCategories = [
   { id: "booking", label: "Buchung & Transport", icon: Truck },
   { id: "costs", label: "Kosten & Abrechnung", icon: CreditCard },
-  { id: "partners", label: "Für Partner", icon: Users },
-  { id: "providers", label: "Für Anbieter", icon: FileText },
   { id: "safety", label: "Sicherheit", icon: Shield },
 ];
 
-const faqData = {
+const anbieterCategories = [
+  { id: "registration", label: "Registrierung", icon: FileText },
+  { id: "orders", label: "Aufträge", icon: Truck },
+  { id: "billing", label: "Abrechnung", icon: CreditCard },
+];
+
+const partnerFaqData = {
   booking: [
     {
       question: "Wie kann ich eine Krankenfahrt buchen?",
@@ -71,38 +75,6 @@ const faqData = {
       answer: "Die Zahlungsabwicklung erfolgt direkt mit dem Transportunternehmen. Übliche Methoden sind Rechnung, EC-Karte und bei manchen Anbietern auch Barzahlung.",
     },
   ],
-  partners: [
-    {
-      question: "Wie werde ich Partner?",
-      answer: "Kontaktieren Sie uns über das Partnerformular. Wir analysieren Ihre Anforderungen und integrieren katew nahtlos in Ihre bestehenden Prozesse – kostenlos.",
-    },
-    {
-      question: "Welche Einrichtungen können Partner werden?",
-      answer: "Krankenhäuser, Pflegeeinrichtungen, Arztpraxen, MVZ, Krankenkassen und andere Einrichtungen im Gesundheitswesen können Partner werden.",
-    },
-    {
-      question: "Was kostet die Partnerschaft?",
-      answer: "Die Integration und Nutzung von katew ist für Partner komplett kostenlos. Es fallen keine Einrichtungsgebühren oder monatliche Kosten an.",
-    },
-  ],
-  providers: [
-    {
-      question: "Wie registriere ich mich als Anbieter?",
-      answer: "Füllen Sie unser Registrierungsformular aus. Nach erfolgreicher Prüfung Ihrer Dokumente werden Sie in unser Netzwerk aufgenommen.",
-    },
-    {
-      question: "Welche Voraussetzungen muss ich erfüllen?",
-      answer: "Sie benötigen alle erforderlichen Lizenzen, Versicherungen und Zertifizierungen für Krankenfahrten. Diese werden bei der Registrierung geprüft.",
-    },
-    {
-      question: "Wie erhalte ich Aufträge?",
-      answer: "Sobald Sie registriert sind, erhalten Sie Anfragen in Ihrer Region. Sie können Angebote abgeben und bei Zuschlag den Transport durchführen.",
-    },
-    {
-      question: "Welche Provision fällt an?",
-      answer: "Wir berechnen nur bei erfolgreicher Vermittlung eine faire Provision. Details erfahren Sie im Registrierungsprozess.",
-    },
-  ],
   safety: [
     {
       question: "Wie werden Anbieter geprüft?",
@@ -119,17 +91,67 @@ const faqData = {
   ],
 };
 
+const anbieterFaqData = {
+  registration: [
+    {
+      question: "Wie registriere ich mich als Anbieter?",
+      answer: "Füllen Sie unser Registrierungsformular aus. Nach erfolgreicher Prüfung Ihrer Dokumente werden Sie in unser Netzwerk aufgenommen.",
+    },
+    {
+      question: "Welche Voraussetzungen muss ich erfüllen?",
+      answer: "Sie benötigen alle erforderlichen Lizenzen, Versicherungen und Zertifizierungen für Krankenfahrten. Diese werden bei der Registrierung geprüft.",
+    },
+    {
+      question: "Wie lange dauert die Registrierung?",
+      answer: "Nach Einreichung aller Unterlagen prüfen wir Ihre Dokumente innerhalb von 3-5 Werktagen. Bei vollständigen Unterlagen geht es oft schneller.",
+    },
+  ],
+  orders: [
+    {
+      question: "Wie erhalte ich Aufträge?",
+      answer: "Sobald Sie registriert sind, erhalten Sie Anfragen in Ihrer Region. Sie können Angebote abgeben und bei Zuschlag den Transport durchführen.",
+    },
+    {
+      question: "Kann ich Aufträge ablehnen?",
+      answer: "Ja, Sie entscheiden selbst, welche Aufträge Sie annehmen. Es besteht keine Verpflichtung, jede Anfrage zu bedienen.",
+    },
+    {
+      question: "Welche Qualitätsstandards gelten?",
+      answer: "Alle Anbieter müssen sämtliche erforderlichen Lizenzen, Versicherungen und Zertifizierungen nachweisen und regelmäßige Qualitätsprüfungen durchlaufen.",
+    },
+  ],
+  billing: [
+    {
+      question: "Welche Provision fällt an?",
+      answer: "Wir berechnen nur bei erfolgreicher Vermittlung eine faire Provision. Details erfahren Sie im Registrierungsprozess.",
+    },
+    {
+      question: "Wie funktioniert die Abrechnung?",
+      answer: "Die Abrechnung erfolgt monatlich. Sie erhalten eine detaillierte Übersicht aller vermittelten Fahrten und Provisionen.",
+    },
+    {
+      question: "Wann erhalte ich meine Zahlungen?",
+      answer: "Zahlungen werden in der Regel zum 15. des Folgemonats überwiesen, nachdem die Fahrt abgeschlossen wurde.",
+    },
+  ],
+};
+
 export default function FAQ() {
+  const [activeTab, setActiveTab] = useState<"partner" | "anbieter">("partner");
   const [selectedCategory, setSelectedCategory] = useState("booking");
   const [searchQuery, setSearchQuery] = useState("");
 
+  const categories = activeTab === "partner" ? partnerCategories : anbieterCategories;
+  const faqData = activeTab === "partner" ? partnerFaqData : anbieterFaqData;
+
   const allFaqs = Object.values(faqData).flat();
+  const currentFaqs = faqData[selectedCategory as keyof typeof faqData] || [];
   const filteredFaqs = searchQuery 
     ? allFaqs.filter(faq => 
         faq.question.toLowerCase().includes(searchQuery.toLowerCase()) ||
         faq.answer.toLowerCase().includes(searchQuery.toLowerCase())
       )
-    : faqData[selectedCategory as keyof typeof faqData];
+    : currentFaqs;
 
   return (
     <>
@@ -165,6 +187,51 @@ export default function FAQ() {
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                 />
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Tab Switcher */}
+        <section className="py-10">
+          <div className="container mx-auto px-4">
+            <div className="max-w-lg mx-auto">
+              <div className="relative p-1.5 bg-muted/50 rounded-2xl backdrop-blur-sm border border-border/30">
+                <div 
+                  className={`absolute top-1.5 h-[calc(100%-12px)] w-[calc(50%-6px)] bg-gradient-to-r from-card to-card/90 rounded-xl shadow-lg transition-all duration-300 ease-out ${
+                    activeTab === "partner" ? "left-1.5" : "left-[calc(50%+3px)]"
+                  }`}
+                />
+                <div className="relative flex">
+                  <button
+                    onClick={() => {
+                      setActiveTab("partner");
+                      setSelectedCategory("booking");
+                    }}
+                    className={`flex-1 py-4 px-6 rounded-xl font-semibold text-sm transition-all duration-300 flex items-center justify-center gap-2 ${
+                      activeTab === "partner"
+                        ? "text-primary"
+                        : "text-muted-foreground hover:text-foreground"
+                    }`}
+                  >
+                    <Users className="w-5 h-5" />
+                    Für Partner
+                  </button>
+                  <button
+                    onClick={() => {
+                      setActiveTab("anbieter");
+                      setSelectedCategory("registration");
+                    }}
+                    className={`flex-1 py-4 px-6 rounded-xl font-semibold text-sm transition-all duration-300 flex items-center justify-center gap-2 ${
+                      activeTab === "anbieter"
+                        ? "text-primary"
+                        : "text-muted-foreground hover:text-foreground"
+                    }`}
+                  >
+                    <Truck className="w-5 h-5" />
+                    Für Anbieter
+                  </button>
+                </div>
               </div>
             </div>
           </div>
