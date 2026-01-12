@@ -1,8 +1,10 @@
 import { useRef, useState } from "react";
 import { motion, useInView } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { Calendar, Shield, Eye, ArrowRight, User, Building, Heart, Clock, CheckCircle2, Sparkles } from "lucide-react";
+import { Calendar, Shield, Eye, ArrowRight, Heart, Clock, CheckCircle2, Sparkles } from "lucide-react";
 import { Link } from "react-router-dom";
+import partnerPrivateImg from "@/assets/partner-private.jpg";
+import partnerFacilityImg from "@/assets/partner-facility.jpg";
 
 const benefits = [
   {
@@ -27,14 +29,14 @@ const benefits = [
 
 const partnerTypes = [
   {
-    icon: User,
+    image: partnerPrivateImg,
     title: "Privatpersonen",
     subtitle: "Patienten & Angehörige",
     features: ["Schnelle Buchung", "Preisvergleich", "Bewertungen lesen"],
     color: "primary",
   },
   {
-    icon: Building,
+    image: partnerFacilityImg,
     title: "Einrichtungen",
     subtitle: "Kliniken, Pflegeheime, Praxen",
     features: ["Volumenrabatte", "API-Anbindung", "Dedizierter Support"],
@@ -104,7 +106,6 @@ export const PartnersSection = () => {
             transition={{ duration: 0.6, delay: 0.2 }}
           >
             {partnerTypes.map((type, index) => {
-              const Icon = type.icon;
               return (
                 <motion.div
                   key={index}
@@ -116,27 +117,28 @@ export const PartnersSection = () => {
                   transition={{ duration: 0.5, delay: 0.3 + index * 0.1 }}
                 >
                   <motion.div 
-                    className={`relative h-full p-8 rounded-3xl overflow-hidden ${
+                    className={`relative h-full rounded-3xl overflow-hidden ${
                       type.color === 'primary' 
                         ? 'bg-gradient-to-br from-primary to-primary/90' 
                         : 'bg-gradient-to-br from-secondary to-secondary/90'
                     } text-white`}
                     whileHover={{ scale: 1.02, boxShadow: "0 30px 60px -20px rgba(0,0,0,0.3)" }}
                   >
-                    {/* Decorative elements */}
-                    <div className="absolute top-0 right-0 w-40 h-40 bg-white/10 rounded-full blur-2xl" />
-                    <div className="absolute bottom-0 left-0 w-32 h-32 bg-white/5 rounded-full blur-xl" />
-
-                    <div className="relative z-10">
-                      <motion.div 
-                        className="w-16 h-16 rounded-2xl bg-white/20 backdrop-blur-sm flex items-center justify-center mb-6"
+                    {/* Image */}
+                    <div className="relative h-48 overflow-hidden">
+                      <motion.img 
+                        src={type.image} 
+                        alt={type.title}
+                        className="w-full h-full object-cover"
                         animate={{
-                          rotate: hoveredType === index ? [0, -5, 5, 0] : 0,
+                          scale: hoveredType === index ? 1.1 : 1,
                         }}
                         transition={{ duration: 0.5 }}
-                      >
-                        <Icon className="w-8 h-8" />
-                      </motion.div>
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+                    </div>
+
+                    <div className="relative z-10 p-8 pt-4">
 
                       <h3 className="text-2xl font-bold mb-2">{type.title}</h3>
                       <p className="text-white/80 mb-6">{type.subtitle}</p>
