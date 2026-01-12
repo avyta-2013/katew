@@ -738,14 +738,6 @@ const PartnerDashboard = () => {
                               </div>
                             </div>
                             <div className="flex items-center gap-3">
-                              <Badge className={cn(
-                                "capitalize px-4 py-2 text-sm font-semibold rounded-xl",
-                                status === "aktiv" && "bg-gradient-to-r from-primary/20 to-primary/10 text-primary border-0",
-                                status === "bestaetigt" && "bg-gradient-to-r from-secondary/20 to-secondary/10 text-secondary border-0",
-                                status === "storniert" && "bg-gradient-to-r from-destructive/20 to-destructive/10 text-destructive border-0"
-                              )}>
-                                {status === "aktiv" ? "Aktiv" : status === "bestaetigt" ? "Bestätigt" : "Storniert"}
-                              </Badge>
                               <DropdownMenu>
                                 <DropdownMenuTrigger asChild>
                                   <Button variant="outline" size="sm" className="h-10 px-4 rounded-xl border-2 hover:bg-muted/50 gap-2">
