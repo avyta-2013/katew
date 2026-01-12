@@ -37,7 +37,8 @@ const PartnerDashboard = () => {
 
   const [ticketDialogOpen, setTicketDialogOpen] = useState(false);
   const [selectedBooking, setSelectedBooking] = useState<typeof bookings.aktiv[0] | null>(null);
-  const [bookingTab, setBookingTab] = useState<"unternehmen" | "klient" | "bewertung">("unternehmen");
+  const [dialogBooking, setDialogBooking] = useState<typeof bookings.aktiv[0] | null>(null);
+  const [bookingTab, setBookingTab] = useState<"unternehmen" | "klient">("unternehmen");
   const [ratingDialogOpen, setRatingDialogOpen] = useState(false);
   const [repeatDialogOpen, setRepeatDialogOpen] = useState(false);
   const [selectedRating, setSelectedRating] = useState(0);
@@ -1037,7 +1038,7 @@ const PartnerDashboard = () => {
                                     <DropdownMenuItem 
                                       className="gap-3 py-3 px-4 cursor-pointer rounded-lg hover:bg-muted/50 focus:bg-muted/50"
                                       onClick={() => {
-                                        setSelectedBooking(booking);
+                                        setDialogBooking(booking);
                                         setRepeatDialogOpen(true);
                                       }}
                                     >
@@ -1047,7 +1048,7 @@ const PartnerDashboard = () => {
                                     <DropdownMenuItem 
                                       className="gap-3 py-3 px-4 cursor-pointer rounded-lg hover:bg-muted/50 focus:bg-muted/50"
                                       onClick={() => {
-                                        setSelectedBooking(booking);
+                                        setDialogBooking(booking);
                                         setRatingDialogOpen(true);
                                       }}
                                     >
@@ -1126,7 +1127,7 @@ const PartnerDashboard = () => {
           <DialogContent className="sm:max-w-md">
             <DialogHeader>
               <DialogTitle className="text-xl font-bold">Bewertung abgeben</DialogTitle>
-              <DialogDescription>Bewerten Sie den Transport für {selectedBooking?.patient}</DialogDescription>
+              <DialogDescription>Bewerten Sie den Transport für {dialogBooking?.patient}</DialogDescription>
             </DialogHeader>
             <div className="space-y-6 pt-4">
               <div className="flex justify-center gap-2">
@@ -1194,7 +1195,7 @@ const PartnerDashboard = () => {
               <div className="space-y-2">
                 <Label className="text-xs text-muted-foreground">Start (Rückfahrt)</Label>
                 <Input 
-                  defaultValue={selectedBooking?.to || ""}
+                  defaultValue={dialogBooking?.to || ""}
                   className="h-12 rounded-xl border-2"
                 />
               </div>
@@ -1210,7 +1211,7 @@ const PartnerDashboard = () => {
               <div className="space-y-2">
                 <Label className="text-xs text-muted-foreground">Ziel (Rückfahrt)</Label>
                 <Input 
-                  defaultValue={selectedBooking?.from || ""}
+                  defaultValue={dialogBooking?.from || ""}
                   className="h-12 rounded-xl border-2"
                 />
               </div>
