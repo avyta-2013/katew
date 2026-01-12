@@ -1,99 +1,281 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { MapPin, Navigation, ArrowRight } from "lucide-react";
+import { MapPin, Navigation, ArrowRight, Calendar, Clock, Users, Sparkles, Shield, Zap, CheckCircle2 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+
+const stats = [
+  { value: "500+", label: "Partner", icon: Users },
+  { value: "98%", label: "Zufriedenheit", icon: Shield },
+  { value: "<2h", label: "Vermittlung", icon: Zap },
+];
+
+const rotatingWords = ["schnell", "sicher", "einfach", "digital"];
 
 export const Hero = () => {
   const navigate = useNavigate();
   const [startAddress, setStartAddress] = useState("");
   const [endAddress, setEndAddress] = useState("");
+  const [currentWordIndex, setCurrentWordIndex] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentWordIndex((prev) => (prev + 1) % rotatingWords.length);
+    }, 2500);
+    return () => clearInterval(interval);
+  }, []);
 
   const handleSearch = () => {
     navigate(`/buchen?start=${encodeURIComponent(startAddress)}&end=${encodeURIComponent(endAddress)}`);
   };
 
   return (
-    <section className="relative min-h-[90vh] flex items-center justify-center pt-20">
-      {/* Subtle gradient background */}
-      <div className="absolute inset-0 bg-gradient-to-b from-muted/30 via-background to-background" />
-      
+    <section className="relative min-h-screen flex items-center justify-center pt-20 overflow-hidden">
+      {/* Animated background */}
+      <div className="absolute inset-0">
+        {/* Gradient orbs */}
+        <motion.div 
+          className="absolute top-20 left-1/4 w-[600px] h-[600px] rounded-full bg-primary/20 blur-[120px]"
+          animate={{ 
+            scale: [1, 1.2, 1],
+            x: [0, 50, 0],
+            y: [0, 30, 0],
+          }}
+          transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+        />
+        <motion.div 
+          className="absolute bottom-20 right-1/4 w-[500px] h-[500px] rounded-full bg-secondary/20 blur-[100px]"
+          animate={{ 
+            scale: [1.2, 1, 1.2],
+            x: [0, -40, 0],
+            y: [0, -20, 0],
+          }}
+          transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
+        />
+        <motion.div 
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full bg-gradient-to-br from-primary/10 to-secondary/10 blur-[150px]"
+          animate={{ rotate: 360 }}
+          transition={{ duration: 60, repeat: Infinity, ease: "linear" }}
+        />
+        
+        {/* Grid pattern */}
+        <div className="absolute inset-0 bg-[linear-gradient(rgba(0,0,0,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(0,0,0,0.02)_1px,transparent_1px)] bg-[size:60px_60px] [mask-image:radial-gradient(ellipse_at_center,black_30%,transparent_70%)]" />
+      </div>
+
       <div className="container mx-auto px-4 py-16 md:py-24 relative z-10">
-        <div className="max-w-4xl mx-auto text-center">
+        <div className="max-w-5xl mx-auto">
           {/* Badge */}
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-medium mb-8 animate-fade-in">
-            <span className="w-2 h-2 rounded-full bg-secondary animate-pulse" />
-            Über 500 zertifizierte Partner deutschlandweit
-          </div>
+          <motion.div 
+            className="flex justify-center mb-8"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+          >
+            <div className="inline-flex items-center gap-3 px-5 py-2.5 rounded-full bg-gradient-to-r from-primary/10 via-primary/5 to-secondary/10 border border-primary/20 backdrop-blur-sm">
+              <motion.span 
+                className="w-2.5 h-2.5 rounded-full bg-secondary"
+                animate={{ scale: [1, 1.3, 1] }}
+                transition={{ duration: 1.5, repeat: Infinity }}
+              />
+              <span className="text-sm font-medium text-foreground">
+                Über <span className="text-primary font-bold">500</span> zertifizierte Partner deutschlandweit
+              </span>
+              <Sparkles className="w-4 h-4 text-secondary" />
+            </div>
+          </motion.div>
 
           {/* Headline */}
-          <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 leading-[1.1] tracking-tight animate-fade-in">
-            <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">Krankenfahrt,</span>
-            <br />
-            <span className="text-muted-foreground">einfach organisiert.</span>
-          </h1>
+          <motion.div 
+            className="text-center mb-8"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.1 }}
+          >
+            <h1 className="text-5xl md:text-7xl lg:text-8xl font-black mb-4 leading-[1.05] tracking-tight">
+              <span className="block bg-gradient-to-r from-primary via-primary to-secondary bg-clip-text text-transparent">
+                Krankenfahrt
+              </span>
+              <span className="block text-foreground mt-2">
+                <AnimatePresence mode="wait">
+                  <motion.span
+                    key={currentWordIndex}
+                    initial={{ opacity: 0, y: 20, rotateX: -90 }}
+                    animate={{ opacity: 1, y: 0, rotateX: 0 }}
+                    exit={{ opacity: 0, y: -20, rotateX: 90 }}
+                    transition={{ duration: 0.5 }}
+                    className="inline-block text-secondary"
+                  >
+                    {rotatingWords[currentWordIndex]}
+                  </motion.span>
+                </AnimatePresence>
+                {" "}organisiert.
+              </span>
+            </h1>
+          </motion.div>
 
           {/* Subtitle */}
-          <p className="text-lg md:text-xl text-muted-foreground mb-12 max-w-2xl mx-auto font-normal leading-relaxed animate-fade-in">
+          <motion.p 
+            className="text-xl md:text-2xl text-muted-foreground mb-12 max-w-3xl mx-auto text-center font-light leading-relaxed"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+          >
             Finden Sie zuverlässige Transportunternehmen in Ihrer Nähe – 
-            schnell, transparent und sicher.
-          </p>
+            <span className="text-foreground font-medium"> transparent, digital und sicher.</span>
+          </motion.p>
 
           {/* Search Card */}
-          <div className="max-w-2xl mx-auto bg-card rounded-2xl shadow-elevated border border-border/50 p-6 animate-scale-in">
-            <div className="flex flex-col sm:flex-row gap-4">
-              <div className="flex-1 relative">
-                <MapPin className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
-                <Input
-                  placeholder="Startadresse"
-                  value={startAddress}
-                  onChange={(e) => setStartAddress(e.target.value)}
-                  className="h-14 pl-12 text-base bg-muted/50 border-0 rounded-xl focus:ring-2 focus:ring-primary/20"
-                />
-              </div>
-              <div className="flex-1 relative">
-                <Navigation className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
-                <Input
-                  placeholder="Zieladresse"
-                  value={endAddress}
-                  onChange={(e) => setEndAddress(e.target.value)}
-                  className="h-14 pl-12 text-base bg-muted/50 border-0 rounded-xl focus:ring-2 focus:ring-primary/20"
-                />
-              </div>
-              <Button
-                size="lg"
-                onClick={handleSearch}
-                className="h-14 px-8 text-base font-semibold rounded-xl bg-primary hover:bg-primary/90 shadow-lg hover:shadow-xl transition-all"
-              >
-                Fahrt finden
-                <ArrowRight className="ml-2 w-5 h-5" />
-              </Button>
-            </div>
-          </div>
+          <motion.div 
+            className="max-w-3xl mx-auto"
+            initial={{ opacity: 0, y: 40, scale: 0.95 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            transition={{ duration: 0.7, delay: 0.3 }}
+          >
+            <div className="relative">
+              {/* Glow effect */}
+              <div className="absolute -inset-1 bg-gradient-to-r from-primary via-secondary to-primary rounded-3xl blur-lg opacity-30 group-hover:opacity-50 transition-opacity" />
+              
+              <div className="relative bg-card/80 backdrop-blur-xl rounded-3xl shadow-2xl border border-border/50 p-6 md:p-8">
+                {/* Transport type tabs */}
+                <div className="flex flex-wrap gap-2 mb-6">
+                  {["Sitzend", "Rollstuhl", "Tragestuhl", "Liegend"].map((type, index) => (
+                    <motion.button
+                      key={type}
+                      className={`px-4 py-2 rounded-xl text-sm font-medium transition-all ${
+                        index === 0 
+                          ? "bg-primary text-primary-foreground shadow-lg shadow-primary/25" 
+                          : "bg-muted/50 text-muted-foreground hover:bg-muted hover:text-foreground"
+                      }`}
+                      whileHover={{ scale: 1.02 }}
+                      whileTap={{ scale: 0.98 }}
+                    >
+                      {type}
+                    </motion.button>
+                  ))}
+                </div>
 
-          {/* Trust indicators */}
-          <div className="flex flex-wrap items-center justify-center gap-8 mt-12 text-sm text-muted-foreground animate-fade-in">
-            <div className="flex items-center gap-2">
-              <svg className="w-5 h-5 text-secondary" fill="currentColor" viewBox="0 0 20 20">
-                <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-              </svg>
-              Kostenlose Anfrage
+                {/* Address inputs */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                  <div className="relative group">
+                    <div className="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center group-focus-within:bg-primary/20 transition-colors">
+                      <MapPin className="w-5 h-5 text-primary" />
+                    </div>
+                    <Input
+                      placeholder="Startadresse eingeben"
+                      value={startAddress}
+                      onChange={(e) => setStartAddress(e.target.value)}
+                      className="h-16 pl-16 pr-4 text-base bg-muted/30 border-0 rounded-2xl focus:ring-2 focus:ring-primary/30 focus:bg-muted/50 transition-all"
+                    />
+                  </div>
+                  <div className="relative group">
+                    <div className="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-xl bg-secondary/10 flex items-center justify-center group-focus-within:bg-secondary/20 transition-colors">
+                      <Navigation className="w-5 h-5 text-secondary" />
+                    </div>
+                    <Input
+                      placeholder="Zieladresse eingeben"
+                      value={endAddress}
+                      onChange={(e) => setEndAddress(e.target.value)}
+                      className="h-16 pl-16 pr-4 text-base bg-muted/30 border-0 rounded-2xl focus:ring-2 focus:ring-secondary/30 focus:bg-muted/50 transition-all"
+                    />
+                  </div>
+                </div>
+
+                {/* Date and time row */}
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+                  <div className="relative col-span-1">
+                    <Calendar className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+                    <Input
+                      type="date"
+                      className="h-12 pl-11 text-sm bg-muted/30 border-0 rounded-xl"
+                    />
+                  </div>
+                  <div className="relative col-span-1">
+                    <Clock className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+                    <Input
+                      type="time"
+                      className="h-12 pl-11 text-sm bg-muted/30 border-0 rounded-xl"
+                    />
+                  </div>
+                  <motion.div 
+                    className="col-span-2"
+                    whileHover={{ scale: 1.01 }}
+                    whileTap={{ scale: 0.99 }}
+                  >
+                    <Button
+                      size="lg"
+                      onClick={handleSearch}
+                      className="w-full h-12 text-base font-bold rounded-xl bg-gradient-to-r from-primary to-primary/90 hover:from-primary/90 hover:to-primary shadow-lg shadow-primary/25 hover:shadow-xl hover:shadow-primary/30 transition-all"
+                    >
+                      Fahrt finden
+                      <ArrowRight className="ml-2 w-5 h-5" />
+                    </Button>
+                  </motion.div>
+                </div>
+
+                {/* Trust indicators inline */}
+                <div className="flex flex-wrap items-center justify-center gap-6 text-sm text-muted-foreground">
+                  {["Kostenlose Anfrage", "Geprüfte Unternehmen", "Schnelle Vermittlung"].map((text, index) => (
+                    <motion.div 
+                      key={text}
+                      className="flex items-center gap-2"
+                      initial={{ opacity: 0, x: -10 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: 0.5 + index * 0.1 }}
+                    >
+                      <CheckCircle2 className="w-4 h-4 text-secondary" />
+                      <span>{text}</span>
+                    </motion.div>
+                  ))}
+                </div>
+              </div>
             </div>
-            <div className="flex items-center gap-2">
-              <svg className="w-5 h-5 text-secondary" fill="currentColor" viewBox="0 0 20 20">
-                <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-              </svg>
-              Geprüfte Unternehmen
-            </div>
-            <div className="flex items-center gap-2">
-              <svg className="w-5 h-5 text-secondary" fill="currentColor" viewBox="0 0 20 20">
-                <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-              </svg>
-              Schnelle Vermittlung
-            </div>
-          </div>
+          </motion.div>
+
+          {/* Stats row */}
+          <motion.div 
+            className="grid grid-cols-3 gap-4 md:gap-8 max-w-2xl mx-auto mt-16"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.5 }}
+          >
+            {stats.map((stat, index) => {
+              const Icon = stat.icon;
+              return (
+                <motion.div 
+                  key={stat.label}
+                  className="text-center group"
+                  whileHover={{ y: -5 }}
+                  transition={{ type: "spring", stiffness: 400 }}
+                >
+                  <div className="inline-flex items-center justify-center w-12 h-12 rounded-2xl bg-gradient-to-br from-primary/10 to-secondary/10 mb-3 group-hover:from-primary/20 group-hover:to-secondary/20 transition-all">
+                    <Icon className="w-5 h-5 text-primary" />
+                  </div>
+                  <p className="text-3xl md:text-4xl font-black bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+                    {stat.value}
+                  </p>
+                  <p className="text-sm text-muted-foreground font-medium mt-1">{stat.label}</p>
+                </motion.div>
+              );
+            })}
+          </motion.div>
         </div>
       </div>
+
+      {/* Scroll indicator */}
+      <motion.div 
+        className="absolute bottom-8 left-1/2 -translate-x-1/2"
+        animate={{ y: [0, 10, 0] }}
+        transition={{ duration: 1.5, repeat: Infinity }}
+      >
+        <div className="w-6 h-10 rounded-full border-2 border-muted-foreground/30 flex items-start justify-center p-2">
+          <motion.div 
+            className="w-1.5 h-3 rounded-full bg-primary"
+            animate={{ y: [0, 12, 0] }}
+            transition={{ duration: 1.5, repeat: Infinity }}
+          />
+        </div>
+      </motion.div>
     </section>
   );
 };

@@ -1,135 +1,194 @@
-import { UserPlus, FileText, CheckCircle, Sparkles, ArrowRight } from "lucide-react";
+import { useRef } from "react";
+import { motion, useInView } from "framer-motion";
+import { UserPlus, FileText, CheckCircle, ArrowRight, Play } from "lucide-react";
 
 const steps = [
   {
     icon: UserPlus,
     number: "01",
     title: "Registrieren",
-    subtitle: "Ihr Zugang zur Plattform",
-    description: "Erstellen Sie in wenigen Sekunden Ihr kostenloses katew-Konto. Einfache Anmeldung mit E-Mail – ohne versteckte Kosten.",
+    subtitle: "In 30 Sekunden startklar",
+    description: "Erstellen Sie Ihr kostenloses katew-Konto. Einfache Anmeldung mit E-Mail – ohne versteckte Kosten.",
     features: ["Kostenlose Registrierung", "Keine Kreditkarte nötig", "Sofortiger Zugang"],
-    gradient: "from-primary via-primary/80 to-secondary",
+    color: "primary",
   },
   {
     icon: FileText,
     number: "02",
     title: "Anfrage stellen",
-    subtitle: "In unter 2 Minuten erledigt",
+    subtitle: "Unter 2 Minuten",
     description: "Geben Sie Ihre Fahrtdetails ein: Start, Ziel, Transportart und Termin. Wir finden passende Anbieter.",
     features: ["Intuitive Eingabe", "Alle Transportarten", "Flexible Termine"],
-    gradient: "from-secondary via-secondary/80 to-primary",
+    color: "secondary",
   },
   {
     icon: CheckCircle,
     number: "03",
-    title: "Bestätigung",
+    title: "Bestätigung erhalten",
     subtitle: "Alles organisiert",
     description: "Erhalten Sie Ihre Buchungsbestätigung mit allen Details: Fahrer-Kontakt, Fahrzeuginfos und Abholzeit.",
     features: ["Sofortige Bestätigung", "Fahrer-Kontakt", "Live-Tracking"],
-    gradient: "from-primary via-secondary/80 to-secondary",
+    color: "primary",
   },
 ];
 
 export const HowItWorks = () => {
-  return (
-    <section className="py-24 md:py-32 bg-gradient-to-b from-background via-muted/30 to-background overflow-hidden">
-      <div className="container mx-auto px-4">
-        {/* Header */}
-        <div className="text-center mb-16 md:mb-20">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-medium mb-6 animate-fade-in">
-            <Sparkles className="w-4 h-4" />
-            Einfach & Schnell
-          </div>
-          <h2 className="text-3xl md:text-5xl font-bold mb-4 tracking-tight bg-gradient-to-r from-primary via-secondary to-primary bg-clip-text text-transparent">
-            In 3 einfachen Schritten
-          </h2>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            In drei einfachen Schritten zu Ihrer Krankenfahrt
-          </p>
-        </div>
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, margin: "-100px" });
 
-        {/* Steps Grid - Horizontal */}
-        <div className="max-w-7xl mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 relative">
-            {/* Connection Lines (Desktop) */}
-            <div className="hidden md:block absolute top-24 left-[calc(16.67%+1rem)] right-[calc(16.67%+1rem)] h-0.5">
-              <div className="w-full h-full bg-gradient-to-r from-primary/50 via-secondary/50 to-primary/50 rounded-full" />
-              <div className="absolute left-1/4 top-1/2 -translate-y-1/2 -translate-x-1/2">
-                <ArrowRight className="w-4 h-4 text-secondary" />
-              </div>
-              <div className="absolute right-1/4 top-1/2 -translate-y-1/2 translate-x-1/2">
-                <ArrowRight className="w-4 h-4 text-secondary" />
-              </div>
+  return (
+    <section ref={ref} className="py-24 md:py-32 bg-gradient-to-b from-background via-muted/20 to-background overflow-hidden relative">
+      {/* Background elements */}
+      <div className="absolute inset-0 overflow-hidden">
+        <motion.div 
+          className="absolute top-1/4 -left-40 w-80 h-80 rounded-full bg-primary/5 blur-3xl"
+          animate={{ x: [0, 40, 0], y: [0, 20, 0] }}
+          transition={{ duration: 15, repeat: Infinity }}
+        />
+        <motion.div 
+          className="absolute bottom-1/4 -right-40 w-80 h-80 rounded-full bg-secondary/5 blur-3xl"
+          animate={{ x: [0, -40, 0], y: [0, -20, 0] }}
+          transition={{ duration: 18, repeat: Infinity }}
+        />
+      </div>
+
+      <div className="container mx-auto px-4 relative z-10">
+        {/* Header */}
+        <motion.div 
+          className="text-center mb-20"
+          initial={{ opacity: 0, y: 30 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.6 }}
+        >
+          <motion.div 
+            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-gradient-to-r from-primary/10 to-secondary/10 border border-primary/20 text-sm font-medium mb-6"
+            whileHover={{ scale: 1.02 }}
+          >
+            <Play className="w-4 h-4 text-primary" />
+            <span>So funktioniert's</span>
+          </motion.div>
+          <h2 className="text-4xl md:text-6xl lg:text-7xl font-black mb-6 tracking-tight">
+            <span className="bg-gradient-to-r from-primary via-secondary to-primary bg-clip-text text-transparent">
+              3 einfache Schritte
+            </span>
+          </h2>
+          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+            Von der Registrierung bis zur bestätigten Fahrt – in wenigen Minuten
+          </p>
+        </motion.div>
+
+        {/* Steps */}
+        <div className="max-w-6xl mx-auto">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 relative">
+            {/* Connection line - Desktop */}
+            <div className="hidden lg:block absolute top-32 left-[16%] right-[16%] h-1">
+              <motion.div 
+                className="h-full bg-gradient-to-r from-primary via-secondary to-primary rounded-full"
+                initial={{ scaleX: 0 }}
+                animate={isInView ? { scaleX: 1 } : {}}
+                transition={{ duration: 1, delay: 0.5 }}
+                style={{ transformOrigin: "left" }}
+              />
             </div>
 
             {steps.map((step, index) => {
               const Icon = step.icon;
               return (
-                <div
+                <motion.div
                   key={index}
-                  className="group relative"
-                  style={{ animationDelay: `${index * 150}ms` }}
+                  initial={{ opacity: 0, y: 50 }}
+                  animate={isInView ? { opacity: 1, y: 0 } : {}}
+                  transition={{ duration: 0.6, delay: 0.2 + index * 0.15 }}
+                  className="relative group"
                 >
-                  {/* Card */}
-                  <div className="relative h-full bg-card border border-border/50 rounded-3xl p-8 hover:border-primary/40 hover:shadow-2xl hover:shadow-primary/10 transition-all duration-500 hover:-translate-y-2">
-                    {/* Gradient Glow Background */}
-                    <div className={`absolute inset-0 rounded-3xl bg-gradient-to-br ${step.gradient} opacity-0 group-hover:opacity-5 transition-opacity duration-500`} />
+                  <motion.div 
+                    className="relative h-full bg-card border border-border/50 rounded-3xl p-8 hover:border-primary/30 transition-all duration-500"
+                    whileHover={{ y: -8, boxShadow: "0 25px 50px -12px rgba(0,0,0,0.15)" }}
+                  >
+                    {/* Gradient overlay on hover */}
+                    <div className={`absolute inset-0 rounded-3xl bg-gradient-to-br ${step.color === 'primary' ? 'from-primary/5 to-transparent' : 'from-secondary/5 to-transparent'} opacity-0 group-hover:opacity-100 transition-opacity duration-500`} />
                     
-                    {/* Step Number */}
-                    <div className="relative mb-6">
-                      <div className={`w-20 h-20 rounded-2xl bg-gradient-to-br ${step.gradient} flex items-center justify-center shadow-lg group-hover:scale-110 group-hover:shadow-xl transition-all duration-500`}>
-                        <span className="text-3xl font-bold text-primary-foreground">{step.number}</span>
+                    {/* Number badge */}
+                    <motion.div 
+                      className="relative mb-8"
+                      whileHover={{ scale: 1.05 }}
+                    >
+                      <div className={`w-24 h-24 rounded-3xl bg-gradient-to-br ${step.color === 'primary' ? 'from-primary to-primary/80' : 'from-secondary to-secondary/80'} flex items-center justify-center shadow-xl ${step.color === 'primary' ? 'shadow-primary/25' : 'shadow-secondary/25'}`}>
+                        <span className="text-4xl font-black text-primary-foreground">{step.number}</span>
                       </div>
-                      {/* Floating Icon */}
-                      <div className="absolute -right-2 -bottom-2 w-10 h-10 rounded-xl bg-card border border-border shadow-md flex items-center justify-center group-hover:scale-110 group-hover:bg-primary/10 transition-all duration-300">
-                        <Icon className="w-5 h-5 text-primary" />
-                      </div>
-                    </div>
+                      {/* Floating icon */}
+                      <motion.div 
+                        className="absolute -right-2 -bottom-2 w-12 h-12 rounded-2xl bg-card border border-border shadow-lg flex items-center justify-center"
+                        whileHover={{ rotate: 10 }}
+                      >
+                        <Icon className={`w-6 h-6 ${step.color === 'primary' ? 'text-primary' : 'text-secondary'}`} />
+                      </motion.div>
+                    </motion.div>
 
                     {/* Content */}
                     <div className="relative">
-                      <p className="text-sm text-secondary font-semibold mb-1 tracking-wide uppercase">{step.subtitle}</p>
-                      <h3 className="text-2xl font-bold mb-3 group-hover:text-primary transition-colors">{step.title}</h3>
+                      <p className={`text-sm ${step.color === 'primary' ? 'text-primary' : 'text-secondary'} font-bold mb-2 uppercase tracking-wider`}>
+                        {step.subtitle}
+                      </p>
+                      <h3 className="text-2xl font-bold mb-4 group-hover:text-primary transition-colors">
+                        {step.title}
+                      </h3>
                       <p className="text-muted-foreground leading-relaxed mb-6">
                         {step.description}
                       </p>
 
                       {/* Features */}
-                      <div className="space-y-2">
+                      <div className="space-y-3">
                         {step.features.map((feature, idx) => (
-                          <div
+                          <motion.div
                             key={idx}
-                            className="flex items-center gap-2 text-sm"
+                            className="flex items-center gap-3"
+                            initial={{ opacity: 0, x: -10 }}
+                            animate={isInView ? { opacity: 1, x: 0 } : {}}
+                            transition={{ delay: 0.5 + index * 0.15 + idx * 0.1 }}
                           >
-                            <div className="w-5 h-5 rounded-full bg-secondary/20 flex items-center justify-center flex-shrink-0">
-                              <CheckCircle className="w-3 h-3 text-secondary" />
+                            <div className={`w-6 h-6 rounded-full ${step.color === 'primary' ? 'bg-primary/10' : 'bg-secondary/10'} flex items-center justify-center`}>
+                              <CheckCircle className={`w-4 h-4 ${step.color === 'primary' ? 'text-primary' : 'text-secondary'}`} />
                             </div>
-                            <span className="text-muted-foreground">{feature}</span>
-                          </div>
+                            <span className="text-sm text-muted-foreground">{feature}</span>
+                          </motion.div>
                         ))}
                       </div>
                     </div>
 
-                    {/* Bottom Accent */}
-                    <div className={`absolute bottom-0 left-8 right-8 h-1 rounded-full bg-gradient-to-r ${step.gradient} opacity-0 group-hover:opacity-100 transition-opacity duration-500`} />
-                  </div>
-                </div>
+                    {/* Bottom accent line */}
+                    <motion.div 
+                      className={`absolute bottom-0 left-8 right-8 h-1 rounded-full bg-gradient-to-r ${step.color === 'primary' ? 'from-primary to-primary/50' : 'from-secondary to-secondary/50'}`}
+                      initial={{ scaleX: 0 }}
+                      whileHover={{ scaleX: 1 }}
+                      transition={{ duration: 0.3 }}
+                      style={{ transformOrigin: "left" }}
+                    />
+                  </motion.div>
+                </motion.div>
               );
             })}
           </div>
         </div>
 
         {/* Bottom CTA */}
-        <div className="text-center mt-16">
-          <p className="text-muted-foreground mb-2">Bereit loszulegen?</p>
-          <a 
+        <motion.div 
+          className="text-center mt-20"
+          initial={{ opacity: 0, y: 20 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.6, delay: 0.8 }}
+        >
+          <p className="text-muted-foreground mb-4 text-lg">Bereit loszulegen?</p>
+          <motion.a 
             href="/anmelden?register=true" 
-            className="inline-flex items-center gap-2 text-primary font-semibold hover:gap-3 transition-all duration-300 group"
+            className="inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-primary to-primary/90 text-primary-foreground font-bold rounded-2xl shadow-xl shadow-primary/25 hover:shadow-2xl hover:shadow-primary/30 transition-all"
+            whileHover={{ scale: 1.02, y: -2 }}
+            whileTap={{ scale: 0.98 }}
           >
-            Jetzt kostenlos registrieren
-            <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-          </a>
-        </div>
+            Jetzt kostenlos starten
+            <ArrowRight className="w-5 h-5" />
+          </motion.a>
+        </motion.div>
       </div>
     </section>
   );
