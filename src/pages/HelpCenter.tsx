@@ -658,76 +658,6 @@ export default function HelpCenter() {
           </div>
         </section>
 
-        {/* Contact Options - Premium Cards */}
-        <section className="py-16 md:py-24 bg-gradient-to-b from-transparent via-muted/30 to-transparent">
-          <div className="container mx-auto px-4">
-            <div className="max-w-5xl mx-auto">
-              <div className="text-center mb-14">
-                <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-medium mb-6">
-                  <Headphones className="w-4 h-4" />
-                  Persönlicher Support
-                </div>
-                <h2 className="text-3xl md:text-4xl font-bold mb-4">
-                  Noch Fragen? Wir sind für Sie da
-                </h2>
-                <p className="text-lg text-muted-foreground max-w-xl mx-auto">
-                  Unser Support-Team hilft Ihnen gerne weiter – wählen Sie Ihren bevorzugten Kontaktweg
-                </p>
-              </div>
-              
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                {contactOptions.map((option, index) => {
-                  const Icon = option.icon;
-                  return (
-                    <div
-                      key={index}
-                      className="group relative"
-                    >
-                      {/* Glow */}
-                      <div className={`absolute -inset-1 bg-gradient-to-r ${option.gradient} rounded-3xl blur-xl opacity-0 group-hover:opacity-20 transition-opacity duration-500`} />
-                      
-                      <div className="relative h-full bg-card rounded-2xl border border-border/50 p-8 hover:border-primary/30 transition-all duration-500 group-hover:shadow-2xl group-hover:-translate-y-1">
-                        {/* Icon with Gradient Border */}
-                        <div className="relative w-20 h-20 mx-auto mb-6">
-                          <div className={`absolute inset-0 bg-gradient-to-br ${option.gradient} rounded-2xl opacity-10 group-hover:opacity-20 transition-opacity`} />
-                          <div className="absolute inset-0.5 bg-card rounded-[14px] flex items-center justify-center">
-                            <Icon className={`w-9 h-9 bg-gradient-to-br ${option.gradient} bg-clip-text text-primary`} />
-                          </div>
-                        </div>
-
-                        <h3 className="font-bold text-xl mb-2 text-center">{option.title}</h3>
-                        <p className="text-muted-foreground text-sm mb-6 text-center leading-relaxed">
-                          {option.description}
-                        </p>
-
-                        {/* Response Time Badge */}
-                        <div className="flex justify-center mb-5">
-                          <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-muted/50 text-xs font-medium">
-                            <Zap className="w-3 h-3 text-secondary" />
-                            Antwortzeit: {option.responseTime}
-                          </span>
-                        </div>
-
-                        <Button 
-                          variant="outline" 
-                          className={`w-full mb-4 rounded-xl py-5 group-hover:border-primary group-hover:text-primary transition-all font-medium`}
-                        >
-                          {option.action}
-                          <ExternalLink className="ml-2 w-4 h-4" />
-                        </Button>
-
-                        <div className="flex items-center justify-center gap-1.5 text-xs text-muted-foreground">
-                          <Clock className="w-3.5 h-3.5" />
-                          {option.available}
-                        </div>
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
-          </div>
-        </section>
 
         {/* Bottom CTA Section */}
         <section className="py-16 md:py-24">
@@ -753,13 +683,10 @@ export default function HelpCenter() {
                   <p className="text-lg text-white/80 mb-8 max-w-xl mx-auto">
                     Unser Team beantwortet Ihre individuellen Fragen persönlich und kompetent
                   </p>
-                  <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                  <div className="flex justify-center">
                     <Button size="lg" className="bg-white text-primary hover:bg-white/90 rounded-xl px-8 py-6 text-base font-semibold shadow-lg">
                       <MessageCircle className="mr-2 w-5 h-5" />
                       Support kontaktieren
-                    </Button>
-                    <Button size="lg" variant="outline" className="border-white/30 text-white hover:bg-white/10 rounded-xl px-8 py-6 text-base font-semibold">
-                      Ticket erstellen
                     </Button>
                   </div>
                 </div>

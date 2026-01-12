@@ -17,6 +17,7 @@ const footerLinks = {
   support: [
     { label: "Hilfe-Center", href: "/hilfe" },
     { label: "Kontakt", href: "/kontakt" },
+    { label: "FAQ", href: "/faq" },
   ],
   rechtliches: [
     { label: "Impressum", href: "/impressum" },
