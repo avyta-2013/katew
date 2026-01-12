@@ -792,7 +792,7 @@ const ProviderDashboard = () => {
         </TabsContent>
 
         <TabsContent value="standort" className="mt-5 space-y-5">
-          {/* Standort Katalog Card */}
+          {/* Katalog & Standort Combined Card */}
           <Card className="border-0 shadow-xl bg-gradient-to-br from-card via-card to-muted/10 overflow-hidden">
             <CardHeader className="pb-4 pt-5 px-6 border-b border-border/30 bg-gradient-to-r from-amber-500/5 to-transparent">
               <div className="flex items-center gap-3">
@@ -800,105 +800,92 @@ const ProviderDashboard = () => {
                   <ClipboardList className="w-5 h-5 text-amber-600" />
                 </div>
                 <div>
-                  <CardTitle className="text-lg font-bold">Katalog</CardTitle>
-                  <p className="text-xs text-muted-foreground mt-0.5">Dienstleistungskonfiguration</p>
+                  <CardTitle className="text-lg font-bold">Katalog & Standort</CardTitle>
+                  <p className="text-xs text-muted-foreground mt-0.5">Dienstleistungskonfiguration und Einsatzgebiet</p>
                 </div>
               </div>
             </CardHeader>
-            <CardContent className="px-6 pb-6 pt-5 space-y-4">
-              <div className="grid md:grid-cols-2 gap-4">
-                <div className="group p-4 rounded-xl bg-gradient-to-r from-muted/40 to-muted/20 hover:from-amber-500/10 hover:to-orange-500/5 transition-all duration-300 border border-transparent hover:border-amber-500/20 hover:shadow-md">
-                  <div className="flex items-center gap-2 mb-2">
-                    <Building2 className="w-3.5 h-3.5 text-amber-600" />
-                    <Label className="text-[10px] text-muted-foreground uppercase tracking-wider font-semibold">Unternehmensname <span className="text-destructive">*</span></Label>
+            <CardContent className="px-6 pb-6 pt-5 space-y-6">
+              {/* Katalog Section */}
+              <div className="space-y-4">
+                <h4 className="text-sm font-semibold text-foreground flex items-center gap-2">
+                  <div className="w-1.5 h-1.5 rounded-full bg-amber-500" />
+                  Dienstleistung
+                </h4>
+                <div className="grid md:grid-cols-3 gap-4">
+                  <div className="group p-4 rounded-xl bg-gradient-to-r from-muted/40 to-muted/20 hover:from-amber-500/10 hover:to-orange-500/5 transition-all duration-300 border border-transparent hover:border-amber-500/20 hover:shadow-md">
+                    <div className="flex items-center gap-2 mb-2">
+                      <Users className="w-3.5 h-3.5 text-amber-600" />
+                      <Label className="text-[10px] text-muted-foreground uppercase tracking-wider font-semibold">Anbieter <span className="text-destructive">*</span></Label>
+                    </div>
+                    <select className="w-full h-11 bg-background/80 border border-border/50 focus:border-amber-500 focus:ring-1 focus:ring-amber-500/20 focus:outline-none rounded-lg text-sm px-3 shadow-sm">
+                      <option value="">Bitte wählen</option>
+                      <option value="krankentransport">Krankentransport</option>
+                      <option value="rettungsdienst">Rettungsdienst</option>
+                      <option value="taxiunternehmen">Taxiunternehmen</option>
+                      <option value="mietwagen">Mietwagen</option>
+                    </select>
                   </div>
-                  <Input 
-                    defaultValue="MediTrans GmbH" 
-                    className="h-11 bg-background/80 border border-border/50 focus-visible:border-amber-500 focus-visible:ring-1 focus-visible:ring-amber-500/20 rounded-lg text-sm shadow-sm"
-                  />
-                </div>
-                <div className="group p-4 rounded-xl bg-gradient-to-r from-muted/40 to-muted/20 hover:from-amber-500/10 hover:to-orange-500/5 transition-all duration-300 border border-transparent hover:border-amber-500/20 hover:shadow-md">
-                  <div className="flex items-center gap-2 mb-2">
-                    <Users className="w-3.5 h-3.5 text-amber-600" />
-                    <Label className="text-[10px] text-muted-foreground uppercase tracking-wider font-semibold">Anbieter <span className="text-destructive">*</span></Label>
+                  <div className="group p-4 rounded-xl bg-gradient-to-r from-muted/40 to-muted/20 hover:from-amber-500/10 hover:to-orange-500/5 transition-all duration-300 border border-transparent hover:border-amber-500/20 hover:shadow-md">
+                    <div className="flex items-center gap-2 mb-2">
+                      <Route className="w-3.5 h-3.5 text-amber-600" />
+                      <Label className="text-[10px] text-muted-foreground uppercase tracking-wider font-semibold">Transportart <span className="text-destructive">*</span></Label>
+                    </div>
+                    <select className="w-full h-11 bg-background/80 border border-border/50 focus:border-amber-500 focus:ring-1 focus:ring-amber-500/20 focus:outline-none rounded-lg text-sm px-3 shadow-sm">
+                      <option value="">Bitte wählen</option>
+                      <option value="qualifiziert">Qualifizierter Krankentransport</option>
+                      <option value="nicht-qualifiziert">Nicht-qualifizierter Transport</option>
+                    </select>
                   </div>
-                  <select className="w-full h-11 bg-background/80 border border-border/50 focus:border-amber-500 focus:ring-1 focus:ring-amber-500/20 focus:outline-none rounded-lg text-sm px-3 shadow-sm">
-                    <option value="">Bitte wählen</option>
-                    <option value="krankentransport">Krankentransport</option>
-                    <option value="rettungsdienst">Rettungsdienst</option>
-                    <option value="taxiunternehmen">Taxiunternehmen</option>
-                    <option value="mietwagen">Mietwagen</option>
-                  </select>
+                  <div className="group p-4 rounded-xl bg-gradient-to-r from-muted/40 to-muted/20 hover:from-amber-500/10 hover:to-orange-500/5 transition-all duration-300 border border-transparent hover:border-amber-500/20 hover:shadow-md">
+                    <div className="flex items-center gap-2 mb-2">
+                      <Truck className="w-3.5 h-3.5 text-amber-600" />
+                      <Label className="text-[10px] text-muted-foreground uppercase tracking-wider font-semibold">Transportmittel <span className="text-destructive">*</span></Label>
+                    </div>
+                    <select className="w-full h-11 bg-background/80 border border-border/50 focus:border-amber-500 focus:ring-1 focus:ring-amber-500/20 focus:outline-none rounded-lg text-sm px-3 shadow-sm">
+                      <option value="">Bitte wählen</option>
+                      <option value="ktw">KTW (Krankentransportwagen)</option>
+                      <option value="rtw">RTW (Rettungswagen)</option>
+                      <option value="nef">NEF (Notarzteinsatzfahrzeug)</option>
+                      <option value="taxi">Taxi/Mietwagen</option>
+                    </select>
+                  </div>
                 </div>
               </div>
 
-              <div className="grid md:grid-cols-2 gap-4">
-                <div className="group p-4 rounded-xl bg-gradient-to-r from-muted/40 to-muted/20 hover:from-amber-500/10 hover:to-orange-500/5 transition-all duration-300 border border-transparent hover:border-amber-500/20 hover:shadow-md">
-                  <div className="flex items-center gap-2 mb-2">
-                    <Route className="w-3.5 h-3.5 text-amber-600" />
-                    <Label className="text-[10px] text-muted-foreground uppercase tracking-wider font-semibold">Transportart <span className="text-destructive">*</span></Label>
-                  </div>
-                  <select className="w-full h-11 bg-background/80 border border-border/50 focus:border-amber-500 focus:ring-1 focus:ring-amber-500/20 focus:outline-none rounded-lg text-sm px-3 shadow-sm">
-                    <option value="">Bitte wählen</option>
-                    <option value="qualifiziert">Qualifizierter Krankentransport</option>
-                    <option value="nicht-qualifiziert">Nicht-qualifizierter Transport</option>
-                  </select>
-                </div>
-                <div className="group p-4 rounded-xl bg-gradient-to-r from-muted/40 to-muted/20 hover:from-amber-500/10 hover:to-orange-500/5 transition-all duration-300 border border-transparent hover:border-amber-500/20 hover:shadow-md">
-                  <div className="flex items-center gap-2 mb-2">
-                    <Truck className="w-3.5 h-3.5 text-amber-600" />
-                    <Label className="text-[10px] text-muted-foreground uppercase tracking-wider font-semibold">Transportmittel <span className="text-destructive">*</span></Label>
-                  </div>
-                  <select className="w-full h-11 bg-background/80 border border-border/50 focus:border-amber-500 focus:ring-1 focus:ring-amber-500/20 focus:outline-none rounded-lg text-sm px-3 shadow-sm">
-                    <option value="">Bitte wählen</option>
-                    <option value="ktw">KTW (Krankentransportwagen)</option>
-                    <option value="rtw">RTW (Rettungswagen)</option>
-                    <option value="nef">NEF (Notarzteinsatzfahrzeug)</option>
-                    <option value="taxi">Taxi/Mietwagen</option>
-                  </select>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
+              <Separator className="bg-border/30" />
 
-          {/* Standort & Umkreis Card */}
-          <Card className="border-0 shadow-xl bg-gradient-to-br from-card via-card to-muted/10 overflow-hidden">
-            <CardHeader className="pb-4 pt-5 px-6 border-b border-border/30 bg-gradient-to-r from-blue-500/5 to-transparent">
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-500/20 to-cyan-500/20 flex items-center justify-center shadow-sm">
-                  <MapPinned className="w-5 h-5 text-blue-600" />
-                </div>
-                <div>
-                  <CardTitle className="text-lg font-bold">Standort & Umkreis</CardTitle>
-                  <p className="text-xs text-muted-foreground mt-0.5">Ihr Einsatzgebiet definieren</p>
-                </div>
-              </div>
-            </CardHeader>
-            <CardContent className="px-6 pb-6 pt-5 space-y-4">
-              <div className="grid md:grid-cols-2 gap-4">
-                <div className="group p-4 rounded-xl bg-gradient-to-r from-muted/40 to-muted/20 hover:from-blue-500/10 hover:to-cyan-500/5 transition-all duration-300 border border-transparent hover:border-blue-500/20 hover:shadow-md">
-                  <div className="flex items-center gap-2 mb-2">
-                    <MapPin className="w-3.5 h-3.5 text-blue-600" />
-                    <Label className="text-[10px] text-muted-foreground uppercase tracking-wider font-semibold">Adresse <span className="text-destructive">*</span></Label>
-                  </div>
-                  <Input 
-                    placeholder="Gebe hier deine Betriebssitz Start-Adresse ein"
-                    defaultValue="Hauptstraße 123, 60311 Frankfurt am Main" 
-                    className="h-11 bg-background/80 border border-border/50 focus-visible:border-blue-500 focus-visible:ring-1 focus-visible:ring-blue-500/20 rounded-lg text-sm shadow-sm"
-                  />
-                </div>
-                <div className="group p-4 rounded-xl bg-gradient-to-r from-muted/40 to-muted/20 hover:from-blue-500/10 hover:to-cyan-500/5 transition-all duration-300 border border-transparent hover:border-blue-500/20 hover:shadow-md">
-                  <div className="flex items-center gap-2 mb-2">
-                    <Target className="w-3.5 h-3.5 text-blue-600" />
-                    <Label className="text-[10px] text-muted-foreground uppercase tracking-wider font-semibold">Umkreis festlegen <span className="text-destructive">*</span></Label>
-                  </div>
-                  <div className="relative">
+              {/* Standort Section */}
+              <div className="space-y-4">
+                <h4 className="text-sm font-semibold text-foreground flex items-center gap-2">
+                  <div className="w-1.5 h-1.5 rounded-full bg-blue-500" />
+                  Standort & Umkreis
+                </h4>
+                <div className="grid md:grid-cols-2 gap-4">
+                  <div className="group p-4 rounded-xl bg-gradient-to-r from-muted/40 to-muted/20 hover:from-blue-500/10 hover:to-cyan-500/5 transition-all duration-300 border border-transparent hover:border-blue-500/20 hover:shadow-md">
+                    <div className="flex items-center gap-2 mb-2">
+                      <MapPin className="w-3.5 h-3.5 text-blue-600" />
+                      <Label className="text-[10px] text-muted-foreground uppercase tracking-wider font-semibold">Adresse <span className="text-destructive">*</span></Label>
+                    </div>
                     <Input 
-                      type="number"
-                      defaultValue="50" 
-                      className="h-11 bg-background/80 border border-border/50 focus-visible:border-blue-500 focus-visible:ring-1 focus-visible:ring-blue-500/20 rounded-lg text-sm pr-12 shadow-sm"
+                      placeholder="Gebe hier deine Betriebssitz Start-Adresse ein"
+                      defaultValue="Hauptstraße 123, 60311 Frankfurt am Main" 
+                      className="h-11 bg-background/80 border border-border/50 focus-visible:border-blue-500 focus-visible:ring-1 focus-visible:ring-blue-500/20 rounded-lg text-sm shadow-sm"
                     />
-                    <span className="absolute right-4 top-1/2 -translate-y-1/2 text-xs font-medium text-muted-foreground bg-muted/50 px-2 py-1 rounded">km</span>
+                  </div>
+                  <div className="group p-4 rounded-xl bg-gradient-to-r from-muted/40 to-muted/20 hover:from-blue-500/10 hover:to-cyan-500/5 transition-all duration-300 border border-transparent hover:border-blue-500/20 hover:shadow-md">
+                    <div className="flex items-center gap-2 mb-2">
+                      <Target className="w-3.5 h-3.5 text-blue-600" />
+                      <Label className="text-[10px] text-muted-foreground uppercase tracking-wider font-semibold">Umkreis festlegen <span className="text-destructive">*</span></Label>
+                    </div>
+                    <div className="relative">
+                      <Input 
+                        type="number"
+                        defaultValue="50" 
+                        className="h-11 bg-background/80 border border-border/50 focus-visible:border-blue-500 focus-visible:ring-1 focus-visible:ring-blue-500/20 rounded-lg text-sm pr-12 shadow-sm"
+                      />
+                      <span className="absolute right-4 top-1/2 -translate-y-1/2 text-xs font-medium text-muted-foreground bg-muted/50 px-2 py-1 rounded">km</span>
+                    </div>
                   </div>
                 </div>
               </div>
