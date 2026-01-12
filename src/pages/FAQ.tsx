@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { 
   Search, 
   HelpCircle,
@@ -7,8 +7,15 @@ import {
   Users,
   Shield,
   FileText,
-  Clock,
-  ChevronRight
+  ChevronRight,
+  Sparkles,
+  MessageSquare,
+  Phone,
+  Mail,
+  ArrowRight,
+  CheckCircle,
+  Zap,
+  Clock
 } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import {
@@ -23,15 +30,15 @@ import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 
 const partnerCategories = [
-  { id: "booking", label: "Buchung & Transport", icon: Truck },
-  { id: "costs", label: "Kosten & Abrechnung", icon: CreditCard },
-  { id: "safety", label: "Sicherheit", icon: Shield },
+  { id: "booking", label: "Buchung & Transport", icon: Truck, gradient: "from-blue-500 to-cyan-500", count: 5 },
+  { id: "costs", label: "Kosten & Abrechnung", icon: CreditCard, gradient: "from-emerald-500 to-teal-500", count: 4 },
+  { id: "safety", label: "Sicherheit", icon: Shield, gradient: "from-violet-500 to-purple-500", count: 3 },
 ];
 
 const anbieterCategories = [
-  { id: "registration", label: "Registrierung", icon: FileText },
-  { id: "orders", label: "Aufträge", icon: Truck },
-  { id: "billing", label: "Abrechnung", icon: CreditCard },
+  { id: "registration", label: "Registrierung", icon: FileText, gradient: "from-orange-500 to-amber-500", count: 3 },
+  { id: "orders", label: "Aufträge", icon: Truck, gradient: "from-blue-500 to-cyan-500", count: 3 },
+  { id: "billing", label: "Abrechnung", icon: CreditCard, gradient: "from-emerald-500 to-teal-500", count: 3 },
 ];
 
 const partnerFaqData = {
@@ -136,10 +143,45 @@ const anbieterFaqData = {
   ],
 };
 
+const stats = [
+  { value: "500+", label: "Beantwortete Fragen", icon: HelpCircle },
+  { value: "< 2h", label: "Ø Antwortzeit", icon: Zap },
+  { value: "98%", label: "Zufriedenheit", icon: CheckCircle },
+  { value: "24/7", label: "Support", icon: Clock },
+];
+
+const contactOptions = [
+  {
+    icon: MessageSquare,
+    title: "Live-Chat",
+    description: "Sofortige Hilfe",
+    gradient: "from-blue-500 to-cyan-500",
+  },
+  {
+    icon: Phone,
+    title: "Telefon",
+    description: "+49 155 61 231",
+    gradient: "from-emerald-500 to-teal-500",
+  },
+  {
+    icon: Mail,
+    title: "E-Mail",
+    description: "support@katew.de",
+    gradient: "from-violet-500 to-purple-500",
+  },
+];
+
 export default function FAQ() {
   const [activeTab, setActiveTab] = useState<"partner" | "anbieter">("partner");
   const [selectedCategory, setSelectedCategory] = useState("booking");
   const [searchQuery, setSearchQuery] = useState("");
+  const [isSearchFocused, setIsSearchFocused] = useState(false);
+  const [animatedStats, setAnimatedStats] = useState(false);
+
+  useEffect(() => {
+    const timer = setTimeout(() => setAnimatedStats(true), 300);
+    return () => clearTimeout(timer);
+  }, []);
 
   const categories = activeTab === "partner" ? partnerCategories : anbieterCategories;
   const faqData = activeTab === "partner" ? partnerFaqData : anbieterFaqData;
@@ -153,50 +195,130 @@ export default function FAQ() {
       )
     : currentFaqs;
 
+  const totalQuestions = Object.values(faqData).flat().length;
+
   return (
     <>
       <Header />
-      <div className="min-h-screen bg-background">
-        {/* Hero Section */}
-        <section className="relative pt-32 pb-16 md:pt-40 md:pb-24 overflow-hidden">
-          <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-secondary/5" />
-          <div className="absolute top-20 left-10 w-72 h-72 bg-primary/10 rounded-full blur-3xl" />
+      <div className="min-h-screen bg-background overflow-hidden">
+        {/* Hero Section - Premium Design */}
+        <section className="relative pt-28 pb-16 md:pt-36 md:pb-20 overflow-hidden">
+          {/* Animated Background */}
+          <div className="absolute inset-0">
+            <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-secondary/5" />
+            <div className="absolute top-0 left-1/4 w-[600px] h-[600px] bg-primary/10 rounded-full blur-[150px] animate-pulse" />
+            <div className="absolute bottom-0 right-1/4 w-[500px] h-[500px] bg-secondary/10 rounded-full blur-[120px] animate-pulse" style={{ animationDelay: '1s' }} />
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-gradient-to-r from-primary/5 to-secondary/5 rounded-full blur-[100px]" />
+          </div>
+
+          {/* Floating Elements */}
+          <div className="absolute inset-0 overflow-hidden pointer-events-none">
+            <div className="absolute top-20 left-10 w-3 h-3 bg-primary/40 rounded-full animate-bounce" style={{ animationDuration: '3s' }} />
+            <div className="absolute top-40 right-20 w-2 h-2 bg-secondary/40 rounded-full animate-bounce" style={{ animationDuration: '2.5s', animationDelay: '0.5s' }} />
+            <div className="absolute bottom-32 left-1/4 w-4 h-4 bg-primary/30 rounded-full animate-bounce" style={{ animationDuration: '3.5s', animationDelay: '1s' }} />
+          </div>
           
           <div className="container mx-auto px-4 relative">
-            <div className="max-w-3xl mx-auto text-center">
-              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-medium mb-6">
-                <HelpCircle className="w-4 h-4" />
-                Wir haben die Antworten
+            <div className="max-w-4xl mx-auto text-center">
+              {/* Badge */}
+              <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-gradient-to-r from-primary/10 to-secondary/10 backdrop-blur-sm border border-primary/20 text-primary text-sm font-medium mb-8 animate-fade-in">
+                <Sparkles className="w-4 h-4" />
+                <span>Wir haben die Antworten</span>
               </div>
-              <h1 className="text-4xl md:text-6xl font-bold mb-6 tracking-tight">
+
+              {/* Title */}
+              <h1 className="text-5xl md:text-7xl font-bold mb-6 tracking-tight animate-fade-in" style={{ animationDelay: '0.1s' }}>
+                <span className="bg-gradient-to-r from-foreground via-foreground to-foreground/70 bg-clip-text text-transparent">
+                  Häufig gestellte
+                </span>
+                <br />
                 <span className="bg-gradient-to-r from-primary via-secondary to-primary bg-clip-text text-transparent">
-                  Häufig gestellte Fragen
+                  Fragen
                 </span>
               </h1>
-              <p className="text-xl text-muted-foreground mb-10">
-                Finden Sie schnell Antworten auf Ihre Fragen
+
+              <p className="text-xl md:text-2xl text-muted-foreground mb-12 max-w-2xl mx-auto leading-relaxed animate-fade-in" style={{ animationDelay: '0.2s' }}>
+                Finden Sie schnell Antworten auf alle Ihre Fragen rund um katew
               </p>
               
-              {/* Search */}
-              <div className="relative max-w-xl mx-auto">
-                <Search className="absolute left-5 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
-                <Input
-                  type="text"
-                  placeholder="Suchen Sie nach einem Thema..."
-                  className="pl-14 pr-6 py-6 text-lg rounded-2xl border-border/50 bg-card/80 backdrop-blur-sm"
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                />
+              {/* Premium Search Box */}
+              <div 
+                className={`relative max-w-2xl mx-auto animate-fade-in transition-all duration-500 ${
+                  isSearchFocused ? 'scale-[1.02]' : ''
+                }`}
+                style={{ animationDelay: '0.3s' }}
+              >
+                <div className={`absolute -inset-1 bg-gradient-to-r from-primary/50 to-secondary/50 rounded-3xl blur-lg transition-opacity duration-300 ${
+                  isSearchFocused ? 'opacity-100' : 'opacity-0'
+                }`} />
+                <div className="relative bg-card/80 backdrop-blur-xl border border-border/50 rounded-2xl shadow-2xl">
+                  <Search className={`absolute left-6 top-1/2 -translate-y-1/2 w-6 h-6 transition-colors duration-300 ${
+                    isSearchFocused ? 'text-primary' : 'text-muted-foreground'
+                  }`} />
+                  <Input
+                    type="text"
+                    placeholder="Suchen Sie nach Themen oder Fragen..."
+                    className="pl-16 pr-6 py-8 text-lg rounded-2xl border-0 bg-transparent focus-visible:ring-0 focus-visible:ring-offset-0"
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    onFocus={() => setIsSearchFocused(true)}
+                    onBlur={() => setIsSearchFocused(false)}
+                  />
+                  <div className="absolute right-4 top-1/2 -translate-y-1/2">
+                    <Button className="rounded-xl bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary/70 shadow-lg">
+                      Suchen
+                    </Button>
+                  </div>
+                </div>
+              </div>
+
+              {/* Quick Stats */}
+              <div className="flex flex-wrap justify-center gap-6 mt-10 animate-fade-in" style={{ animationDelay: '0.4s' }}>
+                <div className="text-sm text-muted-foreground">
+                  <span className="font-bold text-foreground">{totalQuestions}</span> Fragen in{" "}
+                  <span className="font-bold text-foreground">{categories.length}</span> Kategorien
+                </div>
               </div>
             </div>
           </div>
         </section>
 
-        {/* Tab Switcher */}
+        {/* Stats Section */}
+        <section className="py-8 relative">
+          <div className="container mx-auto px-4">
+            <div className="max-w-5xl mx-auto">
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                {stats.map((stat, index) => {
+                  const Icon = stat.icon;
+                  return (
+                    <div
+                      key={index}
+                      className={`text-center p-6 rounded-2xl bg-gradient-to-br from-card to-muted/30 border border-border/50 backdrop-blur-sm transition-all duration-700 ${
+                        animatedStats ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
+                      }`}
+                      style={{ transitionDelay: `${index * 100}ms` }}
+                    >
+                      <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-3">
+                        <Icon className="w-5 h-5 text-primary" />
+                      </div>
+                      <div className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent mb-1">
+                        {stat.value}
+                      </div>
+                      <div className="text-sm text-muted-foreground">{stat.label}</div>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Tab Switcher - Premium Style */}
         <section className="py-10">
           <div className="container mx-auto px-4">
             <div className="max-w-lg mx-auto">
               <div className="relative p-1.5 bg-muted/50 rounded-2xl backdrop-blur-sm border border-border/30">
+                {/* Animated Background Slider */}
                 <div 
                   className={`absolute top-1.5 h-[calc(100%-12px)] w-[calc(50%-6px)] bg-gradient-to-r from-card to-card/90 rounded-xl shadow-lg transition-all duration-300 ease-out ${
                     activeTab === "partner" ? "left-1.5" : "left-[calc(50%+3px)]"
@@ -237,83 +359,184 @@ export default function FAQ() {
           </div>
         </section>
 
-        {/* Category Tabs & FAQ Content */}
-        <section className="py-16 md:py-24">
+        {/* Category Cards & FAQ Content */}
+        <section className="py-12 md:py-20">
           <div className="container mx-auto px-4">
-            <div className="max-w-4xl mx-auto">
-              {/* Category Tabs */}
+            <div className="max-w-6xl mx-auto">
+              {/* Category Cards - Only show when not searching */}
               {!searchQuery && (
-                <div className="flex flex-wrap justify-center gap-3 mb-12">
-                  {categories.map((category) => {
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
+                  {categories.map((category, index) => {
                     const Icon = category.icon;
+                    const isActive = selectedCategory === category.id;
                     return (
                       <button
                         key={category.id}
                         onClick={() => setSelectedCategory(category.id)}
-                        className={`flex items-center gap-2 px-5 py-3 rounded-full text-sm font-medium transition-all ${
-                          selectedCategory === category.id
-                            ? "bg-gradient-to-r from-primary to-secondary text-primary-foreground shadow-lg"
-                            : "bg-card border border-border/50 text-muted-foreground hover:border-primary/50 hover:text-foreground"
-                        }`}
+                        className={`group relative text-left p-6 rounded-3xl border transition-all duration-500 ${
+                          isActive 
+                            ? "bg-card border-primary/40 shadow-2xl shadow-primary/10" 
+                            : "bg-card/50 border-border/50 hover:border-primary/30 hover:shadow-lg"
+                        } ${animatedStats ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}
+                        style={{ transitionDelay: `${(index + 4) * 100}ms` }}
                       >
-                        <Icon className="w-4 h-4" />
-                        {category.label}
+                        {/* Glow effect when active */}
+                        {isActive && (
+                          <div className={`absolute inset-0 rounded-3xl bg-gradient-to-br ${category.gradient} opacity-5`} />
+                        )}
+                        
+                        <div className="relative">
+                          <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${category.gradient} flex items-center justify-center mb-4 transition-transform duration-300 ${isActive ? 'scale-110' : 'group-hover:scale-105'}`}>
+                            <Icon className="w-6 h-6 text-white" />
+                          </div>
+                          
+                          <div className="flex items-center justify-between mb-2">
+                            <h3 className={`font-bold text-lg transition-colors ${isActive ? 'text-primary' : ''}`}>
+                              {category.label}
+                            </h3>
+                            <span className={`text-xs font-medium px-2.5 py-1 rounded-full transition-colors ${
+                              isActive 
+                                ? 'bg-primary/10 text-primary' 
+                                : 'bg-muted text-muted-foreground'
+                            }`}>
+                              {category.count} Fragen
+                            </span>
+                          </div>
+                          
+                          <p className="text-sm text-muted-foreground">
+                            {category.id === "booking" && "Alles rund um Buchungen und Transporte"}
+                            {category.id === "costs" && "Preise, Abrechnung und Kostenübernahme"}
+                            {category.id === "safety" && "Qualität, Datenschutz und Sicherheit"}
+                            {category.id === "registration" && "So werden Sie Teil unseres Netzwerks"}
+                            {category.id === "orders" && "Auftragsmanagement und Durchführung"}
+                            {category.id === "billing" && "Provisionen und Zahlungsabwicklung"}
+                          </p>
+                          
+                          {/* Active indicator */}
+                          {isActive && (
+                            <div className="absolute -bottom-px left-6 right-6 h-0.5 bg-gradient-to-r from-transparent via-primary to-transparent" />
+                          )}
+                        </div>
                       </button>
                     );
                   })}
                 </div>
               )}
 
-              {/* FAQ Accordion */}
-              <Accordion type="single" collapsible className="space-y-4">
-                {filteredFaqs.map((faq, index) => (
-                  <AccordionItem
-                    key={index}
-                    value={`item-${index}`}
-                    className="bg-card border border-border/50 rounded-2xl px-6 data-[state=open]:border-primary/30 data-[state=open]:shadow-lg transition-all"
-                  >
-                    <AccordionTrigger className="text-left font-semibold hover:no-underline py-6 hover:text-primary transition-colors">
-                      {faq.question}
-                    </AccordionTrigger>
-                    <AccordionContent className="text-muted-foreground pb-6 leading-relaxed">
-                      {faq.answer}
-                    </AccordionContent>
-                  </AccordionItem>
-                ))}
-              </Accordion>
-
-              {filteredFaqs.length === 0 && (
-                <div className="text-center py-12">
-                  <HelpCircle className="w-12 h-12 text-muted-foreground mx-auto mb-4" />
-                  <p className="text-lg text-muted-foreground">
-                    Keine Ergebnisse gefunden. Versuchen Sie einen anderen Suchbegriff.
+              {/* Search Results Label */}
+              {searchQuery && (
+                <div className="mb-8 text-center">
+                  <p className="text-muted-foreground">
+                    <span className="font-semibold text-foreground">{filteredFaqs.length}</span> Ergebnisse für "{searchQuery}"
                   </p>
                 </div>
               )}
+
+              {/* FAQ Accordion - Premium Style */}
+              <div className="max-w-4xl mx-auto">
+                <Accordion type="single" collapsible className="space-y-4">
+                  {filteredFaqs.map((faq, index) => (
+                    <AccordionItem
+                      key={index}
+                      value={`item-${index}`}
+                      className="group bg-card border border-border/50 rounded-2xl px-6 md:px-8 data-[state=open]:border-primary/40 data-[state=open]:shadow-xl data-[state=open]:shadow-primary/5 transition-all duration-300 hover:border-primary/20"
+                    >
+                      <AccordionTrigger className="text-left font-semibold hover:no-underline py-6 hover:text-primary transition-colors [&[data-state=open]]:text-primary">
+                        <div className="flex items-start gap-4">
+                          <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-primary/10 to-secondary/10 flex items-center justify-center shrink-0 mt-0.5 group-data-[state=open]:from-primary/20 group-data-[state=open]:to-secondary/20 transition-colors">
+                            <HelpCircle className="w-4 h-4 text-primary" />
+                          </div>
+                          <span>{faq.question}</span>
+                        </div>
+                      </AccordionTrigger>
+                      <AccordionContent className="text-muted-foreground pb-6 pl-12 leading-relaxed">
+                        {faq.answer}
+                      </AccordionContent>
+                    </AccordionItem>
+                  ))}
+                </Accordion>
+
+                {filteredFaqs.length === 0 && (
+                  <div className="text-center py-16">
+                    <div className="w-20 h-20 rounded-full bg-muted/50 flex items-center justify-center mx-auto mb-6">
+                      <HelpCircle className="w-10 h-10 text-muted-foreground" />
+                    </div>
+                    <h3 className="text-xl font-semibold mb-2">Keine Ergebnisse gefunden</h3>
+                    <p className="text-muted-foreground mb-6">
+                      Versuchen Sie einen anderen Suchbegriff oder kontaktieren Sie unseren Support
+                    </p>
+                    <Button 
+                      variant="outline" 
+                      onClick={() => setSearchQuery("")}
+                      className="rounded-xl"
+                    >
+                      Suche zurücksetzen
+                    </Button>
+                  </div>
+                )}
+              </div>
             </div>
           </div>
         </section>
 
-        {/* CTA Section */}
-        <section className="py-16 md:py-24 bg-muted/30">
-          <div className="container mx-auto px-4">
-            <div className="max-w-2xl mx-auto text-center">
-              <h2 className="text-2xl md:text-3xl font-bold mb-4">
-                Ihre Frage war nicht dabei?
-              </h2>
-              <p className="text-lg text-muted-foreground mb-8">
-                Unser Support-Team hilft Ihnen gerne persönlich weiter
-              </p>
+        {/* Contact CTA Section - Premium Design */}
+        <section className="py-20 md:py-28 relative overflow-hidden">
+          {/* Background */}
+          <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-muted/50 to-secondary/5" />
+          <div className="absolute top-0 left-0 w-[500px] h-[500px] bg-primary/10 rounded-full blur-[150px]" />
+          <div className="absolute bottom-0 right-0 w-[400px] h-[400px] bg-secondary/10 rounded-full blur-[120px]" />
+          
+          <div className="container mx-auto px-4 relative">
+            <div className="max-w-5xl mx-auto">
+              <div className="text-center mb-12">
+                <h2 className="text-3xl md:text-5xl font-bold mb-4">
+                  <span className="bg-gradient-to-r from-foreground to-foreground/70 bg-clip-text text-transparent">
+                    Ihre Frage war nicht dabei?
+                  </span>
+                </h2>
+                <p className="text-xl text-muted-foreground max-w-xl mx-auto">
+                  Unser Support-Team hilft Ihnen gerne persönlich weiter
+                </p>
+              </div>
+
+              {/* Contact Options */}
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+                {contactOptions.map((option, index) => {
+                  const Icon = option.icon;
+                  return (
+                    <div
+                      key={index}
+                      className="group bg-card/80 backdrop-blur-sm border border-border/50 rounded-2xl p-6 text-center hover:border-primary/40 hover:shadow-xl transition-all duration-300 cursor-pointer"
+                    >
+                      <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${option.gradient} flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300 shadow-lg`}>
+                        <Icon className="w-6 h-6 text-white" />
+                      </div>
+                      <h3 className="font-bold mb-1">{option.title}</h3>
+                      <p className="text-sm text-muted-foreground">{option.description}</p>
+                    </div>
+                  );
+                })}
+              </div>
+
+              {/* CTA Buttons */}
               <div className="flex flex-col sm:flex-row justify-center gap-4">
                 <Link to="/kontakt">
-                  <Button size="lg" className="bg-gradient-to-r from-primary to-secondary hover:opacity-90">
+                  <Button 
+                    size="lg" 
+                    className="h-14 px-8 text-lg bg-gradient-to-r from-primary to-secondary hover:opacity-90 rounded-xl shadow-lg shadow-primary/25 transition-all hover:shadow-xl hover:shadow-primary/30"
+                  >
                     Kontakt aufnehmen
-                    <ChevronRight className="ml-2 w-4 h-4" />
+                    <ArrowRight className="ml-2 w-5 h-5" />
                   </Button>
                 </Link>
                 <Link to="/hilfe">
-                  <Button size="lg" variant="outline">
+                  <Button 
+                    size="lg" 
+                    variant="outline"
+                    className="h-14 px-8 text-lg rounded-xl border-2"
+                  >
                     Zum Hilfe Center
+                    <ChevronRight className="ml-2 w-5 h-5" />
                   </Button>
                 </Link>
               </div>
