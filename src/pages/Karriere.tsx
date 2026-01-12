@@ -203,26 +203,28 @@ export default function Karriere() {
         </section>
 
         {/* Stats Section */}
-        <section className="py-8 relative">
+        <section className="py-6 relative -mt-12 z-20">
           <div className="container mx-auto px-4">
-            <div className="max-w-5xl mx-auto">
-              <div className="bg-card/50 backdrop-blur-xl rounded-3xl border border-border/50 p-8 shadow-xl">
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+            <div className="max-w-4xl mx-auto">
+              <div className="bg-card/80 backdrop-blur-xl rounded-2xl border border-border/50 p-6 md:p-8 shadow-2xl">
+                <div className="grid grid-cols-3 divide-x divide-border/50">
                   {stats.map((stat, index) => {
                     const Icon = stat.icon;
                     return (
                       <div 
                         key={index} 
-                        className={`text-center transition-all duration-700 ${animatedStats ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}
+                        className={`text-center px-4 md:px-8 transition-all duration-700 ${animatedStats ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}
                         style={{ transitionDelay: `${index * 100}ms` }}
                       >
-                        <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-primary/10 to-secondary/10 flex items-center justify-center mx-auto mb-3">
-                          <Icon className="w-6 h-6 text-primary" />
+                        <div className="flex items-center justify-center gap-3 mb-2">
+                          <div className="w-10 h-10 md:w-12 md:h-12 rounded-xl bg-gradient-to-br from-primary to-secondary flex items-center justify-center">
+                            <Icon className="w-5 h-5 md:w-6 md:h-6 text-white" />
+                          </div>
+                          <div className="text-2xl md:text-4xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+                            {stat.value}
+                          </div>
                         </div>
-                        <div className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent mb-1">
-                          {stat.value}
-                        </div>
-                        <div className="text-sm text-muted-foreground font-medium">
+                        <div className="text-xs md:text-sm text-muted-foreground font-medium">
                           {stat.label}
                         </div>
                       </div>
