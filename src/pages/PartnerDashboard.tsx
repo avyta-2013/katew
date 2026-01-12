@@ -136,28 +136,8 @@ const PartnerDashboard = () => {
 
   const renderSidebar = () => (
     <div className="w-72 bg-gradient-to-b from-card via-card to-muted/20 border-r border-border/50 flex flex-col shadow-xl">
-      {/* Logo Section */}
-      <div className="p-5 border-b border-border/30">
-        <Link to="/" className="flex items-center gap-3 group">
-          <div className="relative w-10 h-10 rounded-2xl bg-gradient-to-br from-primary via-primary to-secondary flex items-center justify-center shadow-lg group-hover:shadow-xl transition-all duration-300 group-hover:scale-105">
-            <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-white/20 to-transparent" />
-            <svg viewBox="0 0 24 24" className="w-5 h-5 text-primary-foreground relative z-10" fill="currentColor">
-              <path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-9 12h-2v-2h2v2zm0-4h-2V6h2v4z"/>
-            </svg>
-          </div>
-          <div className="flex flex-col">
-            <span className="text-xl font-black tracking-tight bg-gradient-to-r from-primary via-primary to-secondary bg-clip-text text-transparent leading-none" style={{ fontFamily: "'Inter', system-ui, sans-serif", letterSpacing: '-0.03em' }}>
-              katew
-            </span>
-            <span className="text-[9px] font-semibold text-muted-foreground uppercase tracking-[0.2em]" style={{ fontFamily: "'Inter', system-ui, sans-serif" }}>
-              Partner Portal
-            </span>
-          </div>
-        </Link>
-      </div>
-
       {/* Navigation Section */}
-      <div className="px-3 mb-2">
+      <div className="px-3 pt-5 mb-2">
         <p className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider px-3">Navigation</p>
       </div>
       <nav className="flex-1 px-3 space-y-1">
@@ -1961,9 +1941,29 @@ const PartnerDashboard = () => {
   );
 
   const renderAdminHeader = () => (
-    <header className="h-16 bg-gradient-to-r from-card via-card to-muted/30 border-b border-border/50 flex items-center justify-between px-6 sticky top-0 z-50 backdrop-blur-xl">
-      {/* Left side - Search */}
-      <div className="flex items-center gap-4">
+    <header className="h-16 bg-gradient-to-r from-card via-card to-muted/30 border-b border-border/50 flex items-center px-6 sticky top-0 z-50 backdrop-blur-xl">
+      {/* Left side - Logo */}
+      <div className="flex items-center gap-3">
+        <Link to="/" className="flex items-center gap-3 group">
+          <div className="relative w-10 h-10 rounded-2xl bg-gradient-to-br from-primary via-primary to-secondary flex items-center justify-center shadow-lg group-hover:shadow-xl transition-all duration-300 group-hover:scale-105">
+            <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-white/20 to-transparent" />
+            <svg viewBox="0 0 24 24" className="w-5 h-5 text-primary-foreground relative z-10" fill="currentColor">
+              <path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-9 12h-2v-2h2v2zm0-4h-2V6h2v4z"/>
+            </svg>
+          </div>
+          <div className="flex flex-col">
+            <span className="text-xl font-black tracking-tight bg-gradient-to-r from-primary via-primary to-secondary bg-clip-text text-transparent leading-none" style={{ fontFamily: "'Inter', system-ui, sans-serif", letterSpacing: '-0.03em' }}>
+              katew
+            </span>
+            <span className="text-[9px] font-semibold text-muted-foreground uppercase tracking-[0.2em]" style={{ fontFamily: "'Inter', system-ui, sans-serif" }}>
+              Partner Portal
+            </span>
+          </div>
+        </Link>
+      </div>
+
+      {/* Center - Search */}
+      <div className="flex-1 flex justify-center">
         <div className="relative group">
           <div className="absolute inset-0 bg-gradient-to-r from-primary/20 to-secondary/20 rounded-xl blur-lg opacity-0 group-focus-within:opacity-100 transition-opacity duration-300" />
           <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground group-focus-within:text-primary transition-colors" />
