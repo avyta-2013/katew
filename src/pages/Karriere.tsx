@@ -264,26 +264,31 @@ export default function Karriere() {
           </div>
         </section>
 
-        {/* Values Section */}
-        <section className="py-20 md:py-32 relative">
-          <div className="container mx-auto px-4">
+        {/* Values & Benefits Combined Section */}
+        <section className="py-20 md:py-32 relative overflow-hidden">
+          {/* Background */}
+          <div className="absolute inset-0 bg-gradient-to-b from-muted/30 via-muted/50 to-muted/30" />
+          <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-border to-transparent" />
+          <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-border to-transparent" />
+          
+          <div className="container mx-auto px-4 relative">
             <div className="max-w-6xl mx-auto">
               {/* Section Header */}
               <div className="text-center mb-16">
                 <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-medium mb-4">
                   <Target className="w-4 h-4" />
-                  Was uns antreibt
+                  Was uns ausmacht
                 </div>
                 <h2 className="text-4xl md:text-5xl font-bold mb-4">
-                  Unsere <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">Werte</span>
+                  Unsere <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">Werte & Vorteile</span>
                 </h2>
                 <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-                  Diese Prinzipien leiten uns bei allem, was wir tun
+                  Diese Prinzipien leiten uns – und das bieten wir dir
                 </p>
               </div>
               
               {/* Values Grid */}
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
                 {values.map((value, index) => {
                   const Icon = value.icon;
                   const isHovered = hoveredValue === index;
@@ -313,35 +318,18 @@ export default function Karriere() {
                   );
                 })}
               </div>
-            </div>
-          </div>
-        </section>
 
-        {/* Benefits Section */}
-        <section className="py-20 md:py-32 relative overflow-hidden">
-          {/* Background */}
-          <div className="absolute inset-0 bg-gradient-to-b from-muted/30 via-muted/50 to-muted/30" />
-          <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-border to-transparent" />
-          <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-border to-transparent" />
-          
-          <div className="container mx-auto px-4 relative">
-            <div className="max-w-6xl mx-auto">
-              {/* Section Header */}
-              <div className="text-center mb-16">
-                <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-medium mb-4">
-                  <Award className="w-4 h-4" />
-                  Deine Vorteile
+              {/* Divider */}
+              <div className="flex items-center gap-4 mb-16">
+                <div className="flex-1 h-px bg-gradient-to-r from-transparent via-border to-border" />
+                <div className="px-4 py-2 rounded-full bg-card border border-border/50">
+                  <Award className="w-5 h-5 text-primary" />
                 </div>
-                <h2 className="text-4xl md:text-5xl font-bold mb-4">
-                  Was wir <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">bieten</span>
-                </h2>
-                <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-                  Wir investieren in unser Team – denn großartige Arbeit braucht ein großartiges Umfeld
-                </p>
+                <div className="flex-1 h-px bg-gradient-to-l from-transparent via-border to-border" />
               </div>
 
               {/* Benefits Grid */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 mb-16">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-5 mb-12">
                 {benefits.map((benefit, index) => {
                   const Icon = benefit.icon;
                   return (
