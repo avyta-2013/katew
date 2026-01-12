@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { 
   Mail, 
   Phone, 
@@ -8,7 +8,13 @@ import {
   MessageSquare,
   Building2,
   Users,
-  CheckCircle
+  CheckCircle,
+  Sparkles,
+  ArrowRight,
+  Headphones,
+  Shield,
+  Zap,
+  Globe
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -24,32 +30,43 @@ import {
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { useToast } from "@/hooks/use-toast";
+import { Link } from "react-router-dom";
 
-const contactInfo = [
+const contactMethods = [
   {
     icon: Phone,
     title: "Telefon",
     value: "+49 155 61 231",
     description: "Mo-Fr 8-12 Uhr",
+    gradient: "from-blue-500 to-cyan-500",
+    bgGlow: "bg-blue-500/20",
+    action: "Jetzt anrufen",
   },
   {
     icon: Mail,
     title: "E-Mail",
     value: "support@katew.de",
-    description: "Antwort innerhalb 48 Stunden",
+    description: "Antwort < 48h",
+    gradient: "from-violet-500 to-purple-500",
+    bgGlow: "bg-violet-500/20",
+    action: "E-Mail senden",
   },
   {
-    icon: MapPin,
-    title: "Adresse",
-    value: "Allerheiligentor 2-4",
-    description: "60311 Frankfurt",
+    icon: MessageSquare,
+    title: "Live-Chat",
+    value: "Sofort verfügbar",
+    description: "Mo-Fr 8-18 Uhr",
+    gradient: "from-emerald-500 to-teal-500",
+    bgGlow: "bg-emerald-500/20",
+    action: "Chat starten",
   },
-  {
-    icon: Clock,
-    title: "Öffnungszeiten",
-    value: "Mo-Fr 8-12 Uhr",
-    description: "Telefonische Erreichbarkeit",
-  },
+];
+
+const stats = [
+  { value: "< 2h", label: "Ø Antwortzeit", icon: Zap },
+  { value: "98%", label: "Zufriedenheit", icon: CheckCircle },
+  { value: "24/7", label: "Online-Support", icon: Globe },
+  { value: "1:1", label: "Persönliche Beratung", icon: Headphones },
 ];
 
 const reasons = [
@@ -59,6 +76,23 @@ const reasons = [
   { value: "provider", label: "Als Anbieter registrieren" },
   { value: "press", label: "Presseanfrage" },
   { value: "other", label: "Sonstiges" },
+];
+
+const quickActions = [
+  {
+    icon: Building2,
+    title: "Für Unternehmen",
+    description: "Partner werden und von unserer Plattform profitieren",
+    href: "/partner",
+    gradient: "from-primary to-primary/80",
+  },
+  {
+    icon: Users,
+    title: "Karriere",
+    description: "Werde Teil unseres wachsenden Teams",
+    href: "/karriere",
+    gradient: "from-secondary to-secondary/80",
+  },
 ];
 
 export default function Contact() {
@@ -72,12 +106,17 @@ export default function Contact() {
     message: "",
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [animatedStats, setAnimatedStats] = useState(false);
+
+  useEffect(() => {
+    const timer = setTimeout(() => setAnimatedStats(true), 300);
+    return () => clearTimeout(timer);
+  }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
     
-    // Simulate form submission
     await new Promise(resolve => setTimeout(resolve, 1000));
     
     toast({
@@ -99,51 +138,88 @@ export default function Contact() {
   return (
     <>
       <Header />
-      <div className="min-h-screen bg-background">
-        {/* Hero Section */}
-        <section className="relative pt-32 pb-16 md:pt-40 md:pb-24 overflow-hidden">
-          <div className="absolute inset-0 bg-gradient-to-br from-secondary/5 via-transparent to-primary/5" />
-          <div className="absolute top-20 right-10 w-72 h-72 bg-secondary/10 rounded-full blur-3xl" />
-          <div className="absolute bottom-10 left-10 w-96 h-96 bg-primary/10 rounded-full blur-3xl" />
+      <div className="min-h-screen bg-background overflow-hidden">
+        {/* Hero Section - Premium Design */}
+        <section className="relative pt-28 pb-16 md:pt-36 md:pb-24 overflow-hidden">
+          {/* Animated Background */}
+          <div className="absolute inset-0">
+            <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-secondary/5" />
+            <div className="absolute top-0 left-1/4 w-[600px] h-[600px] bg-primary/10 rounded-full blur-[150px] animate-pulse" />
+            <div className="absolute bottom-0 right-1/4 w-[500px] h-[500px] bg-secondary/10 rounded-full blur-[120px] animate-pulse" style={{ animationDelay: '1s' }} />
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-gradient-to-r from-primary/5 to-secondary/5 rounded-full blur-[100px]" />
+          </div>
+
+          {/* Floating Elements */}
+          <div className="absolute inset-0 overflow-hidden pointer-events-none">
+            <div className="absolute top-20 left-10 w-3 h-3 bg-primary/40 rounded-full animate-bounce" style={{ animationDuration: '3s' }} />
+            <div className="absolute top-40 right-20 w-2 h-2 bg-secondary/40 rounded-full animate-bounce" style={{ animationDuration: '2.5s', animationDelay: '0.5s' }} />
+            <div className="absolute bottom-32 left-1/4 w-4 h-4 bg-primary/30 rounded-full animate-bounce" style={{ animationDuration: '3.5s', animationDelay: '1s' }} />
+          </div>
           
           <div className="container mx-auto px-4 relative">
-            <div className="max-w-3xl mx-auto text-center">
-              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-secondary/10 text-secondary text-sm font-medium mb-6">
-                <MessageSquare className="w-4 h-4" />
-                Wir freuen uns auf Sie
+            <div className="max-w-4xl mx-auto text-center">
+              {/* Badge */}
+              <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-gradient-to-r from-primary/10 to-secondary/10 backdrop-blur-sm border border-primary/20 text-primary text-sm font-medium mb-8 animate-fade-in">
+                <Sparkles className="w-4 h-4" />
+                <span>Wir sind für Sie da</span>
               </div>
-              <h1 className="text-4xl md:text-6xl font-bold mb-6 tracking-tight">
-                <span className="bg-gradient-to-r from-secondary via-primary to-secondary bg-clip-text text-transparent">
-                  Kontakt
+
+              {/* Title */}
+              <h1 className="text-5xl md:text-7xl font-bold mb-6 tracking-tight animate-fade-in" style={{ animationDelay: '0.1s' }}>
+                <span className="bg-gradient-to-r from-foreground via-foreground to-foreground/70 bg-clip-text text-transparent">
+                  Sprechen Sie
+                </span>
+                <br />
+                <span className="bg-gradient-to-r from-primary via-secondary to-primary bg-clip-text text-transparent">
+                  mit uns
                 </span>
               </h1>
-              <p className="text-xl text-muted-foreground">
-                Haben Sie Fragen? Wir sind für Sie da – persönlich und kompetent.
+
+              <p className="text-xl md:text-2xl text-muted-foreground mb-12 max-w-2xl mx-auto leading-relaxed animate-fade-in" style={{ animationDelay: '0.2s' }}>
+                Persönlich, kompetent und immer für Sie erreichbar – unser Team freut sich auf Ihre Nachricht
               </p>
             </div>
           </div>
         </section>
 
-        {/* Contact Info Cards */}
-        <section className="py-8">
+        {/* Contact Methods - Premium Cards */}
+        <section className="py-8 relative">
           <div className="container mx-auto px-4">
             <div className="max-w-5xl mx-auto">
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                {contactInfo.map((item, index) => {
-                  const Icon = item.icon;
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                {contactMethods.map((method, index) => {
+                  const Icon = method.icon;
                   return (
                     <div
                       key={index}
-                      className="group bg-card rounded-2xl border border-border/50 p-6 text-center hover:border-primary/40 hover:shadow-lg transition-all"
+                      className={`group relative bg-card rounded-3xl border border-border/50 p-8 hover:border-primary/40 transition-all duration-500 hover:shadow-2xl hover:-translate-y-2 ${
+                        animatedStats ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
+                      }`}
+                      style={{ transitionDelay: `${index * 100}ms` }}
                     >
-                      <div className="w-14 h-14 rounded-full bg-gradient-to-br from-primary/10 to-secondary/10 flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
-                        <Icon className="w-6 h-6 text-primary" />
+                      {/* Glow Effect */}
+                      <div className={`absolute inset-0 rounded-3xl ${method.bgGlow} blur-xl opacity-0 group-hover:opacity-50 transition-opacity duration-500`} />
+                      
+                      <div className="relative">
+                        {/* Icon */}
+                        <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${method.gradient} flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300 shadow-lg`}>
+                          <Icon className="w-7 h-7 text-white" />
+                        </div>
+                        
+                        <h3 className="font-semibold text-sm text-muted-foreground uppercase tracking-wider mb-2">
+                          {method.title}
+                        </h3>
+                        <p className="font-bold text-xl mb-1">{method.value}</p>
+                        <p className="text-sm text-muted-foreground mb-6">{method.description}</p>
+                        
+                        <Button 
+                          variant="ghost" 
+                          className="w-full justify-between group/btn hover:bg-primary/10"
+                        >
+                          {method.action}
+                          <ArrowRight className="w-4 h-4 group-hover/btn:translate-x-1 transition-transform" />
+                        </Button>
                       </div>
-                      <h3 className="font-semibold text-sm text-muted-foreground mb-1">
-                        {item.title}
-                      </h3>
-                      <p className="font-bold text-lg mb-1">{item.value}</p>
-                      <p className="text-sm text-muted-foreground">{item.description}</p>
                     </div>
                   );
                 })}
@@ -152,126 +228,169 @@ export default function Contact() {
           </div>
         </section>
 
-        {/* Contact Form & Map */}
+        {/* Stats Section */}
+        <section className="py-12 relative">
+          <div className="container mx-auto px-4">
+            <div className="max-w-5xl mx-auto">
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                {stats.map((stat, index) => {
+                  const Icon = stat.icon;
+                  return (
+                    <div
+                      key={index}
+                      className={`text-center p-6 rounded-2xl bg-gradient-to-br from-card to-muted/30 border border-border/50 backdrop-blur-sm transition-all duration-700 ${
+                        animatedStats ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
+                      }`}
+                      style={{ transitionDelay: `${(index + 3) * 100}ms` }}
+                    >
+                      <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-3">
+                        <Icon className="w-5 h-5 text-primary" />
+                      </div>
+                      <div className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent mb-1">
+                        {stat.value}
+                      </div>
+                      <div className="text-sm text-muted-foreground">{stat.label}</div>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Main Content - Form & Info */}
         <section className="py-16 md:py-24">
           <div className="container mx-auto px-4">
             <div className="max-w-6xl mx-auto">
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-                {/* Contact Form */}
-                <div className="bg-card rounded-3xl border border-border/50 p-8 md:p-10">
-                  <h2 className="text-2xl md:text-3xl font-bold mb-2">
-                    Schreiben Sie uns
-                  </h2>
-                  <p className="text-muted-foreground mb-8">
-                    Füllen Sie das Formular aus und wir melden uns innerhalb von 48 Stunden
-                  </p>
-                  
-                  <form onSubmit={handleSubmit} className="space-y-6">
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                      <div className="space-y-2">
-                        <Label htmlFor="name">Name *</Label>
-                        <Input
-                          id="name"
-                          placeholder="Ihr Name"
-                          value={formData.name}
-                          onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                          required
-                          className="rounded-xl"
-                        />
-                      </div>
-                      <div className="space-y-2">
-                        <Label htmlFor="email">E-Mail *</Label>
-                        <Input
-                          id="email"
-                          type="email"
-                          placeholder="ihre@email.de"
-                          value={formData.email}
-                          onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                          required
-                          className="rounded-xl"
-                        />
-                      </div>
-                    </div>
+              <div className="grid grid-cols-1 lg:grid-cols-5 gap-12">
+                {/* Contact Form - Takes 3 columns */}
+                <div className="lg:col-span-3">
+                  <div className="relative bg-card rounded-3xl border border-border/50 p-8 md:p-10 shadow-xl">
+                    {/* Decorative Elements */}
+                    <div className="absolute -top-px left-20 right-20 h-px bg-gradient-to-r from-transparent via-primary/50 to-transparent" />
                     
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                      <div className="space-y-2">
-                        <Label htmlFor="phone">Telefon</Label>
-                        <Input
-                          id="phone"
-                          placeholder="Ihre Telefonnummer"
-                          value={formData.phone}
-                          onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                          className="rounded-xl"
-                        />
+                    <div className="flex items-center gap-3 mb-2">
+                      <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-primary to-secondary flex items-center justify-center">
+                        <Send className="w-5 h-5 text-white" />
                       </div>
-                      <div className="space-y-2">
-                        <Label htmlFor="company">Unternehmen</Label>
-                        <Input
-                          id="company"
-                          placeholder="Ihr Unternehmen"
-                          value={formData.company}
-                          onChange={(e) => setFormData({ ...formData, company: e.target.value })}
-                          className="rounded-xl"
-                        />
-                      </div>
+                      <h2 className="text-2xl md:text-3xl font-bold">
+                        Schreiben Sie uns
+                      </h2>
                     </div>
+                    <p className="text-muted-foreground mb-8 ml-[52px]">
+                      Wir antworten garantiert innerhalb von 48 Stunden
+                    </p>
                     
-                    <div className="space-y-2">
-                      <Label htmlFor="reason">Anliegen</Label>
-                      <Select
-                        value={formData.reason}
-                        onValueChange={(value) => setFormData({ ...formData, reason: value })}
+                    <form onSubmit={handleSubmit} className="space-y-6">
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                        <div className="space-y-2">
+                          <Label htmlFor="name" className="text-sm font-medium">Name *</Label>
+                          <Input
+                            id="name"
+                            placeholder="Ihr vollständiger Name"
+                            value={formData.name}
+                            onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                            required
+                            className="rounded-xl h-12 bg-muted/50 border-border/50 focus:border-primary/50 transition-colors"
+                          />
+                        </div>
+                        <div className="space-y-2">
+                          <Label htmlFor="email" className="text-sm font-medium">E-Mail *</Label>
+                          <Input
+                            id="email"
+                            type="email"
+                            placeholder="ihre@email.de"
+                            value={formData.email}
+                            onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                            required
+                            className="rounded-xl h-12 bg-muted/50 border-border/50 focus:border-primary/50 transition-colors"
+                          />
+                        </div>
+                      </div>
+                      
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                        <div className="space-y-2">
+                          <Label htmlFor="phone" className="text-sm font-medium">Telefon</Label>
+                          <Input
+                            id="phone"
+                            placeholder="+49 123 456789"
+                            value={formData.phone}
+                            onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                            className="rounded-xl h-12 bg-muted/50 border-border/50 focus:border-primary/50 transition-colors"
+                          />
+                        </div>
+                        <div className="space-y-2">
+                          <Label htmlFor="company" className="text-sm font-medium">Unternehmen</Label>
+                          <Input
+                            id="company"
+                            placeholder="Ihr Unternehmen"
+                            value={formData.company}
+                            onChange={(e) => setFormData({ ...formData, company: e.target.value })}
+                            className="rounded-xl h-12 bg-muted/50 border-border/50 focus:border-primary/50 transition-colors"
+                          />
+                        </div>
+                      </div>
+                      
+                      <div className="space-y-2">
+                        <Label htmlFor="reason" className="text-sm font-medium">Anliegen</Label>
+                        <Select
+                          value={formData.reason}
+                          onValueChange={(value) => setFormData({ ...formData, reason: value })}
+                        >
+                          <SelectTrigger className="rounded-xl h-12 bg-muted/50 border-border/50">
+                            <SelectValue placeholder="Wählen Sie einen Grund" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            {reasons.map((reason) => (
+                              <SelectItem key={reason.value} value={reason.value}>
+                                {reason.label}
+                              </SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
+                      </div>
+                      
+                      <div className="space-y-2">
+                        <Label htmlFor="message" className="text-sm font-medium">Nachricht *</Label>
+                        <Textarea
+                          id="message"
+                          placeholder="Wie können wir Ihnen helfen? Beschreiben Sie Ihr Anliegen..."
+                          rows={6}
+                          value={formData.message}
+                          onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                          required
+                          className="rounded-xl bg-muted/50 border-border/50 focus:border-primary/50 transition-colors resize-none"
+                        />
+                      </div>
+                      
+                      <Button 
+                        type="submit" 
+                        size="lg"
+                        className="w-full h-14 text-lg bg-gradient-to-r from-primary to-secondary hover:opacity-90 rounded-xl shadow-lg shadow-primary/25 transition-all hover:shadow-xl hover:shadow-primary/30"
+                        disabled={isSubmitting}
                       >
-                        <SelectTrigger className="rounded-xl">
-                          <SelectValue placeholder="Wählen Sie einen Grund" />
-                        </SelectTrigger>
-                        <SelectContent>
-                          {reasons.map((reason) => (
-                            <SelectItem key={reason.value} value={reason.value}>
-                              {reason.label}
-                            </SelectItem>
-                          ))}
-                        </SelectContent>
-                      </Select>
-                    </div>
-                    
-                    <div className="space-y-2">
-                      <Label htmlFor="message">Nachricht *</Label>
-                      <Textarea
-                        id="message"
-                        placeholder="Wie können wir Ihnen helfen?"
-                        rows={5}
-                        value={formData.message}
-                        onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                        required
-                        className="rounded-xl resize-none"
-                      />
-                    </div>
-                    
-                    <Button 
-                      type="submit" 
-                      size="lg"
-                      className="w-full bg-gradient-to-r from-primary to-secondary hover:opacity-90 rounded-xl"
-                      disabled={isSubmitting}
-                    >
-                      {isSubmitting ? (
-                        "Wird gesendet..."
-                      ) : (
-                        <>
-                          Nachricht senden
-                          <Send className="ml-2 w-5 h-5" />
-                        </>
-                      )}
-                    </Button>
-                  </form>
+                        {isSubmitting ? (
+                          <span className="flex items-center gap-2">
+                            <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                            Wird gesendet...
+                          </span>
+                        ) : (
+                          <span className="flex items-center gap-2">
+                            Nachricht senden
+                            <Send className="w-5 h-5" />
+                          </span>
+                        )}
+                      </Button>
+                    </form>
+                  </div>
                 </div>
 
-                {/* Map & Additional Info */}
-                <div className="space-y-8">
-                  {/* Map Placeholder */}
-                  <div className="relative h-80 rounded-3xl overflow-hidden border border-border/50 bg-muted/50">
+                {/* Sidebar - Takes 2 columns */}
+                <div className="lg:col-span-2 space-y-6">
+                  {/* Map */}
+                  <div className="relative h-64 rounded-3xl overflow-hidden border border-border/50 shadow-lg">
                     <iframe
-                      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2428.4161405123745!2d13.3761!3d52.5200!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNTLCsDMxJzEyLjAiTiAxM8KwMjInMzQuMCJF!5e0!3m2!1sde!2sde!4v1234567890"
+                      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2558.5!2d8.6821!3d50.1109!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47bd0ea2c7b!2sAllerheiligentor%2C%2060311%20Frankfurt%20am%20Main!5e0!3m2!1sde!2sde!4v1234567890"
                       width="100%"
                       height="100%"
                       style={{ border: 0 }}
@@ -279,53 +398,89 @@ export default function Contact() {
                       loading="lazy"
                       referrerPolicy="no-referrer-when-downgrade"
                       title="Standort"
+                      className="grayscale hover:grayscale-0 transition-all duration-500"
                     />
-                  </div>
-
-                  {/* Quick Contact Cards */}
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div className="bg-gradient-to-br from-primary/10 to-primary/5 rounded-2xl p-6 border border-primary/20">
-                      <Building2 className="w-8 h-8 text-primary mb-4" />
-                      <h3 className="font-bold mb-2">Für Unternehmen</h3>
-                      <p className="text-sm text-muted-foreground mb-4">
-                        Sie möchten Partner werden? Kontaktieren Sie unser Business-Team.
-                      </p>
-                      <Button variant="outline" size="sm" className="w-full">
-                        Business-Anfrage
-                      </Button>
-                    </div>
-                    <div className="bg-gradient-to-br from-secondary/10 to-secondary/5 rounded-2xl p-6 border border-secondary/20">
-                      <Users className="w-8 h-8 text-secondary mb-4" />
-                      <h3 className="font-bold mb-2">Karriere</h3>
-                      <p className="text-sm text-muted-foreground mb-4">
-                        Werden Sie Teil unseres Teams. Aktuelle Stellenangebote finden Sie hier.
-                      </p>
-                      <Button variant="outline" size="sm" className="w-full">
-                        Jobs ansehen
-                      </Button>
+                    <div className="absolute bottom-4 left-4 right-4">
+                      <div className="bg-card/95 backdrop-blur-sm rounded-xl p-4 border border-border/50">
+                        <div className="flex items-start gap-3">
+                          <MapPin className="w-5 h-5 text-primary mt-0.5" />
+                          <div>
+                            <p className="font-semibold text-sm">katew GmbH</p>
+                            <p className="text-xs text-muted-foreground">Allerheiligentor 2-4, 60311 Frankfurt</p>
+                          </div>
+                        </div>
+                      </div>
                     </div>
                   </div>
 
-                  {/* Trust Indicators */}
+                  {/* Quick Action Cards */}
+                  {quickActions.map((action, index) => {
+                    const Icon = action.icon;
+                    return (
+                      <Link
+                        key={index}
+                        to={action.href}
+                        className="group block bg-card rounded-2xl border border-border/50 p-6 hover:border-primary/40 hover:shadow-lg transition-all duration-300"
+                      >
+                        <div className="flex items-start gap-4">
+                          <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${action.gradient} flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform`}>
+                            <Icon className="w-5 h-5 text-white" />
+                          </div>
+                          <div className="flex-1">
+                            <h3 className="font-bold mb-1 group-hover:text-primary transition-colors">{action.title}</h3>
+                            <p className="text-sm text-muted-foreground">{action.description}</p>
+                          </div>
+                          <ArrowRight className="w-5 h-5 text-muted-foreground group-hover:text-primary group-hover:translate-x-1 transition-all mt-1" />
+                        </div>
+                      </Link>
+                    );
+                  })}
+
+                  {/* Service Guarantee */}
+                  <div className="bg-gradient-to-br from-primary/5 to-secondary/5 rounded-2xl border border-primary/20 p-6">
+                    <div className="flex items-center gap-3 mb-4">
+                      <div className="w-10 h-10 rounded-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center">
+                        <Shield className="w-5 h-5 text-white" />
+                      </div>
+                      <h3 className="font-bold">Service-Garantie</h3>
+                    </div>
+                    <ul className="space-y-3">
+                      {[
+                        "Antwort innerhalb von 48 Stunden",
+                        "Persönlicher Ansprechpartner",
+                        "Kostenlose Beratung",
+                        "Datenschutz nach DSGVO",
+                      ].map((item, idx) => (
+                        <li key={idx} className="flex items-center gap-3 text-sm">
+                          <CheckCircle className="w-4 h-4 text-primary shrink-0" />
+                          <span className="text-muted-foreground">{item}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+
+                  {/* Office Hours */}
                   <div className="bg-card rounded-2xl border border-border/50 p-6">
                     <div className="flex items-center gap-3 mb-4">
-                      <CheckCircle className="w-5 h-5 text-green-500" />
-                      <span className="font-semibold">Unsere Service-Garantie</span>
+                      <Clock className="w-5 h-5 text-primary" />
+                      <h3 className="font-bold">Öffnungszeiten</h3>
                     </div>
-                    <ul className="space-y-3 text-sm text-muted-foreground">
-                      <li className="flex items-center gap-2">
-                        <div className="w-1.5 h-1.5 rounded-full bg-primary" />
-                        Antwort innerhalb von 48 Stunden
-                      </li>
-                      <li className="flex items-center gap-2">
-                        <div className="w-1.5 h-1.5 rounded-full bg-primary" />
-                        Persönlicher Ansprechpartner für Partner
-                      </li>
-                      <li className="flex items-center gap-2">
-                        <div className="w-1.5 h-1.5 rounded-full bg-primary" />
-                        Kostenlose telefonische Beratung
-                      </li>
-                    </ul>
+                    <div className="space-y-2 text-sm">
+                      <div className="flex justify-between">
+                        <span className="text-muted-foreground">Montag - Freitag</span>
+                        <span className="font-medium">8:00 - 12:00 Uhr</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span className="text-muted-foreground">Samstag - Sonntag</span>
+                        <span className="font-medium text-muted-foreground">Geschlossen</span>
+                      </div>
+                      <div className="pt-2 mt-2 border-t border-border/50">
+                        <div className="flex justify-between">
+                          <span className="text-muted-foreground">Online-Support</span>
+                          <span className="font-medium text-primary">24/7</span>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
