@@ -721,17 +721,6 @@ const PartnerDashboard = () => {
           >
             Klient & Transport
           </Button>
-          <Button
-            onClick={() => setBookingTab("bewertung")}
-            className={cn(
-              "h-12 px-8 rounded-xl font-semibold transition-all duration-300",
-              bookingTab === "bewertung" 
-                ? "bg-foreground text-background shadow-lg" 
-                : "bg-transparent text-muted-foreground hover:bg-muted/50 border border-border"
-            )}
-          >
-            Bewertung
-          </Button>
         </div>
 
         <div className="grid lg:grid-cols-3 gap-5">
@@ -867,33 +856,6 @@ const PartnerDashboard = () => {
               </Card>
             )}
 
-            {bookingTab === "bewertung" && (
-              <Card className="border-0 shadow-xl bg-gradient-to-br from-card via-card to-muted/10 overflow-hidden">
-                <CardHeader className="pb-4 pt-6 px-6 border-b border-border/30">
-                  <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-amber-500/20 to-amber-500/10 flex items-center justify-center shadow-sm">
-                      <Star className="w-5 h-5 text-amber-500" />
-                    </div>
-                    <CardTitle className="text-xl font-bold">Bewertung</CardTitle>
-                  </div>
-                </CardHeader>
-                <CardContent className="p-6 space-y-5">
-                  <div className="text-center py-8">
-                    <div className="flex justify-center gap-2 mb-4">
-                      {[1, 2, 3, 4, 5].map((star) => (
-                        <Star key={star} className="w-8 h-8 text-amber-500 fill-amber-500" />
-                      ))}
-                    </div>
-                    <p className="text-lg font-semibold text-foreground">5.0 von 5 Sternen</p>
-                    <p className="text-sm text-muted-foreground mt-2">Ausgezeichneter Service!</p>
-                  </div>
-                  <div className="p-4 rounded-xl bg-muted/30">
-                    <p className="text-sm text-foreground italic">"Sehr pünktlich und freundlich! Der Fahrer war äußerst hilfsbereit und hat alles professionell erledigt."</p>
-                    <p className="text-xs text-muted-foreground mt-3">Bewertet am {selectedBooking.date}</p>
-                  </div>
-                </CardContent>
-              </Card>
-            )}
           </div>
 
           {/* Sidebar */}
