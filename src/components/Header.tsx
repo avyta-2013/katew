@@ -51,10 +51,10 @@ export const Header = () => {
               </svg>
             </div>
             <div className="flex flex-col">
-              <span className="text-xl md:text-2xl font-black tracking-tight bg-gradient-to-r from-primary via-primary to-secondary bg-clip-text text-transparent leading-none" style={{ fontFamily: "'Inter', system-ui, sans-serif", letterSpacing: '-0.03em' }}>
+              <span className="text-xl md:text-2xl font-black tracking-tighter bg-gradient-to-r from-primary via-primary to-secondary bg-clip-text text-transparent leading-none">
                 katew
               </span>
-              <span className="text-[9px] md:text-[10px] font-semibold text-muted-foreground uppercase tracking-[0.25em] mt-0.5" style={{ fontFamily: "'Inter', system-ui, sans-serif" }}>
+              <span className="text-[9px] md:text-[10px] font-medium text-muted-foreground tracking-widest mt-0.5 uppercase">
                 Medical Transport
               </span>
             </div>
@@ -64,25 +64,25 @@ export const Header = () => {
           <nav className="hidden md:flex items-center gap-1">
             <a
               href="/"
-              className="px-4 py-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors rounded-lg hover:bg-muted/50"
+              className="px-4 py-2 text-sm font-semibold text-muted-foreground hover:text-foreground transition-colors rounded-xl hover:bg-muted/50"
             >
               Start
             </a>
             <a
               href="/wir"
-              className="px-4 py-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors rounded-lg hover:bg-muted/50"
+              className="px-4 py-2 text-sm font-semibold text-muted-foreground hover:text-foreground transition-colors rounded-xl hover:bg-muted/50"
             >
               Plattform
             </a>
             <Link
               to="/fuer-anbieter"
-              className="px-4 py-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors rounded-lg hover:bg-muted/50"
+              className="px-4 py-2 text-sm font-semibold text-muted-foreground hover:text-foreground transition-colors rounded-xl hover:bg-muted/50"
             >
               Für Anbieter
             </Link>
             <Link
               to="/fuer-partner"
-              className="px-4 py-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors rounded-lg hover:bg-muted/50"
+              className="px-4 py-2 text-sm font-semibold text-muted-foreground hover:text-foreground transition-colors rounded-xl hover:bg-muted/50"
             >
               Für Partner
             </Link>
@@ -116,7 +116,7 @@ export const Header = () => {
             {/* Fahrt buchen Button */}
             <Link
               to="/buchen"
-              className="hidden md:inline-flex px-4 py-2 text-sm font-medium bg-gradient-to-r from-primary to-secondary text-primary-foreground rounded-xl hover:opacity-90 transition-opacity"
+              className="hidden md:inline-flex px-5 py-2.5 text-sm font-bold bg-gradient-to-r from-primary to-secondary text-primary-foreground rounded-xl hover:opacity-90 transition-all hover:shadow-lg hover:shadow-primary/25"
             >
               Fahrt buchen
             </Link>
