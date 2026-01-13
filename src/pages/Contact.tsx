@@ -10,7 +10,13 @@ import {
   CheckCircle,
   Sparkles,
   ArrowRight,
-  Shield
+  Shield,
+  MessageCircle,
+  Headphones,
+  Calendar,
+  Globe,
+  ChevronRight,
+  Zap
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -28,28 +34,6 @@ import { Footer } from "@/components/Footer";
 import { useToast } from "@/hooks/use-toast";
 import { Link } from "react-router-dom";
 
-const contactMethods = [
-  {
-    icon: Phone,
-    title: "Telefon",
-    value: "+49 151 155 612 31",
-    description: "Mo-Fr 8-12 Uhr",
-    gradient: "from-blue-500 to-cyan-500",
-    bgGlow: "bg-blue-500/20",
-    action: "Jetzt anrufen",
-  },
-  {
-    icon: Mail,
-    title: "E-Mail",
-    value: "support@katew.de",
-    description: "Antwort < 48h",
-    gradient: "from-violet-500 to-purple-500",
-    bgGlow: "bg-violet-500/20",
-    action: "E-Mail senden",
-  },
-];
-
-
 const reasons = [
   { value: "general", label: "Allgemeine Anfrage" },
   { value: "booking", label: "Frage zur Buchung" },
@@ -59,21 +43,44 @@ const reasons = [
   { value: "other", label: "Sonstiges" },
 ];
 
-const quickActions = [
+const contactCards = [
   {
-    icon: Users,
-    title: "Für Partner",
-    description: "Krankenfahrten einfach buchen und verwalten",
-    href: "/partner",
-    gradient: "from-primary to-primary/80",
+    icon: Phone,
+    title: "Telefonisch erreichen",
+    description: "Sprechen Sie direkt mit unserem Team",
+    value: "+49 151 155 612 31",
+    subtext: "Mo-Fr 8:00 - 12:00 Uhr",
+    action: "Jetzt anrufen",
+    href: "tel:+4915115561231",
+    gradient: "from-emerald-500 to-teal-500",
   },
   {
-    icon: Building2,
-    title: "Für Anbieter",
-    description: "Teil unseres Netzwerks werden und Aufträge erhalten",
-    href: "/anbieter",
-    gradient: "from-secondary to-secondary/80",
+    icon: Mail,
+    title: "E-Mail schreiben",
+    description: "Wir antworten innerhalb von 48 Stunden",
+    value: "support@katew.de",
+    subtext: "24/7 erreichbar",
+    action: "E-Mail senden",
+    href: "mailto:support@katew.de",
+    gradient: "from-blue-500 to-cyan-500",
   },
+  {
+    icon: MapPin,
+    title: "Uns besuchen",
+    description: "Besuchen Sie uns in Frankfurt",
+    value: "Allerheiligentor 2-4",
+    subtext: "60311 Frankfurt am Main",
+    action: "Route planen",
+    href: "https://maps.google.com/?q=Allerheiligentor+2-4+Frankfurt",
+    gradient: "from-violet-500 to-purple-500",
+  },
+];
+
+const features = [
+  { icon: Zap, text: "Schnelle Antwort in < 48h" },
+  { icon: Headphones, text: "Persönlicher Ansprechpartner" },
+  { icon: Shield, text: "DSGVO-konform" },
+  { icon: Globe, text: "Deutschlandweit verfügbar" },
 ];
 
 export default function Contact() {
@@ -87,6 +94,7 @@ export default function Contact() {
     message: "",
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [focusedField, setFocusedField] = useState<string | null>(null);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -114,8 +122,8 @@ export default function Contact() {
     <>
       <Header />
       <div className="min-h-screen bg-background overflow-hidden">
-        {/* Hero Section - Premium Design */}
-        <section className="relative pt-28 pb-16 md:pt-36 md:pb-24 overflow-hidden">
+        {/* Hero Section - Keep existing */}
+        <section className="relative pt-32 pb-20 md:pt-44 md:pb-28 overflow-hidden">
           {/* Animated Background */}
           <div className="absolute inset-0">
             <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-secondary/5" />
@@ -126,73 +134,55 @@ export default function Contact() {
 
           {/* Floating Elements */}
           <div className="absolute inset-0 overflow-hidden pointer-events-none">
-            <div className="absolute top-20 left-10 w-3 h-3 bg-primary/40 rounded-full animate-bounce" style={{ animationDuration: '3s' }} />
-            <div className="absolute top-40 right-20 w-2 h-2 bg-secondary/40 rounded-full animate-bounce" style={{ animationDuration: '2.5s', animationDelay: '0.5s' }} />
-            <div className="absolute bottom-32 left-1/4 w-4 h-4 bg-primary/30 rounded-full animate-bounce" style={{ animationDuration: '3.5s', animationDelay: '1s' }} />
+            <div className="absolute top-20 left-[10%] w-16 h-16 bg-gradient-to-br from-primary/20 to-secondary/20 rounded-2xl rotate-12 animate-bounce" style={{ animationDuration: "3s" }} />
+            <div className="absolute top-40 right-[15%] w-12 h-12 bg-gradient-to-br from-secondary/20 to-primary/20 rounded-full animate-bounce" style={{ animationDuration: "4s", animationDelay: "0.5s" }} />
+            <div className="absolute bottom-20 right-[20%] w-20 h-20 bg-gradient-to-br from-secondary/15 to-primary/15 rounded-2xl -rotate-12 animate-bounce" style={{ animationDuration: "4.5s", animationDelay: "1.5s" }} />
           </div>
+
+          {/* Grid Pattern */}
+          <div className="absolute inset-0 opacity-[0.02]" style={{ backgroundImage: "url(\"data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23000000' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E\")" }} />
           
           <div className="container mx-auto px-4 relative">
             <div className="max-w-4xl mx-auto text-center">
               {/* Badge */}
-              <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-gradient-to-r from-primary/10 to-secondary/10 backdrop-blur-sm border border-primary/20 text-primary text-sm font-medium mb-8 animate-fade-in">
-                <Sparkles className="w-4 h-4" />
-                <span>Wir sind für Sie da</span>
+              <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-gradient-to-r from-primary/10 to-secondary/10 border border-primary/20 text-sm font-medium mb-8 animate-fade-in">
+                <div className="relative">
+                  <Sparkles className="w-4 h-4 text-primary" />
+                  <div className="absolute inset-0 animate-ping">
+                    <Sparkles className="w-4 h-4 text-primary opacity-50" />
+                  </div>
+                </div>
+                <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent font-semibold">
+                  Wir sind für Sie da
+                </span>
               </div>
 
               {/* Title */}
-              <h1 className="text-5xl md:text-7xl font-bold mb-6 tracking-tight animate-fade-in" style={{ animationDelay: '0.1s' }}>
-                <span className="bg-gradient-to-r from-foreground via-foreground to-foreground/70 bg-clip-text text-transparent">
+              <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold mb-6 tracking-tight animate-fade-in" style={{ animationDelay: '0.1s' }}>
+                <span className="bg-gradient-to-r from-foreground via-foreground to-foreground/80 bg-clip-text text-transparent">
                   Sprechen Sie
                 </span>
                 <br />
-                <span className="bg-gradient-to-r from-primary via-secondary to-primary bg-clip-text text-transparent">
+                <span className="bg-gradient-to-r from-primary via-secondary to-primary bg-clip-text text-transparent bg-[length:200%_auto] animate-[gradient_3s_linear_infinite]">
                   mit uns
                 </span>
               </h1>
 
-              <p className="text-xl md:text-2xl text-muted-foreground mb-12 max-w-2xl mx-auto leading-relaxed animate-fade-in" style={{ animationDelay: '0.2s' }}>
-                Persönlich, kompetent und immer für Sie erreichbar – unser Team freut sich auf Ihre Nachricht
+              <p className="text-xl md:text-2xl text-muted-foreground mb-10 max-w-2xl mx-auto leading-relaxed animate-fade-in" style={{ animationDelay: '0.2s' }}>
+                Persönlich, kompetent und immer für Sie erreichbar
               </p>
-            </div>
-          </div>
-        </section>
 
-        {/* Contact Methods - Premium Cards */}
-        <section className="py-8 relative">
-          <div className="container mx-auto px-4">
-            <div className="max-w-5xl mx-auto">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-3xl mx-auto">
-                {contactMethods.map((method, index) => {
-                  const Icon = method.icon;
+              {/* Feature Pills */}
+              <div className="flex flex-wrap justify-center gap-3 animate-fade-in" style={{ animationDelay: '0.3s' }}>
+                {features.map((feature, index) => {
+                  const Icon = feature.icon;
                   return (
                     <div
                       key={index}
-                      className="group relative bg-card rounded-3xl border border-border/50 p-8 hover:border-primary/40 transition-all duration-500 hover:shadow-2xl hover:-translate-y-2 animate-fade-in"
-                      style={{ animationDelay: `${index * 100}ms` }}
+                      className="flex items-center gap-2 px-4 py-2 rounded-full bg-card/50 backdrop-blur-sm border border-border/50 text-sm"
                     >
-                      {/* Glow Effect */}
-                      <div className={`absolute inset-0 rounded-3xl ${method.bgGlow} blur-xl opacity-0 group-hover:opacity-50 transition-opacity duration-500`} />
-                      
-                      <div className="relative">
-                        {/* Icon */}
-                        <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${method.gradient} flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300 shadow-lg`}>
-                          <Icon className="w-7 h-7 text-white" />
-                        </div>
-                        
-                        <h3 className="font-semibold text-sm text-muted-foreground uppercase tracking-wider mb-2">
-                          {method.title}
-                        </h3>
-                        <p className="font-bold text-xl mb-1">{method.value}</p>
-                        <p className="text-sm text-muted-foreground mb-6">{method.description}</p>
-                        
-                        <Button 
-                          variant="ghost" 
-                          className="w-full justify-between group/btn hover:bg-primary/10"
-                        >
-                          {method.action}
-                          <ArrowRight className="w-4 h-4 group-hover/btn:translate-x-1 transition-transform" />
-                        </Button>
-                      </div>
+                      <Icon className="w-4 h-4 text-primary" />
+                      <span className="text-muted-foreground">{feature.text}</span>
                     </div>
                   );
                 })}
@@ -200,57 +190,186 @@ export default function Contact() {
             </div>
           </div>
         </section>
-        {/* Main Content - Form & Info */}
-        <section className="py-16 md:py-24">
+
+        {/* Contact Cards Section */}
+        <section className="py-8 relative -mt-8">
           <div className="container mx-auto px-4">
-            <div className="max-w-6xl mx-auto">
-              <div className="grid grid-cols-1 lg:grid-cols-5 gap-12">
-                {/* Contact Form - Takes 3 columns */}
-                <div className="lg:col-span-3">
-                  <div className="relative bg-card rounded-3xl border border-border/50 p-8 md:p-10 shadow-xl">
-                    {/* Decorative Elements */}
-                    <div className="absolute -top-px left-20 right-20 h-px bg-gradient-to-r from-transparent via-primary/50 to-transparent" />
-                    
-                    <div className="flex items-center gap-3 mb-2">
-                      <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-primary to-secondary flex items-center justify-center">
-                        <Send className="w-5 h-5 text-white" />
+            <div className="max-w-5xl mx-auto">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                {contactCards.map((card, index) => {
+                  const Icon = card.icon;
+                  return (
+                    <a
+                      key={index}
+                      href={card.href}
+                      target={card.href.startsWith("http") ? "_blank" : undefined}
+                      rel={card.href.startsWith("http") ? "noopener noreferrer" : undefined}
+                      className="group relative"
+                    >
+                      {/* Glow on hover */}
+                      <div className={`absolute inset-0 bg-gradient-to-br ${card.gradient} opacity-0 group-hover:opacity-20 rounded-3xl blur-xl transition-opacity duration-500`} />
+                      
+                      <div className="relative h-full bg-card rounded-3xl border border-border/50 p-8 hover:border-primary/30 transition-all duration-300 hover:shadow-2xl hover:-translate-y-2">
+                        {/* Icon */}
+                        <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${card.gradient} flex items-center justify-center mb-6 group-hover:scale-110 group-hover:rotate-3 transition-transform duration-300 shadow-lg`}>
+                          <Icon className="w-6 h-6 text-white" />
+                        </div>
+                        
+                        <h3 className="font-bold text-lg mb-1">{card.title}</h3>
+                        <p className="text-sm text-muted-foreground mb-4">{card.description}</p>
+                        
+                        <div className="mb-4">
+                          <p className="font-semibold text-foreground">{card.value}</p>
+                          <p className="text-xs text-muted-foreground">{card.subtext}</p>
+                        </div>
+                        
+                        <div className="flex items-center gap-2 text-primary font-medium text-sm group-hover:gap-3 transition-all">
+                          {card.action}
+                          <ChevronRight className="w-4 h-4" />
+                        </div>
                       </div>
-                      <h2 className="text-2xl md:text-3xl font-bold">
-                        Schreiben Sie uns
-                      </h2>
+                    </a>
+                  );
+                })}
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Main Form Section */}
+        <section className="py-20 md:py-32 relative">
+          {/* Background Elements */}
+          <div className="absolute inset-0 bg-gradient-to-b from-transparent via-muted/20 to-transparent" />
+          <div className="absolute top-1/4 left-0 w-[400px] h-[400px] bg-primary/5 rounded-full blur-[120px]" />
+          <div className="absolute bottom-1/4 right-0 w-[400px] h-[400px] bg-secondary/5 rounded-full blur-[120px]" />
+
+          <div className="container mx-auto px-4 relative">
+            <div className="max-w-6xl mx-auto">
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-start">
+                {/* Left Column - Info */}
+                <div className="lg:sticky lg:top-32">
+                  <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-medium mb-6">
+                    <MessageCircle className="w-4 h-4" />
+                    Kontaktformular
+                  </div>
+                  
+                  <h2 className="text-4xl md:text-5xl font-bold mb-6">
+                    Schreiben Sie uns eine{" "}
+                    <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+                      Nachricht
+                    </span>
+                  </h2>
+                  
+                  <p className="text-lg text-muted-foreground mb-10 leading-relaxed">
+                    Ob Fragen zu Buchungen, Partnerschaften oder allgemeine Anfragen – 
+                    wir sind hier, um Ihnen zu helfen. Füllen Sie einfach das Formular aus 
+                    und wir melden uns schnellstmöglich bei Ihnen.
+                  </p>
+
+                  {/* Quick Links */}
+                  <div className="space-y-4 mb-10">
+                    <h3 className="font-semibold text-foreground">Schnellzugriff</h3>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                      <Link
+                        to="/partner"
+                        className="group flex items-center gap-3 p-4 rounded-2xl bg-card border border-border/50 hover:border-primary/30 hover:shadow-lg transition-all"
+                      >
+                        <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-primary/10 to-secondary/10 flex items-center justify-center group-hover:scale-110 transition-transform">
+                          <Users className="w-5 h-5 text-primary" />
+                        </div>
+                        <div>
+                          <p className="font-medium text-sm group-hover:text-primary transition-colors">Für Partner</p>
+                          <p className="text-xs text-muted-foreground">Mehr erfahren</p>
+                        </div>
+                      </Link>
+                      <Link
+                        to="/anbieter"
+                        className="group flex items-center gap-3 p-4 rounded-2xl bg-card border border-border/50 hover:border-primary/30 hover:shadow-lg transition-all"
+                      >
+                        <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-primary/10 to-secondary/10 flex items-center justify-center group-hover:scale-110 transition-transform">
+                          <Building2 className="w-5 h-5 text-primary" />
+                        </div>
+                        <div>
+                          <p className="font-medium text-sm group-hover:text-primary transition-colors">Für Anbieter</p>
+                          <p className="text-xs text-muted-foreground">Mehr erfahren</p>
+                        </div>
+                      </Link>
                     </div>
-                    <p className="text-muted-foreground mb-8 ml-[52px]">
-                      Wir antworten garantiert innerhalb von 48 Stunden
-                    </p>
+                  </div>
+
+                  {/* Office Hours */}
+                  <div className="p-6 rounded-2xl bg-gradient-to-br from-primary/5 to-secondary/5 border border-primary/20">
+                    <div className="flex items-center gap-3 mb-4">
+                      <Clock className="w-5 h-5 text-primary" />
+                      <h3 className="font-bold">Erreichbarkeit</h3>
+                    </div>
+                    <div className="space-y-3 text-sm">
+                      <div className="flex items-center justify-between">
+                        <span className="text-muted-foreground">Telefon</span>
+                        <span className="font-medium">Mo-Fr 8:00 - 12:00</span>
+                      </div>
+                      <div className="flex items-center justify-between">
+                        <span className="text-muted-foreground">E-Mail Support</span>
+                        <span className="font-medium text-primary">24/7</span>
+                      </div>
+                      <div className="flex items-center justify-between">
+                        <span className="text-muted-foreground">Antwortzeit</span>
+                        <span className="font-medium">{"< 48 Stunden"}</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Right Column - Form */}
+                <div className="relative">
+                  <div className="absolute -inset-4 bg-gradient-to-r from-primary/20 via-secondary/20 to-primary/20 rounded-[2rem] blur-2xl opacity-30" />
+                  
+                  <div className="relative bg-card rounded-3xl border border-border/50 p-8 md:p-10 shadow-2xl">
+                    {/* Decorative top line */}
+                    <div className="absolute -top-px left-10 right-10 h-px bg-gradient-to-r from-transparent via-primary/50 to-transparent" />
                     
                     <form onSubmit={handleSubmit} className="space-y-6">
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                      {/* Name & Email Row */}
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                         <div className="space-y-2">
-                          <Label htmlFor="name" className="text-sm font-medium">Name *</Label>
-                          <Input
-                            id="name"
-                            placeholder="Ihr vollständiger Name"
-                            value={formData.name}
-                            onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                            required
-                            className="rounded-xl h-12 bg-muted/50 border-border/50 focus:border-primary/50 transition-colors"
-                          />
+                          <Label htmlFor="name" className="text-sm font-medium flex items-center gap-1">
+                            Name <span className="text-primary">*</span>
+                          </Label>
+                          <div className={`relative transition-all duration-300 ${focusedField === 'name' ? 'scale-[1.02]' : ''}`}>
+                            <Input
+                              id="name"
+                              placeholder="Max Mustermann"
+                              value={formData.name}
+                              onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                              onFocus={() => setFocusedField('name')}
+                              onBlur={() => setFocusedField(null)}
+                              required
+                              className="rounded-xl h-12 bg-muted/30 border-border/50 focus:border-primary focus:bg-background transition-all"
+                            />
+                          </div>
                         </div>
                         <div className="space-y-2">
-                          <Label htmlFor="email" className="text-sm font-medium">E-Mail *</Label>
-                          <Input
-                            id="email"
-                            type="email"
-                            placeholder="ihre@email.de"
-                            value={formData.email}
-                            onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                            required
-                            className="rounded-xl h-12 bg-muted/50 border-border/50 focus:border-primary/50 transition-colors"
-                          />
+                          <Label htmlFor="email" className="text-sm font-medium flex items-center gap-1">
+                            E-Mail <span className="text-primary">*</span>
+                          </Label>
+                          <div className={`relative transition-all duration-300 ${focusedField === 'email' ? 'scale-[1.02]' : ''}`}>
+                            <Input
+                              id="email"
+                              type="email"
+                              placeholder="max@beispiel.de"
+                              value={formData.email}
+                              onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                              onFocus={() => setFocusedField('email')}
+                              onBlur={() => setFocusedField(null)}
+                              required
+                              className="rounded-xl h-12 bg-muted/30 border-border/50 focus:border-primary focus:bg-background transition-all"
+                            />
+                          </div>
                         </div>
                       </div>
                       
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                      {/* Phone & Company Row */}
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                         <div className="space-y-2">
                           <Label htmlFor="phone" className="text-sm font-medium">Telefon</Label>
                           <Input
@@ -258,29 +377,30 @@ export default function Contact() {
                             placeholder="+49 123 456789"
                             value={formData.phone}
                             onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                            className="rounded-xl h-12 bg-muted/50 border-border/50 focus:border-primary/50 transition-colors"
+                            className="rounded-xl h-12 bg-muted/30 border-border/50 focus:border-primary focus:bg-background transition-all"
                           />
                         </div>
                         <div className="space-y-2">
                           <Label htmlFor="company" className="text-sm font-medium">Unternehmen</Label>
                           <Input
                             id="company"
-                            placeholder="Ihr Unternehmen"
+                            placeholder="Firma GmbH"
                             value={formData.company}
                             onChange={(e) => setFormData({ ...formData, company: e.target.value })}
-                            className="rounded-xl h-12 bg-muted/50 border-border/50 focus:border-primary/50 transition-colors"
+                            className="rounded-xl h-12 bg-muted/30 border-border/50 focus:border-primary focus:bg-background transition-all"
                           />
                         </div>
                       </div>
                       
+                      {/* Reason Select */}
                       <div className="space-y-2">
-                        <Label htmlFor="reason" className="text-sm font-medium">Anliegen</Label>
+                        <Label htmlFor="reason" className="text-sm font-medium">Ihr Anliegen</Label>
                         <Select
                           value={formData.reason}
                           onValueChange={(value) => setFormData({ ...formData, reason: value })}
                         >
-                          <SelectTrigger className="rounded-xl h-12 bg-muted/50 border-border/50">
-                            <SelectValue placeholder="Wählen Sie einen Grund" />
+                          <SelectTrigger className="rounded-xl h-12 bg-muted/30 border-border/50 focus:border-primary">
+                            <SelectValue placeholder="Bitte wählen Sie einen Grund" />
                           </SelectTrigger>
                           <SelectContent>
                             {reasons.map((reason) => (
@@ -292,135 +412,125 @@ export default function Contact() {
                         </Select>
                       </div>
                       
+                      {/* Message */}
                       <div className="space-y-2">
-                        <Label htmlFor="message" className="text-sm font-medium">Nachricht *</Label>
+                        <Label htmlFor="message" className="text-sm font-medium flex items-center gap-1">
+                          Ihre Nachricht <span className="text-primary">*</span>
+                        </Label>
                         <Textarea
                           id="message"
                           placeholder="Wie können wir Ihnen helfen? Beschreiben Sie Ihr Anliegen..."
-                          rows={6}
+                          rows={5}
                           value={formData.message}
                           onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                           required
-                          className="rounded-xl bg-muted/50 border-border/50 focus:border-primary/50 transition-colors resize-none"
+                          className="rounded-xl bg-muted/30 border-border/50 focus:border-primary focus:bg-background transition-all resize-none"
                         />
                       </div>
+
+                      {/* Privacy Notice */}
+                      <p className="text-xs text-muted-foreground">
+                        Mit dem Absenden stimmen Sie unserer{" "}
+                        <Link to="/datenschutz" className="text-primary hover:underline">
+                          Datenschutzerklärung
+                        </Link>{" "}
+                        zu.
+                      </p>
                       
+                      {/* Submit Button */}
                       <Button 
                         type="submit" 
                         size="lg"
-                        className="w-full h-14 text-lg bg-gradient-to-r from-primary to-secondary hover:opacity-90 rounded-xl shadow-lg shadow-primary/25 transition-all hover:shadow-xl hover:shadow-primary/30"
+                        className="w-full h-14 text-lg bg-gradient-to-r from-primary to-secondary hover:opacity-90 rounded-xl shadow-lg shadow-primary/25 transition-all hover:shadow-xl hover:shadow-primary/30 hover:-translate-y-0.5"
                         disabled={isSubmitting}
                       >
                         {isSubmitting ? (
-                          <span className="flex items-center gap-2">
+                          <span className="flex items-center gap-3">
                             <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
                             Wird gesendet...
                           </span>
                         ) : (
-                          <span className="flex items-center gap-2">
-                            Nachricht senden
+                          <span className="flex items-center gap-3">
+                            Nachricht absenden
                             <Send className="w-5 h-5" />
                           </span>
                         )}
                       </Button>
+
+                      {/* Trust Indicators */}
+                      <div className="flex flex-wrap items-center justify-center gap-4 pt-4 border-t border-border/50">
+                        {[
+                          { icon: Shield, text: "SSL verschlüsselt" },
+                          { icon: CheckCircle, text: "DSGVO-konform" },
+                        ].map((item, idx) => (
+                          <div key={idx} className="flex items-center gap-2 text-xs text-muted-foreground">
+                            <item.icon className="w-3.5 h-3.5 text-primary" />
+                            <span>{item.text}</span>
+                          </div>
+                        ))}
+                      </div>
                     </form>
                   </div>
                 </div>
+              </div>
+            </div>
+          </div>
+        </section>
 
-                {/* Sidebar - Takes 2 columns */}
-                <div className="lg:col-span-2 space-y-6">
-                  {/* Map */}
-                  <div className="relative h-64 rounded-3xl overflow-hidden border border-border/50 shadow-lg">
-                    <iframe
-                      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2558.5!2d8.6821!3d50.1109!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47bd0ea2c7b!2sAllerheiligentor%2C%2060311%20Frankfurt%20am%20Main!5e0!3m2!1sde!2sde!4v1234567890"
-                      width="100%"
-                      height="100%"
-                      style={{ border: 0 }}
-                      allowFullScreen
-                      loading="lazy"
-                      referrerPolicy="no-referrer-when-downgrade"
-                      title="Standort"
-                      className="grayscale hover:grayscale-0 transition-all duration-500"
-                    />
-                    <div className="absolute bottom-4 left-4 right-4">
-                      <div className="bg-card/95 backdrop-blur-sm rounded-xl p-4 border border-border/50">
-                        <div className="flex items-start gap-3">
-                          <MapPin className="w-5 h-5 text-primary mt-0.5" />
-                          <div>
-                            <p className="font-semibold text-sm">katew GmbH</p>
-                            <p className="text-xs text-muted-foreground">Allerheiligentor 2-4, 60311 Frankfurt</p>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+        {/* Map Section */}
+        <section className="py-20 md:py-32 relative bg-muted/30">
+          <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-border to-transparent" />
+          
+          <div className="container mx-auto px-4">
+            <div className="max-w-6xl mx-auto">
+              <div className="text-center mb-12">
+                <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-medium mb-4">
+                  <MapPin className="w-4 h-4" />
+                  Unser Standort
+                </div>
+                <h2 className="text-3xl md:text-4xl font-bold mb-4">
+                  Besuchen Sie uns in{" "}
+                  <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+                    Frankfurt
+                  </span>
+                </h2>
+              </div>
 
-                  {/* Quick Action Cards */}
-                  {quickActions.map((action, index) => {
-                    const Icon = action.icon;
-                    return (
-                      <Link
-                        key={index}
-                        to={action.href}
-                        className="group block bg-card rounded-2xl border border-border/50 p-6 hover:border-primary/40 hover:shadow-lg transition-all duration-300"
-                      >
-                        <div className="flex items-start gap-4">
-                          <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${action.gradient} flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform`}>
-                            <Icon className="w-5 h-5 text-white" />
-                          </div>
-                          <div className="flex-1">
-                            <h3 className="font-bold mb-1 group-hover:text-primary transition-colors">{action.title}</h3>
-                            <p className="text-sm text-muted-foreground">{action.description}</p>
-                          </div>
-                          <ArrowRight className="w-5 h-5 text-muted-foreground group-hover:text-primary group-hover:translate-x-1 transition-all mt-1" />
-                        </div>
-                      </Link>
-                    );
-                  })}
-
-                  {/* Service Guarantee */}
-                  <div className="bg-gradient-to-br from-primary/5 to-secondary/5 rounded-2xl border border-primary/20 p-6">
-                    <div className="flex items-center gap-3 mb-4">
-                      <div className="w-10 h-10 rounded-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center">
-                        <Shield className="w-5 h-5 text-white" />
+              <div className="relative rounded-3xl overflow-hidden border border-border/50 shadow-2xl">
+                <iframe
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2558.5!2d8.6821!3d50.1109!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47bd0ea2c7b!2sAllerheiligentor%2C%2060311%20Frankfurt%20am%20Main!5e0!3m2!1sde!2sde!4v1234567890"
+                  width="100%"
+                  height="450"
+                  style={{ border: 0 }}
+                  allowFullScreen
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                  title="Standort katew"
+                  className="grayscale hover:grayscale-0 transition-all duration-700"
+                />
+                
+                {/* Overlay Card */}
+                <div className="absolute bottom-6 left-6 right-6 md:right-auto md:max-w-sm">
+                  <div className="bg-card/95 backdrop-blur-xl rounded-2xl p-6 border border-border/50 shadow-xl">
+                    <div className="flex items-start gap-4">
+                      <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-primary to-secondary flex items-center justify-center flex-shrink-0">
+                        <Building2 className="w-6 h-6 text-white" />
                       </div>
-                      <h3 className="font-bold">Service-Garantie</h3>
-                    </div>
-                    <ul className="space-y-3">
-                      {[
-                        "Antwort innerhalb von 48 Stunden",
-                        "Persönlicher Ansprechpartner",
-                        "Kostenlose Beratung",
-                        "Datenschutz nach DSGVO",
-                      ].map((item, idx) => (
-                        <li key={idx} className="flex items-center gap-3 text-sm">
-                          <CheckCircle className="w-4 h-4 text-primary shrink-0" />
-                          <span className="text-muted-foreground">{item}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-
-                  {/* Office Hours */}
-                  <div className="bg-card rounded-2xl border border-border/50 p-6">
-                    <div className="flex items-center gap-3 mb-4">
-                      <Clock className="w-5 h-5 text-primary" />
-                      <h3 className="font-bold">Öffnungszeiten</h3>
-                    </div>
-                    <div className="space-y-2 text-sm">
-                      <div className="flex justify-between">
-                        <span className="text-muted-foreground">Montag - Freitag</span>
-                        <span className="font-medium">8:00 - 12:00 Uhr</span>
-                      </div>
-                      <div className="flex justify-between">
-                        <span className="text-muted-foreground">Samstag - Sonntag</span>
-                        <span className="font-medium text-muted-foreground">Geschlossen</span>
-                      </div>
-                      <div className="pt-2 mt-2 border-t border-border/50">
-                        <div className="flex justify-between">
-                          <span className="text-muted-foreground">Online-Support</span>
-                          <span className="font-medium text-primary">24/7</span>
-                        </div>
+                      <div>
+                        <h3 className="font-bold text-lg mb-1">katew GmbH</h3>
+                        <p className="text-sm text-muted-foreground mb-3">
+                          Allerheiligentor 2-4<br />
+                          60311 Frankfurt am Main
+                        </p>
+                        <a 
+                          href="https://maps.google.com/?q=Allerheiligentor+2-4+Frankfurt"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-2 text-primary text-sm font-medium hover:gap-3 transition-all"
+                        >
+                          Route berechnen
+                          <ArrowRight className="w-4 h-4" />
+                        </a>
                       </div>
                     </div>
                   </div>
