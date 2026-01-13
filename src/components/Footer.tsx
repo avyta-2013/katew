@@ -10,7 +10,7 @@ const footerLinks = {
     { label: "Anbieter Dashboard", href: "/anbieter-dashboard" },
   ],
   unternehmen: [
-    { label: "Über uns", href: "/wir" },
+    { label: "Plattform", href: "/plattform" },
     { label: "Blog", href: "/blog" },
     { label: "Karriere", href: "/karriere" },
   ],

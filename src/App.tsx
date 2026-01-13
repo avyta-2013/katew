@@ -34,7 +34,7 @@ const App = () => (
         <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/buchen" element={<BookingResults />} />
-          <Route path="/wir" element={<About />} />
+          <Route path="/plattform" element={<About />} />
           <Route path="/anmelden" element={<Auth />} />
           <Route path="/fuer-anbieter" element={<ForProviders />} />
           <Route path="/fuer-partner" element={<ForPartners />} />
