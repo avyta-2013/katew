@@ -212,7 +212,7 @@ export const Hero = () => {
                   {[
                     { text: "500+ Partner", icon: "partners" },
                     { text: "98% Zufriedenheit", icon: "satisfaction" },
-                    { text: "<2h Vermittlung", icon: "speed" },
+                    { text: "<5min Vermittlung", icon: "speed" },
                     { text: "TÜV Geprüft", icon: "tuv" },
                     { text: "DSGVO Konform", icon: "dsgvo" },
                   ].map((item, index) => (
