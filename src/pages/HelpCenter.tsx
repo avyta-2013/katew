@@ -503,21 +503,6 @@ export default function HelpCenter() {
                 </div>
               </div>
 
-              {/* Quick Links */}
-              <div className="flex flex-wrap justify-center gap-3 mt-8 animate-fade-in" style={{ animationDelay: '0.4s' }}>
-                {quickLinks.map((link, index) => {
-                  const Icon = link.icon;
-                  return (
-                    <button
-                      key={index}
-                      className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-card/60 backdrop-blur-sm border border-border/50 text-sm text-muted-foreground hover:text-primary hover:border-primary/30 transition-all duration-300 hover:scale-105"
-                    >
-                      <Icon className="w-4 h-4" />
-                      {link.label}
-                    </button>
-                  );
-                })}
-              </div>
             </div>
           </div>
         </section>
