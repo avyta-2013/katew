@@ -2,19 +2,13 @@ import {
   Handshake,
   Building2,
   Network,
-  TrendingUp,
   Shield,
   Clock,
   Euro,
   CheckCircle,
   ArrowRight,
-  Zap,
   Award,
   HeartHandshake,
-  FileText,
-  Briefcase,
-  Send,
-  CalendarClock,
   Star,
   Quote,
   Sparkles,
@@ -25,46 +19,17 @@ import {
   Globe,
   Smartphone,
   Settings,
+  Gift,
+  Zap,
+  UserCheck,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
-import { CounterCard } from "@/components/CounterCard";
 import { ContactFormCTA } from "@/components/ContactFormCTA";
 import { PartnersLogoSlider } from "@/components/PartnersLogoSlider";
 
-const benefits = [
-  {
-    icon: Network,
-    title: "Alle Anbieter auf einen Blick",
-    description: "Zugang zu sämtlichen regionalen Krankenfahrt-Unternehmen über eine zentrale Plattform.",
-    stat: "500+",
-    statLabel: "Anbieter bundesweit",
-  },
-  {
-    icon: Euro,
-    title: "Transparenter Kostenvergleich",
-    description: "Vergleichen Sie Preise verschiedener Anbieter und sparen Sie bei jeder Buchung.",
-    stat: "-25%",
-    statLabel: "durchschnittliche Ersparnis",
-  },
-  {
-    icon: Clock,
-    title: "Schnelle Buchung",
-    description: "Buchen Sie Transporte in Minuten statt Stunden – mit automatischer Bestätigung.",
-    stat: "3min",
-    statLabel: "durchschnittliche Buchungszeit",
-  },
-  {
-    icon: Shield,
-    title: "Geprüfte Qualität",
-    description: "Jeder Anbieter wird verifiziert. Bewertungen und Erfahrungsberichte für Ihre Sicherheit.",
-    stat: "100%",
-    statLabel: "verifizierte Anbieter",
-  },
-];
-
-const features = [
+const partnerTypes = [
   {
     icon: Hospital,
     title: "Krankenhäuser",
@@ -86,12 +51,40 @@ const features = [
     description: "Digitalisieren Sie das Fahrtenkostenmanagement effizient.",
   },
   {
-    icon: CalendarClock,
+    icon: UserCheck,
+    title: "Privatpersonen",
+    description: "Patienten, Angehörige & alle, die Krankenfahrten benötigen.",
+  },
+];
+
+const benefits = [
+  {
+    icon: Network,
+    title: "Alle Anbieter auf einen Blick",
+    description: "Zugang zu sämtlichen regionalen Krankenfahrt-Unternehmen über eine zentrale Plattform.",
+  },
+  {
+    icon: Euro,
+    title: "Transparenter Kostenvergleich",
+    description: "Vergleichen Sie Preise verschiedener Anbieter und sparen Sie bei jeder Buchung.",
+  },
+  {
+    icon: Clock,
+    title: "Schnelle Buchung",
+    description: "Buchen Sie Transporte in Minuten statt Stunden – mit automatischer Bestätigung.",
+  },
+  {
+    icon: Shield,
+    title: "Geprüfte Qualität",
+    description: "Jeder Anbieter wird verifiziert. Bewertungen und Erfahrungsberichte für Ihre Sicherheit.",
+  },
+  {
+    icon: HeartHandshake,
     title: "Flexible Planung",
     description: "Buchen Sie Transporte spontan oder im Voraus – 24/7 verfügbar.",
   },
   {
-    icon: HeartHandshake,
+    icon: Users,
     title: "Persönlicher Support",
     description: "Ihr dedizierter Ansprechpartner für alle Fragen und Anliegen.",
   },
@@ -183,21 +176,10 @@ export default function ForPartners() {
                   Gemeinsam mehr erreichen
                 </span>
               </h1>
-              <p className="text-xl md:text-2xl text-muted-foreground mb-6 max-w-2xl mx-auto leading-relaxed">
+              <p className="text-xl md:text-2xl text-muted-foreground mb-10 max-w-2xl mx-auto leading-relaxed">
                 Verbinden Sie Ihre Einrichtung mit dem führenden Netzwerk für Krankenfahrten. Digitale Prozesse, höhere
                 Qualität, weniger Aufwand.
               </p>
-
-              {/* Pricing Highlight */}
-              <div className="inline-flex items-center gap-4 bg-card border border-border/50 rounded-2xl px-8 py-4 mb-10 shadow-lg">
-                <div className="text-5xl md:text-6xl font-bold bg-gradient-to-r from-secondary to-primary bg-clip-text text-transparent">
-                  0€
-                </div>
-                <div className="text-left">
-                  <div className="text-sm text-muted-foreground">Einrichtungskosten</div>
-                  <div className="font-semibold text-foreground">Kostenlose Integration</div>
-                </div>
-              </div>
 
               <div className="flex justify-center">
                 <Button
@@ -212,129 +194,175 @@ export default function ForPartners() {
           </div>
         </section>
 
-        {/* Redesigned Benefits Section */}
-        <section className="py-24 md:py-32 relative overflow-hidden">
-          {/* Background with mesh gradient */}
-          <div className="absolute inset-0 bg-gradient-to-br from-secondary/10 via-background to-primary/10" />
-          <div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-secondary/20 rounded-full blur-[120px] -translate-y-1/2" />
-          <div className="absolute bottom-0 right-1/4 w-[400px] h-[400px] bg-primary/20 rounded-full blur-[100px] translate-y-1/2" />
+        {/* Pricing Section - Free Membership */}
+        <section className="py-24 md:py-32 relative overflow-hidden bg-gradient-to-br from-secondary/5 via-primary/5 to-transparent">
+          <div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-secondary/10 rounded-full blur-[120px] -translate-y-1/2" />
+          <div className="absolute bottom-0 right-1/4 w-[400px] h-[400px] bg-primary/10 rounded-full blur-[100px] translate-y-1/2" />
 
           <div className="container mx-auto px-4 relative">
             <div className="text-center mb-16">
               <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-gradient-to-r from-secondary/20 to-primary/20 backdrop-blur-sm border border-secondary/20 text-secondary text-sm font-semibold mb-6">
-                <Zap className="w-4 h-4" />
-                Was haben Sie zu gewinnen?
+                <Gift className="w-4 h-4" />
+                100% Kostenlos für Partner
               </div>
               <h2 className="text-4xl md:text-6xl font-bold mb-6 tracking-tight">
                 Ihre{" "}
-                <span className="bg-gradient-to-r from-secondary via-primary to-secondary bg-clip-text text-transparent bg-[length:200%_auto] animate-[gradient_3s_linear_infinite]">
-                  Vorteile
+                <span className="bg-gradient-to-r from-secondary via-primary to-secondary bg-clip-text text-transparent">
+                  kostenlose Mitgliedschaft
                 </span>
               </h2>
               <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-                Entdecken Sie alle Vorteile einer Partnerschaft mit katew
+                Als Partner genießen Sie alle Vorteile komplett kostenfrei
               </p>
             </div>
 
-            {/* Main Stats - Floating Cards */}
-            <div className="max-w-6xl mx-auto mb-20">
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                {benefits.map((benefit, index) => {
-                  const delays = ["0ms", "100ms", "200ms", "300ms"];
+            {/* Pricing Card */}
+            <div className="max-w-md mx-auto mb-16">
+              <div className="relative bg-card border-2 border-secondary/30 rounded-3xl p-8 md:p-10 shadow-2xl shadow-secondary/10 overflow-hidden">
+                {/* Background glow */}
+                <div className="absolute inset-0 bg-gradient-to-br from-secondary/5 via-transparent to-primary/5" />
+                
+                <div className="relative">
+                  <div className="text-center mb-8">
+                    <div className="text-sm font-semibold text-secondary mb-2">Partner Mitgliedschaft</div>
+                    <div className="flex items-baseline justify-center gap-1">
+                      <span className="text-6xl md:text-7xl font-bold bg-gradient-to-r from-secondary to-primary bg-clip-text text-transparent">
+                        0€
+                      </span>
+                    </div>
+                    <div className="text-muted-foreground mt-2">Für immer kostenlos</div>
+                  </div>
+
+                  <div className="space-y-4 mb-8">
+                    <div className="flex items-center gap-3">
+                      <CheckCircle className="w-5 h-5 text-secondary shrink-0" />
+                      <span className="text-foreground">Keine versteckten Kosten</span>
+                    </div>
+                  </div>
+
+                  <div className="space-y-3">
+                    <Button className="w-full bg-gradient-to-r from-secondary to-primary hover:opacity-90 text-lg py-6 h-auto">
+                      Jetzt starten
+                      <ArrowRight className="ml-2 w-5 h-5" />
+                    </Button>
+                    <Button variant="outline" className="w-full py-6 h-auto text-lg">
+                      Beratung anfragen
+                    </Button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Trust Badges */}
+            <div className="flex flex-wrap justify-center gap-6 md:gap-10">
+              <div className="flex items-center gap-2 text-muted-foreground">
+                <Shield className="w-5 h-5 text-secondary" />
+                <span className="text-sm">100% kostenlos & sicher</span>
+              </div>
+              <div className="flex items-center gap-2 text-muted-foreground">
+                <Zap className="w-5 h-5 text-secondary" />
+                <span className="text-sm">Sofort einsatzbereit</span>
+              </div>
+              <div className="flex items-center gap-2 text-muted-foreground">
+                <Users className="w-5 h-5 text-secondary" />
+                <span className="text-sm">850+ Anbieter</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Partner Types Section */}
+        <section className="py-24 md:py-32 bg-muted/30">
+          <div className="container mx-auto px-4">
+            <div className="text-center mb-16">
+              <h3 className="text-sm font-semibold text-secondary uppercase tracking-wider mb-4">Einrichtungen</h3>
+              <h2 className="text-3xl md:text-5xl font-bold mb-4 tracking-tight">
+                Für diese Partner ist{" "}
+                <span className="bg-gradient-to-r from-secondary to-primary bg-clip-text text-transparent">
+                  katew kostenlos
+                </span>
+              </h2>
+            </div>
+
+            <div className="max-w-5xl mx-auto">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                {partnerTypes.map((type, index) => {
+                  const Icon = type.icon;
                   return (
-                    <CounterCard
+                    <div
                       key={index}
-                      icon={benefit.icon}
-                      stat={benefit.stat}
-                      statLabel={benefit.statLabel}
-                      title={benefit.title}
-                      description={benefit.description}
-                      delay={delays[index]}
-                    />
+                      className="group bg-card border border-border/50 rounded-2xl p-6 hover:border-secondary/40 hover:shadow-lg hover:shadow-secondary/5 transition-all duration-300"
+                    >
+                      <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-secondary/10 to-primary/10 border border-secondary/20 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
+                        <Icon className="w-6 h-6 text-secondary" />
+                      </div>
+                      <h4 className="font-bold text-lg mb-2 group-hover:text-secondary transition-colors">
+                        {type.title}
+                      </h4>
+                      <p className="text-muted-foreground text-sm">{type.description}</p>
+                    </div>
                   );
                 })}
               </div>
             </div>
+          </div>
+        </section>
 
-            {/* Features - Alternating Layout */}
+        {/* Benefits Section */}
+        <section className="py-24 md:py-32 relative overflow-hidden">
+          <div className="absolute inset-0 bg-gradient-to-br from-secondary/5 via-transparent to-primary/5" />
+
+          <div className="container mx-auto px-4 relative">
+            <div className="text-center mb-16">
+              <h3 className="text-sm font-semibold text-secondary uppercase tracking-wider mb-4">Vorteile</h3>
+              <h2 className="text-3xl md:text-5xl font-bold mb-4 tracking-tight">
+                Das bekommen Sie als{" "}
+                <span className="bg-gradient-to-r from-secondary to-primary bg-clip-text text-transparent">
+                  Partner
+                </span>
+              </h2>
+            </div>
+
             <div className="max-w-5xl mx-auto">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                {/* Left Column */}
-                <div className="space-y-6">
-                  {features
-                    .filter((_, i) => i % 2 === 0)
-                    .map((feature, index) => {
-                      const Icon = feature.icon;
-                      const isHighlight = "highlight" in feature && feature.highlight;
-                      return (
-                        <div
-                          key={index}
-                          className={`group relative flex items-start gap-5 backdrop-blur-sm border rounded-2xl p-6 transition-all duration-300 ${
-                            isHighlight
-                              ? "bg-gradient-to-br from-secondary/20 to-primary/20 border-secondary/40 ring-2 ring-secondary/20"
-                              : "bg-card/50 border-border/50 hover:border-secondary/40 hover:bg-card"
-                          }`}
-                        >
-                          {isHighlight && (
-                            <div className="absolute -top-3 left-6 px-3 py-1 bg-gradient-to-r from-secondary to-primary text-primary-foreground text-xs font-bold rounded-full flex items-center gap-1">
-                              <Sparkles className="w-3 h-3" />
-                              TOP
-                            </div>
-                          )}
-                          <div
-                            className={`shrink-0 w-14 h-14 rounded-xl flex items-center justify-center group-hover:scale-110 transition-all duration-300 ${
-                              isHighlight
-                                ? "bg-gradient-to-br from-secondary to-primary"
-                                : "bg-gradient-to-br from-secondary/10 to-primary/10 border border-secondary/20 group-hover:border-secondary/50"
-                            }`}
-                          >
-                            <Icon className={`w-6 h-6 ${isHighlight ? "text-primary-foreground" : "text-secondary"}`} />
-                          </div>
-                          <div className="flex-1">
-                            <h3
-                              className={`font-bold text-lg mb-1 transition-colors ${isHighlight ? "text-secondary" : "group-hover:text-secondary"}`}
-                            >
-                              {feature.title}
-                            </h3>
-                            <p className="text-muted-foreground text-sm">{feature.description}</p>
-                          </div>
-                          <ArrowRight
-                            className={`w-5 h-5 shrink-0 self-center transition-all duration-300 ${
-                              isHighlight
-                                ? "text-secondary opacity-100"
-                                : "text-muted-foreground opacity-0 group-hover:opacity-100 group-hover:text-secondary"
-                            }`}
-                          />
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {benefits.map((benefit, index) => {
+                  const Icon = benefit.icon;
+                  const isHighlight = benefit.highlight;
+                  return (
+                    <div
+                      key={index}
+                      className={`group relative flex items-start gap-5 backdrop-blur-sm border rounded-2xl p-6 transition-all duration-300 ${
+                        isHighlight
+                          ? "bg-gradient-to-br from-secondary/20 to-primary/20 border-secondary/40 ring-2 ring-secondary/20 md:col-span-2"
+                          : "bg-card/50 border-border/50 hover:border-secondary/40 hover:bg-card"
+                      }`}
+                    >
+                      {isHighlight && (
+                        <div className="absolute -top-3 left-6 px-3 py-1 bg-gradient-to-r from-secondary to-primary text-primary-foreground text-xs font-bold rounded-full flex items-center gap-1">
+                          <Sparkles className="w-3 h-3" />
+                          HIGHLIGHT
                         </div>
-                      );
-                    })}
-                </div>
-
-                {/* Right Column - Offset */}
-                <div className="space-y-6 md:mt-12">
-                  {features
-                    .filter((_, i) => i % 2 === 1)
-                    .map((feature, index) => {
-                      const Icon = feature.icon;
-                      return (
-                        <div
-                          key={index}
-                          className="group relative flex items-start gap-5 bg-card/50 backdrop-blur-sm border border-border/50 rounded-2xl p-6 hover:border-primary/40 hover:bg-card transition-all duration-300"
+                      )}
+                      <div
+                        className={`shrink-0 w-14 h-14 rounded-xl flex items-center justify-center group-hover:scale-110 transition-all duration-300 ${
+                          isHighlight
+                            ? "bg-gradient-to-br from-secondary to-primary"
+                            : "bg-gradient-to-br from-secondary/10 to-primary/10 border border-secondary/20 group-hover:border-secondary/50"
+                        }`}
+                      >
+                        <Icon className={`w-6 h-6 ${isHighlight ? "text-primary-foreground" : "text-secondary"}`} />
+                      </div>
+                      <div className="flex-1">
+                        <h3
+                          className={`font-bold text-lg mb-1 transition-colors ${isHighlight ? "text-secondary" : "group-hover:text-secondary"}`}
                         >
-                          <div className="shrink-0 w-14 h-14 rounded-xl bg-gradient-to-br from-primary/10 to-secondary/10 border border-primary/20 flex items-center justify-center group-hover:scale-110 group-hover:border-primary/50 transition-all duration-300">
-                            <Icon className="w-6 h-6 text-primary" />
-                          </div>
-                          <div className="flex-1">
-                            <h3 className="font-bold text-lg mb-1 group-hover:text-primary transition-colors">
-                              {feature.title}
-                            </h3>
-                            <p className="text-muted-foreground text-sm">{feature.description}</p>
-                          </div>
-                          <ArrowRight className="w-5 h-5 text-muted-foreground opacity-0 group-hover:opacity-100 group-hover:text-primary transition-all duration-300 shrink-0 self-center" />
-                        </div>
-                      );
-                    })}
-                </div>
+                          {benefit.title}
+                        </h3>
+                        <p className="text-muted-foreground text-sm">{benefit.description}</p>
+                      </div>
+                    </div>
+                  );
+                })}
               </div>
             </div>
           </div>
@@ -365,7 +393,7 @@ export default function ForPartners() {
               <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
                 {partnerMethods.map((method, methodIndex) => {
                   const Icon = method.icon;
-                  const isHighlight = "highlight" in method && method.highlight;
+                  const isHighlight = method.highlight;
                   return (
                     <div
                       key={methodIndex}
@@ -437,7 +465,7 @@ export default function ForPartners() {
           </div>
         </section>
 
-        {/* Testimonials - Redesigned */}
+        {/* Testimonials */}
         <section className="py-24 md:py-32 bg-gradient-to-br from-secondary/5 via-transparent to-primary/5 overflow-hidden">
           <div className="container mx-auto px-4">
             <div className="text-center mb-16">
