@@ -100,7 +100,7 @@ const benefits = [
   {
     icon: Network,
     title: "Großes Netzwerk",
-    description: "Zugang zu über 850 geprüften Transportdienstleistern bundesweit.",
+    description: "Zugang zu über 500+ geprüften Transportdienstleistern bundesweit.",
     highlight: true,
   },
 ];
