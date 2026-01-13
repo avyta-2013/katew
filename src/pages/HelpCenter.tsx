@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { 
   Search, 
   BookOpen, 
@@ -266,26 +266,14 @@ const videoTutorials = [
   },
 ];
 
-const stats = [
-  { value: "24/7", label: "Online-Hilfe verfügbar" },
-  { value: "< 2h", label: "Durchschnittliche Antwortzeit" },
-  { value: "98%", label: "Zufriedenheitsrate" },
-  { value: "500+", label: "Hilfeartikel" },
-];
 
 export default function HelpCenter() {
   const [searchQuery, setSearchQuery] = useState("");
   const [activeTab, setActiveTab] = useState<"anbieter" | "partner">("partner");
   const [isSearchFocused, setIsSearchFocused] = useState(false);
-  const [animatedStats, setAnimatedStats] = useState(false);
 
   const categories = activeTab === "anbieter" ? anbieterCategories : partnerCategories;
   const articles = activeTab === "anbieter" ? anbieterArticles : partnerArticles;
-
-  useEffect(() => {
-    const timer = setTimeout(() => setAnimatedStats(true), 500);
-    return () => clearTimeout(timer);
-  }, []);
 
   return (
     <>
@@ -381,29 +369,6 @@ export default function HelpCenter() {
           </div>
         </section>
 
-        {/* Stats Section */}
-        <section className="py-8 relative">
-          <div className="container mx-auto px-4">
-            <div className="max-w-5xl mx-auto">
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                {stats.map((stat, index) => (
-                  <div
-                    key={index}
-                    className={`text-center p-6 rounded-2xl bg-gradient-to-br from-card to-muted/30 border border-border/50 backdrop-blur-sm transition-all duration-700 ${
-                      animatedStats ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
-                    }`}
-                    style={{ transitionDelay: `${index * 100}ms` }}
-                  >
-                    <div className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent mb-1">
-                      {stat.value}
-                    </div>
-                    <div className="text-sm text-muted-foreground">{stat.label}</div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </section>
 
         {/* Tab Switcher - Premium Style */}
         <section className="py-10">
