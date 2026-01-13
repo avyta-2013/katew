@@ -190,7 +190,7 @@ export default function ForProviders() {
                       <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-primary to-secondary flex items-center justify-center">
                         <Gift className="w-5 h-5 text-white" />
                       </div>
-                      <h3 className="text-xl font-bold">Das ist im Paket enthalten</h3>
+                      <h3 className="text-xl font-bold">Das ist im Paket enthalten: Buchungen</h3>
                     </div>
                     
                     {/* Package Items Grid */}
