@@ -1,20 +1,16 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { 
   Mail, 
   Phone, 
   MapPin, 
   Clock, 
   Send,
-  MessageSquare,
   Building2,
   Users,
   CheckCircle,
   Sparkles,
   ArrowRight,
-  Headphones,
-  Shield,
-  Zap,
-  Globe
+  Shield
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -53,12 +49,6 @@ const contactMethods = [
   },
 ];
 
-const stats = [
-  { value: "< 2h", label: "Ø Antwortzeit", icon: Zap },
-  { value: "98%", label: "Zufriedenheit", icon: CheckCircle },
-  { value: "24/7", label: "Online-Support", icon: Globe },
-  { value: "1:1", label: "Persönliche Beratung", icon: Headphones },
-];
 
 const reasons = [
   { value: "general", label: "Allgemeine Anfrage" },
@@ -97,12 +87,6 @@ export default function Contact() {
     message: "",
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [animatedStats, setAnimatedStats] = useState(false);
-
-  useEffect(() => {
-    const timer = setTimeout(() => setAnimatedStats(true), 300);
-    return () => clearTimeout(timer);
-  }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -183,10 +167,8 @@ export default function Contact() {
                   return (
                     <div
                       key={index}
-                      className={`group relative bg-card rounded-3xl border border-border/50 p-8 hover:border-primary/40 transition-all duration-500 hover:shadow-2xl hover:-translate-y-2 ${
-                        animatedStats ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
-                      }`}
-                      style={{ transitionDelay: `${index * 100}ms` }}
+                      className="group relative bg-card rounded-3xl border border-border/50 p-8 hover:border-primary/40 transition-all duration-500 hover:shadow-2xl hover:-translate-y-2 animate-fade-in"
+                      style={{ animationDelay: `${index * 100}ms` }}
                     >
                       {/* Glow Effect */}
                       <div className={`absolute inset-0 rounded-3xl ${method.bgGlow} blur-xl opacity-0 group-hover:opacity-50 transition-opacity duration-500`} />
@@ -218,37 +200,6 @@ export default function Contact() {
             </div>
           </div>
         </section>
-
-        {/* Stats Section */}
-        <section className="py-12 relative">
-          <div className="container mx-auto px-4">
-            <div className="max-w-5xl mx-auto">
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                {stats.map((stat, index) => {
-                  const Icon = stat.icon;
-                  return (
-                    <div
-                      key={index}
-                      className={`text-center p-6 rounded-2xl bg-gradient-to-br from-card to-muted/30 border border-border/50 backdrop-blur-sm transition-all duration-700 ${
-                        animatedStats ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
-                      }`}
-                      style={{ transitionDelay: `${(index + 3) * 100}ms` }}
-                    >
-                      <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-3">
-                        <Icon className="w-5 h-5 text-primary" />
-                      </div>
-                      <div className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent mb-1">
-                        {stat.value}
-                      </div>
-                      <div className="text-sm text-muted-foreground">{stat.label}</div>
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
-          </div>
-        </section>
-
         {/* Main Content - Form & Info */}
         <section className="py-16 md:py-24">
           <div className="container mx-auto px-4">
