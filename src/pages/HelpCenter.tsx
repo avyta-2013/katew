@@ -523,47 +523,7 @@ export default function HelpCenter() {
         </section>
 
 
-        {/* Tab Switcher - Premium Style */}
-        <section className="py-10">
-          <div className="container mx-auto px-4">
-            <div className="max-w-lg mx-auto">
-              <div className="relative p-1.5 bg-muted/50 rounded-2xl backdrop-blur-sm border border-border/30">
-                {/* Animated Background Slider */}
-                <div 
-                  className={`absolute top-1.5 h-[calc(100%-12px)] w-[calc(50%-6px)] bg-gradient-to-r from-card to-card/90 rounded-xl shadow-lg transition-all duration-300 ease-out ${
-                    activeTab === "partner" ? "left-1.5" : "left-[calc(50%+3px)]"
-                  }`}
-                />
-                <div className="relative flex">
-                  <button
-                    onClick={() => setActiveTab("partner")}
-                    className={`flex-1 py-4 px-6 rounded-xl font-semibold text-sm transition-all duration-300 flex items-center justify-center gap-2 ${
-                      activeTab === "partner"
-                        ? "text-primary"
-                        : "text-muted-foreground hover:text-foreground"
-                    }`}
-                  >
-                    <Users className="w-5 h-5" />
-                    Für Partner
-                  </button>
-                  <button
-                    onClick={() => setActiveTab("anbieter")}
-                    className={`flex-1 py-4 px-6 rounded-xl font-semibold text-sm transition-all duration-300 flex items-center justify-center gap-2 ${
-                      activeTab === "anbieter"
-                        ? "text-primary"
-                        : "text-muted-foreground hover:text-foreground"
-                    }`}
-                  >
-                    <Truck className="w-5 h-5" />
-                    Für Anbieter
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Combined Categories & Knowledge Base Section */}
+        {/* Knowledge Base Section */}
         <section className="py-16 md:py-24 bg-gradient-to-b from-muted/30 via-muted/10 to-transparent relative overflow-hidden">
           {/* Background Effects */}
           <div className="absolute inset-0 pointer-events-none">
@@ -577,7 +537,7 @@ export default function HelpCenter() {
               <div className="text-center mb-12">
                 <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-primary/10 to-secondary/10 backdrop-blur-sm border border-primary/20 text-primary text-sm font-medium mb-6">
                   <BookOpen className="w-4 h-4" />
-                  {activeTab === "anbieter" ? "Hilfe für Anbieter" : "Hilfe für Partner"}
+                  Wissensdatenbank
                 </div>
                 <h2 className="text-3xl md:text-5xl font-bold mb-4">
                   <span className="bg-gradient-to-r from-foreground to-foreground/70 bg-clip-text text-transparent">
@@ -585,63 +545,47 @@ export default function HelpCenter() {
                   </span>
                   <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent"> Ort</span>
                 </h2>
-                <p className="text-muted-foreground text-lg max-w-xl mx-auto">
-                  Wählen Sie eine Kategorie oder durchsuchen Sie Artikel, FAQs und Video-Tutorials
+                <p className="text-muted-foreground text-lg max-w-xl mx-auto mb-10">
+                  Durchsuchen Sie Artikel, FAQs und Video-Tutorials
                 </p>
-              </div>
 
-              {/* Categories Grid */}
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
-                {categories.map((category, index) => {
-                  const Icon = category.icon;
-                  return (
-                    <div
-                      key={index}
-                      className="group relative cursor-pointer"
-                      style={{ animationDelay: `${index * 100}ms` }}
-                    >
-                      {/* Glow Effect */}
-                      <div className={`absolute -inset-1 ${category.bgGlow} rounded-3xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500`} />
-                      
-                      <div className="relative h-full bg-card rounded-2xl border border-border/50 p-6 hover:border-primary/30 transition-all duration-500 overflow-hidden group-hover:shadow-2xl group-hover:-translate-y-1">
-                        {/* Background Gradient */}
-                        <div className={`absolute top-0 right-0 w-32 h-32 bg-gradient-to-br ${category.gradient} opacity-5 rounded-full blur-2xl group-hover:opacity-10 transition-opacity duration-500`} />
-                        
-                        {/* Icon */}
-                        <div className={`relative w-16 h-16 rounded-2xl bg-gradient-to-br ${category.gradient} flex items-center justify-center mb-5 group-hover:scale-110 transition-transform duration-500 shadow-lg`}>
-                          <Icon className="w-8 h-8 text-white" />
-                        </div>
-
-                        <h3 className="font-bold text-lg mb-2 group-hover:text-primary transition-colors duration-300">
-                          {category.title}
-                        </h3>
-                        <p className="text-muted-foreground text-sm mb-5 leading-relaxed">
-                          {category.description}
-                        </p>
-                        
-                        <div className="flex items-center justify-between pt-4 border-t border-border/50">
-                          <div className="flex items-center gap-2">
-                            <FileText className="w-4 h-4 text-muted-foreground" />
-                            <span className="text-sm text-muted-foreground">
-                              {category.articles} Artikel
-                            </span>
-                          </div>
-                          <div className="w-10 h-10 rounded-full bg-muted/50 flex items-center justify-center group-hover:bg-primary/10 transition-colors duration-300">
-                            <ChevronRight className="w-5 h-5 text-muted-foreground group-hover:text-primary group-hover:translate-x-0.5 transition-all duration-300" />
-                          </div>
-                        </div>
-                      </div>
+                {/* Partner/Anbieter Toggle - Integrated */}
+                <div className="max-w-md mx-auto">
+                  <div className="relative p-1.5 bg-card/80 rounded-2xl backdrop-blur-sm border border-border/50 shadow-lg">
+                    {/* Animated Background Slider */}
+                    <div 
+                      className={`absolute top-1.5 h-[calc(100%-12px)] w-[calc(50%-6px)] bg-gradient-to-r from-primary/10 to-secondary/10 rounded-xl border border-primary/20 transition-all duration-300 ease-out ${
+                        activeTab === "partner" ? "left-1.5" : "left-[calc(50%+3px)]"
+                      }`}
+                    />
+                    <div className="relative flex">
+                      <button
+                        onClick={() => setActiveTab("partner")}
+                        className={`flex-1 py-4 px-6 rounded-xl font-semibold text-sm transition-all duration-300 flex items-center justify-center gap-2 ${
+                          activeTab === "partner"
+                            ? "text-primary"
+                            : "text-muted-foreground hover:text-foreground"
+                        }`}
+                      >
+                        <Users className="w-5 h-5" />
+                        Für Partner
+                      </button>
+                      <button
+                        onClick={() => setActiveTab("anbieter")}
+                        className={`flex-1 py-4 px-6 rounded-xl font-semibold text-sm transition-all duration-300 flex items-center justify-center gap-2 ${
+                          activeTab === "anbieter"
+                            ? "text-primary"
+                            : "text-muted-foreground hover:text-foreground"
+                        }`}
+                      >
+                        <Truck className="w-5 h-5" />
+                        Für Anbieter
+                      </button>
                     </div>
-                  );
-                })}
+                  </div>
+                </div>
               </div>
 
-              {/* Divider */}
-              <div className="flex items-center gap-4 mb-12">
-                <div className="flex-1 h-px bg-gradient-to-r from-transparent via-border to-transparent" />
-                <span className="text-sm text-muted-foreground font-medium px-4">Wissensdatenbank</span>
-                <div className="flex-1 h-px bg-gradient-to-r from-transparent via-border to-transparent" />
-              </div>
 
               {/* Knowledge Base Grid */}
               <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
