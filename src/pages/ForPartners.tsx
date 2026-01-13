@@ -5,7 +5,6 @@ import {
   Shield, 
   Clock, 
   Euro, 
-  CheckCircle, 
   ArrowRight,
   Zap,
   Award,
@@ -24,7 +23,6 @@ import {
   Gift,
   Crown,
   Check,
-  BadgeCheck,
   Infinity
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -33,8 +31,42 @@ import { Footer } from "@/components/Footer";
 import { ContactFormCTA } from "@/components/ContactFormCTA";
 import { PartnersLogoSlider } from "@/components/PartnersLogoSlider";
 
-// Pricing features for the membership
-const pricingFeatures = [
+// Einrichtungen - Facility types
+const facilities = [
+  {
+    icon: Hospital,
+    title: "Krankenhäuser",
+    description: "Optimieren Sie die Patientenlogistik mit digitaler Transportkoordination.",
+    color: "from-blue-500 to-blue-600",
+  },
+  {
+    icon: HeartPulse,
+    title: "Pflegeeinrichtungen",
+    description: "Vereinfachen Sie den Transport Ihrer Bewohner zu Arztterminen.",
+    color: "from-rose-500 to-rose-600",
+  },
+  {
+    icon: Stethoscope,
+    title: "Arztpraxen & MVZ",
+    description: "Bieten Sie Ihren Patienten einen komfortablen Transportservice.",
+    color: "from-emerald-500 to-emerald-600",
+  },
+  {
+    icon: Building2,
+    title: "Krankenkassen",
+    description: "Digitalisieren Sie das Fahrtenkostenmanagement effizient.",
+    color: "from-violet-500 to-violet-600",
+  },
+  {
+    icon: Users,
+    title: "Privatpersonen",
+    description: "Patienten, Angehörige & alle, die Krankenfahrten benötigen.",
+    color: "from-amber-500 to-amber-600",
+  },
+];
+
+// Vorteile - Benefits
+const benefits = [
   {
     icon: Network,
     title: "Alle Anbieter auf einen Blick",
@@ -54,26 +86,6 @@ const pricingFeatures = [
     icon: Shield,
     title: "Geprüfte Qualität",
     description: "Jeder Anbieter wird verifiziert. Bewertungen und Erfahrungsberichte für Ihre Sicherheit.",
-  },
-  {
-    icon: Hospital,
-    title: "Krankenhäuser",
-    description: "Optimieren Sie die Patientenlogistik mit digitaler Transportkoordination.",
-  },
-  {
-    icon: HeartPulse,
-    title: "Pflegeeinrichtungen",
-    description: "Vereinfachen Sie den Transport Ihrer Bewohner zu Arztterminen.",
-  },
-  {
-    icon: Stethoscope,
-    title: "Arztpraxen & MVZ",
-    description: "Bieten Sie Ihren Patienten einen komfortablen Transportservice.",
-  },
-  {
-    icon: Building2,
-    title: "Krankenkassen",
-    description: "Digitalisieren Sie das Fahrtenkostenmanagement effizient.",
   },
   {
     icon: CalendarClock,
@@ -201,7 +213,7 @@ export default function ForPartners() {
         
         <div className="container mx-auto px-4 relative">
           {/* Header */}
-          <div className="text-center mb-16">
+          <div className="text-center mb-20">
             <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-gradient-to-r from-emerald-500/20 to-secondary/20 backdrop-blur-sm border border-emerald-500/30 text-emerald-600 dark:text-emerald-400 text-sm font-semibold mb-6">
               <Gift className="w-4 h-4" />
               100% Kostenlos für Partner
@@ -210,189 +222,192 @@ export default function ForPartners() {
               Ihre <span className="bg-gradient-to-r from-emerald-500 via-secondary to-primary bg-clip-text text-transparent">kostenlose Mitgliedschaft</span>
             </h2>
             <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-              Als Partner genießen Sie alle Vorteile komplett kostenfrei – für Einrichtungen und Privatpersonen
+              Als Partner genießen Sie alle Vorteile komplett kostenfrei
             </p>
           </div>
 
-          {/* Main Pricing Card */}
-          <div className="max-w-5xl mx-auto">
-            <div className="relative">
-              {/* Glow effect behind card */}
-              <div className="absolute -inset-4 bg-gradient-to-r from-emerald-500/20 via-secondary/20 to-primary/20 rounded-[3rem] blur-2xl opacity-60" />
+          {/* Main Layout - Two Column */}
+          <div className="max-w-7xl mx-auto">
+            <div className="grid grid-cols-1 xl:grid-cols-12 gap-8">
               
-              <div className="relative bg-card/80 backdrop-blur-xl border-2 border-emerald-500/30 rounded-[2.5rem] overflow-hidden shadow-2xl">
-                {/* Top Banner */}
-                <div className="bg-gradient-to-r from-emerald-500 via-emerald-600 to-secondary p-6 text-center">
-                  <div className="inline-flex items-center gap-3 px-6 py-3 bg-white/20 backdrop-blur-sm rounded-full">
-                    <Crown className="w-6 h-6 text-white" />
-                    <span className="text-white font-bold text-lg">Partner Mitgliedschaft</span>
-                    <Sparkles className="w-5 h-5 text-yellow-300" />
+              {/* Left Column - Price Card */}
+              <div className="xl:col-span-4">
+                <div className="sticky top-8">
+                  <div className="relative">
+                    {/* Glow effect */}
+                    <div className="absolute -inset-3 bg-gradient-to-r from-emerald-500/30 via-secondary/20 to-primary/20 rounded-[2rem] blur-2xl opacity-60" />
+                    
+                    <div className="relative bg-card/95 backdrop-blur-xl border-2 border-emerald-500/40 rounded-[1.5rem] overflow-hidden shadow-2xl">
+                      {/* Top Badge */}
+                      <div className="bg-gradient-to-r from-emerald-500 via-emerald-600 to-secondary p-5 text-center">
+                        <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/20 backdrop-blur-sm rounded-full">
+                          <Crown className="w-5 h-5 text-white" />
+                          <span className="text-white font-bold">Partner Mitgliedschaft</span>
+                        </div>
+                      </div>
+                      
+                      <div className="p-8">
+                        {/* Price Display */}
+                        <div className="text-center mb-8">
+                          <div className="relative inline-block mb-4">
+                            <div className="absolute -inset-4 bg-emerald-500/20 rounded-full blur-xl" />
+                            <div className="relative flex items-baseline justify-center gap-1">
+                              <span className="text-8xl font-black bg-gradient-to-r from-emerald-500 to-emerald-600 bg-clip-text text-transparent">0</span>
+                              <span className="text-4xl font-bold text-emerald-500">€</span>
+                            </div>
+                          </div>
+                          <div className="flex items-center justify-center gap-2 mb-3">
+                            <Infinity className="w-5 h-5 text-emerald-500" />
+                            <span className="font-semibold text-muted-foreground">Für immer kostenlos</span>
+                          </div>
+                          <p className="text-sm text-muted-foreground">
+                            Keine versteckten Kosten
+                          </p>
+                        </div>
+                        
+                        {/* CTA Button */}
+                        <Button 
+                          size="lg"
+                          className="w-full bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:to-emerald-700 text-white text-lg py-6 h-auto shadow-xl shadow-emerald-500/30 group mb-4"
+                          onClick={() => window.location.href = '/auth'}
+                        >
+                          <Gift className="mr-2 w-5 h-5 group-hover:scale-110 transition-transform" />
+                          Jetzt starten
+                          <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                        </Button>
+                        
+                        <Button 
+                          size="lg"
+                          variant="outline"
+                          className="w-full border-2 hover:border-secondary py-6 h-auto group"
+                          onClick={() => window.location.href = '/kontakt'}
+                        >
+                          Beratung anfragen
+                        </Button>
+                        
+                        {/* Trust badges */}
+                        <div className="mt-6 pt-6 border-t border-border/50 space-y-3">
+                          <div className="flex items-center gap-3 text-sm">
+                            <div className="w-8 h-8 rounded-full bg-emerald-500/20 flex items-center justify-center shrink-0">
+                              <Shield className="w-4 h-4 text-emerald-500" />
+                            </div>
+                            <span className="text-muted-foreground">100% kostenlos & sicher</span>
+                          </div>
+                          <div className="flex items-center gap-3 text-sm">
+                            <div className="w-8 h-8 rounded-full bg-secondary/20 flex items-center justify-center shrink-0">
+                              <Zap className="w-4 h-4 text-secondary" />
+                            </div>
+                            <span className="text-muted-foreground">Sofort einsatzbereit</span>
+                          </div>
+                          <div className="flex items-center gap-3 text-sm">
+                            <div className="w-8 h-8 rounded-full bg-primary/20 flex items-center justify-center shrink-0">
+                              <Network className="w-4 h-4 text-primary" />
+                            </div>
+                            <span className="text-muted-foreground">850+ Anbieter</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
+              </div>
+              
+              {/* Right Column - Einrichtungen & Vorteile */}
+              <div className="xl:col-span-8 space-y-10">
                 
-                <div className="p-8 md:p-12">
-                  {/* Pricing Display */}
-                  <div className="text-center mb-12">
-                    <div className="inline-flex items-center gap-4 mb-6">
-                      <div className="relative">
-                        <div className="absolute -inset-3 bg-emerald-500/20 rounded-full blur-xl" />
-                        <div className="relative flex items-baseline gap-2">
-                          <span className="text-7xl md:text-8xl font-black bg-gradient-to-r from-emerald-500 to-emerald-600 bg-clip-text text-transparent">0</span>
-                          <span className="text-4xl md:text-5xl font-bold text-emerald-500">€</span>
-                        </div>
+                {/* Einrichtungen Section */}
+                <div className="relative">
+                  <div className="absolute -inset-2 bg-gradient-to-r from-blue-500/10 via-rose-500/10 to-violet-500/10 rounded-3xl blur-xl opacity-50" />
+                  <div className="relative bg-card/60 backdrop-blur-sm border border-border/50 rounded-2xl p-8">
+                    <div className="flex items-center gap-3 mb-8">
+                      <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-secondary to-primary flex items-center justify-center shadow-lg">
+                        <Hospital className="w-6 h-6 text-white" />
                       </div>
-                    </div>
-                    <div className="flex items-center justify-center gap-2 mb-4">
-                      <Infinity className="w-6 h-6 text-emerald-500" />
-                      <span className="text-xl font-semibold text-muted-foreground">Für immer kostenlos</span>
-                    </div>
-                    <p className="text-muted-foreground max-w-lg mx-auto">
-                      Keine versteckten Kosten, keine Abonnements – alle Funktionen komplett gratis für Sie als Partner
-                    </p>
-                  </div>
-
-                  {/* Two Column Partner Types */}
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
-                    {/* Einrichtungen */}
-                    <div className="relative group">
-                      <div className="absolute -inset-1 bg-gradient-to-r from-emerald-500/20 to-secondary/20 rounded-2xl blur-lg opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                      <div className="relative bg-gradient-to-br from-emerald-500/5 to-emerald-500/10 border border-emerald-500/20 rounded-2xl p-6 h-full">
-                        <div className="flex items-center gap-3 mb-4">
-                          <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-emerald-500 to-emerald-600 flex items-center justify-center shadow-lg shadow-emerald-500/25">
-                            <Hospital className="w-6 h-6 text-white" />
-                          </div>
-                          <div>
-                            <h3 className="font-bold text-lg">Für Einrichtungen</h3>
-                            <p className="text-sm text-emerald-600 dark:text-emerald-400 font-medium">0€ / kostenlos</p>
-                          </div>
-                        </div>
-                        <p className="text-sm text-muted-foreground">
-                          Krankenhäuser, Pflegeeinrichtungen, Arztpraxen & Krankenkassen
-                        </p>
+                      <div>
+                        <h3 className="text-2xl font-bold">Einrichtungen</h3>
+                        <p className="text-sm text-muted-foreground">Für diese Partner ist katew kostenlos</p>
                       </div>
-                    </div>
-
-                    {/* Privatpersonen */}
-                    <div className="relative group">
-                      <div className="absolute -inset-1 bg-gradient-to-r from-secondary/20 to-primary/20 rounded-2xl blur-lg opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                      <div className="relative bg-gradient-to-br from-secondary/5 to-secondary/10 border border-secondary/20 rounded-2xl p-6 h-full">
-                        <div className="flex items-center gap-3 mb-4">
-                          <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-secondary to-primary flex items-center justify-center shadow-lg shadow-secondary/25">
-                            <Users className="w-6 h-6 text-white" />
-                          </div>
-                          <div>
-                            <h3 className="font-bold text-lg">Für Privatpersonen</h3>
-                            <p className="text-sm text-secondary font-medium">0€ / kostenlos</p>
-                          </div>
-                        </div>
-                        <p className="text-sm text-muted-foreground">
-                          Patienten, Angehörige & alle, die Krankenfahrten benötigen
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* CTA Buttons */}
-                  <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
-                    <Button 
-                      size="lg"
-                      className="bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:to-emerald-700 text-white text-lg px-10 py-7 h-auto shadow-xl shadow-emerald-500/30 group"
-                      onClick={() => window.location.href = '/auth'}
-                    >
-                      <Gift className="mr-2 w-5 h-5 group-hover:scale-110 transition-transform" />
-                      Jetzt kostenlos starten
-                      <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
-                    </Button>
-                    <Button 
-                      size="lg"
-                      variant="outline"
-                      className="border-2 border-border hover:border-secondary text-lg px-8 py-7 h-auto group"
-                      onClick={() => window.location.href = '/kontakt'}
-                    >
-                      Beratung anfragen
-                      <ArrowRight className="ml-2 w-5 h-5 opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all" />
-                    </Button>
-                  </div>
-
-                  {/* All Features Grid */}
-                  <div className="border-t border-border/50 pt-10">
-                    <div className="text-center mb-8">
-                      <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-muted/50 text-sm font-semibold mb-4">
-                        <BadgeCheck className="w-4 h-4 text-emerald-500" />
-                        Alles inklusive
-                      </div>
-                      <h3 className="text-2xl font-bold">Ihre Vorteile als Partner</h3>
                     </div>
                     
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                      {pricingFeatures.map((feature, index) => {
-                        const Icon = feature.icon;
-                        const isHighlight = feature.highlight;
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                      {facilities.map((facility, index) => {
+                        const FacilityIcon = facility.icon;
                         return (
                           <div
                             key={index}
-                            className={`group relative flex items-start gap-4 p-5 rounded-xl transition-all duration-300 ${
-                              isHighlight 
-                                ? 'bg-gradient-to-br from-secondary/15 to-primary/15 border-2 border-secondary/40 ring-2 ring-secondary/10' 
-                                : 'bg-muted/30 hover:bg-muted/50 border border-border/50 hover:border-secondary/30'
-                            }`}
+                            className="group relative bg-gradient-to-br from-background to-muted/30 border border-border/50 rounded-xl p-5 hover:border-secondary/40 hover:shadow-lg transition-all duration-300"
                           >
-                            {isHighlight && (
-                              <div className="absolute -top-2 right-4 px-2 py-0.5 bg-gradient-to-r from-secondary to-primary text-primary-foreground text-xs font-bold rounded-full flex items-center gap-1">
-                                <Star className="w-3 h-3" />
-                                TOP
+                            <div className={`w-11 h-11 rounded-lg bg-gradient-to-br ${facility.color} flex items-center justify-center mb-4 group-hover:scale-110 transition-transform shadow-lg`}>
+                              <FacilityIcon className="w-5 h-5 text-white" />
+                            </div>
+                            <h4 className="font-bold mb-2 group-hover:text-secondary transition-colors">{facility.title}</h4>
+                            <p className="text-sm text-muted-foreground leading-relaxed">{facility.description}</p>
+                            <div className="absolute top-4 right-4">
+                              <div className="w-6 h-6 rounded-full bg-emerald-500/20 flex items-center justify-center">
+                                <Check className="w-4 h-4 text-emerald-500" />
                               </div>
-                            )}
-                            <div className={`shrink-0 w-11 h-11 rounded-lg flex items-center justify-center transition-transform group-hover:scale-110 ${
-                              isHighlight 
-                                ? 'bg-gradient-to-br from-secondary to-primary' 
-                                : 'bg-gradient-to-br from-emerald-500/20 to-secondary/20 border border-emerald-500/30'
-                            }`}>
-                              <Icon className={`w-5 h-5 ${isHighlight ? 'text-white' : 'text-emerald-600 dark:text-emerald-400'}`} />
                             </div>
-                            <div className="flex-1 min-w-0">
-                              <h4 className={`font-semibold mb-1 transition-colors ${isHighlight ? 'text-secondary' : 'group-hover:text-emerald-600 dark:group-hover:text-emerald-400'}`}>
-                                {feature.title}
-                              </h4>
-                              <p className="text-sm text-muted-foreground line-clamp-2">{feature.description}</p>
-                            </div>
-                            <Check className={`w-5 h-5 shrink-0 self-start mt-1 ${isHighlight ? 'text-secondary' : 'text-emerald-500'}`} />
                           </div>
                         );
                       })}
                     </div>
                   </div>
                 </div>
-
-                {/* Bottom Trust Indicators */}
-                <div className="bg-gradient-to-r from-emerald-500/10 via-secondary/10 to-primary/10 border-t border-border/50 px-8 py-6">
-                  <div className="flex flex-wrap justify-center items-center gap-6 md:gap-10 text-sm">
-                    <div className="flex items-center gap-2">
-                      <div className="w-8 h-8 rounded-full bg-emerald-500/20 flex items-center justify-center">
-                        <Shield className="w-4 h-4 text-emerald-500" />
+                
+                {/* Vorteile Section */}
+                <div className="relative">
+                  <div className="absolute -inset-2 bg-gradient-to-r from-emerald-500/10 via-secondary/10 to-primary/10 rounded-3xl blur-xl opacity-50" />
+                  <div className="relative bg-card/60 backdrop-blur-sm border border-border/50 rounded-2xl p-8">
+                    <div className="flex items-center gap-3 mb-8">
+                      <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-emerald-500 to-emerald-600 flex items-center justify-center shadow-lg">
+                        <Sparkles className="w-6 h-6 text-white" />
                       </div>
-                      <span className="font-medium">100% Kostenlos</span>
+                      <div>
+                        <h3 className="text-2xl font-bold">Vorteile</h3>
+                        <p className="text-sm text-muted-foreground">Das bekommen Sie als Partner</p>
+                      </div>
                     </div>
-                    <div className="flex items-center gap-2">
-                      <div className="w-8 h-8 rounded-full bg-secondary/20 flex items-center justify-center">
-                        <Zap className="w-4 h-4 text-secondary" />
-                      </div>
-                      <span className="font-medium">Sofortiger Zugang</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <div className="w-8 h-8 rounded-full bg-primary/20 flex items-center justify-center">
-                        <HeartHandshake className="w-4 h-4 text-primary" />
-                      </div>
-                      <span className="font-medium">24/7 Support</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <div className="w-8 h-8 rounded-full bg-emerald-500/20 flex items-center justify-center">
-                        <Network className="w-4 h-4 text-emerald-500" />
-                      </div>
-                      <span className="font-medium">850+ Anbieter</span>
+                    
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      {benefits.map((benefit, index) => {
+                        const BenefitIcon = benefit.icon;
+                        const isHighlight = benefit.highlight;
+                        return (
+                          <div
+                            key={index}
+                            className={`group relative flex items-start gap-4 p-5 rounded-xl transition-all duration-300 ${
+                              isHighlight 
+                                ? 'bg-gradient-to-br from-secondary/15 to-primary/15 border-2 border-secondary/40 ring-2 ring-secondary/10 sm:col-span-2' 
+                                : 'bg-gradient-to-br from-background to-muted/30 border border-border/50 hover:border-emerald-500/40 hover:shadow-md'
+                            }`}
+                          >
+                            {isHighlight && (
+                              <div className="absolute -top-3 left-6 px-3 py-1 bg-gradient-to-r from-secondary to-primary text-primary-foreground text-xs font-bold rounded-full flex items-center gap-1">
+                                <Star className="w-3 h-3" />
+                                HIGHLIGHT
+                              </div>
+                            )}
+                            <div className={`shrink-0 w-11 h-11 rounded-lg flex items-center justify-center transition-transform group-hover:scale-110 ${
+                              isHighlight 
+                                ? 'bg-gradient-to-br from-secondary to-primary shadow-lg shadow-secondary/25' 
+                                : 'bg-gradient-to-br from-emerald-500/20 to-secondary/20 border border-emerald-500/30'
+                            }`}>
+                              <BenefitIcon className={`w-5 h-5 ${isHighlight ? 'text-white' : 'text-emerald-600 dark:text-emerald-400'}`} />
+                            </div>
+                            <div className="flex-1 min-w-0">
+                              <h4 className={`font-bold mb-1 transition-colors ${isHighlight ? 'text-secondary' : 'group-hover:text-emerald-600 dark:group-hover:text-emerald-400'}`}>
+                                {benefit.title}
+                              </h4>
+                              <p className="text-sm text-muted-foreground leading-relaxed">{benefit.description}</p>
+                            </div>
+                            <Check className={`w-5 h-5 shrink-0 mt-1 ${isHighlight ? 'text-secondary' : 'text-emerald-500'}`} />
+                          </div>
+                        );
+                      })}
                     </div>
                   </div>
                 </div>
+                
               </div>
             </div>
           </div>
