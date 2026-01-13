@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { 
   Search, 
   HelpCircle,
@@ -12,10 +12,7 @@ import {
   MessageSquare,
   Phone,
   Mail,
-  ArrowRight,
-  CheckCircle,
-  Zap,
-  Clock
+  ArrowRight
 } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import {
@@ -143,12 +140,6 @@ const anbieterFaqData = {
   ],
 };
 
-const stats = [
-  { value: "500+", label: "Beantwortete Fragen", icon: HelpCircle },
-  { value: "< 2h", label: "Ø Antwortzeit", icon: Zap },
-  { value: "98%", label: "Zufriedenheit", icon: CheckCircle },
-  { value: "24/7", label: "Support", icon: Clock },
-];
 
 const contactOptions = [
   {
@@ -176,12 +167,7 @@ export default function FAQ() {
   const [selectedCategory, setSelectedCategory] = useState("booking");
   const [searchQuery, setSearchQuery] = useState("");
   const [isSearchFocused, setIsSearchFocused] = useState(false);
-  const [animatedStats, setAnimatedStats] = useState(false);
 
-  useEffect(() => {
-    const timer = setTimeout(() => setAnimatedStats(true), 300);
-    return () => clearTimeout(timer);
-  }, []);
 
   const categories = activeTab === "partner" ? partnerCategories : anbieterCategories;
   const faqData = activeTab === "partner" ? partnerFaqData : anbieterFaqData;
@@ -283,36 +269,6 @@ export default function FAQ() {
           </div>
         </section>
 
-        {/* Stats Section */}
-        <section className="py-8 relative">
-          <div className="container mx-auto px-4">
-            <div className="max-w-5xl mx-auto">
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                {stats.map((stat, index) => {
-                  const Icon = stat.icon;
-                  return (
-                    <div
-                      key={index}
-                      className={`text-center p-6 rounded-2xl bg-gradient-to-br from-card to-muted/30 border border-border/50 backdrop-blur-sm transition-all duration-700 ${
-                        animatedStats ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
-                      }`}
-                      style={{ transitionDelay: `${index * 100}ms` }}
-                    >
-                      <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-3">
-                        <Icon className="w-5 h-5 text-primary" />
-                      </div>
-                      <div className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent mb-1">
-                        {stat.value}
-                      </div>
-                      <div className="text-sm text-muted-foreground">{stat.label}</div>
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
-          </div>
-        </section>
-
         {/* Tab Switcher - Premium Style */}
         <section className="py-10">
           <div className="container mx-auto px-4">
@@ -373,12 +329,12 @@ export default function FAQ() {
                       <button
                         key={category.id}
                         onClick={() => setSelectedCategory(category.id)}
-                        className={`group relative text-left p-6 rounded-3xl border transition-all duration-500 ${
+                        className={`group relative text-left p-6 rounded-3xl border transition-all duration-500 animate-fade-in ${
                           isActive 
                             ? "bg-card border-primary/40 shadow-2xl shadow-primary/10" 
                             : "bg-card/50 border-border/50 hover:border-primary/30 hover:shadow-lg"
-                        } ${animatedStats ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}
-                        style={{ transitionDelay: `${(index + 4) * 100}ms` }}
+                        }`}
+                        style={{ animationDelay: `${(index + 4) * 100}ms` }}
                       >
                         {/* Glow effect when active */}
                         {isActive && (
