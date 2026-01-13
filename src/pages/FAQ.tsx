@@ -9,7 +9,6 @@ import {
   FileText,
   ChevronRight,
   Sparkles,
-  MessageSquare,
   Phone,
   Mail,
   ArrowRight
@@ -143,22 +142,16 @@ const anbieterFaqData = {
 
 const contactOptions = [
   {
-    icon: MessageSquare,
-    title: "Live-Chat",
-    description: "Sofortige Hilfe",
-    gradient: "from-blue-500 to-cyan-500",
-  },
-  {
     icon: Phone,
     title: "Telefon",
     description: "+49 151 155 612 31",
-    gradient: "from-emerald-500 to-teal-500",
+    gradient: "from-blue-500 to-cyan-500",
   },
   {
     icon: Mail,
     title: "E-Mail",
     description: "support@katew.de",
-    gradient: "from-violet-500 to-purple-500",
+    gradient: "from-emerald-500 to-teal-500",
   },
 ];
 
