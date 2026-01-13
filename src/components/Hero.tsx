@@ -208,17 +208,23 @@ export const Hero = () => {
                 </div>
 
                 {/* Trust indicators inline */}
-                <div className="flex flex-wrap items-center justify-center gap-6 text-sm text-muted-foreground">
-                  {["Kostenlose Anfrage", "Geprüfte Unternehmen", "Schnelle Vermittlung"].map((text, index) => (
+                <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm text-muted-foreground pt-2 border-t border-border/30">
+                  {[
+                    { text: "500+ Partner", icon: "partners" },
+                    { text: "98% Zufriedenheit", icon: "satisfaction" },
+                    { text: "<2h Vermittlung", icon: "speed" },
+                    { text: "TÜV Geprüft", icon: "tuv" },
+                    { text: "DSGVO Konform", icon: "dsgvo" },
+                  ].map((item, index) => (
                     <motion.div 
-                      key={text}
-                      className="flex items-center gap-2"
-                      initial={{ opacity: 0, x: -10 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: 0.5 + index * 0.1 }}
+                      key={item.text}
+                      className="flex items-center gap-1.5"
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.5 + index * 0.08 }}
                     >
-                      <CheckCircle2 className="w-4 h-4 text-secondary" />
-                      <span>{text}</span>
+                      <CheckCircle2 className="w-3.5 h-3.5 text-secondary" />
+                      <span className="text-xs">{item.text}</span>
                     </motion.div>
                   ))}
                 </div>
