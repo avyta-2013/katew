@@ -53,6 +53,14 @@ const openPositions = [
     slug: "sales-manager",
     urgent: true,
   },
+  {
+    title: "Assistenz",
+    department: "Geschäftsführung",
+    location: "Frankfurt",
+    type: "Vollzeit, Teilzeit",
+    slug: "assistenz",
+    urgent: false,
+  },
 ];
 
 const stats = [
@@ -223,6 +231,82 @@ export default function Karriere() {
           </div>
         </section>
 
+        {/* Open Positions Section - Moved here */}
+        <section className="py-20 md:py-32 relative overflow-hidden">
+          {/* Background */}
+          <div className="absolute inset-0 bg-gradient-to-b from-background via-muted/20 to-background" />
+          
+          <div className="container mx-auto px-4 relative">
+            <div className="max-w-4xl mx-auto">
+              {/* Section Header */}
+              <div className="text-center mb-16">
+                <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-medium mb-4">
+                  <Briefcase className="w-4 h-4" />
+                  Werde Teil des Teams
+                </div>
+                <h2 className="text-4xl md:text-5xl font-bold mb-4">
+                  Offene <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">Stellen</span>
+                </h2>
+                <p className="text-lg text-muted-foreground">
+                  Finde deine perfekte Rolle bei katew
+                </p>
+              </div>
+              
+              {/* Positions List */}
+              <div className="space-y-4 mb-12">
+                {openPositions.map((position, index) => (
+                  <Link
+                    key={index}
+                    to={`/karriere/${position.slug}`}
+                    className="group block"
+                  >
+                    <div className="relative">
+                      {/* Glow on hover */}
+                      <div className="absolute inset-0 bg-gradient-to-r from-primary/10 to-secondary/10 rounded-2xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity" />
+                      
+                      <div className="relative bg-card rounded-2xl border border-border/50 p-6 md:p-8 group-hover:border-primary/40 group-hover:shadow-2xl transition-all group-hover:-translate-y-1">
+                        <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
+                          <div className="flex-1">
+                            <div className="flex items-center gap-3 mb-3">
+                              <h3 className="font-bold text-xl group-hover:text-primary transition-colors">
+                                {position.title}
+                              </h3>
+                              {position.urgent && (
+                                <span className="px-3 py-1 bg-gradient-to-r from-rose-500 to-pink-500 text-white text-xs font-semibold rounded-full">
+                                  Dringend gesucht
+                                </span>
+                              )}
+                            </div>
+                            <div className="flex flex-wrap items-center gap-4 text-sm text-muted-foreground">
+                              <span className="flex items-center gap-1.5 bg-muted/50 px-3 py-1.5 rounded-full">
+                                <Briefcase className="w-4 h-4 text-primary" />
+                                {position.department}
+                              </span>
+                              <span className="flex items-center gap-1.5 bg-muted/50 px-3 py-1.5 rounded-full">
+                                <MapPin className="w-4 h-4 text-primary" />
+                                {position.location}
+                              </span>
+                              <span className="flex items-center gap-1.5 bg-muted/50 px-3 py-1.5 rounded-full">
+                                <Clock className="w-4 h-4 text-primary" />
+                                {position.type}
+                              </span>
+                            </div>
+                          </div>
+                          <Button className="bg-gradient-to-r from-primary to-secondary hover:opacity-90 rounded-xl group-hover:shadow-lg group-hover:shadow-primary/25 transition-all">
+                            Details ansehen
+                            <ChevronRight className="ml-1 w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                          </Button>
+                        </div>
+                      </div>
+                    </div>
+                  </Link>
+                ))}
+              </div>
+              
+            </div>
+          </div>
+        </section>
+
         {/* Benefits Section */}
         <section className="py-20 md:py-32 relative overflow-hidden">
           {/* Background */}
@@ -330,82 +414,6 @@ export default function Karriere() {
           </div>
         </section>
 
-
-        {/* Open Positions Section */}
-        <section className="py-20 md:py-32 relative overflow-hidden">
-          {/* Background */}
-          <div className="absolute inset-0 bg-gradient-to-b from-background via-muted/20 to-background" />
-          
-          <div className="container mx-auto px-4 relative">
-            <div className="max-w-4xl mx-auto">
-              {/* Section Header */}
-              <div className="text-center mb-16">
-                <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-medium mb-4">
-                  <Briefcase className="w-4 h-4" />
-                  Werde Teil des Teams
-                </div>
-                <h2 className="text-4xl md:text-5xl font-bold mb-4">
-                  Offene <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">Stellen</span>
-                </h2>
-                <p className="text-lg text-muted-foreground">
-                  Finde deine perfekte Rolle bei katew
-                </p>
-              </div>
-              
-              {/* Positions List */}
-              <div className="space-y-4 mb-12">
-                {openPositions.map((position, index) => (
-                  <Link
-                    key={index}
-                    to={`/karriere/${position.slug}`}
-                    className="group block"
-                  >
-                    <div className="relative">
-                      {/* Glow on hover */}
-                      <div className="absolute inset-0 bg-gradient-to-r from-primary/10 to-secondary/10 rounded-2xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity" />
-                      
-                      <div className="relative bg-card rounded-2xl border border-border/50 p-6 md:p-8 group-hover:border-primary/40 group-hover:shadow-2xl transition-all group-hover:-translate-y-1">
-                        <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
-                          <div className="flex-1">
-                            <div className="flex items-center gap-3 mb-3">
-                              <h3 className="font-bold text-xl group-hover:text-primary transition-colors">
-                                {position.title}
-                              </h3>
-                              {position.urgent && (
-                                <span className="px-3 py-1 bg-gradient-to-r from-rose-500 to-pink-500 text-white text-xs font-semibold rounded-full">
-                                  Dringend gesucht
-                                </span>
-                              )}
-                            </div>
-                            <div className="flex flex-wrap items-center gap-4 text-sm text-muted-foreground">
-                              <span className="flex items-center gap-1.5 bg-muted/50 px-3 py-1.5 rounded-full">
-                                <Briefcase className="w-4 h-4 text-primary" />
-                                {position.department}
-                              </span>
-                              <span className="flex items-center gap-1.5 bg-muted/50 px-3 py-1.5 rounded-full">
-                                <MapPin className="w-4 h-4 text-primary" />
-                                {position.location}
-                              </span>
-                              <span className="flex items-center gap-1.5 bg-muted/50 px-3 py-1.5 rounded-full">
-                                <Clock className="w-4 h-4 text-primary" />
-                                {position.type}
-                              </span>
-                            </div>
-                          </div>
-                          <Button className="bg-gradient-to-r from-primary to-secondary hover:opacity-90 rounded-xl group-hover:shadow-lg group-hover:shadow-primary/25 transition-all">
-                            Details ansehen
-                            <ChevronRight className="ml-1 w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                          </Button>
-                        </div>
-                      </div>
-                    </div>
-                  </Link>
-                ))}
-              </div>
-              
-            </div>
-          </div>
-        </section>
 
         {/* Final CTA Section */}
         <section className="py-20 md:py-32 relative overflow-hidden">
