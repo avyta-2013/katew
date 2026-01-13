@@ -252,49 +252,6 @@ export const PartnersLogoSlider = () => {
             </AnimatePresence>
           </div>
         </div>
-
-        {/* Stats Row */}
-        <motion.div 
-          className="mt-14 flex flex-wrap justify-center gap-8 md:gap-16"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.5, duration: 0.6 }}
-        >
-          {[
-            { value: "14+", label: "Partner" },
-            { value: "4", label: "Branchen" },
-            { value: "100%", label: "Verifiziert" },
-          ].map((stat, index) => (
-            <motion.div 
-              key={stat.label}
-              className="text-center"
-              initial={{ opacity: 0, y: 10 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.6 + index * 0.1 }}
-            >
-              <div className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
-                {stat.value}
-              </div>
-              <div className="text-sm text-muted-foreground mt-1">{stat.label}</div>
-            </motion.div>
-          ))}
-        </motion.div>
-
-        {/* CTA */}
-        <motion.div 
-          className="mt-10 text-center"
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.8 }}
-        >
-          <button className="inline-flex items-center gap-2 text-primary font-semibold hover:gap-3 transition-all duration-300">
-            Alle Partner entdecken
-            <ArrowRight className="w-4 h-4" />
-          </button>
-        </motion.div>
       </div>
     </section>
   );
