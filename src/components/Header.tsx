@@ -51,7 +51,7 @@ export const Header = () => {
               </svg>
             </div>
             <div className="flex flex-col">
-              <span className="text-xl md:text-2xl font-black tracking-tighter bg-gradient-to-r from-primary via-primary to-secondary bg-clip-text text-transparent leading-none">
+              <span className="text-xl md:text-2xl font-extrabold tracking-tight bg-gradient-to-r from-primary via-primary to-secondary bg-clip-text text-transparent leading-none" style={{ fontFamily: "'Outfit', sans-serif" }}>
                 katew
               </span>
               <span className="text-[9px] md:text-[10px] font-medium text-muted-foreground tracking-widest mt-0.5 uppercase">
