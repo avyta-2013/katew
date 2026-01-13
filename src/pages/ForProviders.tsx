@@ -364,7 +364,7 @@ export default function ForProviders() {
       </section>
 
       {/* Partners Logo Slider - moved here */}
-      <PartnersLogoSlider />
+      <PartnersLogoSlider title="Starke" highlightedWord="Kooperationsrabatte" />
 
       {/* How to Join */}
       <section className="py-24 md:py-32">

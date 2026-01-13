@@ -29,7 +29,15 @@ const partnerLogos = [
   { name: "Medifox", logo: "MF", category: "Software" as PartnerCategory, verified: false },
 ];
 
-export const PartnersLogoSlider = () => {
+interface PartnersLogoSliderProps {
+  title?: string;
+  highlightedWord?: string;
+}
+
+export const PartnersLogoSlider = ({ 
+  title = "Starke", 
+  highlightedWord = "Branchenpartner" 
+}: PartnersLogoSliderProps) => {
   const scrollRef = useRef<HTMLDivElement>(null);
   const [isPaused, setIsPaused] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState<PartnerCategory>("Alle");
@@ -92,7 +100,7 @@ export const PartnersLogoSlider = () => {
           </motion.div>
           
           <h3 className="text-3xl md:text-5xl font-bold mb-4">
-            Starke <span className="bg-gradient-to-r from-primary via-secondary to-primary bg-clip-text text-transparent bg-[length:200%_auto]">Branchenpartner</span>
+            {title} <span className="bg-gradient-to-r from-primary via-secondary to-primary bg-clip-text text-transparent bg-[length:200%_auto]">{highlightedWord}</span>
           </h3>
           <p className="text-lg text-muted-foreground max-w-xl mx-auto">
             Als Partner profitieren Sie von unseren Kooperationen mit führenden Unternehmen
