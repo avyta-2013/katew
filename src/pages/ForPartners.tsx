@@ -303,7 +303,7 @@ export default function ForPartners() {
                             <div className="w-8 h-8 rounded-full bg-primary/20 flex items-center justify-center shrink-0">
                               <Network className="w-4 h-4 text-primary" />
                             </div>
-                            <span className="text-muted-foreground">850+ Anbieter</span>
+                            <span className="text-muted-foreground">Keine Vertragslaufzeit</span>
                           </div>
                         </div>
                       </div>
