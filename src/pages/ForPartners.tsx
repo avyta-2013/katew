@@ -176,15 +176,6 @@ export default function ForPartners() {
               Verbinden Sie Ihre Einrichtung mit dem führenden Netzwerk für Krankenfahrten. Digitale Prozesse, höhere Qualität, weniger Aufwand.
             </p>
             
-            {/* Pricing Highlight */}
-            <div className="inline-flex items-center gap-4 bg-card border border-border/50 rounded-2xl px-8 py-4 mb-10 shadow-lg">
-              <div className="text-5xl md:text-6xl font-bold bg-gradient-to-r from-secondary to-primary bg-clip-text text-transparent">0€</div>
-              <div className="text-left">
-                <div className="text-sm text-muted-foreground">Einrichtungskosten</div>
-                <div className="font-semibold text-foreground">Kostenlose Integration</div>
-              </div>
-            </div>
-            
             <div className="flex justify-center">
               <Button size="lg" className="bg-gradient-to-r from-secondary to-primary hover:opacity-90 text-lg px-8 py-6 h-auto shadow-lg shadow-secondary/25">
                 Partnerschaft anfragen
