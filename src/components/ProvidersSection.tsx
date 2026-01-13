@@ -218,7 +218,7 @@ export const ProvidersSection = () => {
                 
                 {/* Cities List */}
                 <ScrollArea className="h-[350px] rounded-2xl">
-                  <div className="grid grid-cols-2 gap-2 pr-4">
+                  <div className="grid grid-cols-1 gap-2 pr-4">
                     {germanCities.map((city, index) => (
                       <motion.div
                         key={city.name}
