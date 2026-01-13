@@ -92,7 +92,7 @@ export const PartnersLogoSlider = () => {
           </motion.div>
           
           <h3 className="text-3xl md:text-5xl font-bold mb-4">
-            Starke <span className="bg-gradient-to-r from-primary via-secondary to-primary bg-clip-text text-transparent bg-[length:200%_auto]">Kooperationsrabatte</span>
+            Starke <span className="bg-gradient-to-r from-primary via-secondary to-primary bg-clip-text text-transparent bg-[length:200%_auto]">Branchenpartner</span>
           </h3>
           <p className="text-lg text-muted-foreground max-w-xl mx-auto">
             Als Partner profitieren Sie von unseren Kooperationen mit führenden Unternehmen
