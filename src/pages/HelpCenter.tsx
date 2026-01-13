@@ -21,8 +21,7 @@ import {
   Star,
   Play,
   CheckCircle2,
-  Headphones,
-  MessageSquare
+  Headphones
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -220,21 +219,12 @@ const faqs = [
 
 const contactOptions = [
   {
-    icon: MessageSquare,
-    title: "Live-Chat",
-    description: "Sofortige Hilfe von unserem Support-Team",
-    action: "Chat starten",
-    available: "Mo-Fr 8-18 Uhr",
-    gradient: "from-blue-500 to-cyan-500",
-    responseTime: "< 2 Min",
-  },
-  {
     icon: Phone,
     title: "Telefon",
     description: "Persönliche Beratung durch Experten",
     action: "+49 151 155 612 31",
     available: "Mo-Fr 8-18 Uhr",
-    gradient: "from-emerald-500 to-teal-500",
+    gradient: "from-blue-500 to-cyan-500",
     responseTime: "Sofort",
   },
   {
@@ -243,7 +233,7 @@ const contactOptions = [
     description: "Ausführliche schriftliche Anfrage",
     action: "support@katew.de",
     available: "24/7 erreichbar",
-    gradient: "from-violet-500 to-purple-500",
+    gradient: "from-emerald-500 to-teal-500",
     responseTime: "< 24h",
   },
 ];
