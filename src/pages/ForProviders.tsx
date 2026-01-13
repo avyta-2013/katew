@@ -17,7 +17,10 @@ import {
   Building2,
   Check,
   Gift,
-  Crown
+  Crown,
+  Sparkles,
+  MessageCircle,
+  Handshake
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Header } from "@/components/Header";
@@ -181,89 +184,159 @@ export default function ForProviders() {
                     </div>
                   </div>
 
-                  {/* Features Title */}
-                  <div className="text-center mb-8">
-                    <h3 className="text-xl font-bold mb-2">Das bekommst du alles</h3>
-                    <p className="text-muted-foreground">Zugang zu allen Auftragsquellen und Services</p>
+                  {/* Package Includes Title */}
+                  <div className="mb-8">
+                    <div className="flex items-center gap-3 mb-6">
+                      <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-primary to-secondary flex items-center justify-center">
+                        <Gift className="w-5 h-5 text-white" />
+                      </div>
+                      <h3 className="text-xl font-bold">Das ist im Paket enthalten: Buchungen</h3>
+                    </div>
+                    
+                    {/* Package Items Grid */}
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-10">
+                      {/* Transportschein */}
+                      <div className="group relative bg-gradient-to-br from-blue-500/10 to-blue-600/5 border border-blue-500/20 rounded-2xl p-5 hover:border-blue-500/40 hover:shadow-lg hover:shadow-blue-500/10 transition-all duration-300">
+                        <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-500 to-blue-600 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                          <FileText className="w-6 h-6 text-white" />
+                        </div>
+                        <h4 className="font-bold text-lg mb-1">Transportschein</h4>
+                        <div className="absolute top-4 right-4 w-6 h-6 rounded-full bg-blue-500/20 flex items-center justify-center">
+                          <Check className="w-4 h-4 text-blue-500" />
+                        </div>
+                      </div>
+
+                      {/* Selbstzahler */}
+                      <div className="group relative bg-gradient-to-br from-green-500/10 to-green-600/5 border border-green-500/20 rounded-2xl p-5 hover:border-green-500/40 hover:shadow-lg hover:shadow-green-500/10 transition-all duration-300">
+                        <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-green-500 to-green-600 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                          <Euro className="w-6 h-6 text-white" />
+                        </div>
+                        <h4 className="font-bold text-lg mb-1">Selbstzahler</h4>
+                        <div className="absolute top-4 right-4 w-6 h-6 rounded-full bg-green-500/20 flex items-center justify-center">
+                          <Check className="w-4 h-4 text-green-500" />
+                        </div>
+                      </div>
+
+                      {/* Ausschreibungen */}
+                      <div className="group relative bg-gradient-to-br from-purple-500/10 to-purple-600/5 border border-purple-500/20 rounded-2xl p-5 hover:border-purple-500/40 hover:shadow-lg hover:shadow-purple-500/10 transition-all duration-300">
+                        <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-purple-500 to-purple-600 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                          <Briefcase className="w-6 h-6 text-white" />
+                        </div>
+                        <h4 className="font-bold text-lg mb-1">Ausschreibungen</h4>
+                        <div className="absolute top-4 right-4 w-6 h-6 rounded-full bg-purple-500/20 flex items-center justify-center">
+                          <Check className="w-4 h-4 text-purple-500" />
+                        </div>
+                      </div>
+
+                      {/* 24/7 Kunden-Support */}
+                      <div className="group relative bg-gradient-to-br from-orange-500/10 to-orange-600/5 border border-orange-500/20 rounded-2xl p-5 hover:border-orange-500/40 hover:shadow-lg hover:shadow-orange-500/10 transition-all duration-300">
+                        <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-orange-500 to-orange-600 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                          <MessageCircle className="w-6 h-6 text-white" />
+                        </div>
+                        <h4 className="font-bold text-lg mb-1">24/7 Support</h4>
+                        <div className="absolute top-4 right-4 w-6 h-6 rounded-full bg-orange-500/20 flex items-center justify-center">
+                          <Check className="w-4 h-4 text-orange-500" />
+                        </div>
+                      </div>
+                    </div>
                   </div>
 
-                  {/* Feature Categories Grid */}
-                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-                    {/* Transportschein */}
-                    <div className="group relative bg-gradient-to-br from-blue-500/10 to-blue-600/5 border border-blue-500/20 rounded-2xl p-5 hover:border-blue-500/40 hover:shadow-lg hover:shadow-blue-500/10 transition-all duration-300">
-                      <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-500 to-blue-600 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-                        <FileText className="w-6 h-6 text-white" />
+                  {/* Vorteile Section */}
+                  <div className="border-t border-border/50 pt-8">
+                    <div className="flex items-center gap-3 mb-6">
+                      <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-secondary to-primary flex items-center justify-center">
+                        <Sparkles className="w-5 h-5 text-white" />
                       </div>
-                      <h4 className="font-bold text-lg mb-2">Transportschein</h4>
-                      <p className="text-sm text-muted-foreground">Buchungsanfragen via Transportschein direkt über die Plattform</p>
-                      <div className="absolute top-4 right-4 w-6 h-6 rounded-full bg-blue-500/20 flex items-center justify-center">
-                        <Check className="w-4 h-4 text-blue-500" />
-                      </div>
+                      <h3 className="text-xl font-bold">Das sind die Vorteile</h3>
                     </div>
-
-                    {/* Selbstzahler */}
-                    <div className="group relative bg-gradient-to-br from-green-500/10 to-green-600/5 border border-green-500/20 rounded-2xl p-5 hover:border-green-500/40 hover:shadow-lg hover:shadow-green-500/10 transition-all duration-300">
-                      <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-green-500 to-green-600 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-                        <Euro className="w-6 h-6 text-white" />
-                      </div>
-                      <h4 className="font-bold text-lg mb-2">Selbstzahler</h4>
-                      <p className="text-sm text-muted-foreground">Buchungen von Selbstzahlern zu deinen eigenen Tarifen</p>
-                      <div className="absolute top-4 right-4 w-6 h-6 rounded-full bg-green-500/20 flex items-center justify-center">
-                        <Check className="w-4 h-4 text-green-500" />
-                      </div>
-                    </div>
-
-                    {/* Ausschreibungen */}
-                    <div className="group relative bg-gradient-to-br from-purple-500/10 to-purple-600/5 border border-purple-500/20 rounded-2xl p-5 hover:border-purple-500/40 hover:shadow-lg hover:shadow-purple-500/10 transition-all duration-300">
-                      <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-purple-500 to-purple-600 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-                        <Briefcase className="w-6 h-6 text-white" />
-                      </div>
-                      <h4 className="font-bold text-lg mb-2">Ausschreibungen</h4>
-                      <p className="text-sm text-muted-foreground">Biete mit bei lukrativen bundesweiten Sonderfahrten</p>
-                      <div className="absolute top-4 right-4 w-6 h-6 rounded-full bg-purple-500/20 flex items-center justify-center">
-                        <Check className="w-4 h-4 text-purple-500" />
-                      </div>
-                    </div>
-
-                    {/* Kooperationen */}
-                    <div className="group relative bg-gradient-to-br from-orange-500/10 to-orange-600/5 border border-orange-500/20 rounded-2xl p-5 hover:border-orange-500/40 hover:shadow-lg hover:shadow-orange-500/10 transition-all duration-300">
-                      <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-orange-500 to-orange-600 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-                        <Building2 className="w-6 h-6 text-white" />
-                      </div>
-                      <h4 className="font-bold text-lg mb-2">Kooperationen</h4>
-                      <p className="text-sm text-muted-foreground">Kostenträger, Pflege- und Gesundheitseinrichtungen</p>
-                      <div className="absolute top-4 right-4 w-6 h-6 rounded-full bg-orange-500/20 flex items-center justify-center">
-                        <Check className="w-4 h-4 text-orange-500" />
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Additional Benefits */}
-                  <div className="bg-gradient-to-r from-primary/5 via-secondary/5 to-primary/5 rounded-2xl p-6 border border-border/50">
-                    <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                      <div className="flex items-center gap-3">
-                        <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center shrink-0">
-                          <CalendarClock className="w-5 h-5 text-primary" />
+                    
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      {/* Anfragen */}
+                      <div className="group flex items-start gap-4 bg-gradient-to-br from-background to-muted/30 border border-border/50 rounded-xl p-5 hover:border-primary/40 hover:shadow-md transition-all duration-300">
+                        <div className="shrink-0 w-11 h-11 rounded-lg bg-gradient-to-br from-blue-500/20 to-blue-600/20 border border-blue-500/30 flex items-center justify-center group-hover:scale-110 transition-transform">
+                          <FileText className="w-5 h-5 text-blue-500" />
                         </div>
-                        <span className="text-sm font-medium">Flexible Zeiten</span>
-                      </div>
-                      <div className="flex items-center gap-3">
-                        <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center shrink-0">
-                          <HeartHandshake className="w-5 h-5 text-primary" />
+                        <div className="flex-1">
+                          <h4 className="font-bold mb-1 group-hover:text-primary transition-colors">Anfragen</h4>
+                          <p className="text-sm text-muted-foreground">Erhalte Buchungsanfragen via Transportschein oder Selbstzahlern</p>
                         </div>
-                        <span className="text-sm font-medium">24/7 Support</span>
+                        <Check className="w-5 h-5 text-primary shrink-0 mt-1" />
                       </div>
-                      <div className="flex items-center gap-3">
-                        <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center shrink-0">
-                          <Zap className="w-5 h-5 text-primary" />
+
+                      {/* Ausschreibung */}
+                      <div className="group flex items-start gap-4 bg-gradient-to-br from-background to-muted/30 border border-border/50 rounded-xl p-5 hover:border-primary/40 hover:shadow-md transition-all duration-300">
+                        <div className="shrink-0 w-11 h-11 rounded-lg bg-gradient-to-br from-purple-500/20 to-purple-600/20 border border-purple-500/30 flex items-center justify-center group-hover:scale-110 transition-transform">
+                          <Briefcase className="w-5 h-5 text-purple-500" />
                         </div>
-                        <span className="text-sm font-medium">Routenplanung</span>
+                        <div className="flex-1">
+                          <h4 className="font-bold mb-1 group-hover:text-primary transition-colors">Ausschreibung</h4>
+                          <p className="text-sm text-muted-foreground">Biete mit bei bundesweiten lukrativen Ausschreibungen für Sonderfahrten</p>
+                        </div>
+                        <Check className="w-5 h-5 text-primary shrink-0 mt-1" />
                       </div>
-                      <div className="flex items-center gap-3">
-                        <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center shrink-0">
-                          <Award className="w-5 h-5 text-primary" />
+
+                      {/* Einrichtungen */}
+                      <div className="group flex items-start gap-4 bg-gradient-to-br from-background to-muted/30 border border-border/50 rounded-xl p-5 hover:border-primary/40 hover:shadow-md transition-all duration-300">
+                        <div className="shrink-0 w-11 h-11 rounded-lg bg-gradient-to-br from-orange-500/20 to-orange-600/20 border border-orange-500/30 flex items-center justify-center group-hover:scale-110 transition-transform">
+                          <Building2 className="w-5 h-5 text-orange-500" />
                         </div>
-                        <span className="text-sm font-medium">Mitgliedsrabatte</span>
+                        <div className="flex-1">
+                          <h4 className="font-bold mb-1 group-hover:text-primary transition-colors">Einrichtungen</h4>
+                          <p className="text-sm text-muted-foreground">Kostenträger, Pflege- und Gesundheitseinrichtungen, Verbände vertrauen auf uns</p>
+                        </div>
+                        <Check className="w-5 h-5 text-primary shrink-0 mt-1" />
+                      </div>
+
+                      {/* Tarife */}
+                      <div className="group flex items-start gap-4 bg-gradient-to-br from-background to-muted/30 border border-border/50 rounded-xl p-5 hover:border-primary/40 hover:shadow-md transition-all duration-300">
+                        <div className="shrink-0 w-11 h-11 rounded-lg bg-gradient-to-br from-green-500/20 to-green-600/20 border border-green-500/30 flex items-center justify-center group-hover:scale-110 transition-transform">
+                          <Euro className="w-5 h-5 text-green-500" />
+                        </div>
+                        <div className="flex-1">
+                          <h4 className="font-bold mb-1 group-hover:text-primary transition-colors">Tarife</h4>
+                          <p className="text-sm text-muted-foreground">Kein Tarifzwang: Hinterlege deine eigenen Preise für Buchungen via Selbstzahler</p>
+                        </div>
+                        <Check className="w-5 h-5 text-primary shrink-0 mt-1" />
+                      </div>
+
+                      {/* Flexibel */}
+                      <div className="group flex items-start gap-4 bg-gradient-to-br from-background to-muted/30 border border-border/50 rounded-xl p-5 hover:border-primary/40 hover:shadow-md transition-all duration-300">
+                        <div className="shrink-0 w-11 h-11 rounded-lg bg-gradient-to-br from-cyan-500/20 to-cyan-600/20 border border-cyan-500/30 flex items-center justify-center group-hover:scale-110 transition-transform">
+                          <CalendarClock className="w-5 h-5 text-cyan-500" />
+                        </div>
+                        <div className="flex-1">
+                          <h4 className="font-bold mb-1 group-hover:text-primary transition-colors">Flexibel</h4>
+                          <p className="text-sm text-muted-foreground">Mit Katew hast du flexible Arbeitszeiten, melde dich ab und genieße den Feierabend</p>
+                        </div>
+                        <Check className="w-5 h-5 text-primary shrink-0 mt-1" />
+                      </div>
+
+                      {/* Vertragslaufzeit */}
+                      <div className="group flex items-start gap-4 bg-gradient-to-br from-background to-muted/30 border border-border/50 rounded-xl p-5 hover:border-primary/40 hover:shadow-md transition-all duration-300">
+                        <div className="shrink-0 w-11 h-11 rounded-lg bg-gradient-to-br from-rose-500/20 to-rose-600/20 border border-rose-500/30 flex items-center justify-center group-hover:scale-110 transition-transform">
+                          <Clock className="w-5 h-5 text-rose-500" />
+                        </div>
+                        <div className="flex-1">
+                          <h4 className="font-bold mb-1 group-hover:text-primary transition-colors">Vertragslaufzeit</h4>
+                          <p className="text-sm text-muted-foreground">Du kannst deine Mitgliedschaft jederzeit flexibel zum Monatsende kündigen</p>
+                        </div>
+                        <Check className="w-5 h-5 text-primary shrink-0 mt-1" />
+                      </div>
+
+                      {/* Kooperationsrabatte - Highlight */}
+                      <div className="group relative flex items-start gap-4 bg-gradient-to-br from-secondary/15 to-primary/15 border-2 border-secondary/40 ring-2 ring-secondary/10 rounded-xl p-5 md:col-span-2">
+                        <div className="absolute -top-3 left-6 px-3 py-1 bg-gradient-to-r from-secondary to-primary text-primary-foreground text-xs font-bold rounded-full flex items-center gap-1">
+                          <Star className="w-3 h-3" />
+                          HIGHLIGHT
+                        </div>
+                        <div className="shrink-0 w-11 h-11 rounded-lg bg-gradient-to-br from-secondary to-primary flex items-center justify-center shadow-lg shadow-secondary/25 group-hover:scale-110 transition-transform">
+                          <Handshake className="w-5 h-5 text-white" />
+                        </div>
+                        <div className="flex-1">
+                          <h4 className="font-bold mb-1 text-secondary">Kooperationsrabatte</h4>
+                          <p className="text-sm text-muted-foreground">Profitiere von unseren Rahmenverträgen mit verschiedensten Dienstleistern</p>
+                        </div>
+                        <Check className="w-5 h-5 text-secondary shrink-0 mt-1" />
                       </div>
                     </div>
                   </div>
@@ -275,7 +348,7 @@ export default function ForProviders() {
                       <span>100% Sicher</span>
                     </div>
                     <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                      <Clock className="w-5 h-5 text-primary" />
+                      <Zap className="w-5 h-5 text-primary" />
                       <span>Sofortiger Zugang</span>
                     </div>
                     <div className="flex items-center gap-2 text-sm text-muted-foreground">
