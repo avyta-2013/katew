@@ -299,15 +299,33 @@ const About = () => {
       </section>
 
       {/* Transportarten & Buchungsoptionen Section */}
-      <section className="py-20 md:py-28 bg-muted/30">
-        <div className="container mx-auto px-4">
+      <section className="py-20 md:py-28 relative overflow-hidden">
+        {/* Animated Background */}
+        <div className="absolute inset-0">
+          <div className="absolute inset-0 bg-gradient-to-br from-muted/50 via-background to-primary/5" />
+          <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-gradient-to-br from-primary/10 to-secondary/5 rounded-full blur-[150px] animate-pulse" />
+          <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-gradient-to-tr from-secondary/10 to-primary/5 rounded-full blur-[120px] animate-pulse" style={{ animationDelay: '1.5s' }} />
+        </div>
+
+        {/* Floating decorative elements */}
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+          <div className="absolute top-24 left-[8%] w-2 h-2 bg-primary/40 rounded-full animate-bounce" style={{ animationDuration: '3s' }} />
+          <div className="absolute top-48 right-[12%] w-3 h-3 bg-secondary/30 rounded-full animate-bounce" style={{ animationDuration: '2.5s', animationDelay: '0.7s' }} />
+          <div className="absolute bottom-40 left-[15%] w-2 h-2 bg-primary/25 rounded-full animate-bounce" style={{ animationDuration: '3.2s', animationDelay: '1.2s' }} />
+          <div className="absolute top-1/3 right-[8%] w-4 h-4 bg-secondary/20 rounded-full animate-bounce" style={{ animationDuration: '2.8s', animationDelay: '0.4s' }} />
+        </div>
+
+        <div className="container mx-auto px-4 relative">
           <div className="text-center mb-16">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-medium mb-6">
+            <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-gradient-to-r from-primary/10 to-secondary/10 backdrop-blur-sm border border-primary/20 text-primary text-sm font-medium mb-6 shadow-lg shadow-primary/5">
+              <div className="w-2 h-2 rounded-full bg-primary animate-pulse" />
               <Target className="w-4 h-4" />
               Unsere Leistungen
             </div>
-            <h2 className="text-3xl md:text-5xl font-bold mb-4 tracking-tight bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
-              Alle Optionen im Überblick
+            <h2 className="text-3xl md:text-5xl font-bold mb-4 tracking-tight">
+              <span className="bg-gradient-to-r from-primary via-secondary to-primary bg-clip-text text-transparent bg-[length:200%_auto] animate-[gradient_3s_linear_infinite]">
+                Alle Optionen im Überblick
+              </span>
             </h2>
             <p className="text-lg text-muted-foreground max-w-xl mx-auto">
               Transportarten und Buchungsoptionen für jeden Bedarf
@@ -315,109 +333,181 @@ const About = () => {
           </div>
 
           <div className="max-w-6xl mx-auto">
-            <div className="bg-card border border-border/50 rounded-3xl overflow-hidden shadow-xl">
-              <div className="grid md:grid-cols-[320px_1fr]">
+            <div className="relative bg-card/80 backdrop-blur-xl border border-border/50 rounded-3xl overflow-hidden shadow-2xl shadow-primary/5">
+              {/* Decorative corner accents */}
+              <div className="absolute top-0 left-0 w-32 h-32 bg-gradient-to-br from-primary/10 to-transparent rounded-br-full" />
+              <div className="absolute bottom-0 right-0 w-40 h-40 bg-gradient-to-tl from-secondary/10 to-transparent rounded-tl-full" />
+
+              <div className="grid md:grid-cols-[340px_1fr] relative">
                 {/* Left: Navigation List */}
-                <div className="border-r border-border/50 bg-muted/30">
-                  {/* Transport Types */}
-                  <div className="p-4 border-b border-border/50">
-                    <span className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">Transportarten</span>
+                <div className="border-r border-border/30 bg-gradient-to-b from-muted/50 to-muted/20 backdrop-blur-sm">
+                  {/* Transport Types Header */}
+                  <div className="p-5 border-b border-border/30 bg-gradient-to-r from-primary/5 to-transparent">
+                    <div className="flex items-center gap-2">
+                      <div className="w-1.5 h-6 rounded-full bg-gradient-to-b from-primary to-secondary" />
+                      <span className="text-xs font-bold text-foreground uppercase tracking-widest">Transportarten</span>
+                    </div>
                   </div>
-                  {allOptions.filter(opt => opt.category === "transport").map((option) => {
+                  {allOptions.filter(opt => opt.category === "transport").map((option, index) => {
                     const Icon = option.icon;
                     const isActive = activeOption === option.id;
                     return (
                       <button
                         key={option.id}
                         onClick={() => setActiveOption(option.id)}
-                        className={`w-full flex items-center gap-4 p-5 transition-all duration-300 text-left ${
+                        className={`group w-full flex items-center gap-4 p-5 transition-all duration-500 text-left relative overflow-hidden ${
                           isActive 
-                            ? 'bg-primary/10 border-r-4 border-primary' 
-                            : 'hover:bg-muted/50 border-r-4 border-transparent'
+                            ? 'bg-gradient-to-r from-primary/15 via-primary/10 to-transparent' 
+                            : 'hover:bg-gradient-to-r hover:from-muted/80 hover:to-transparent'
                         }`}
+                        style={{ animationDelay: `${index * 100}ms` }}
                       >
-                        <div className={`w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 transition-colors ${
-                          isActive ? 'bg-primary text-primary-foreground' : 'bg-primary/10 text-primary'
+                        {/* Active indicator bar */}
+                        <div className={`absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-primary to-secondary transition-all duration-300 ${
+                          isActive ? 'opacity-100' : 'opacity-0 group-hover:opacity-50'
+                        }`} />
+                        
+                        <div className={`relative w-14 h-14 rounded-2xl flex items-center justify-center flex-shrink-0 transition-all duration-500 ${
+                          isActive 
+                            ? 'bg-gradient-to-br from-primary to-secondary shadow-lg shadow-primary/30 scale-105' 
+                            : 'bg-gradient-to-br from-primary/10 to-secondary/10 group-hover:from-primary/20 group-hover:to-secondary/20 group-hover:scale-105'
                         }`}>
-                          <Icon className="w-6 h-6" />
+                          <Icon className={`w-7 h-7 transition-colors duration-300 ${isActive ? 'text-primary-foreground' : 'text-primary'}`} />
+                          {isActive && (
+                            <div className="absolute inset-0 rounded-2xl bg-white/20 animate-pulse" />
+                          )}
                         </div>
-                        <div>
-                          <span className={`font-semibold block ${isActive ? 'text-primary' : ''}`}>{option.title}</span>
-                          <span className="text-xs text-muted-foreground line-clamp-1">{option.shortDescription}</span>
+                        <div className="flex-1 min-w-0">
+                          <span className={`font-bold block text-base transition-colors duration-300 ${isActive ? 'text-primary' : 'group-hover:text-foreground'}`}>
+                            {option.title}
+                          </span>
+                          <span className="text-xs text-muted-foreground line-clamp-1 mt-0.5">{option.shortDescription}</span>
                         </div>
+                        <ArrowRight className={`w-4 h-4 transition-all duration-300 flex-shrink-0 ${
+                          isActive ? 'text-primary opacity-100 translate-x-0' : 'opacity-0 -translate-x-2 group-hover:opacity-50 group-hover:translate-x-0'
+                        }`} />
                       </button>
                     );
                   })}
 
-                  {/* Booking Options */}
-                  <div className="p-4 border-b border-t border-border/50">
-                    <span className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">Buchungsoptionen</span>
+                  {/* Booking Options Header */}
+                  <div className="p-5 border-b border-t border-border/30 bg-gradient-to-r from-secondary/5 to-transparent">
+                    <div className="flex items-center gap-2">
+                      <div className="w-1.5 h-6 rounded-full bg-gradient-to-b from-secondary to-primary" />
+                      <span className="text-xs font-bold text-foreground uppercase tracking-widest">Buchungsoptionen</span>
+                    </div>
                   </div>
-                  {allOptions.filter(opt => opt.category === "booking").map((option) => {
+                  {allOptions.filter(opt => opt.category === "booking").map((option, index) => {
                     const Icon = option.icon;
                     const isActive = activeOption === option.id;
                     return (
                       <button
                         key={option.id}
                         onClick={() => setActiveOption(option.id)}
-                        className={`w-full flex items-center gap-4 p-5 transition-all duration-300 text-left ${
+                        className={`group w-full flex items-center gap-4 p-5 transition-all duration-500 text-left relative overflow-hidden ${
                           isActive 
-                            ? 'bg-primary/10 border-r-4 border-primary' 
-                            : 'hover:bg-muted/50 border-r-4 border-transparent'
+                            ? 'bg-gradient-to-r from-secondary/15 via-secondary/10 to-transparent' 
+                            : 'hover:bg-gradient-to-r hover:from-muted/80 hover:to-transparent'
                         }`}
+                        style={{ animationDelay: `${(index + 4) * 100}ms` }}
                       >
-                        <div className={`w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 transition-colors ${
-                          isActive ? 'bg-primary text-primary-foreground' : 'bg-primary/10 text-primary'
+                        {/* Active indicator bar */}
+                        <div className={`absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-secondary to-primary transition-all duration-300 ${
+                          isActive ? 'opacity-100' : 'opacity-0 group-hover:opacity-50'
+                        }`} />
+                        
+                        <div className={`relative w-14 h-14 rounded-2xl flex items-center justify-center flex-shrink-0 transition-all duration-500 ${
+                          isActive 
+                            ? 'bg-gradient-to-br from-secondary to-primary shadow-lg shadow-secondary/30 scale-105' 
+                            : 'bg-gradient-to-br from-secondary/10 to-primary/10 group-hover:from-secondary/20 group-hover:to-primary/20 group-hover:scale-105'
                         }`}>
-                          <Icon className="w-6 h-6" />
+                          <Icon className={`w-7 h-7 transition-colors duration-300 ${isActive ? 'text-primary-foreground' : 'text-secondary'}`} />
+                          {isActive && (
+                            <div className="absolute inset-0 rounded-2xl bg-white/20 animate-pulse" />
+                          )}
                         </div>
-                        <div>
-                          <span className={`font-semibold block ${isActive ? 'text-primary' : ''}`}>{option.title}</span>
-                          <span className="text-xs text-muted-foreground line-clamp-1">{option.shortDescription}</span>
+                        <div className="flex-1 min-w-0">
+                          <span className={`font-bold block text-base transition-colors duration-300 ${isActive ? 'text-secondary' : 'group-hover:text-foreground'}`}>
+                            {option.title}
+                          </span>
+                          <span className="text-xs text-muted-foreground line-clamp-1 mt-0.5">{option.shortDescription}</span>
                         </div>
+                        <ArrowRight className={`w-4 h-4 transition-all duration-300 flex-shrink-0 ${
+                          isActive ? 'text-secondary opacity-100 translate-x-0' : 'opacity-0 -translate-x-2 group-hover:opacity-50 group-hover:translate-x-0'
+                        }`} />
                       </button>
                     );
                   })}
                 </div>
 
                 {/* Right: Content */}
-                <div className="p-8 md:p-12">
-                  <div className="flex items-center gap-4 mb-6">
-                    <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-primary to-secondary flex items-center justify-center shadow-lg">
-                      <SelectedIcon className="w-8 h-8 text-primary-foreground" />
-                    </div>
-                    <div>
-                      <span className="text-sm text-muted-foreground block mb-1">
-                        {selectedOption.category === "transport" ? "Transportart" : "Buchungsoption"}
-                      </span>
-                      <h3 className="text-2xl md:text-3xl font-bold">{selectedOption.title}</h3>
-                    </div>
-                  </div>
-
-                  <p className="text-lg text-muted-foreground mb-6">
-                    {selectedOption.shortDescription}
-                  </p>
-
-                  <div className="prose prose-muted max-w-none mb-8">
-                    <p className="text-muted-foreground leading-relaxed">
-                      {selectedOption.fullDescription}
-                    </p>
-                  </div>
-
-                  <div className="border-t border-border/50 pt-8">
-                    <h4 className="text-sm font-semibold text-muted-foreground uppercase tracking-wider mb-4">
-                      Leistungsmerkmale
-                    </h4>
-                    <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
-                      {selectedOption.features.map((feature, idx) => (
-                        <div 
-                          key={idx}
-                          className="flex items-center gap-2 p-3 rounded-xl bg-muted/50 hover:bg-primary/10 transition-colors"
-                        >
-                          <CheckCircle className="w-5 h-5 text-secondary flex-shrink-0" />
-                          <span className="text-sm">{feature}</span>
+                <div className="p-8 md:p-12 relative">
+                  {/* Background glow for content area */}
+                  <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] bg-gradient-to-br from-primary/5 to-secondary/5 rounded-full blur-[80px] pointer-events-none" />
+                  
+                  <div className="relative">
+                    <div className="flex items-start gap-5 mb-8">
+                      <div className="relative">
+                        <div className="w-20 h-20 rounded-3xl bg-gradient-to-br from-primary via-primary to-secondary flex items-center justify-center shadow-2xl shadow-primary/30 group">
+                          <SelectedIcon className="w-10 h-10 text-primary-foreground" />
                         </div>
-                      ))}
+                        {/* Decorative rings */}
+                        <div className="absolute -inset-2 rounded-[2rem] border border-primary/20 animate-pulse" />
+                        <div className="absolute -inset-4 rounded-[2.5rem] border border-primary/10" />
+                      </div>
+                      <div className="pt-1">
+                        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-muted/50 text-xs font-medium text-muted-foreground mb-2">
+                          {selectedOption.category === "transport" ? "Transportart" : "Buchungsoption"}
+                        </div>
+                        <h3 className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-foreground to-foreground/80 bg-clip-text text-transparent">
+                          {selectedOption.title}
+                        </h3>
+                      </div>
+                    </div>
+
+                    <div className="relative p-6 rounded-2xl bg-gradient-to-br from-muted/30 to-muted/10 border border-border/30 mb-8">
+                      <div className="absolute top-0 left-6 w-1 h-8 bg-gradient-to-b from-primary/50 to-transparent -translate-y-full" />
+                      <p className="text-lg font-medium text-foreground/90 leading-relaxed">
+                        {selectedOption.shortDescription}
+                      </p>
+                    </div>
+
+                    <div className="prose prose-muted max-w-none mb-10">
+                      <p className="text-muted-foreground leading-relaxed text-base">
+                        {selectedOption.fullDescription}
+                      </p>
+                    </div>
+
+                    <div className="relative border-t border-border/30 pt-8">
+                      {/* Section header with decorative line */}
+                      <div className="flex items-center gap-3 mb-6">
+                        <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-secondary/20 to-primary/20 flex items-center justify-center">
+                          <Sparkles className="w-4 h-4 text-secondary" />
+                        </div>
+                        <h4 className="text-sm font-bold text-foreground uppercase tracking-widest">
+                          Leistungsmerkmale
+                        </h4>
+                        <div className="flex-1 h-px bg-gradient-to-r from-border/50 to-transparent" />
+                      </div>
+                      
+                      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                        {selectedOption.features.map((feature, idx) => (
+                          <div 
+                            key={idx}
+                            className="group relative flex items-center gap-3 p-4 rounded-2xl bg-gradient-to-br from-card to-muted/30 border border-border/30 hover:border-primary/30 hover:shadow-lg hover:shadow-primary/5 transition-all duration-500 hover:-translate-y-1 overflow-hidden"
+                          >
+                            {/* Hover glow effect */}
+                            <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-secondary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                            
+                            <div className="relative w-10 h-10 rounded-xl bg-gradient-to-br from-secondary/20 to-primary/20 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform duration-300">
+                              <CheckCircle className="w-5 h-5 text-secondary" />
+                            </div>
+                            <span className="relative text-sm font-medium text-foreground/90 group-hover:text-foreground transition-colors">
+                              {feature}
+                            </span>
+                          </div>
+                        ))}
+                      </div>
                     </div>
                   </div>
                 </div>
