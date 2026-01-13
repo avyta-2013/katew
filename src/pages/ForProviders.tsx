@@ -15,44 +15,28 @@ import {
   Star,
   Quote,
   Building2,
-  Sparkles
+  Sparkles,
+  Check,
+  Gift,
+  Rocket,
+  Crown,
+  Timer
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
-import { CounterCard } from "@/components/CounterCard";
 import { ContactFormCTA } from "@/components/ContactFormCTA";
 import { PartnersLogoSlider } from "@/components/PartnersLogoSlider";
 
-const benefits = [
-  {
-    icon: TrendingUp,
-    title: "Mehr Aufträge",
-    description: "Erhalten Sie Zugang zu einem stetig wachsenden Netzwerk von Patienten und Einrichtungen.",
-    stat: "+45%",
-    statLabel: "mehr Buchungen",
-  },
-  {
-    icon: Euro,
-    title: "Höhere Einnahmen",
-    description: "Optimieren Sie Ihre Auslastung und steigern Sie Ihren Umsatz durch effiziente Routenplanung.",
-    stat: "+30%",
-    statLabel: "Umsatzsteigerung",
-  },
-  {
-    icon: Clock,
-    title: "Zeitersparnis",
-    description: "Reduzieren Sie den Verwaltungsaufwand durch automatisierte Buchungen und zentrale Abrechnung.",
-    stat: "5h",
-    statLabel: "gespart pro Woche",
-  },
-  {
-    icon: Shield,
-    title: "Sicherheit",
-    description: "Alle Zahlungen sind garantiert. Wir sorgen für pünktliche Auszahlungen.",
-    stat: "100%",
-    statLabel: "Zahlungssicherheit",
-  },
+const pricingFeatures = [
+  "Unbegrenzte Auftragsannahme",
+  "Zugang zum gesamten Netzwerk",
+  "Automatische Routenplanung",
+  "Zentrale Abrechnung",
+  "24/7 Kunden-Support",
+  "Exklusive Mitgliedsvorteile",
+  "Kooperationsverträge",
+  "Pünktliche Auszahlungen",
 ];
 
 const features = [
@@ -272,49 +256,195 @@ export default function ForProviders() {
         </div>
       </section>
 
-      {/* Redesigned Benefits Section */}
+      {/* Modern Pricing Section */}
       <section className="py-24 md:py-32 relative overflow-hidden">
-        {/* Background with mesh gradient */}
-        <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-background to-secondary/10" />
-        <div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-primary/20 rounded-full blur-[120px] -translate-y-1/2" />
-        <div className="absolute bottom-0 right-1/4 w-[400px] h-[400px] bg-secondary/20 rounded-full blur-[100px] translate-y-1/2" />
+        {/* Premium Background Effects */}
+        <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-background to-secondary/5" />
+        <div className="absolute top-0 left-1/4 w-[600px] h-[600px] bg-primary/15 rounded-full blur-[150px] -translate-y-1/2 animate-pulse" />
+        <div className="absolute bottom-0 right-1/4 w-[500px] h-[500px] bg-secondary/15 rounded-full blur-[120px] translate-y-1/2 animate-pulse" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-gradient-radial from-primary/10 to-transparent rounded-full blur-3xl" />
+        
+        {/* Floating particles */}
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+          {[...Array(6)].map((_, i) => (
+            <div
+              key={i}
+              className="absolute w-2 h-2 bg-primary/30 rounded-full animate-pulse"
+              style={{
+                top: `${20 + i * 15}%`,
+                left: `${10 + i * 15}%`,
+                animationDelay: `${i * 0.5}s`,
+                animationDuration: `${3 + i * 0.5}s`,
+              }}
+            />
+          ))}
+        </div>
         
         <div className="container mx-auto px-4 relative">
+          {/* Section Header */}
           <div className="text-center mb-16">
-            <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-gradient-to-r from-primary/20 to-secondary/20 backdrop-blur-sm border border-primary/20 text-primary text-sm font-semibold mb-6">
-              <Zap className="w-4 h-4" />
-              Was hast du zu verlieren?
+            <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-gradient-to-r from-primary/20 via-secondary/20 to-primary/20 backdrop-blur-sm border border-primary/30 text-primary text-sm font-semibold mb-6 shadow-lg shadow-primary/10">
+              <Crown className="w-4 h-4" />
+              Premium Mitgliedschaft
             </div>
             <h2 className="text-4xl md:text-6xl font-bold mb-6 tracking-tight">
-              Deine <span className="bg-gradient-to-r from-primary via-secondary to-primary bg-clip-text text-transparent bg-[length:200%_auto] animate-[gradient_3s_linear_infinite]">Vorteile</span>
+              Unsere <span className="bg-gradient-to-r from-primary via-secondary to-primary bg-clip-text text-transparent bg-[length:200%_auto]">Preise</span>
             </h2>
             <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-              Entdecke alle Vorteile einer Mitgliedschaft bei katew
+              Starte jetzt kostenlos und überzeuge dich selbst
             </p>
           </div>
 
-          {/* Main Stats - Floating Cards */}
-          <div className="max-w-6xl mx-auto mb-20">
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-              {benefits.map((benefit, index) => {
-                const delays = ['0ms', '100ms', '200ms', '300ms'];
-                return (
-                  <CounterCard
-                    key={index}
-                    icon={benefit.icon}
-                    stat={benefit.stat}
-                    statLabel={benefit.statLabel}
-                    title={benefit.title}
-                    description={benefit.description}
-                    delay={delays[index]}
-                  />
-                );
-              })}
+          {/* Pricing Card */}
+          <div className="max-w-4xl mx-auto">
+            <div className="relative">
+              {/* Glow effect behind card */}
+              <div className="absolute inset-0 bg-gradient-to-r from-primary/30 via-secondary/30 to-primary/30 rounded-[2.5rem] blur-2xl opacity-50" />
+              
+              {/* Main Pricing Card */}
+              <div className="relative bg-gradient-to-br from-card via-card to-card/80 backdrop-blur-xl border-2 border-primary/30 rounded-[2rem] p-8 md:p-12 shadow-2xl shadow-primary/20 overflow-hidden">
+                {/* Card inner glow */}
+                <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-primary/50 to-transparent" />
+                <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-secondary/50 to-transparent" />
+                
+                {/* Popular Badge */}
+                <div className="absolute -top-4 left-1/2 -translate-x-1/2">
+                  <div className="relative">
+                    <div className="absolute inset-0 bg-gradient-to-r from-primary to-secondary blur-md opacity-75" />
+                    <div className="relative flex items-center gap-2 px-6 py-2 bg-gradient-to-r from-primary to-secondary text-primary-foreground text-sm font-bold rounded-full shadow-lg">
+                      <Gift className="w-4 h-4" />
+                      3 Monate kostenlos
+                      <Sparkles className="w-4 h-4" />
+                    </div>
+                  </div>
+                </div>
+
+                <div className="grid md:grid-cols-2 gap-8 md:gap-12 mt-6">
+                  {/* Left Side - Pricing */}
+                  <div className="text-center md:text-left">
+                    {/* Trial Period */}
+                    <div className="mb-8">
+                      <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-green-500/10 border border-green-500/30 text-green-600 dark:text-green-400 text-sm font-medium mb-4">
+                        <Timer className="w-4 h-4" />
+                        Testphase
+                      </div>
+                      <div className="flex items-end gap-2 justify-center md:justify-start mb-2">
+                        <span className="text-7xl md:text-8xl font-black bg-gradient-to-br from-green-500 to-green-600 bg-clip-text text-transparent">0€</span>
+                        <span className="text-2xl text-muted-foreground mb-3">/ Monat</span>
+                      </div>
+                      <p className="text-muted-foreground">
+                        Die ersten <span className="font-bold text-foreground">3 Monate komplett kostenlos</span> – keine versteckten Kosten
+                      </p>
+                    </div>
+
+                    {/* Divider with Arrow */}
+                    <div className="flex items-center gap-4 my-6">
+                      <div className="flex-1 h-px bg-gradient-to-r from-transparent via-border to-transparent" />
+                      <div className="flex items-center justify-center w-10 h-10 rounded-full bg-primary/10 border border-primary/30">
+                        <ArrowRight className="w-5 h-5 text-primary rotate-90" />
+                      </div>
+                      <div className="flex-1 h-px bg-gradient-to-r from-transparent via-border to-transparent" />
+                    </div>
+
+                    {/* Regular Price */}
+                    <div>
+                      <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/30 text-primary text-sm font-medium mb-4">
+                        <Rocket className="w-4 h-4" />
+                        Danach
+                      </div>
+                      <div className="flex items-end gap-2 justify-center md:justify-start mb-2">
+                        <span className="text-6xl md:text-7xl font-black bg-gradient-to-br from-primary to-secondary bg-clip-text text-transparent">49€</span>
+                        <span className="text-xl text-muted-foreground mb-2">/ Monat</span>
+                        <span className="text-sm text-muted-foreground mb-3 ml-1">(netto)</span>
+                      </div>
+                      <p className="text-muted-foreground">
+                        Monatlich kündbar – volle Flexibilität
+                      </p>
+                    </div>
+
+                    {/* CTA Button */}
+                    <div className="mt-8">
+                      <Button 
+                        size="lg" 
+                        className="w-full md:w-auto bg-gradient-to-r from-primary to-secondary hover:opacity-90 text-lg px-10 py-7 h-auto shadow-xl shadow-primary/30 font-bold group"
+                        onClick={() => window.location.href = '/auth'}
+                      >
+                        <span>Jetzt kostenlos starten</span>
+                        <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                      </Button>
+                      <p className="text-sm text-muted-foreground mt-3">
+                        Keine Kreditkarte erforderlich
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Right Side - Features */}
+                  <div className="relative">
+                    <div className="absolute -inset-4 bg-gradient-to-br from-primary/5 to-secondary/5 rounded-2xl" />
+                    <div className="relative bg-card/50 backdrop-blur-sm border border-border/50 rounded-2xl p-6">
+                      <h3 className="text-lg font-bold mb-6 flex items-center gap-2">
+                        <Check className="w-5 h-5 text-primary" />
+                        Alles inklusive
+                      </h3>
+                      <ul className="space-y-4">
+                        {pricingFeatures.map((feature, index) => (
+                          <li 
+                            key={index}
+                            className="flex items-start gap-3 group"
+                          >
+                            <div className="shrink-0 w-6 h-6 rounded-full bg-gradient-to-br from-primary/20 to-secondary/20 border border-primary/30 flex items-center justify-center mt-0.5 group-hover:scale-110 transition-transform">
+                              <Check className="w-3.5 h-3.5 text-primary" />
+                            </div>
+                            <span className="text-foreground group-hover:text-primary transition-colors">{feature}</span>
+                          </li>
+                        ))}
+                      </ul>
+                      
+                      {/* Bonus Badge */}
+                      <div className="mt-6 pt-6 border-t border-border/50">
+                        <div className="flex items-center gap-3 p-4 bg-gradient-to-r from-primary/10 to-secondary/10 rounded-xl border border-primary/20">
+                          <div className="shrink-0 w-10 h-10 rounded-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center">
+                            <Sparkles className="w-5 h-5 text-primary-foreground" />
+                          </div>
+                          <div>
+                            <p className="font-bold text-sm">Exklusive Mitgliedsvorteile</p>
+                            <p className="text-xs text-muted-foreground">Rabatte bei Partnern & Lieferanten</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Trust Indicators */}
+                <div className="mt-10 pt-8 border-t border-border/30">
+                  <div className="flex flex-wrap items-center justify-center gap-6 md:gap-10">
+                    <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                      <Shield className="w-5 h-5 text-primary" />
+                      <span>100% Sicher</span>
+                    </div>
+                    <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                      <Clock className="w-5 h-5 text-primary" />
+                      <span>Sofortiger Zugang</span>
+                    </div>
+                    <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                      <HeartHandshake className="w-5 h-5 text-primary" />
+                      <span>24/7 Support</span>
+                    </div>
+                    <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                      <TrendingUp className="w-5 h-5 text-primary" />
+                      <span>+500 Partner</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
 
-          {/* Features - Premium Interactive Section */}
-          <FeaturesShowcase features={features} />
+          {/* Features Grid below pricing */}
+          <div className="mt-20">
+            <FeaturesShowcase features={features} />
+          </div>
         </div>
       </section>
 
