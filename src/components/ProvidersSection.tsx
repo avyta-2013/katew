@@ -3,7 +3,7 @@ import { motion, useInView, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Zap, TrendingUp, Handshake, ArrowRight, Globe, Navigation, Star, MapPin, ChevronLeft, ChevronRight, Truck, Users, CheckCircle2 } from "lucide-react";
 import { Link } from "react-router-dom";
-import { GermanyMap } from "./GermanyMap";
+import { SimpleProviderMap } from "./SimpleProviderMap";
 
 const benefits = [
   {
@@ -184,8 +184,8 @@ export const ProvidersSection = () => {
                 <div className="absolute top-0 right-0 w-40 h-40 bg-gradient-to-bl from-primary/10 to-transparent rounded-full blur-2xl" />
                 
                 {/* Map */}
-                <div className="relative h-[400px] rounded-2xl overflow-hidden bg-gradient-to-br from-primary/5 via-transparent to-secondary/5 mb-6">
-                  <GermanyMap />
+                <div className="relative h-[350px] rounded-2xl overflow-hidden bg-gradient-to-br from-muted/30 via-transparent to-muted/20 mb-6">
+                  <SimpleProviderMap />
                 </div>
 
                 {/* Stats */}
