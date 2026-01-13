@@ -24,7 +24,14 @@ import {
   Headphones,
   Video,
   Newspaper,
-  CircleHelp
+  CircleHelp,
+  X,
+  ThumbsUp,
+  Share2,
+  Bookmark,
+  ChevronLeft,
+  Eye,
+  Calendar
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -34,8 +41,39 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
+
+// Types for popup content
+type ArticleType = {
+  title: string;
+  excerpt: string;
+  readTime: string;
+  views: string;
+  category: string;
+  date: string;
+};
+
+type VideoType = {
+  title: string;
+  duration: string;
+  description: string;
+  views: string;
+  category: string;
+};
+
+type QuestionType = {
+  question: string;
+  answer: string;
+  helpful: number;
+  category: string;
+};
 
 // Quick links for fast navigation
 const quickLinks = [
@@ -419,11 +457,343 @@ const knowledgeCategories = [
 ];
 
 
+// Article Detail Popup Component
+const ArticlePopup = ({ 
+  article, 
+  isOpen, 
+  onClose 
+}: { 
+  article: ArticleType | null; 
+  isOpen: boolean; 
+  onClose: () => void;
+}) => {
+  if (!article) return null;
+  
+  return (
+    <Dialog open={isOpen} onOpenChange={onClose}>
+      <DialogContent className="max-w-3xl max-h-[90vh] overflow-hidden p-0 gap-0 bg-background border-border/50">
+        {/* Header with gradient */}
+        <div className="relative bg-gradient-to-br from-blue-500/10 via-cyan-500/5 to-transparent p-8 pb-6">
+          <div className="absolute inset-0 bg-grid-pattern opacity-5" />
+          <div className="relative">
+            <div className="flex items-center gap-3 mb-4">
+              <span className="px-3 py-1 rounded-full bg-blue-500/10 text-blue-600 text-xs font-medium">
+                {article.category}
+              </span>
+              <span className="flex items-center gap-1 text-xs text-muted-foreground">
+                <Calendar className="w-3 h-3" />
+                {article.date}
+              </span>
+            </div>
+            <DialogHeader>
+              <DialogTitle className="text-2xl md:text-3xl font-bold leading-tight pr-8">
+                {article.title}
+              </DialogTitle>
+            </DialogHeader>
+            <div className="flex items-center gap-6 mt-4 text-sm text-muted-foreground">
+              <span className="flex items-center gap-2">
+                <Clock className="w-4 h-4" />
+                {article.readTime} Lesezeit
+              </span>
+              <span className="flex items-center gap-2">
+                <Eye className="w-4 h-4" />
+                {article.views} Aufrufe
+              </span>
+            </div>
+          </div>
+        </div>
+
+        {/* Content */}
+        <div className="p-8 overflow-y-auto max-h-[50vh]">
+          <p className="text-lg text-muted-foreground mb-6 leading-relaxed">
+            {article.excerpt}
+          </p>
+          
+          {/* Placeholder article content */}
+          <div className="prose prose-gray dark:prose-invert max-w-none">
+            <h3 className="text-lg font-semibold mb-3">Einführung</h3>
+            <p className="text-muted-foreground mb-4">
+              In diesem ausführlichen Artikel erfahren Sie alles Wichtige zum Thema "{article.title}". 
+              Wir haben alle relevanten Informationen zusammengestellt, um Ihnen den bestmöglichen 
+              Überblick zu geben.
+            </p>
+            
+            <h3 className="text-lg font-semibold mb-3 mt-6">Schritt für Schritt</h3>
+            <ul className="space-y-2 text-muted-foreground">
+              <li className="flex items-start gap-2">
+                <CheckCircle2 className="w-5 h-5 text-emerald-500 shrink-0 mt-0.5" />
+                <span>Melden Sie sich in Ihrem Account an oder registrieren Sie sich kostenlos.</span>
+              </li>
+              <li className="flex items-start gap-2">
+                <CheckCircle2 className="w-5 h-5 text-emerald-500 shrink-0 mt-0.5" />
+                <span>Navigieren Sie zum entsprechenden Bereich in Ihrem Dashboard.</span>
+              </li>
+              <li className="flex items-start gap-2">
+                <CheckCircle2 className="w-5 h-5 text-emerald-500 shrink-0 mt-0.5" />
+                <span>Folgen Sie den Anweisungen auf dem Bildschirm.</span>
+              </li>
+            </ul>
+
+            <h3 className="text-lg font-semibold mb-3 mt-6">Wichtige Hinweise</h3>
+            <div className="bg-primary/5 border border-primary/20 rounded-xl p-4">
+              <p className="text-sm text-muted-foreground">
+                Bei Fragen oder Problemen steht Ihnen unser Support-Team jederzeit zur Verfügung. 
+                Kontaktieren Sie uns per Telefon oder E-Mail.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        {/* Footer Actions */}
+        <div className="border-t border-border/50 p-6 bg-muted/30">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-3">
+              <Button variant="outline" size="sm" className="rounded-xl gap-2">
+                <ThumbsUp className="w-4 h-4" />
+                Hilfreich
+              </Button>
+              <Button variant="ghost" size="sm" className="rounded-xl gap-2">
+                <Share2 className="w-4 h-4" />
+                Teilen
+              </Button>
+              <Button variant="ghost" size="sm" className="rounded-xl gap-2">
+                <Bookmark className="w-4 h-4" />
+                Speichern
+              </Button>
+            </div>
+            <Button onClick={onClose} className="rounded-xl">
+              Schließen
+            </Button>
+          </div>
+        </div>
+      </DialogContent>
+    </Dialog>
+  );
+};
+
+// Video Player Popup Component
+const VideoPopup = ({ 
+  video, 
+  isOpen, 
+  onClose 
+}: { 
+  video: VideoType | null; 
+  isOpen: boolean; 
+  onClose: () => void;
+}) => {
+  if (!video) return null;
+  
+  return (
+    <Dialog open={isOpen} onOpenChange={onClose}>
+      <DialogContent className="max-w-4xl max-h-[90vh] overflow-hidden p-0 gap-0 bg-background border-border/50">
+        {/* Video Player Area */}
+        <div className="relative aspect-video bg-gradient-to-br from-violet-900 via-purple-900 to-indigo-900 flex items-center justify-center">
+          {/* Animated Background */}
+          <div className="absolute inset-0 overflow-hidden">
+            <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-violet-500/20 rounded-full blur-[80px] animate-pulse" />
+            <div className="absolute bottom-1/4 right-1/4 w-48 h-48 bg-purple-500/20 rounded-full blur-[60px] animate-pulse" style={{ animationDelay: '1s' }} />
+          </div>
+          
+          {/* Play Button */}
+          <div className="relative z-10 flex flex-col items-center gap-4">
+            <div className="w-24 h-24 rounded-full bg-white/10 backdrop-blur-md flex items-center justify-center cursor-pointer hover:bg-white/20 hover:scale-110 transition-all duration-300 border border-white/20">
+              <Play className="w-10 h-10 text-white ml-1" fill="currentColor" />
+            </div>
+            <p className="text-white/60 text-sm">Klicken zum Abspielen</p>
+          </div>
+
+          {/* Duration Badge */}
+          <div className="absolute bottom-4 right-4 px-3 py-1.5 rounded-lg bg-black/60 text-white text-sm font-medium backdrop-blur-sm">
+            {video.duration}
+          </div>
+
+          {/* Category Badge */}
+          <div className="absolute top-4 left-4 px-3 py-1.5 rounded-lg bg-violet-500/80 text-white text-sm font-medium backdrop-blur-sm">
+            {video.category}
+          </div>
+        </div>
+
+        {/* Video Info */}
+        <div className="p-6">
+          <DialogHeader className="mb-4">
+            <DialogTitle className="text-xl md:text-2xl font-bold">
+              {video.title}
+            </DialogTitle>
+          </DialogHeader>
+          
+          <p className="text-muted-foreground mb-4">{video.description}</p>
+          
+          <div className="flex items-center gap-4 text-sm text-muted-foreground mb-6">
+            <span className="flex items-center gap-2">
+              <Eye className="w-4 h-4" />
+              {video.views} Aufrufe
+            </span>
+            <span className="flex items-center gap-2">
+              <Clock className="w-4 h-4" />
+              {video.duration} Minuten
+            </span>
+          </div>
+
+          {/* Related Videos */}
+          <div className="border-t border-border/50 pt-6">
+            <h4 className="font-semibold mb-4">Weitere Videos</h4>
+            <div className="flex gap-3 overflow-x-auto pb-2">
+              {allVideos.slice(0, 3).map((v, i) => (
+                <div key={i} className="flex-shrink-0 w-40 bg-muted/50 rounded-xl p-3 cursor-pointer hover:bg-muted transition-colors">
+                  <div className="aspect-video bg-gradient-to-br from-violet-500/20 to-purple-500/20 rounded-lg mb-2 flex items-center justify-center">
+                    <Play className="w-6 h-6 text-primary" />
+                  </div>
+                  <p className="text-xs font-medium line-clamp-2">{v.title}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* Footer Actions */}
+        <div className="border-t border-border/50 p-6 bg-muted/30">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-3">
+              <Button variant="outline" size="sm" className="rounded-xl gap-2">
+                <ThumbsUp className="w-4 h-4" />
+                Gefällt mir
+              </Button>
+              <Button variant="ghost" size="sm" className="rounded-xl gap-2">
+                <Share2 className="w-4 h-4" />
+                Teilen
+              </Button>
+            </div>
+            <Button onClick={onClose} className="rounded-xl">
+              Schließen
+            </Button>
+          </div>
+        </div>
+      </DialogContent>
+    </Dialog>
+  );
+};
+
+// Question/FAQ Popup Component
+const QuestionPopup = ({ 
+  question, 
+  isOpen, 
+  onClose 
+}: { 
+  question: QuestionType | null; 
+  isOpen: boolean; 
+  onClose: () => void;
+}) => {
+  const [isHelpful, setIsHelpful] = useState<boolean | null>(null);
+  
+  if (!question) return null;
+  
+  return (
+    <Dialog open={isOpen} onOpenChange={onClose}>
+      <DialogContent className="max-w-2xl max-h-[90vh] overflow-hidden p-0 gap-0 bg-background border-border/50">
+        {/* Header with gradient */}
+        <div className="relative bg-gradient-to-br from-emerald-500/10 via-teal-500/5 to-transparent p-8">
+          <div className="absolute inset-0 bg-grid-pattern opacity-5" />
+          <div className="relative">
+            <div className="flex items-center gap-3 mb-4">
+              <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-emerald-500 to-teal-500 flex items-center justify-center">
+                <CircleHelp className="w-6 h-6 text-white" />
+              </div>
+              <span className="px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-600 text-xs font-medium">
+                {question.category}
+              </span>
+            </div>
+            <DialogHeader>
+              <DialogTitle className="text-xl md:text-2xl font-bold leading-tight pr-8">
+                {question.question}
+              </DialogTitle>
+            </DialogHeader>
+          </div>
+        </div>
+
+        {/* Answer Content */}
+        <div className="p-8">
+          <div className="bg-muted/30 rounded-2xl p-6 border border-border/50">
+            <div className="flex items-start gap-3 mb-4">
+              <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center shrink-0">
+                <CheckCircle2 className="w-4 h-4 text-primary" />
+              </div>
+              <p className="text-base leading-relaxed">{question.answer}</p>
+            </div>
+          </div>
+
+          {/* Helpful Feedback */}
+          <div className="mt-8 p-6 bg-card rounded-2xl border border-border/50">
+            <p className="text-center text-sm text-muted-foreground mb-4">
+              War diese Antwort hilfreich?
+            </p>
+            <div className="flex justify-center gap-3">
+              <Button 
+                variant={isHelpful === true ? "default" : "outline"} 
+                size="sm" 
+                className="rounded-xl gap-2 min-w-24"
+                onClick={() => setIsHelpful(true)}
+              >
+                <ThumbsUp className="w-4 h-4" />
+                Ja
+              </Button>
+              <Button 
+                variant={isHelpful === false ? "default" : "outline"} 
+                size="sm" 
+                className="rounded-xl gap-2 min-w-24"
+                onClick={() => setIsHelpful(false)}
+              >
+                <ThumbsUp className="w-4 h-4 rotate-180" />
+                Nein
+              </Button>
+            </div>
+            {isHelpful !== null && (
+              <p className="text-center text-xs text-muted-foreground mt-4 animate-fade-in">
+                Vielen Dank für Ihr Feedback!
+              </p>
+            )}
+          </div>
+
+          {/* Stats */}
+          <div className="flex items-center justify-center gap-2 mt-6 text-sm text-muted-foreground">
+            <CheckCircle2 className="w-4 h-4 text-emerald-500" />
+            <span>{question.helpful} Personen fanden diese Antwort hilfreich</span>
+          </div>
+        </div>
+
+        {/* Footer Actions */}
+        <div className="border-t border-border/50 p-6 bg-muted/30">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-3">
+              <Button variant="ghost" size="sm" className="rounded-xl gap-2">
+                <Share2 className="w-4 h-4" />
+                Teilen
+              </Button>
+              <Button variant="ghost" size="sm" className="rounded-xl gap-2">
+                <MessageCircle className="w-4 h-4" />
+                Kontakt
+              </Button>
+            </div>
+            <Button onClick={onClose} className="rounded-xl">
+              Schließen
+            </Button>
+          </div>
+        </div>
+      </DialogContent>
+    </Dialog>
+  );
+};
+
+
 export default function HelpCenter() {
   const [searchQuery, setSearchQuery] = useState("");
   const [activeTab, setActiveTab] = useState<"anbieter" | "partner">("partner");
   const [isSearchFocused, setIsSearchFocused] = useState(false);
   const [activeKnowledgeCategory, setActiveKnowledgeCategory] = useState<KnowledgeCategory>("articles");
+  
+  // Popup states
+  const [selectedArticle, setSelectedArticle] = useState<ArticleType | null>(null);
+  const [selectedVideo, setSelectedVideo] = useState<VideoType | null>(null);
+  const [selectedQuestion, setSelectedQuestion] = useState<QuestionType | null>(null);
 
   const categories = activeTab === "anbieter" ? anbieterCategories : partnerCategories;
   const articles = activeTab === "anbieter" ? anbieterArticles : partnerArticles;
@@ -659,6 +1029,7 @@ export default function HelpCenter() {
                         {allVideos.map((video, index) => (
                           <div
                             key={index}
+                            onClick={() => setSelectedVideo(video)}
                             className="group relative bg-background rounded-2xl border border-border/50 overflow-hidden hover:border-primary/30 hover:shadow-xl transition-all duration-500 cursor-pointer"
                           >
                             {/* Video Thumbnail */}
@@ -697,6 +1068,7 @@ export default function HelpCenter() {
                         {allArticles.map((article, index) => (
                           <div
                             key={index}
+                            onClick={() => setSelectedArticle(article)}
                             className="group relative bg-background rounded-xl border border-border/50 p-5 hover:border-primary/30 hover:shadow-lg transition-all duration-300 cursor-pointer overflow-hidden"
                           >
                             <div className="absolute inset-0 bg-gradient-to-r from-blue-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
@@ -742,6 +1114,7 @@ export default function HelpCenter() {
                         {allQuestions.map((q, index) => (
                           <div
                             key={index}
+                            onClick={() => setSelectedQuestion(q)}
                             className="group relative bg-background rounded-xl border border-border/50 p-5 hover:border-primary/30 hover:shadow-lg transition-all duration-300 cursor-pointer overflow-hidden"
                           >
                             <div className="absolute inset-0 bg-gradient-to-r from-emerald-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
@@ -822,6 +1195,24 @@ export default function HelpCenter() {
           </div>
         </section>
       </div>
+      
+      {/* Popup Dialogs */}
+      <ArticlePopup 
+        article={selectedArticle} 
+        isOpen={!!selectedArticle} 
+        onClose={() => setSelectedArticle(null)} 
+      />
+      <VideoPopup 
+        video={selectedVideo} 
+        isOpen={!!selectedVideo} 
+        onClose={() => setSelectedVideo(null)} 
+      />
+      <QuestionPopup 
+        question={selectedQuestion} 
+        isOpen={!!selectedQuestion} 
+        onClose={() => setSelectedQuestion(null)} 
+      />
+      
       <Footer />
     </>
   );
