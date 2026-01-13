@@ -563,20 +563,35 @@ export default function HelpCenter() {
           </div>
         </section>
 
-        {/* Categories Grid - Premium Cards */}
-        <section className="py-16 md:py-20">
-          <div className="container mx-auto px-4">
-            <div className="max-w-6xl mx-auto">
+        {/* Combined Categories & Knowledge Base Section */}
+        <section className="py-16 md:py-24 bg-gradient-to-b from-muted/30 via-muted/10 to-transparent relative overflow-hidden">
+          {/* Background Effects */}
+          <div className="absolute inset-0 pointer-events-none">
+            <div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-primary/5 rounded-full blur-[120px]" />
+            <div className="absolute bottom-0 right-1/4 w-[400px] h-[400px] bg-secondary/5 rounded-full blur-[100px]" />
+          </div>
+
+          <div className="container mx-auto px-4 relative">
+            <div className="max-w-7xl mx-auto">
+              {/* Section Header */}
               <div className="text-center mb-12">
-                <h2 className="text-3xl md:text-4xl font-bold mb-4">
+                <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-primary/10 to-secondary/10 backdrop-blur-sm border border-primary/20 text-primary text-sm font-medium mb-6">
+                  <BookOpen className="w-4 h-4" />
                   {activeTab === "anbieter" ? "Hilfe für Anbieter" : "Hilfe für Partner"}
+                </div>
+                <h2 className="text-3xl md:text-5xl font-bold mb-4">
+                  <span className="bg-gradient-to-r from-foreground to-foreground/70 bg-clip-text text-transparent">
+                    Alles an einem 
+                  </span>
+                  <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent"> Ort</span>
                 </h2>
                 <p className="text-muted-foreground text-lg max-w-xl mx-auto">
-                  Wählen Sie eine Kategorie, um relevante Artikel und Anleitungen zu finden
+                  Wählen Sie eine Kategorie oder durchsuchen Sie Artikel, FAQs und Video-Tutorials
                 </p>
               </div>
-              
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+
+              {/* Categories Grid */}
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
                 {categories.map((category, index) => {
                   const Icon = category.icon;
                   return (
@@ -620,38 +635,15 @@ export default function HelpCenter() {
                   );
                 })}
               </div>
-            </div>
-          </div>
-        </section>
 
-        {/* Knowledge Base Section - Modern Split Layout with Categories */}
-        <section className="py-16 md:py-24 bg-gradient-to-b from-muted/30 via-muted/10 to-transparent relative overflow-hidden">
-          {/* Background Effects */}
-          <div className="absolute inset-0 pointer-events-none">
-            <div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-primary/5 rounded-full blur-[120px]" />
-            <div className="absolute bottom-0 right-1/4 w-[400px] h-[400px] bg-secondary/5 rounded-full blur-[100px]" />
-          </div>
-
-          <div className="container mx-auto px-4 relative">
-            <div className="max-w-7xl mx-auto">
-              {/* Header */}
-              <div className="text-center mb-12">
-                <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-primary/10 to-secondary/10 backdrop-blur-sm border border-primary/20 text-primary text-sm font-medium mb-6">
-                  <BookOpen className="w-4 h-4" />
-                  Wissensdatenbank
-                </div>
-                <h2 className="text-3xl md:text-5xl font-bold mb-4">
-                  <span className="bg-gradient-to-r from-foreground to-foreground/70 bg-clip-text text-transparent">
-                    Alles an einem 
-                  </span>
-                  <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent"> Ort</span>
-                </h2>
-                <p className="text-muted-foreground text-lg max-w-xl mx-auto">
-                  Durchsuchen Sie unsere Artikel, FAQs und Video-Tutorials
-                </p>
+              {/* Divider */}
+              <div className="flex items-center gap-4 mb-12">
+                <div className="flex-1 h-px bg-gradient-to-r from-transparent via-border to-transparent" />
+                <span className="text-sm text-muted-foreground font-medium px-4">Wissensdatenbank</span>
+                <div className="flex-1 h-px bg-gradient-to-r from-transparent via-border to-transparent" />
               </div>
 
-              {/* Main Content Grid */}
+              {/* Knowledge Base Grid */}
               <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
                 {/* Category Sidebar */}
                 <div className="lg:col-span-3">
