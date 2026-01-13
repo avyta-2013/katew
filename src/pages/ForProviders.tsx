@@ -15,8 +15,7 @@ import {
   Star,
   Quote,
   Building2,
-  Sparkles,
-  Layers
+  Sparkles
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Header } from "@/components/Header";
@@ -143,22 +142,6 @@ interface FeatureItem {
 const FeaturesShowcase = ({ features }: { features: FeatureItem[] }) => {
   return (
     <div className="max-w-5xl mx-auto">
-      {/* Section Header */}
-      <div className="text-center mb-12">
-        <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-gradient-to-r from-primary/20 via-secondary/20 to-primary/20 backdrop-blur-sm border border-primary/30 text-primary text-sm font-semibold mb-6">
-          <Layers className="w-4 h-4" />
-          Alles aus einer Hand
-        </div>
-        <h3 className="text-3xl md:text-5xl font-bold mb-4">
-          <span className="bg-gradient-to-r from-primary via-secondary to-primary bg-clip-text text-transparent bg-[length:200%_auto]">
-            Unsere Leistungen
-          </span>
-        </h3>
-        <p className="text-lg text-muted-foreground max-w-xl mx-auto">
-          Alles was du brauchst, um erfolgreich zu sein – von der Buchung bis zur Abrechnung
-        </p>
-      </div>
-
       {/* Features - Alternating Layout */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         {/* Left Column */}
