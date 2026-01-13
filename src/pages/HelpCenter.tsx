@@ -803,73 +803,66 @@ export default function HelpCenter() {
       <Header />
       <div className="min-h-screen bg-background overflow-hidden">
         {/* Hero Section - Modernized with Glassmorphism */}
-        <section className="relative pt-28 pb-16 md:pt-36 md:pb-24 overflow-hidden">
+        <section className="relative pt-32 pb-16 md:pt-44 md:pb-24 overflow-hidden">
           {/* Animated Background */}
           <div className="absolute inset-0">
             <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-secondary/5" />
             <div className="absolute top-0 left-1/4 w-[600px] h-[600px] bg-primary/10 rounded-full blur-[150px] animate-pulse" />
-            <div className="absolute bottom-0 right-1/4 w-[500px] h-[500px] bg-secondary/10 rounded-full blur-[120px] animate-pulse" style={{ animationDelay: '1s' }} />
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-gradient-to-r from-primary/5 to-secondary/5 rounded-full blur-[100px]" />
+            <div className="absolute bottom-0 right-1/4 w-[500px] h-[500px] bg-secondary/10 rounded-full blur-[130px] animate-pulse" style={{ animationDelay: "1s" }} />
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-gradient-to-r from-primary/5 to-secondary/5 rounded-full blur-[200px]" />
           </div>
 
           {/* Floating Elements */}
           <div className="absolute inset-0 overflow-hidden pointer-events-none">
-            <div className="absolute top-20 left-10 w-3 h-3 bg-primary/40 rounded-full animate-bounce" style={{ animationDuration: '3s' }} />
-            <div className="absolute top-40 right-20 w-2 h-2 bg-secondary/40 rounded-full animate-bounce" style={{ animationDuration: '2.5s', animationDelay: '0.5s' }} />
-            <div className="absolute bottom-32 left-1/4 w-4 h-4 bg-primary/30 rounded-full animate-bounce" style={{ animationDuration: '3.5s', animationDelay: '1s' }} />
-            <div className="absolute bottom-20 right-1/3 w-2 h-2 bg-secondary/30 rounded-full animate-bounce" style={{ animationDuration: '2s', animationDelay: '0.7s' }} />
+            <div className="absolute top-20 left-[10%] w-20 h-20 bg-gradient-to-br from-primary/20 to-secondary/20 rounded-2xl rotate-12 animate-bounce" style={{ animationDuration: "3s" }} />
+            <div className="absolute top-40 right-[15%] w-16 h-16 bg-gradient-to-br from-secondary/20 to-primary/20 rounded-full animate-bounce" style={{ animationDuration: "4s", animationDelay: "0.5s" }} />
+            <div className="absolute bottom-32 left-[20%] w-12 h-12 bg-gradient-to-br from-primary/15 to-secondary/15 rounded-lg rotate-45 animate-bounce" style={{ animationDuration: "3.5s", animationDelay: "1s" }} />
+            <div className="absolute bottom-20 right-[25%] w-24 h-24 bg-gradient-to-br from-secondary/15 to-primary/15 rounded-2xl -rotate-12 animate-bounce" style={{ animationDuration: "4.5s", animationDelay: "1.5s" }} />
           </div>
+
+          {/* Grid Pattern */}
+          <div className="absolute inset-0 opacity-[0.02]" style={{ backgroundImage: "url(\"data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23000000' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E\")" }} />
           
           <div className="container mx-auto px-4 relative">
             <div className="max-w-4xl mx-auto text-center">
               {/* Badge */}
-              <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-gradient-to-r from-primary/10 to-secondary/10 backdrop-blur-sm border border-primary/20 text-primary text-sm font-medium mb-8 animate-fade-in">
-                <Sparkles className="w-4 h-4" />
-                <span>Wie können wir Ihnen helfen?</span>
+              <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-gradient-to-r from-primary/10 to-secondary/10 border border-primary/20 text-sm font-medium mb-8 animate-fade-in">
+                <div className="relative">
+                  <Sparkles className="w-4 h-4 text-primary" />
+                  <div className="absolute inset-0 animate-ping">
+                    <Sparkles className="w-4 h-4 text-primary opacity-50" />
+                  </div>
+                </div>
+                <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent font-semibold">
+                  Wie können wir Ihnen helfen?
+                </span>
               </div>
 
-              {/* Title */}
-              <h1 className="text-5xl md:text-7xl font-bold mb-6 tracking-tight animate-fade-in" style={{ animationDelay: '0.1s' }}>
-                <span className="bg-gradient-to-r from-foreground via-foreground to-foreground/70 bg-clip-text text-transparent">
+              {/* Main Headline */}
+              <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold mb-8 tracking-tight animate-fade-in" style={{ animationDelay: "0.1s" }}>
+                <span className="bg-gradient-to-r from-foreground via-foreground to-foreground/80 bg-clip-text text-transparent">
                   Hilfe
                 </span>
-                <span className="bg-gradient-to-r from-primary via-secondary to-primary bg-clip-text text-transparent">
+                <span className="bg-gradient-to-r from-primary via-secondary to-primary bg-clip-text text-transparent bg-[length:200%_auto] animate-[gradient_3s_linear_infinite]">
                   center
                 </span>
               </h1>
-
               
-              {/* Search Box - Glassmorphism Style */}
-              <div 
-                className={`relative max-w-2xl mx-auto animate-fade-in transition-all duration-500 ${
-                  isSearchFocused ? 'scale-[1.02]' : ''
-                }`}
-                style={{ animationDelay: '0.3s' }}
-              >
-                <div className={`absolute -inset-1 bg-gradient-to-r from-primary/50 to-secondary/50 rounded-3xl blur-lg transition-opacity duration-300 ${
-                  isSearchFocused ? 'opacity-100' : 'opacity-0'
-                }`} />
-                <div className="relative bg-card/80 backdrop-blur-xl border border-border/50 rounded-2xl shadow-2xl">
-                  <Search className={`absolute left-6 top-1/2 -translate-y-1/2 w-6 h-6 transition-colors duration-300 ${
-                    isSearchFocused ? 'text-primary' : 'text-muted-foreground'
-                  }`} />
-                  <Input
-                    type="text"
-                    placeholder="Suchen Sie nach Themen, Anleitungen oder Fragen..."
-                    className="pl-16 pr-6 py-8 text-lg rounded-2xl border-0 bg-transparent focus-visible:ring-0 focus-visible:ring-offset-0"
-                    value={searchQuery}
-                    onChange={(e) => setSearchQuery(e.target.value)}
-                    onFocus={() => setIsSearchFocused(true)}
-                    onBlur={() => setIsSearchFocused(false)}
-                  />
-                  <div className="absolute right-4 top-1/2 -translate-y-1/2">
-                    <Button className="rounded-xl bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary/70 shadow-lg">
-                      Suchen
-                    </Button>
-                  </div>
-                </div>
+              <p className="text-xl md:text-2xl text-muted-foreground mb-10 max-w-2xl mx-auto animate-fade-in" style={{ animationDelay: "0.2s" }}>
+                Finden Sie Antworten, Anleitungen und Hilfe zu allen Themen rund um katew
+              </p>
+              
+              {/* Search */}
+              <div className="relative max-w-lg mx-auto animate-fade-in" style={{ animationDelay: "0.3s" }}>
+                <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
+                <Input
+                  type="text"
+                  placeholder="Suchen Sie nach Themen..."
+                  className="pl-12 pr-4 py-6 text-lg rounded-full border-border/50 bg-card/50 backdrop-blur-sm"
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                />
               </div>
-
             </div>
           </div>
         </section>
