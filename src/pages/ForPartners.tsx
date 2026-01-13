@@ -194,12 +194,13 @@ export default function ForPartners() {
           </div>
         </section>
 
-        {/* Pricing Section - Free Membership */}
+        {/* Combined Pricing + Partner Types + Benefits Section */}
         <section className="py-24 md:py-32 relative overflow-hidden bg-gradient-to-br from-secondary/5 via-primary/5 to-transparent">
           <div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-secondary/10 rounded-full blur-[120px] -translate-y-1/2" />
           <div className="absolute bottom-0 right-1/4 w-[400px] h-[400px] bg-primary/10 rounded-full blur-[100px] translate-y-1/2" />
 
           <div className="container mx-auto px-4 relative">
+            {/* Pricing Header */}
             <div className="text-center mb-16">
               <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-gradient-to-r from-secondary/20 to-primary/20 backdrop-blur-sm border border-secondary/20 text-secondary text-sm font-semibold mb-6">
                 <Gift className="w-4 h-4" />
@@ -217,7 +218,7 @@ export default function ForPartners() {
             </div>
 
             {/* Pricing Card */}
-            <div className="max-w-md mx-auto mb-16">
+            <div className="max-w-md mx-auto mb-20">
               <div className="relative bg-card border-2 border-secondary/30 rounded-3xl p-8 md:p-10 shadow-2xl shadow-secondary/10 overflow-hidden">
                 {/* Background glow */}
                 <div className="absolute inset-0 bg-gradient-to-br from-secondary/5 via-transparent to-primary/5" />
@@ -254,7 +255,7 @@ export default function ForPartners() {
             </div>
 
             {/* Trust Badges */}
-            <div className="flex flex-wrap justify-center gap-6 md:gap-10">
+            <div className="flex flex-wrap justify-center gap-6 md:gap-10 mb-24">
               <div className="flex items-center gap-2 text-muted-foreground">
                 <Shield className="w-5 h-5 text-secondary" />
                 <span className="text-sm">100% kostenlos & sicher</span>
@@ -268,101 +269,95 @@ export default function ForPartners() {
                 <span className="text-sm">850+ Anbieter</span>
               </div>
             </div>
-          </div>
-        </section>
 
-        {/* Partner Types Section */}
-        <section className="py-24 md:py-32 bg-muted/30">
-          <div className="container mx-auto px-4">
-            <div className="text-center mb-16">
-              <h3 className="text-sm font-semibold text-secondary uppercase tracking-wider mb-4">Einrichtungen</h3>
-              <h2 className="text-3xl md:text-5xl font-bold mb-4 tracking-tight">
-                Für diese Partner ist{" "}
-                <span className="bg-gradient-to-r from-secondary to-primary bg-clip-text text-transparent">
-                  katew kostenlos
-                </span>
-              </h2>
-            </div>
+            {/* Partner Types - Einrichtungen */}
+            <div className="mb-24">
+              <div className="text-center mb-12">
+                <h3 className="text-sm font-semibold text-secondary uppercase tracking-wider mb-4">Einrichtungen</h3>
+                <h2 className="text-3xl md:text-4xl font-bold tracking-tight">
+                  Für diese Partner ist{" "}
+                  <span className="bg-gradient-to-r from-secondary to-primary bg-clip-text text-transparent">
+                    katew kostenlos
+                  </span>
+                </h2>
+              </div>
 
-            <div className="max-w-5xl mx-auto">
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                {partnerTypes.map((type, index) => {
-                  const Icon = type.icon;
-                  return (
-                    <div
-                      key={index}
-                      className="group bg-card border border-border/50 rounded-2xl p-6 hover:border-secondary/40 hover:shadow-lg hover:shadow-secondary/5 transition-all duration-300"
-                    >
-                      <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-secondary/10 to-primary/10 border border-secondary/20 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
-                        <Icon className="w-6 h-6 text-secondary" />
+              <div className="max-w-5xl mx-auto">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                  {partnerTypes.map((type, index) => {
+                    const Icon = type.icon;
+                    return (
+                      <div
+                        key={index}
+                        className="group bg-card border border-border/50 rounded-2xl p-6 hover:border-secondary/40 hover:shadow-lg hover:shadow-secondary/5 transition-all duration-300"
+                      >
+                        <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-secondary/10 to-primary/10 border border-secondary/20 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
+                          <Icon className="w-6 h-6 text-secondary" />
+                        </div>
+                        <h4 className="font-bold text-lg mb-2 group-hover:text-secondary transition-colors">
+                          {type.title}
+                        </h4>
+                        <p className="text-muted-foreground text-sm">{type.description}</p>
                       </div>
-                      <h4 className="font-bold text-lg mb-2 group-hover:text-secondary transition-colors">
-                        {type.title}
-                      </h4>
-                      <p className="text-muted-foreground text-sm">{type.description}</p>
-                    </div>
-                  );
-                })}
+                    );
+                  })}
+                </div>
               </div>
             </div>
-          </div>
-        </section>
 
-        {/* Benefits Section */}
-        <section className="py-24 md:py-32 relative overflow-hidden">
-          <div className="absolute inset-0 bg-gradient-to-br from-secondary/5 via-transparent to-primary/5" />
+            {/* Benefits - Vorteile */}
+            <div>
+              <div className="text-center mb-12">
+                <h3 className="text-sm font-semibold text-secondary uppercase tracking-wider mb-4">Vorteile</h3>
+                <h2 className="text-3xl md:text-4xl font-bold tracking-tight">
+                  Das bekommen Sie als{" "}
+                  <span className="bg-gradient-to-r from-secondary to-primary bg-clip-text text-transparent">
+                    Partner
+                  </span>
+                </h2>
+              </div>
 
-          <div className="container mx-auto px-4 relative">
-            <div className="text-center mb-16">
-              <h3 className="text-sm font-semibold text-secondary uppercase tracking-wider mb-4">Vorteile</h3>
-              <h2 className="text-3xl md:text-5xl font-bold mb-4 tracking-tight">
-                Das bekommen Sie als{" "}
-                <span className="bg-gradient-to-r from-secondary to-primary bg-clip-text text-transparent">
-                  Partner
-                </span>
-              </h2>
-            </div>
-
-            <div className="max-w-5xl mx-auto">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                {benefits.map((benefit, index) => {
-                  const Icon = benefit.icon;
-                  const isHighlight = benefit.highlight;
-                  return (
-                    <div
-                      key={index}
-                      className={`group relative flex items-start gap-5 backdrop-blur-sm border rounded-2xl p-6 transition-all duration-300 ${
-                        isHighlight
-                          ? "bg-gradient-to-br from-secondary/20 to-primary/20 border-secondary/40 ring-2 ring-secondary/20 md:col-span-2"
-                          : "bg-card/50 border-border/50 hover:border-secondary/40 hover:bg-card"
-                      }`}
-                    >
-                      {isHighlight && (
-                        <div className="absolute -top-3 left-6 px-3 py-1 bg-gradient-to-r from-secondary to-primary text-primary-foreground text-xs font-bold rounded-full flex items-center gap-1">
-                          <Sparkles className="w-3 h-3" />
-                          HIGHLIGHT
-                        </div>
-                      )}
+              <div className="max-w-5xl mx-auto">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  {benefits.map((benefit, index) => {
+                    const Icon = benefit.icon;
+                    const isHighlight = benefit.highlight;
+                    return (
                       <div
-                        className={`shrink-0 w-14 h-14 rounded-xl flex items-center justify-center group-hover:scale-110 transition-all duration-300 ${
+                        key={index}
+                        className={`group relative flex items-start gap-5 backdrop-blur-sm border rounded-2xl p-6 transition-all duration-300 ${
                           isHighlight
-                            ? "bg-gradient-to-br from-secondary to-primary"
-                            : "bg-gradient-to-br from-secondary/10 to-primary/10 border border-secondary/20 group-hover:border-secondary/50"
+                            ? "bg-gradient-to-br from-secondary/20 to-primary/20 border-secondary/40 ring-2 ring-secondary/20 md:col-span-2"
+                            : "bg-card/50 border-border/50 hover:border-secondary/40 hover:bg-card"
                         }`}
                       >
-                        <Icon className={`w-6 h-6 ${isHighlight ? "text-primary-foreground" : "text-secondary"}`} />
-                      </div>
-                      <div className="flex-1">
-                        <h3
-                          className={`font-bold text-lg mb-1 transition-colors ${isHighlight ? "text-secondary" : "group-hover:text-secondary"}`}
+                        {isHighlight && (
+                          <div className="absolute -top-3 left-6 px-3 py-1 bg-gradient-to-r from-secondary to-primary text-primary-foreground text-xs font-bold rounded-full flex items-center gap-1">
+                            <Sparkles className="w-3 h-3" />
+                            HIGHLIGHT
+                          </div>
+                        )}
+                        <div
+                          className={`shrink-0 w-14 h-14 rounded-xl flex items-center justify-center group-hover:scale-110 transition-all duration-300 ${
+                            isHighlight
+                              ? "bg-gradient-to-br from-secondary to-primary"
+                              : "bg-gradient-to-br from-secondary/10 to-primary/10 border border-secondary/20 group-hover:border-secondary/50"
+                          }`}
                         >
-                          {benefit.title}
-                        </h3>
-                        <p className="text-muted-foreground text-sm">{benefit.description}</p>
+                          <Icon className={`w-6 h-6 ${isHighlight ? "text-primary-foreground" : "text-secondary"}`} />
+                        </div>
+                        <div className="flex-1">
+                          <h3
+                            className={`font-bold text-lg mb-1 transition-colors ${isHighlight ? "text-secondary" : "group-hover:text-secondary"}`}
+                          >
+                            {benefit.title}
+                          </h3>
+                          <p className="text-muted-foreground text-sm">{benefit.description}</p>
+                        </div>
                       </div>
-                    </div>
-                  );
-                })}
+                    );
+                  })}
+                </div>
               </div>
             </div>
           </div>
