@@ -26,7 +26,7 @@ export default function Impressum() {
               <section>
                 <h2 className="text-xl font-semibold mb-4">Kontakt</h2>
                 <p className="text-muted-foreground">
-                  Telefon: +49 155 61 231<br />
+                  Telefon: +49 151 155 612 31<br />
                   E-Mail: support@katew.de
                 </p>
               </section>

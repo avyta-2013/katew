@@ -92,7 +92,7 @@ export const ContactFormCTA = ({ variant = "providers" }: ContactFormCTAProps) =
               {/* Contact info */}
               <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
                 <a
-                  href="tel:+4915561231"
+                  href="tel:+4915115561231"
                   className="inline-flex items-center gap-3 px-5 py-3 rounded-xl bg-card border border-border/50 hover:border-primary/50 transition-colors"
                 >
                   <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
@@ -100,7 +100,7 @@ export const ContactFormCTA = ({ variant = "providers" }: ContactFormCTAProps) =
                   </div>
                   <div className="text-left">
                     <div className="text-xs text-muted-foreground">Telefon</div>
-                    <div className="font-semibold">+49 155 61 231</div>
+                    <div className="font-semibold">+49 151 155 612 31</div>
                   </div>
                 </a>
                 <a
