@@ -77,6 +77,18 @@ export const ContactFormCTA = ({ variant = "providers" }: ContactFormCTAProps) =
                   : "Haben Sie Fragen oder möchten mehr erfahren? Wir freuen uns auf Ihre Nachricht."}
               </p>
 
+              {/* CTA Button */}
+              <div className="mb-8">
+                <Button
+                  size="lg"
+                  className="bg-gradient-to-r from-primary to-secondary hover:opacity-90 text-lg px-8 py-6 h-auto shadow-lg shadow-primary/25"
+                  onClick={() => window.location.href = '/auth'}
+                >
+                  Jetzt registrieren
+                  <ArrowRight className="ml-2 w-5 h-5" />
+                </Button>
+              </div>
+
               {/* Contact info */}
               <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
                 <a
