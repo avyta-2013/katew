@@ -4,7 +4,6 @@ import {
   Shield, 
   Clock, 
   Euro, 
-  CheckCircle, 
   ArrowRight,
   Zap,
   Award,
@@ -17,9 +16,7 @@ import {
   Quote,
   Building2,
   Sparkles,
-  MousePointerClick,
-  Layers,
-  Rocket
+  Layers
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Header } from "@/components/Header";
@@ -27,8 +24,6 @@ import { Footer } from "@/components/Footer";
 import { CounterCard } from "@/components/CounterCard";
 import { ContactFormCTA } from "@/components/ContactFormCTA";
 import { PartnersLogoSlider } from "@/components/PartnersLogoSlider";
-import { motion, useInView } from "framer-motion";
-import { useRef, useState } from "react";
 
 const benefits = [
   {
@@ -146,45 +141,10 @@ interface FeatureItem {
 }
 
 const FeaturesShowcase = ({ features }: { features: FeatureItem[] }) => {
-  const sectionRef = useRef<HTMLDivElement>(null);
-  const isInView = useInView(sectionRef, { once: true, margin: "-100px" });
-  const [activeFeature, setActiveFeature] = useState<number | null>(null);
-  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
-
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1,
-        delayChildren: 0.2
-      }
-    }
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 40, scale: 0.95 },
-    visible: { 
-      opacity: 1, 
-      y: 0, 
-      scale: 1,
-      transition: {
-        type: "spring" as const,
-        stiffness: 100,
-        damping: 15
-      }
-    }
-  };
-
   return (
-    <div ref={sectionRef} className="max-w-7xl mx-auto">
+    <div className="max-w-5xl mx-auto">
       {/* Section Header */}
-      <motion.div 
-        className="text-center mb-16"
-        initial={{ opacity: 0, y: 30 }}
-        animate={isInView ? { opacity: 1, y: 0 } : {}}
-        transition={{ duration: 0.6 }}
-      >
+      <div className="text-center mb-12">
         <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-gradient-to-r from-primary/20 via-secondary/20 to-primary/20 backdrop-blur-sm border border-primary/30 text-primary text-sm font-semibold mb-6">
           <Layers className="w-4 h-4" />
           Alles aus einer Hand
@@ -197,229 +157,88 @@ const FeaturesShowcase = ({ features }: { features: FeatureItem[] }) => {
         <p className="text-lg text-muted-foreground max-w-xl mx-auto">
           Alles was du brauchst, um erfolgreich zu sein – von der Buchung bis zur Abrechnung
         </p>
-      </motion.div>
+      </div>
 
-      {/* Interactive Feature Grid */}
-      <motion.div 
-        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6"
-        variants={containerVariants}
-        initial="hidden"
-        animate={isInView ? "visible" : "hidden"}
-      >
-        {features.map((feature, index) => {
-          const Icon = feature.icon;
-          const isHighlight = 'highlight' in feature && feature.highlight;
-          const isActive = activeFeature === index;
-          const isHovered = hoveredIndex === index;
-
-          return (
-            <motion.div
-              key={index}
-              variants={itemVariants}
-              className={`group relative cursor-pointer ${isHighlight ? 'md:col-span-2 lg:col-span-2 xl:col-span-2' : ''}`}
-              onMouseEnter={() => setHoveredIndex(index)}
-              onMouseLeave={() => setHoveredIndex(null)}
-              onClick={() => setActiveFeature(isActive ? null : index)}
-            >
-              {/* Animated Glow Effect */}
-              <motion.div 
-                className={`absolute -inset-1 rounded-[2rem] bg-gradient-to-r ${
+      {/* Features - Alternating Layout */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        {/* Left Column */}
+        <div className="space-y-6">
+          {features.filter((_, i) => i % 2 === 0).map((feature, index) => {
+            const Icon = feature.icon;
+            const isHighlight = feature.highlight;
+            return (
+              <div
+                key={index}
+                className={`group relative flex items-start gap-5 backdrop-blur-sm border rounded-2xl p-6 transition-all duration-300 ${
                   isHighlight 
-                    ? 'from-primary via-secondary to-primary' 
-                    : 'from-primary/60 via-secondary/60 to-primary/60'
-                } blur-xl`}
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{ 
-                  opacity: isHovered ? 0.6 : 0, 
-                  scale: isHovered ? 1 : 0.8 
-                }}
-                transition={{ duration: 0.3 }}
-              />
-
-              {/* Main Card */}
-              <motion.div 
-                className={`relative h-full rounded-3xl border backdrop-blur-xl overflow-hidden transition-colors duration-500 ${
-                  isHighlight 
-                    ? 'bg-gradient-to-br from-primary/15 via-card to-secondary/15 border-primary/40' 
-                    : 'bg-card/90 border-border/50 hover:border-primary/50'
+                    ? 'bg-gradient-to-br from-primary/20 to-secondary/20 border-primary/40 ring-2 ring-primary/20' 
+                    : 'bg-card/50 border-border/50 hover:border-primary/40 hover:bg-card'
                 }`}
-                animate={{ 
-                  scale: isHovered ? 1.02 : 1,
-                  y: isHovered ? -8 : 0
-                }}
-                transition={{ type: "spring", stiffness: 400, damping: 25 }}
               >
-                {/* Animated Background Pattern */}
-                <div className="absolute inset-0 overflow-hidden">
-                  <motion.div 
-                    className="absolute inset-0 opacity-[0.03]"
-                    style={{
-                      backgroundImage: `radial-gradient(circle at 2px 2px, currentColor 1px, transparent 0)`,
-                      backgroundSize: '24px 24px'
-                    }}
-                    animate={{ 
-                      backgroundPosition: isHovered ? ['0px 0px', '24px 24px'] : '0px 0px'
-                    }}
-                    transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-                  />
-                  
-                  {/* Floating Orb */}
-                  <motion.div 
-                    className="absolute -top-10 -right-10 w-40 h-40 rounded-full bg-gradient-to-br from-primary/20 to-secondary/20 blur-3xl"
-                    animate={{ 
-                      opacity: isHovered ? 1 : 0.3,
-                      scale: isHovered ? 1.2 : 1,
-                      x: isHovered ? -10 : 0,
-                      y: isHovered ? 10 : 0
-                    }}
-                    transition={{ duration: 0.5 }}
-                  />
-                </div>
-
-                {/* Highlight Badge */}
                 {isHighlight && (
-                  <div className="absolute top-0 left-0 right-0 flex justify-center">
-                    <motion.div 
-                      className="px-5 py-2 bg-gradient-to-r from-primary to-secondary text-primary-foreground text-xs font-bold rounded-b-2xl flex items-center gap-2 shadow-lg shadow-primary/30"
-                      initial={{ y: -30 }}
-                      animate={{ y: 0 }}
-                      transition={{ delay: 0.5, type: "spring" }}
-                    >
-                      <Sparkles className="w-3.5 h-3.5" />
-                      EXKLUSIV FÜR MITGLIEDER
-                    </motion.div>
+                  <div className="absolute -top-3 left-6 px-3 py-1 bg-gradient-to-r from-primary to-secondary text-primary-foreground text-xs font-bold rounded-full flex items-center gap-1">
+                    <Sparkles className="w-3 h-3" />
+                    TOP
                   </div>
                 )}
-
-                <div className={`relative p-6 md:p-8 ${isHighlight ? 'pt-12' : ''}`}>
-                  {/* Icon with 3D Effect */}
-                  <div className="mb-6 relative">
-                    <motion.div 
-                      className={`w-16 h-16 md:w-20 md:h-20 rounded-2xl flex items-center justify-center relative ${
-                        isHighlight 
-                          ? 'bg-gradient-to-br from-primary to-secondary shadow-2xl shadow-primary/40' 
-                          : 'bg-gradient-to-br from-primary/10 to-secondary/10 border border-primary/20'
-                      }`}
-                      animate={{ 
-                        rotateY: isHovered ? 10 : 0,
-                        rotateX: isHovered ? -5 : 0,
-                        scale: isHovered ? 1.1 : 1
-                      }}
-                      transition={{ type: "spring", stiffness: 300 }}
-                      style={{ transformStyle: "preserve-3d" }}
-                    >
-                      <Icon className={`w-8 h-8 md:w-10 md:h-10 ${isHighlight ? 'text-primary-foreground' : 'text-primary'}`} />
-                      
-                      {/* Icon Glow */}
-                      <motion.div 
-                        className="absolute inset-0 rounded-2xl bg-primary/30 blur-xl"
-                        animate={{ opacity: isHovered ? 0.8 : 0 }}
-                      />
-                    </motion.div>
-
-                    {/* Animated Rings */}
-                    <motion.div 
-                      className="absolute -inset-3 rounded-3xl border-2 border-dashed border-primary/30"
-                      animate={{ 
-                        rotate: isHovered ? 360 : 0,
-                        opacity: isHovered ? 1 : 0
-                      }}
-                      transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
-                    />
-                    <motion.div 
-                      className="absolute -inset-5 rounded-3xl border border-secondary/20"
-                      animate={{ 
-                        rotate: isHovered ? -360 : 0,
-                        opacity: isHovered ? 0.5 : 0
-                      }}
-                      transition={{ duration: 12, repeat: Infinity, ease: "linear" }}
-                    />
-                  </div>
-
-                  {/* Content */}
-                  <motion.h4 
-                    className={`font-bold text-xl md:text-2xl mb-3 ${
-                      isHighlight ? 'text-primary' : 'text-foreground'
-                    }`}
-                    animate={{ x: isHovered ? 4 : 0 }}
-                    transition={{ type: "spring", stiffness: 300 }}
-                  >
-                    {feature.title}
-                  </motion.h4>
-                  
-                  <p className="text-muted-foreground leading-relaxed mb-6 text-sm md:text-base">
-                    {feature.description}
-                  </p>
-
-                  {/* Interactive CTA */}
-                  <motion.div 
-                    className="flex items-center gap-2 text-sm font-semibold text-primary"
-                    animate={{ x: isHovered ? 8 : 0 }}
-                    transition={{ type: "spring", stiffness: 300 }}
-                  >
-                    <MousePointerClick className="w-4 h-4" />
-                    <span>Mehr erfahren</span>
-                    <motion.div animate={{ x: isHovered ? 4 : 0 }}>
-                      <ArrowRight className="w-4 h-4" />
-                    </motion.div>
-                  </motion.div>
+                <div className={`shrink-0 w-14 h-14 rounded-xl flex items-center justify-center group-hover:scale-110 transition-all duration-300 ${
+                  isHighlight 
+                    ? 'bg-gradient-to-br from-primary to-secondary' 
+                    : 'bg-gradient-to-br from-primary/10 to-secondary/10 border border-primary/20 group-hover:border-primary/50'
+                }`}>
+                  <Icon className={`w-6 h-6 ${isHighlight ? 'text-primary-foreground' : 'text-primary'}`} />
                 </div>
-
-                {/* Bottom Gradient Line */}
-                <motion.div 
-                  className="absolute bottom-0 left-0 right-0 h-1.5 bg-gradient-to-r from-primary via-secondary to-primary"
-                  initial={{ scaleX: 0 }}
-                  animate={{ scaleX: isHovered ? 1 : 0 }}
-                  transition={{ duration: 0.4 }}
-                  style={{ transformOrigin: "left" }}
-                />
-
-                {/* Corner Accent */}
-                <motion.div 
-                  className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-bl from-primary/10 to-transparent"
-                  animate={{ opacity: isHovered ? 1 : 0.3 }}
-                />
-              </motion.div>
-            </motion.div>
-          );
-        })}
-      </motion.div>
-
-      {/* Bottom Stats Bar */}
-      <motion.div 
-        className="mt-16 flex flex-col sm:flex-row items-center justify-center gap-6 sm:gap-12"
-        initial={{ opacity: 0, y: 30 }}
-        animate={isInView ? { opacity: 1, y: 0 } : {}}
-        transition={{ delay: 0.8, duration: 0.6 }}
-      >
-        <div className="flex items-center gap-4 px-6 py-4 rounded-2xl bg-gradient-to-r from-primary/10 to-secondary/10 border border-primary/20 backdrop-blur-sm">
-          <div className="flex -space-x-3">
-            {['MS', 'AK', 'TL', 'RB'].map((initials, i) => (
-              <motion.div 
-                key={i} 
-                className="w-11 h-11 rounded-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center text-primary-foreground text-sm font-bold border-2 border-background shadow-lg"
-                initial={{ scale: 0, x: 20 }}
-                animate={isInView ? { scale: 1, x: 0 } : {}}
-                transition={{ delay: 1 + i * 0.1, type: "spring" }}
+                <div className="flex-1">
+                  <h3 className={`font-bold text-lg mb-1 transition-colors ${isHighlight ? 'text-primary' : 'group-hover:text-primary'}`}>{feature.title}</h3>
+                  <p className="text-muted-foreground text-sm">{feature.description}</p>
+                </div>
+                <ArrowRight className={`w-5 h-5 shrink-0 self-center transition-all duration-300 ${
+                  isHighlight ? 'text-primary opacity-100' : 'text-muted-foreground opacity-0 group-hover:opacity-100 group-hover:text-primary'
+                }`} />
+              </div>
+            );
+          })}
+        </div>
+        
+        {/* Right Column - Offset */}
+        <div className="space-y-6 md:mt-12">
+          {features.filter((_, i) => i % 2 === 1).map((feature, index) => {
+            const Icon = feature.icon;
+            const isHighlight = feature.highlight;
+            return (
+              <div
+                key={index}
+                className={`group relative flex items-start gap-5 backdrop-blur-sm border rounded-2xl p-6 transition-all duration-300 ${
+                  isHighlight 
+                    ? 'bg-gradient-to-br from-primary/20 to-secondary/20 border-primary/40 ring-2 ring-primary/20' 
+                    : 'bg-card/50 border-border/50 hover:border-secondary/40 hover:bg-card'
+                }`}
               >
-                {initials}
-              </motion.div>
-            ))}
-          </div>
-          <div className="text-left">
-            <div className="font-bold text-lg text-foreground">500+ Anbieter</div>
-            <div className="text-sm text-muted-foreground">vertrauen auf katew</div>
-          </div>
+                {isHighlight && (
+                  <div className="absolute -top-3 left-6 px-3 py-1 bg-gradient-to-r from-primary to-secondary text-primary-foreground text-xs font-bold rounded-full flex items-center gap-1">
+                    <Sparkles className="w-3 h-3" />
+                    TOP
+                  </div>
+                )}
+                <div className={`shrink-0 w-14 h-14 rounded-xl flex items-center justify-center group-hover:scale-110 transition-all duration-300 ${
+                  isHighlight 
+                    ? 'bg-gradient-to-br from-primary to-secondary' 
+                    : 'bg-gradient-to-br from-secondary/10 to-primary/10 border border-secondary/20 group-hover:border-secondary/50'
+                }`}>
+                  <Icon className={`w-6 h-6 ${isHighlight ? 'text-primary-foreground' : 'text-secondary'}`} />
+                </div>
+                <div className="flex-1">
+                  <h3 className={`font-bold text-lg mb-1 transition-colors ${isHighlight ? 'text-primary' : 'group-hover:text-secondary'}`}>{feature.title}</h3>
+                  <p className="text-muted-foreground text-sm">{feature.description}</p>
+                </div>
+                <ArrowRight className={`w-5 h-5 shrink-0 self-center transition-all duration-300 ${
+                  isHighlight ? 'text-secondary opacity-100' : 'text-muted-foreground opacity-0 group-hover:opacity-100 group-hover:text-secondary'
+                }`} />
+              </div>
+            );
+          })}
         </div>
-
-        <div className="flex items-center gap-3 px-6 py-4 rounded-2xl bg-card border border-border/50">
-          <Rocket className="w-6 h-6 text-secondary" />
-          <div>
-            <div className="font-bold text-foreground">Starte noch heute</div>
-            <div className="text-sm text-muted-foreground">Keine versteckten Kosten</div>
-          </div>
-        </div>
-      </motion.div>
+      </div>
     </div>
   );
 };
