@@ -21,7 +21,10 @@ import {
   Star,
   Play,
   CheckCircle2,
-  Headphones
+  Headphones,
+  Video,
+  Newspaper,
+  CircleHelp
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -238,21 +241,180 @@ const contactOptions = [
   },
 ];
 
-const videoTutorials = [
+// Knowledge Base Data
+const allVideos = [
   {
     title: "Erste Schritte mit katew",
     duration: "4:32",
-    thumbnail: "Einführungsvideo",
+    description: "Lernen Sie die Grundlagen der Plattform kennen",
+    views: "12.4k",
+    category: "Einführung",
   },
   {
     title: "Buchung Schritt für Schritt",
     duration: "6:15",
-    thumbnail: "Buchungsanleitung",
+    description: "Komplette Anleitung zur Buchung",
+    views: "8.2k",
+    category: "Buchung",
   },
   {
     title: "Dashboard optimal nutzen",
     duration: "5:48",
-    thumbnail: "Dashboard Guide",
+    description: "Alle Funktionen des Dashboards erklärt",
+    views: "5.1k",
+    category: "Dashboard",
+  },
+  {
+    title: "Transportunternehmen auswählen",
+    duration: "3:22",
+    description: "Wie Sie das richtige Unternehmen finden",
+    views: "4.8k",
+    category: "Buchung",
+  },
+  {
+    title: "Abrechnung verstehen",
+    duration: "7:10",
+    description: "Alles über Kosten und Zahlungen",
+    views: "3.9k",
+    category: "Finanzen",
+  },
+  {
+    title: "Mobile App Einführung",
+    duration: "4:55",
+    description: "katew unterwegs nutzen",
+    views: "2.7k",
+    category: "Mobile",
+  },
+];
+
+const allArticles = [
+  {
+    title: "Vollständiger Leitfaden zur Buchung",
+    excerpt: "Erfahren Sie alles über den Buchungsprozess von A bis Z",
+    readTime: "8 min",
+    views: "15.2k",
+    category: "Buchung",
+    date: "12. Jan 2026",
+  },
+  {
+    title: "Kostenübernahme durch Krankenkassen",
+    excerpt: "Welche Kosten werden übernommen und wie beantragen Sie die Erstattung",
+    readTime: "6 min",
+    views: "11.8k",
+    category: "Finanzen",
+    date: "10. Jan 2026",
+  },
+  {
+    title: "Transportarten im Überblick",
+    excerpt: "Sitzend, liegend oder mit Rollstuhl - welche Option passt zu Ihnen",
+    readTime: "5 min",
+    views: "9.4k",
+    category: "Transport",
+    date: "8. Jan 2026",
+  },
+  {
+    title: "Partner-Account einrichten",
+    excerpt: "Schritt-für-Schritt Anleitung für Kliniken und Praxen",
+    readTime: "4 min",
+    views: "7.2k",
+    category: "Account",
+    date: "5. Jan 2026",
+  },
+  {
+    title: "Häufige Buchungsfehler vermeiden",
+    excerpt: "Die 10 häufigsten Fehler und wie Sie sie umgehen",
+    readTime: "7 min",
+    views: "6.1k",
+    category: "Tipps",
+    date: "3. Jan 2026",
+  },
+  {
+    title: "Datenschutz bei Krankentransporten",
+    excerpt: "Wie wir Ihre sensiblen Daten schützen",
+    readTime: "5 min",
+    views: "4.5k",
+    category: "Sicherheit",
+    date: "1. Jan 2026",
+  },
+];
+
+const allQuestions = [
+  {
+    question: "Wie kann ich eine Krankenfahrt buchen?",
+    answer: "Geben Sie einfach Start- und Zieladresse ein, wählen Sie die Transportart und senden Sie Ihre Anfrage ab.",
+    helpful: 342,
+    category: "Buchung",
+  },
+  {
+    question: "Wie schnell kann eine Krankenfahrt organisiert werden?",
+    answer: "In der Regel erhalten Sie innerhalb weniger Stunden erste Angebote von qualifizierten Unternehmen.",
+    helpful: 289,
+    category: "Buchung",
+  },
+  {
+    question: "Ist der Dienst kostenlos?",
+    answer: "Ja, die Nutzung unserer Plattform ist für Patienten und Partner kostenlos.",
+    helpful: 256,
+    category: "Kosten",
+  },
+  {
+    question: "Übernimmt die Krankenkasse die Kosten?",
+    answer: "Bei einer ärztlichen Verordnung übernimmt in vielen Fällen die Krankenkasse die Transportkosten.",
+    helpful: 234,
+    category: "Kosten",
+  },
+  {
+    question: "Welche Qualitätsstandards erfüllen die Unternehmen?",
+    answer: "Alle Partner durchlaufen eine strenge Prüfung mit Lizenzen und Zertifizierungen.",
+    helpful: 198,
+    category: "Qualität",
+  },
+  {
+    question: "Kann ich eine Buchung stornieren?",
+    answer: "Ja, Stornierungen sind bis 24 Stunden vor dem Termin kostenlos möglich.",
+    helpful: 176,
+    category: "Buchung",
+  },
+  {
+    question: "Wie erreiche ich den Support?",
+    answer: "Sie erreichen uns per Telefon oder E-Mail. Unsere Hotline ist Mo-Fr von 8-18 Uhr erreichbar.",
+    helpful: 165,
+    category: "Support",
+  },
+  {
+    question: "Welche Zahlungsmethoden werden akzeptiert?",
+    answer: "Wir akzeptieren Überweisung, Lastschrift und bei Selbstzahlern auch Kreditkarte.",
+    helpful: 143,
+    category: "Kosten",
+  },
+];
+
+type KnowledgeCategory = "videos" | "articles" | "questions";
+
+const knowledgeCategories = [
+  {
+    id: "articles" as KnowledgeCategory,
+    icon: Newspaper,
+    label: "Artikel",
+    count: allArticles.length,
+    gradient: "from-blue-500 to-cyan-500",
+    description: "Ausführliche Anleitungen",
+  },
+  {
+    id: "questions" as KnowledgeCategory,
+    icon: CircleHelp,
+    label: "Fragen",
+    count: allQuestions.length,
+    gradient: "from-emerald-500 to-teal-500",
+    description: "Häufig gestellte Fragen",
+  },
+  {
+    id: "videos" as KnowledgeCategory,
+    icon: Video,
+    label: "Videos",
+    count: allVideos.length,
+    gradient: "from-violet-500 to-purple-500",
+    description: "Video-Tutorials",
   },
 ];
 
@@ -261,6 +423,7 @@ export default function HelpCenter() {
   const [searchQuery, setSearchQuery] = useState("");
   const [activeTab, setActiveTab] = useState<"anbieter" | "partner">("partner");
   const [isSearchFocused, setIsSearchFocused] = useState(false);
+  const [activeKnowledgeCategory, setActiveKnowledgeCategory] = useState<KnowledgeCategory>("articles");
 
   const categories = activeTab === "anbieter" ? anbieterCategories : partnerCategories;
   const articles = activeTab === "anbieter" ? anbieterArticles : partnerArticles;
@@ -461,47 +624,240 @@ export default function HelpCenter() {
           </div>
         </section>
 
-        {/* Video Tutorials Section */}
-        <section className="py-16 md:py-20 bg-gradient-to-b from-muted/30 to-transparent">
-          <div className="container mx-auto px-4">
-            <div className="max-w-6xl mx-auto">
-              <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-10">
-                <div>
-                  <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-secondary/10 text-secondary text-sm font-medium mb-4">
-                    <Play className="w-4 h-4" />
-                    Video-Tutorials
-                  </div>
-                  <h2 className="text-3xl md:text-4xl font-bold">Lernen Sie mit Videos</h2>
+        {/* Knowledge Base Section - Modern Split Layout with Categories */}
+        <section className="py-16 md:py-24 bg-gradient-to-b from-muted/30 via-muted/10 to-transparent relative overflow-hidden">
+          {/* Background Effects */}
+          <div className="absolute inset-0 pointer-events-none">
+            <div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-primary/5 rounded-full blur-[120px]" />
+            <div className="absolute bottom-0 right-1/4 w-[400px] h-[400px] bg-secondary/5 rounded-full blur-[100px]" />
+          </div>
+
+          <div className="container mx-auto px-4 relative">
+            <div className="max-w-7xl mx-auto">
+              {/* Header */}
+              <div className="text-center mb-12">
+                <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-primary/10 to-secondary/10 backdrop-blur-sm border border-primary/20 text-primary text-sm font-medium mb-6">
+                  <BookOpen className="w-4 h-4" />
+                  Wissensdatenbank
                 </div>
-                <Button variant="ghost" className="text-primary hover:text-primary/80 w-fit">
-                  Alle Videos ansehen
-                  <ArrowRight className="ml-2 w-4 h-4" />
-                </Button>
+                <h2 className="text-3xl md:text-5xl font-bold mb-4">
+                  <span className="bg-gradient-to-r from-foreground to-foreground/70 bg-clip-text text-transparent">
+                    Alles an einem 
+                  </span>
+                  <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent"> Ort</span>
+                </h2>
+                <p className="text-muted-foreground text-lg max-w-xl mx-auto">
+                  Durchsuchen Sie unsere Artikel, FAQs und Video-Tutorials
+                </p>
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                {videoTutorials.map((video, index) => (
-                  <div
-                    key={index}
-                    className="group relative bg-card rounded-2xl border border-border/50 overflow-hidden hover:border-primary/30 hover:shadow-xl transition-all duration-500 cursor-pointer"
-                  >
-                    {/* Video Thumbnail Placeholder */}
-                    <div className="relative h-48 bg-gradient-to-br from-primary/10 to-secondary/10 flex items-center justify-center overflow-hidden">
-                      <div className="absolute inset-0 bg-gradient-to-t from-card via-transparent to-transparent opacity-50" />
-                      <div className="w-16 h-16 rounded-full bg-white/90 backdrop-blur-sm flex items-center justify-center shadow-xl group-hover:scale-110 transition-transform duration-500">
-                        <Play className="w-7 h-7 text-primary ml-1" fill="currentColor" />
-                      </div>
-                      <div className="absolute bottom-3 right-3 px-2.5 py-1 rounded-lg bg-black/70 text-white text-xs font-medium backdrop-blur-sm">
-                        {video.duration}
-                      </div>
-                    </div>
-                    <div className="p-5">
-                      <h3 className="font-semibold text-lg group-hover:text-primary transition-colors">
-                        {video.title}
-                      </h3>
-                    </div>
+              {/* Main Content Grid */}
+              <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+                {/* Category Sidebar */}
+                <div className="lg:col-span-3">
+                  <div className="sticky top-24 space-y-3">
+                    {knowledgeCategories.map((cat) => {
+                      const Icon = cat.icon;
+                      const isActive = activeKnowledgeCategory === cat.id;
+                      return (
+                        <button
+                          key={cat.id}
+                          onClick={() => setActiveKnowledgeCategory(cat.id)}
+                          className={`w-full group relative overflow-hidden rounded-2xl p-5 text-left transition-all duration-500 ${
+                            isActive
+                              ? "bg-card border-2 border-primary/30 shadow-xl"
+                              : "bg-card/50 border border-border/50 hover:border-primary/20 hover:bg-card hover:shadow-lg"
+                          }`}
+                        >
+                          {/* Active Glow */}
+                          {isActive && (
+                            <div className={`absolute -inset-1 bg-gradient-to-r ${cat.gradient} opacity-10 blur-xl`} />
+                          )}
+                          
+                          <div className="relative flex items-center gap-4">
+                            <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${cat.gradient} flex items-center justify-center shadow-lg transition-transform duration-300 ${isActive ? 'scale-110' : 'group-hover:scale-105'}`}>
+                              <Icon className="w-6 h-6 text-white" />
+                            </div>
+                            <div className="flex-1">
+                              <div className="flex items-center justify-between">
+                                <h3 className={`font-bold text-base transition-colors ${isActive ? 'text-primary' : 'text-foreground group-hover:text-primary'}`}>
+                                  {cat.label}
+                                </h3>
+                                <span className={`text-xs font-semibold px-2.5 py-1 rounded-full ${isActive ? 'bg-primary/10 text-primary' : 'bg-muted text-muted-foreground'}`}>
+                                  {cat.count}
+                                </span>
+                              </div>
+                              <p className="text-xs text-muted-foreground mt-0.5">{cat.description}</p>
+                            </div>
+                          </div>
+
+                          {/* Active Indicator */}
+                          {isActive && (
+                            <div className={`absolute left-0 top-1/2 -translate-y-1/2 w-1 h-8 bg-gradient-to-b ${cat.gradient} rounded-r-full`} />
+                          )}
+                        </button>
+                      );
+                    })}
                   </div>
-                ))}
+                </div>
+
+                {/* Content Area */}
+                <div className="lg:col-span-9">
+                  <div className="bg-card/50 backdrop-blur-sm rounded-3xl border border-border/50 p-6 md:p-8 min-h-[600px]">
+                    {/* Content Header */}
+                    <div className="flex items-center justify-between mb-8">
+                      <div className="flex items-center gap-3">
+                        {(() => {
+                          const activeCat = knowledgeCategories.find(c => c.id === activeKnowledgeCategory);
+                          const Icon = activeCat?.icon || BookOpen;
+                          return (
+                            <>
+                              <div className={`w-10 h-10 rounded-xl bg-gradient-to-br ${activeCat?.gradient} flex items-center justify-center`}>
+                                <Icon className="w-5 h-5 text-white" />
+                              </div>
+                              <div>
+                                <h3 className="text-xl font-bold">Alle {activeCat?.label}</h3>
+                                <p className="text-sm text-muted-foreground">{activeCat?.count} Einträge verfügbar</p>
+                              </div>
+                            </>
+                          );
+                        })()}
+                      </div>
+                      <div className="relative hidden sm:block">
+                        <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+                        <Input
+                          placeholder="Durchsuchen..."
+                          className="pl-10 w-48 rounded-xl bg-background/50 border-border/50 focus-visible:ring-primary/30"
+                        />
+                      </div>
+                    </div>
+
+                    {/* Videos Grid */}
+                    {activeKnowledgeCategory === "videos" && (
+                      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5">
+                        {allVideos.map((video, index) => (
+                          <div
+                            key={index}
+                            className="group relative bg-background rounded-2xl border border-border/50 overflow-hidden hover:border-primary/30 hover:shadow-xl transition-all duration-500 cursor-pointer"
+                          >
+                            {/* Video Thumbnail */}
+                            <div className="relative h-36 bg-gradient-to-br from-violet-500/20 to-purple-500/20 flex items-center justify-center overflow-hidden">
+                              <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent opacity-60" />
+                              <div className="w-14 h-14 rounded-full bg-white/90 backdrop-blur-sm flex items-center justify-center shadow-xl group-hover:scale-110 transition-transform duration-500">
+                                <Play className="w-6 h-6 text-primary ml-1" fill="currentColor" />
+                              </div>
+                              <div className="absolute bottom-3 right-3 px-2 py-0.5 rounded-lg bg-black/70 text-white text-xs font-medium backdrop-blur-sm">
+                                {video.duration}
+                              </div>
+                              <div className="absolute top-3 left-3 px-2 py-0.5 rounded-lg bg-violet-500/80 text-white text-xs font-medium backdrop-blur-sm">
+                                {video.category}
+                              </div>
+                            </div>
+                            <div className="p-4">
+                              <h4 className="font-semibold text-sm group-hover:text-primary transition-colors line-clamp-1">
+                                {video.title}
+                              </h4>
+                              <p className="text-xs text-muted-foreground mt-1 line-clamp-2">{video.description}</p>
+                              <div className="flex items-center gap-2 mt-3 text-xs text-muted-foreground">
+                                <span className="flex items-center gap-1">
+                                  <Play className="w-3 h-3" />
+                                  {video.views} Aufrufe
+                                </span>
+                              </div>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    )}
+
+                    {/* Articles List */}
+                    {activeKnowledgeCategory === "articles" && (
+                      <div className="space-y-4">
+                        {allArticles.map((article, index) => (
+                          <div
+                            key={index}
+                            className="group relative bg-background rounded-xl border border-border/50 p-5 hover:border-primary/30 hover:shadow-lg transition-all duration-300 cursor-pointer overflow-hidden"
+                          >
+                            <div className="absolute inset-0 bg-gradient-to-r from-blue-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                            
+                            <div className="relative flex items-start gap-4">
+                              <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-500/10 to-cyan-500/10 flex items-center justify-center shrink-0 group-hover:from-blue-500/20 group-hover:to-cyan-500/20 transition-colors">
+                                <FileText className="w-6 h-6 text-blue-500" />
+                              </div>
+                              <div className="flex-1 min-w-0">
+                                <div className="flex items-center gap-2 mb-1.5">
+                                  <span className="text-xs font-medium px-2 py-0.5 rounded-full bg-blue-500/10 text-blue-600">
+                                    {article.category}
+                                  </span>
+                                  <span className="text-xs text-muted-foreground">{article.date}</span>
+                                </div>
+                                <h4 className="font-semibold text-base group-hover:text-primary transition-colors">
+                                  {article.title}
+                                </h4>
+                                <p className="text-sm text-muted-foreground mt-1 line-clamp-2">{article.excerpt}</p>
+                                <div className="flex items-center gap-4 mt-3 text-xs text-muted-foreground">
+                                  <span className="flex items-center gap-1">
+                                    <Clock className="w-3 h-3" />
+                                    {article.readTime} Lesezeit
+                                  </span>
+                                  <span className="flex items-center gap-1">
+                                    <BookOpen className="w-3 h-3" />
+                                    {article.views} Aufrufe
+                                  </span>
+                                </div>
+                              </div>
+                              <div className="w-10 h-10 rounded-full bg-muted/50 flex items-center justify-center shrink-0 group-hover:bg-primary/10 transition-colors">
+                                <ArrowRight className="w-4 h-4 text-muted-foreground group-hover:text-primary group-hover:translate-x-0.5 transition-all" />
+                              </div>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    )}
+
+                    {/* Questions/FAQ List */}
+                    {activeKnowledgeCategory === "questions" && (
+                      <div className="space-y-4">
+                        {allQuestions.map((q, index) => (
+                          <div
+                            key={index}
+                            className="group relative bg-background rounded-xl border border-border/50 p-5 hover:border-primary/30 hover:shadow-lg transition-all duration-300 cursor-pointer overflow-hidden"
+                          >
+                            <div className="absolute inset-0 bg-gradient-to-r from-emerald-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                            
+                            <div className="relative">
+                              <div className="flex items-start gap-4">
+                                <div className="w-10 h-10 rounded-full bg-gradient-to-br from-emerald-500/20 to-teal-500/20 flex items-center justify-center shrink-0">
+                                  <CircleHelp className="w-5 h-5 text-emerald-600" />
+                                </div>
+                                <div className="flex-1 min-w-0">
+                                  <div className="flex items-center gap-2 mb-1">
+                                    <span className="text-xs font-medium px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-600">
+                                      {q.category}
+                                    </span>
+                                  </div>
+                                  <h4 className="font-semibold text-base group-hover:text-primary transition-colors">
+                                    {q.question}
+                                  </h4>
+                                  <p className="text-sm text-muted-foreground mt-2 line-clamp-2">{q.answer}</p>
+                                  <div className="flex items-center gap-2 mt-3">
+                                    <span className="text-xs text-muted-foreground flex items-center gap-1">
+                                      <CheckCircle2 className="w-3 h-3 text-emerald-500" />
+                                      {q.helpful} fanden dies hilfreich
+                                    </span>
+                                  </div>
+                                </div>
+                                <div className="w-10 h-10 rounded-full bg-muted/50 flex items-center justify-center shrink-0 group-hover:bg-primary/10 transition-colors">
+                                  <ChevronRight className="w-4 h-4 text-muted-foreground group-hover:text-primary transition-all" />
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                </div>
               </div>
             </div>
           </div>
