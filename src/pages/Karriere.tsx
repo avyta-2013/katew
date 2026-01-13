@@ -36,12 +36,47 @@ import { Footer } from "@/components/Footer";
 import { Link } from "react-router-dom";
 
 
-const benefits = [
-  { icon: Laptop, text: "Remote-First Kultur", description: "Arbeite von überall" },
-  { icon: Clock, text: "Flexible Arbeitszeiten", description: "Work-Life-Balance" },
-  { icon: PartyPopper, text: "Team-Events", description: "Quarterly Offsites" },
-  { icon: Zap, text: "Neueste Tech", description: "Beste Tools & Hardware" },
-  { icon: HeartHandshake, text: "Mentoring", description: "Persönliche Entwicklung" },
+const benefitCategories = [
+  {
+    category: "Flexibilität",
+    icon: Globe,
+    color: "from-blue-500 to-cyan-500",
+    benefits: [
+      { icon: Laptop, title: "Remote-First", desc: "Arbeite von überall auf der Welt" },
+      { icon: Clock, title: "Flexible Zeiten", desc: "Du bestimmst deinen Rhythmus" },
+      { icon: Wifi, title: "Home Office Setup", desc: "Wir statten dich komplett aus" },
+    ]
+  },
+  {
+    category: "Wachstum",
+    icon: Rocket,
+    color: "from-violet-500 to-purple-500",
+    benefits: [
+      { icon: GraduationCap, title: "Weiterbildung", desc: "Unbegrenztes Lernbudget" },
+      { icon: HeartHandshake, title: "Mentoring", desc: "1:1 Coaching & Feedback" },
+      { icon: TrendingUp, title: "Karrierepfade", desc: "Klare Entwicklungsmöglichkeiten" },
+    ]
+  },
+  {
+    category: "Team & Kultur",
+    icon: Heart,
+    color: "from-rose-500 to-pink-500",
+    benefits: [
+      { icon: PartyPopper, title: "Team-Events", desc: "Quarterly Offsites & Feiern" },
+      { icon: Coffee, title: "Modernes Büro", desc: "Zentral in Frankfurt" },
+      { icon: Users, title: "Flache Hierarchien", desc: "Deine Meinung zählt" },
+    ]
+  },
+  {
+    category: "Vergütung",
+    icon: Award,
+    color: "from-amber-500 to-orange-500",
+    benefits: [
+      { icon: Star, title: "Equity Programm", desc: "Werde Miteigentümer" },
+      { icon: Shield, title: "Zusatzleistungen", desc: "Gesundheit & Vorsorge" },
+      { icon: Zap, title: "Neueste Tech", desc: "MacBook, Tools & mehr" },
+    ]
+  },
 ];
 
 const openPositions = [
@@ -88,13 +123,6 @@ const testimonials = [
     image: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=150&h=150&fit=crop&crop=face",
     quote: "Hier kann ich wirklich einen Unterschied im Leben unserer Kunden machen.",
   },
-];
-
-const perks = [
-  { icon: Coffee, title: "Modernes Büro", desc: "Zentral in Frankfurt mit allem Komfort" },
-  { icon: Wifi, title: "Home Office Setup", desc: "Wir statten dich komplett aus" },
-  { icon: Award, title: "Equity Programm", desc: "Werde Miteigentümer" },
-  { icon: Globe, title: "Workation", desc: "Arbeite von überall auf der Welt" },
 ];
 
 export default function Karriere() {
@@ -307,7 +335,7 @@ export default function Karriere() {
           </div>
         </section>
 
-        {/* Benefits Section */}
+        {/* Benefits Section - Redesigned */}
         <section className="py-20 md:py-32 relative overflow-hidden">
           {/* Background */}
           <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-background to-secondary/5" />
@@ -334,79 +362,76 @@ export default function Karriere() {
                 </p>
               </div>
 
-              {/* Main Benefits - Large Cards */}
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-10">
-                {benefits.slice(0, 3).map((benefit, index) => {
-                  const Icon = benefit.icon;
-                  const isHovered = hoveredBenefit === index;
-                  const gradients = [
-                    "from-blue-500 to-cyan-500",
-                    "from-violet-500 to-purple-500",
-                    "from-rose-500 to-pink-500"
-                  ];
+              {/* Benefits Grid - 4 Categories */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
+                {benefitCategories.map((category, categoryIndex) => {
+                  const CategoryIcon = category.icon;
                   return (
                     <div
-                      key={index}
+                      key={categoryIndex}
                       className="group relative"
-                      onMouseEnter={() => setHoveredBenefit(index)}
-                      onMouseLeave={() => setHoveredBenefit(null)}
                     >
-                      <div className={`absolute inset-0 bg-gradient-to-br ${gradients[index]}/20 rounded-3xl blur-xl transition-opacity duration-500 ${isHovered ? "opacity-100" : "opacity-0"}`} />
+                      {/* Hover Glow */}
+                      <div className={`absolute inset-0 bg-gradient-to-br ${category.color} opacity-0 group-hover:opacity-10 rounded-3xl blur-xl transition-opacity duration-500`} />
                       
-                      <div className={`relative h-full bg-card rounded-3xl border border-border/50 p-8 transition-all duration-500 ${isHovered ? "border-primary/40 -translate-y-2 shadow-2xl" : "hover:shadow-lg"}`}>
-                        <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${gradients[index]} flex items-center justify-center mb-6 transition-transform duration-500 ${isHovered ? "scale-110 rotate-3" : ""}`}>
-                          <Icon className="w-8 h-8 text-white" />
-                        </div>
-                        
-                        <h3 className="font-bold text-xl mb-2">{benefit.text}</h3>
-                        <p className="text-muted-foreground leading-relaxed">{benefit.description}</p>
-                        
-                        <div className={`absolute bottom-0 left-1/2 -translate-x-1/2 h-1 bg-gradient-to-r ${gradients[index]} rounded-full transition-all duration-500 ${isHovered ? "w-16" : "w-0"}`} />
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
-
-              {/* Secondary Benefits - Smaller Cards */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-10">
-                {benefits.slice(3).map((benefit, index) => {
-                  const Icon = benefit.icon;
-                  return (
-                    <div
-                      key={index}
-                      className="group flex items-center gap-5 bg-card rounded-2xl border border-border/50 p-6 hover:border-primary/40 hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
-                    >
-                      <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-primary/10 to-secondary/10 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
-                        <Icon className="w-7 h-7 text-primary" />
-                      </div>
-                      <div>
-                        <h3 className="font-bold text-lg mb-0.5">{benefit.text}</h3>
-                        <p className="text-sm text-muted-foreground">{benefit.description}</p>
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
-
-              {/* Perks Strip */}
-              <div className="bg-gradient-to-r from-primary/10 via-secondary/10 to-primary/10 rounded-2xl p-1">
-                <div className="bg-card rounded-xl p-6">
-                  <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-                    {perks.map((perk, index) => {
-                      const Icon = perk.icon;
-                      return (
-                        <div key={index} className="flex items-center gap-3 group">
-                          <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-primary/10 to-secondary/10 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
-                            <Icon className="w-5 h-5 text-primary" />
+                      <div className="relative bg-card rounded-3xl border border-border/50 p-8 group-hover:border-primary/30 transition-all duration-300 hover:shadow-2xl hover:-translate-y-1 h-full">
+                        {/* Category Header */}
+                        <div className="flex items-center gap-4 mb-6">
+                          <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${category.color} flex items-center justify-center shadow-lg group-hover:scale-110 group-hover:rotate-3 transition-transform duration-300`}>
+                            <CategoryIcon className="w-7 h-7 text-white" />
                           </div>
                           <div>
-                            <h4 className="font-semibold text-sm">{perk.title}</h4>
-                            <p className="text-xs text-muted-foreground">{perk.desc}</p>
+                            <h3 className="text-xl font-bold">{category.category}</h3>
+                            <div className={`h-1 w-12 rounded-full bg-gradient-to-r ${category.color} mt-1 group-hover:w-20 transition-all duration-300`} />
                           </div>
                         </div>
-                      );
-                    })}
+
+                        {/* Benefits List */}
+                        <div className="space-y-4">
+                          {category.benefits.map((benefit, benefitIndex) => {
+                            const BenefitIcon = benefit.icon;
+                            return (
+                              <div
+                                key={benefitIndex}
+                                className="flex items-start gap-4 p-3 rounded-xl bg-muted/30 hover:bg-muted/50 transition-colors group/item"
+                              >
+                                <div className="w-10 h-10 rounded-xl bg-background flex items-center justify-center flex-shrink-0 shadow-sm group-hover/item:scale-110 transition-transform">
+                                  <BenefitIcon className="w-5 h-5 text-primary" />
+                                </div>
+                                <div>
+                                  <h4 className="font-semibold text-foreground">{benefit.title}</h4>
+                                  <p className="text-sm text-muted-foreground">{benefit.desc}</p>
+                                </div>
+                              </div>
+                            );
+                          })}
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+
+              {/* Bottom Highlight Strip */}
+              <div className="relative">
+                <div className="absolute inset-0 bg-gradient-to-r from-primary via-secondary to-primary rounded-2xl opacity-10" />
+                <div className="relative bg-card/80 backdrop-blur-sm rounded-2xl border border-primary/20 p-8">
+                  <div className="flex flex-col md:flex-row items-center justify-between gap-6">
+                    <div className="flex items-center gap-4">
+                      <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-primary to-secondary flex items-center justify-center shadow-lg shadow-primary/25">
+                        <Sparkles className="w-8 h-8 text-white" />
+                      </div>
+                      <div>
+                        <h3 className="text-xl font-bold mb-1">Noch mehr Benefits?</h3>
+                        <p className="text-muted-foreground">Entdecke alle Vorteile in einem persönlichen Gespräch</p>
+                      </div>
+                    </div>
+                    <Link to="/kontakt">
+                      <Button size="lg" className="bg-gradient-to-r from-primary to-secondary hover:opacity-90 rounded-xl shadow-lg shadow-primary/25">
+                        Jetzt bewerben
+                        <ArrowRight className="ml-2 w-5 h-5" />
+                      </Button>
+                    </Link>
                   </div>
                 </div>
               </div>
