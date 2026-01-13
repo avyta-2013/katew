@@ -887,19 +887,6 @@ export default function HelpCenter() {
             <div className="max-w-7xl mx-auto">
               {/* Section Header */}
               <div className="text-center mb-12">
-                <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-primary/10 to-secondary/10 backdrop-blur-sm border border-primary/20 text-primary text-sm font-medium mb-6">
-                  <BookOpen className="w-4 h-4" />
-                  Wissensdatenbank
-                </div>
-                <h2 className="text-3xl md:text-5xl font-bold mb-4">
-                  <span className="bg-gradient-to-r from-foreground to-foreground/70 bg-clip-text text-transparent">
-                    Alles an einem 
-                  </span>
-                  <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent"> Ort</span>
-                </h2>
-                <p className="text-muted-foreground text-lg max-w-xl mx-auto mb-10">
-                  Durchsuchen Sie Artikel, FAQs und Video-Tutorials
-                </p>
 
                 {/* Partner/Anbieter Toggle - Integrated */}
                 <div className="max-w-md mx-auto">
