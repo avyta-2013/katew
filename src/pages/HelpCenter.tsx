@@ -270,7 +270,7 @@ const stats = [
   { value: "24/7", label: "Online-Hilfe verfügbar" },
   { value: "< 2h", label: "Durchschnittliche Antwortzeit" },
   { value: "98%", label: "Zufriedenheitsrate" },
-  { value: "500+", label: "Hilfe-Artikel" },
+  { value: "500+", label: "Hilfeartikel" },
 ];
 
 export default function HelpCenter() {
@@ -323,7 +323,7 @@ export default function HelpCenter() {
                   Hilfe
                 </span>
                 <span className="bg-gradient-to-r from-primary via-secondary to-primary bg-clip-text text-transparent">
-                  -Center
+                  center
                 </span>
               </h1>
 
@@ -565,7 +565,7 @@ export default function HelpCenter() {
                     </div>
                     <div>
                       <h2 className="text-2xl font-bold">Beliebte Artikel</h2>
-                      <p className="text-sm text-muted-foreground">Meistgelesene Hilfe-Artikel</p>
+                      <p className="text-sm text-muted-foreground">Meistgelesene Hilfeartikel</p>
                     </div>
                   </div>
 
