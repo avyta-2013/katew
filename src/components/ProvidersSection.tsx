@@ -3,7 +3,40 @@ import { motion, useInView, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Zap, TrendingUp, Handshake, ArrowRight, Globe, Navigation, Star, MapPin, ChevronLeft, ChevronRight, Truck, Users, CheckCircle2 } from "lucide-react";
 import { Link } from "react-router-dom";
-import { SimpleProviderMap } from "./SimpleProviderMap";
+import { ScrollArea } from "@/components/ui/scroll-area";
+
+const germanCities = [
+  { name: "Berlin", partners: 78 },
+  { name: "Hamburg", partners: 52 },
+  { name: "München", partners: 65 },
+  { name: "Köln", partners: 41 },
+  { name: "Frankfurt", partners: 48 },
+  { name: "Stuttgart", partners: 35 },
+  { name: "Düsseldorf", partners: 32 },
+  { name: "Leipzig", partners: 28 },
+  { name: "Dortmund", partners: 26 },
+  { name: "Essen", partners: 22 },
+  { name: "Bremen", partners: 19 },
+  { name: "Dresden", partners: 24 },
+  { name: "Hannover", partners: 29 },
+  { name: "Nürnberg", partners: 31 },
+  { name: "Duisburg", partners: 18 },
+  { name: "Bochum", partners: 16 },
+  { name: "Wuppertal", partners: 14 },
+  { name: "Bielefeld", partners: 17 },
+  { name: "Bonn", partners: 21 },
+  { name: "Münster", partners: 23 },
+  { name: "Mannheim", partners: 18 },
+  { name: "Karlsruhe", partners: 15 },
+  { name: "Augsburg", partners: 14 },
+  { name: "Wiesbaden", partners: 16 },
+  { name: "Mönchengladbach", partners: 12 },
+  { name: "Gelsenkirchen", partners: 11 },
+  { name: "Aachen", partners: 19 },
+  { name: "Braunschweig", partners: 13 },
+  { name: "Kiel", partners: 12 },
+  { name: "Chemnitz", partners: 10 },
+];
 
 const benefits = [
   {
@@ -183,10 +216,31 @@ export const ProvidersSection = () => {
                 {/* Decorative gradient */}
                 <div className="absolute top-0 right-0 w-40 h-40 bg-gradient-to-bl from-primary/10 to-transparent rounded-full blur-2xl" />
                 
-                {/* Map */}
-                <div className="relative h-[350px] rounded-2xl overflow-hidden bg-gradient-to-br from-muted/30 via-transparent to-muted/20 mb-6">
-                  <SimpleProviderMap />
-                </div>
+                {/* Cities List */}
+                <ScrollArea className="h-[350px] rounded-2xl">
+                  <div className="grid grid-cols-2 gap-2 pr-4">
+                    {germanCities.map((city, index) => (
+                      <motion.div
+                        key={city.name}
+                        className="flex items-center justify-between p-3 rounded-xl bg-muted/40 hover:bg-muted/70 transition-colors group cursor-pointer"
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: index * 0.02 }}
+                        whileHover={{ scale: 1.02 }}
+                      >
+                        <div className="flex items-center gap-2.5">
+                          <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
+                            <MapPin className="w-4 h-4 text-primary" />
+                          </div>
+                          <span className="font-medium text-sm">{city.name}</span>
+                        </div>
+                        <span className="text-xs font-bold text-primary bg-primary/10 px-2 py-1 rounded-lg">
+                          {city.partners}
+                        </span>
+                      </motion.div>
+                    ))}
+                  </div>
+                </ScrollArea>
 
                 {/* Stats */}
                 <div className="grid grid-cols-3 gap-4">
