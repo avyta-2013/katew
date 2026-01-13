@@ -194,185 +194,218 @@ export default function ForPartners() {
           </div>
         </section>
 
-        {/* Combined Pricing + Partner Types + Benefits Section */}
-        <section className="py-24 md:py-32 relative overflow-hidden bg-gradient-to-br from-secondary/5 via-primary/5 to-transparent">
-          <div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-secondary/10 rounded-full blur-[120px] -translate-y-1/2" />
-          <div className="absolute bottom-0 right-1/4 w-[400px] h-[400px] bg-primary/10 rounded-full blur-[100px] translate-y-1/2" />
+        {/* PRICING SECTION - All-in-One */}
+        <section className="py-24 md:py-32 relative overflow-hidden">
+          {/* Elaborate Background Effects */}
+          <div className="absolute inset-0 bg-gradient-to-br from-secondary/5 via-background to-primary/5" />
+          <div className="absolute top-0 left-0 w-full h-full">
+            <div className="absolute top-20 left-10 w-[600px] h-[600px] bg-secondary/10 rounded-full blur-[150px] animate-pulse" />
+            <div className="absolute bottom-20 right-10 w-[500px] h-[500px] bg-primary/10 rounded-full blur-[120px] animate-pulse" style={{ animationDelay: '1s' }} />
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-gradient-to-r from-secondary/5 to-primary/5 rounded-full blur-[200px]" />
+          </div>
+          
+          {/* Decorative Grid Pattern */}
+          <div className="absolute inset-0 bg-[linear-gradient(rgba(0,0,0,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(0,0,0,0.02)_1px,transparent_1px)] bg-[size:60px_60px]" />
 
           <div className="container mx-auto px-4 relative">
-            {/* Pricing Header */}
-            <div className="text-center mb-16">
-              <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-gradient-to-r from-secondary/20 to-primary/20 backdrop-blur-sm border border-secondary/20 text-secondary text-sm font-semibold mb-6">
-                <Gift className="w-4 h-4" />
+            {/* Main Header */}
+            <div className="text-center mb-20">
+              <div className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-gradient-to-r from-secondary/20 via-primary/10 to-secondary/20 backdrop-blur-xl border border-secondary/30 text-secondary text-sm font-bold mb-8 shadow-lg shadow-secondary/10">
+                <Gift className="w-5 h-5" />
                 100% Kostenlos für Partner
+                <Sparkles className="w-4 h-4" />
               </div>
-              <h2 className="text-4xl md:text-6xl font-bold mb-6 tracking-tight">
+              <h2 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-8 tracking-tight">
                 Ihre{" "}
-                <span className="bg-gradient-to-r from-secondary via-primary to-secondary bg-clip-text text-transparent">
-                  kostenlose Mitgliedschaft
+                <span className="relative">
+                  <span className="bg-gradient-to-r from-secondary via-primary to-secondary bg-clip-text text-transparent">
+                    kostenlose Mitgliedschaft
+                  </span>
+                  <span className="absolute -bottom-2 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-secondary/50 to-transparent rounded-full" />
                 </span>
               </h2>
-              <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+              <p className="text-xl md:text-2xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
                 Als Partner genießen Sie alle Vorteile komplett kostenfrei
               </p>
             </div>
 
-            {/* Pricing Card */}
-            <div className="max-w-md mx-auto mb-20">
-              <div className="relative bg-card border-2 border-secondary/30 rounded-3xl p-8 md:p-10 shadow-2xl shadow-secondary/10 overflow-hidden">
-                {/* Background glow */}
-                <div className="absolute inset-0 bg-gradient-to-br from-secondary/5 via-transparent to-primary/5" />
+            {/* Main Content Grid - Pricing Card + Einrichtungen */}
+            <div className="max-w-7xl mx-auto mb-24">
+              <div className="grid lg:grid-cols-2 gap-10 items-start">
                 
+                {/* Left: Pricing Card */}
                 <div className="relative">
-                  <div className="text-center mb-8">
-                    <div className="text-sm font-semibold text-secondary mb-2">Partner Mitgliedschaft</div>
-                    <div className="flex items-baseline justify-center gap-1">
-                      <span className="text-6xl md:text-7xl font-bold bg-gradient-to-r from-secondary to-primary bg-clip-text text-transparent">
-                        0€
+                  {/* Floating decoration */}
+                  <div className="absolute -top-6 -left-6 w-24 h-24 bg-gradient-to-br from-secondary/20 to-primary/20 rounded-full blur-2xl" />
+                  <div className="absolute -bottom-6 -right-6 w-32 h-32 bg-gradient-to-br from-primary/20 to-secondary/20 rounded-full blur-2xl" />
+                  
+                  <div className="relative bg-card/80 backdrop-blur-xl border-2 border-secondary/40 rounded-[2rem] p-10 shadow-2xl shadow-secondary/20 overflow-hidden group hover:border-secondary/60 transition-all duration-500">
+                    {/* Inner glow effect */}
+                    <div className="absolute inset-0 bg-gradient-to-br from-secondary/10 via-transparent to-primary/10 opacity-50 group-hover:opacity-100 transition-opacity duration-500" />
+                    <div className="absolute top-0 left-1/2 -translate-x-1/2 w-3/4 h-px bg-gradient-to-r from-transparent via-secondary/50 to-transparent" />
+                    
+                    <div className="relative">
+                      {/* Badge */}
+                      <div className="flex justify-center mb-6">
+                        <div className="px-4 py-1.5 rounded-full bg-gradient-to-r from-secondary to-primary text-primary-foreground text-xs font-bold flex items-center gap-2 shadow-lg">
+                          <Award className="w-3.5 h-3.5" />
+                          Partner Mitgliedschaft
+                        </div>
+                      </div>
+                      
+                      {/* Price */}
+                      <div className="text-center mb-10">
+                        <div className="flex items-baseline justify-center gap-1">
+                          <span className="text-7xl md:text-8xl font-black bg-gradient-to-br from-secondary via-primary to-secondary bg-clip-text text-transparent drop-shadow-sm">
+                            0€
+                          </span>
+                        </div>
+                        <div className="text-lg text-muted-foreground mt-3 font-medium">Für immer kostenlos</div>
+                      </div>
+
+                      {/* Features List */}
+                      <div className="space-y-4 mb-10">
+                        {[
+                          "Zugang zu 850+ Anbietern",
+                          "Echtzeit-Preisvergleich",
+                          "Direkte Online-Buchung",
+                          "Bewertungen & Erfahrungsberichte",
+                          "Persönlicher Support",
+                          "Keine versteckten Kosten"
+                        ].map((feature, idx) => (
+                          <div key={idx} className="flex items-center gap-4 group/item">
+                            <div className="w-7 h-7 rounded-full bg-gradient-to-br from-secondary/20 to-primary/20 border border-secondary/30 flex items-center justify-center shrink-0 group-hover/item:scale-110 group-hover/item:border-secondary/50 transition-all duration-300">
+                              <CheckCircle className="w-4 h-4 text-secondary" />
+                            </div>
+                            <span className="text-foreground font-medium">{feature}</span>
+                          </div>
+                        ))}
+                      </div>
+
+                      {/* CTA Buttons */}
+                      <div className="space-y-4">
+                        <Button className="w-full bg-gradient-to-r from-secondary via-primary to-secondary hover:opacity-90 text-lg py-7 h-auto font-bold shadow-xl shadow-secondary/25 group/btn relative overflow-hidden">
+                          <span className="relative z-10 flex items-center justify-center gap-2">
+                            Jetzt starten
+                            <ArrowRight className="w-5 h-5 group-hover/btn:translate-x-1 transition-transform" />
+                          </span>
+                        </Button>
+                        <Button variant="outline" className="w-full py-6 h-auto text-lg border-2 hover:bg-secondary/5 hover:border-secondary/50 transition-all">
+                          Beratung anfragen
+                        </Button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Right: Einrichtungen */}
+                <div className="space-y-8">
+                  <div className="text-center lg:text-left">
+                    <h3 className="text-sm font-bold text-secondary uppercase tracking-widest mb-4 flex items-center gap-2 justify-center lg:justify-start">
+                      <Building2 className="w-4 h-4" />
+                      Einrichtungen
+                    </h3>
+                    <h4 className="text-2xl md:text-3xl font-bold tracking-tight">
+                      Für diese Partner ist{" "}
+                      <span className="bg-gradient-to-r from-secondary to-primary bg-clip-text text-transparent">
+                        katew kostenlos
                       </span>
-                    </div>
-                    <div className="text-muted-foreground mt-2">Für immer kostenlos</div>
+                    </h4>
                   </div>
 
-                  <div className="space-y-4 mb-8">
-                    <div className="flex items-center gap-3">
-                      <CheckCircle className="w-5 h-5 text-secondary shrink-0" />
-                      <span className="text-foreground">Zugang zu 850+ Anbietern</span>
-                    </div>
-                    <div className="flex items-center gap-3">
-                      <CheckCircle className="w-5 h-5 text-secondary shrink-0" />
-                      <span className="text-foreground">Echtzeit-Preisvergleich</span>
-                    </div>
-                    <div className="flex items-center gap-3">
-                      <CheckCircle className="w-5 h-5 text-secondary shrink-0" />
-                      <span className="text-foreground">Direkte Online-Buchung</span>
-                    </div>
-                    <div className="flex items-center gap-3">
-                      <CheckCircle className="w-5 h-5 text-secondary shrink-0" />
-                      <span className="text-foreground">Bewertungen & Erfahrungsberichte</span>
-                    </div>
-                    <div className="flex items-center gap-3">
-                      <CheckCircle className="w-5 h-5 text-secondary shrink-0" />
-                      <span className="text-foreground">Persönlicher Support</span>
-                    </div>
-                    <div className="flex items-center gap-3">
-                      <CheckCircle className="w-5 h-5 text-secondary shrink-0" />
-                      <span className="text-foreground">Keine versteckten Kosten</span>
-                    </div>
-                  </div>
-
-                  <div className="space-y-3">
-                    <Button className="w-full bg-gradient-to-r from-secondary to-primary hover:opacity-90 text-lg py-6 h-auto">
-                      Jetzt starten
-                      <ArrowRight className="ml-2 w-5 h-5" />
-                    </Button>
-                    <Button variant="outline" className="w-full py-6 h-auto text-lg">
-                      Beratung anfragen
-                    </Button>
+                  <div className="grid gap-4">
+                    {partnerTypes.map((type, index) => {
+                      const Icon = type.icon;
+                      return (
+                        <div
+                          key={index}
+                          className="group flex items-center gap-5 bg-card/60 backdrop-blur-sm border border-border/50 rounded-2xl p-5 hover:border-secondary/50 hover:bg-card/80 hover:shadow-xl hover:shadow-secondary/10 transition-all duration-300 cursor-pointer"
+                        >
+                          <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-secondary/15 to-primary/15 border border-secondary/25 flex items-center justify-center shrink-0 group-hover:scale-110 group-hover:border-secondary/50 group-hover:from-secondary/25 group-hover:to-primary/25 transition-all duration-300">
+                            <Icon className="w-7 h-7 text-secondary" />
+                          </div>
+                          <div className="flex-1">
+                            <h5 className="font-bold text-lg mb-1 group-hover:text-secondary transition-colors">
+                              {type.title}
+                            </h5>
+                            <p className="text-muted-foreground text-sm leading-relaxed">{type.description}</p>
+                          </div>
+                          <ArrowRight className="w-5 h-5 text-muted-foreground/50 group-hover:text-secondary group-hover:translate-x-1 transition-all duration-300" />
+                        </div>
+                      );
+                    })}
                   </div>
                 </div>
               </div>
             </div>
 
             {/* Trust Badges */}
-            <div className="flex flex-wrap justify-center gap-6 md:gap-10 mb-24">
-              <div className="flex items-center gap-2 text-muted-foreground">
-                <Shield className="w-5 h-5 text-secondary" />
-                <span className="text-sm">100% kostenlos & sicher</span>
-              </div>
-              <div className="flex items-center gap-2 text-muted-foreground">
-                <Zap className="w-5 h-5 text-secondary" />
-                <span className="text-sm">Sofort einsatzbereit</span>
-              </div>
-              <div className="flex items-center gap-2 text-muted-foreground">
-                <Users className="w-5 h-5 text-secondary" />
-                <span className="text-sm">850+ Anbieter</span>
-              </div>
-            </div>
-
-            {/* Partner Types - Einrichtungen */}
-            <div className="mb-24">
-              <div className="text-center mb-12">
-                <h3 className="text-sm font-semibold text-secondary uppercase tracking-wider mb-4">Einrichtungen</h3>
-                <h2 className="text-3xl md:text-4xl font-bold tracking-tight">
-                  Für diese Partner ist{" "}
-                  <span className="bg-gradient-to-r from-secondary to-primary bg-clip-text text-transparent">
-                    katew kostenlos
-                  </span>
-                </h2>
-              </div>
-
-              <div className="max-w-5xl mx-auto">
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                  {partnerTypes.map((type, index) => {
-                    const Icon = type.icon;
-                    return (
-                      <div
-                        key={index}
-                        className="group bg-card border border-border/50 rounded-2xl p-6 hover:border-secondary/40 hover:shadow-lg hover:shadow-secondary/5 transition-all duration-300"
-                      >
-                        <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-secondary/10 to-primary/10 border border-secondary/20 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
-                          <Icon className="w-6 h-6 text-secondary" />
-                        </div>
-                        <h4 className="font-bold text-lg mb-2 group-hover:text-secondary transition-colors">
-                          {type.title}
-                        </h4>
-                        <p className="text-muted-foreground text-sm">{type.description}</p>
-                      </div>
-                    );
-                  })}
+            <div className="flex flex-wrap justify-center gap-8 md:gap-12 mb-24">
+              {[
+                { icon: Shield, text: "100% kostenlos & sicher" },
+                { icon: Zap, text: "Sofort einsatzbereit" },
+                { icon: Users, text: "850+ Anbieter" },
+              ].map((badge, idx) => (
+                <div key={idx} className="flex items-center gap-3 px-5 py-3 rounded-full bg-card/50 backdrop-blur-sm border border-border/50 hover:border-secondary/30 transition-colors">
+                  <badge.icon className="w-5 h-5 text-secondary" />
+                  <span className="text-sm font-medium text-muted-foreground">{badge.text}</span>
                 </div>
-              </div>
+              ))}
             </div>
 
-            {/* Benefits - Vorteile */}
+            {/* Vorteile Section */}
             <div>
-              <div className="text-center mb-12">
-                <h3 className="text-sm font-semibold text-secondary uppercase tracking-wider mb-4">Vorteile</h3>
-                <h2 className="text-3xl md:text-4xl font-bold tracking-tight">
+              <div className="text-center mb-14">
+                <h3 className="text-sm font-bold text-secondary uppercase tracking-widest mb-4 flex items-center gap-2 justify-center">
+                  <Star className="w-4 h-4" />
+                  Vorteile
+                </h3>
+                <h4 className="text-3xl md:text-4xl font-bold tracking-tight">
                   Das bekommen Sie als{" "}
                   <span className="bg-gradient-to-r from-secondary to-primary bg-clip-text text-transparent">
                     Partner
                   </span>
-                </h2>
+                </h4>
               </div>
 
-              <div className="max-w-5xl mx-auto">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="max-w-6xl mx-auto">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                   {benefits.map((benefit, index) => {
                     const Icon = benefit.icon;
                     const isHighlight = benefit.highlight;
                     return (
                       <div
                         key={index}
-                        className={`group relative flex items-start gap-5 backdrop-blur-sm border rounded-2xl p-6 transition-all duration-300 ${
+                        className={`group relative backdrop-blur-sm border rounded-2xl p-7 transition-all duration-300 hover:shadow-2xl ${
                           isHighlight
-                            ? "bg-gradient-to-br from-secondary/20 to-primary/20 border-secondary/40 ring-2 ring-secondary/20 md:col-span-2"
-                            : "bg-card/50 border-border/50 hover:border-secondary/40 hover:bg-card"
+                            ? "bg-gradient-to-br from-secondary/20 via-primary/10 to-secondary/20 border-secondary/50 ring-2 ring-secondary/20 lg:col-span-3 md:col-span-2"
+                            : "bg-card/60 border-border/50 hover:border-secondary/40 hover:bg-card/80"
                         }`}
                       >
                         {isHighlight && (
-                          <div className="absolute -top-3 left-6 px-3 py-1 bg-gradient-to-r from-secondary to-primary text-primary-foreground text-xs font-bold rounded-full flex items-center gap-1">
-                            <Sparkles className="w-3 h-3" />
+                          <div className="absolute -top-3 left-7 px-4 py-1.5 bg-gradient-to-r from-secondary to-primary text-primary-foreground text-xs font-bold rounded-full flex items-center gap-1.5 shadow-lg">
+                            <Sparkles className="w-3.5 h-3.5" />
                             HIGHLIGHT
                           </div>
                         )}
-                        <div
-                          className={`shrink-0 w-14 h-14 rounded-xl flex items-center justify-center group-hover:scale-110 transition-all duration-300 ${
-                            isHighlight
-                              ? "bg-gradient-to-br from-secondary to-primary"
-                              : "bg-gradient-to-br from-secondary/10 to-primary/10 border border-secondary/20 group-hover:border-secondary/50"
-                          }`}
-                        >
-                          <Icon className={`w-6 h-6 ${isHighlight ? "text-primary-foreground" : "text-secondary"}`} />
-                        </div>
-                        <div className="flex-1">
-                          <h3
-                            className={`font-bold text-lg mb-1 transition-colors ${isHighlight ? "text-secondary" : "group-hover:text-secondary"}`}
+                        <div className={`flex ${isHighlight ? 'flex-col sm:flex-row items-start sm:items-center' : 'flex-col'} gap-5`}>
+                          <div
+                            className={`shrink-0 w-16 h-16 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-all duration-300 ${
+                              isHighlight
+                                ? "bg-gradient-to-br from-secondary to-primary shadow-lg shadow-secondary/30"
+                                : "bg-gradient-to-br from-secondary/15 to-primary/15 border border-secondary/25 group-hover:border-secondary/50"
+                            }`}
                           >
-                            {benefit.title}
-                          </h3>
-                          <p className="text-muted-foreground text-sm">{benefit.description}</p>
+                            <Icon className={`w-7 h-7 ${isHighlight ? "text-primary-foreground" : "text-secondary"}`} />
+                          </div>
+                          <div className="flex-1">
+                            <h5
+                              className={`font-bold text-lg mb-2 transition-colors ${isHighlight ? "text-secondary" : "group-hover:text-secondary"}`}
+                            >
+                              {benefit.title}
+                            </h5>
+                            <p className="text-muted-foreground text-sm leading-relaxed">{benefit.description}</p>
+                          </div>
                         </div>
                       </div>
                     );
