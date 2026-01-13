@@ -160,7 +160,7 @@ const contactOptions = [
   {
     icon: Phone,
     title: "Telefon",
-    description: "+49 155 61 231",
+    description: "+49 151 155 612 31",
     gradient: "from-emerald-500 to-teal-500",
   },
   {

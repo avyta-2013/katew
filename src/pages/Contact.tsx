@@ -36,7 +36,7 @@ const contactMethods = [
   {
     icon: Phone,
     title: "Telefon",
-    value: "+49 155 61 231",
+    value: "+49 151 155 612 31",
     description: "Mo-Fr 8-12 Uhr",
     gradient: "from-blue-500 to-cyan-500",
     bgGlow: "bg-blue-500/20",

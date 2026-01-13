@@ -232,7 +232,7 @@ const contactOptions = [
     icon: Phone,
     title: "Telefon",
     description: "Persönliche Beratung durch Experten",
-    action: "+49 155 61 231",
+    action: "+49 151 155 612 31",
     available: "Mo-Fr 8-18 Uhr",
     gradient: "from-emerald-500 to-teal-500",
     responseTime: "Sofort",
