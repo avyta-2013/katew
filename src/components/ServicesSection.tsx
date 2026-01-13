@@ -105,7 +105,7 @@ export const ServicesSection = () => {
           </motion.div>
           <h2 className="text-4xl md:text-6xl font-black mb-6 tracking-tight">
             <span className="bg-gradient-to-r from-primary via-secondary to-primary bg-clip-text text-transparent">
-              Die Zukunft hat begonnen
+              Alles aus einer Hand
             </span>
           </h2>
           <p className="text-xl text-muted-foreground max-w-xl mx-auto">
