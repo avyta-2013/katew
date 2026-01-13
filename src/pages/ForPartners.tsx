@@ -2,7 +2,6 @@ import {
   Handshake, 
   Building2, 
   Network, 
-  TrendingUp, 
   Shield, 
   Clock, 
   Euro, 
@@ -11,9 +10,6 @@ import {
   Zap,
   Award,
   HeartHandshake,
-  FileText,
-  Briefcase,
-  Send,
   CalendarClock,
   Star,
   Quote,
@@ -24,47 +20,41 @@ import {
   Hospital,
   Globe,
   Smartphone,
-  Settings
+  Settings,
+  Gift,
+  Crown,
+  Check,
+  BadgeCheck,
+  Infinity
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
-import { CounterCard } from "@/components/CounterCard";
 import { ContactFormCTA } from "@/components/ContactFormCTA";
 import { PartnersLogoSlider } from "@/components/PartnersLogoSlider";
 
-const benefits = [
+// Pricing features for the membership
+const pricingFeatures = [
   {
     icon: Network,
     title: "Alle Anbieter auf einen Blick",
     description: "Zugang zu sämtlichen regionalen Krankenfahrt-Unternehmen über eine zentrale Plattform.",
-    stat: "850+",
-    statLabel: "Anbieter bundesweit",
   },
   {
     icon: Euro,
     title: "Transparenter Kostenvergleich",
     description: "Vergleichen Sie Preise verschiedener Anbieter und sparen Sie bei jeder Buchung.",
-    stat: "-25%",
-    statLabel: "durchschnittliche Ersparnis",
   },
   {
     icon: Clock,
     title: "Schnelle Buchung",
     description: "Buchen Sie Transporte in Minuten statt Stunden – mit automatischer Bestätigung.",
-    stat: "3min",
-    statLabel: "durchschnittliche Buchungszeit",
   },
   {
     icon: Shield,
     title: "Geprüfte Qualität",
     description: "Jeder Anbieter wird verifiziert. Bewertungen und Erfahrungsberichte für Ihre Sicherheit.",
-    stat: "100%",
-    statLabel: "verifizierte Anbieter",
   },
-];
-
-const features = [
   {
     icon: Hospital,
     title: "Krankenhäuser",
@@ -205,109 +195,213 @@ export default function ForPartners() {
         </div>
       </section>
 
-      {/* Redesigned Benefits Section */}
+      {/* Modern Pricing Section */}
       <section className="py-24 md:py-32 relative overflow-hidden">
-        {/* Background with mesh gradient */}
-        <div className="absolute inset-0 bg-gradient-to-br from-secondary/10 via-background to-primary/10" />
-        <div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-secondary/20 rounded-full blur-[120px] -translate-y-1/2" />
-        <div className="absolute bottom-0 right-1/4 w-[400px] h-[400px] bg-primary/20 rounded-full blur-[100px] translate-y-1/2" />
+        {/* Premium Background Effects */}
+        <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/5 via-background to-secondary/10" />
+        <div className="absolute top-0 left-1/4 w-[600px] h-[600px] bg-emerald-500/15 rounded-full blur-[150px] -translate-y-1/2" />
+        <div className="absolute bottom-0 right-1/4 w-[500px] h-[500px] bg-secondary/20 rounded-full blur-[120px] translate-y-1/2" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-primary/5 rounded-full blur-[200px]" />
+        
+        {/* Animated floating elements */}
+        <div className="absolute top-20 right-20 w-4 h-4 bg-emerald-500/40 rounded-full animate-pulse" />
+        <div className="absolute bottom-32 left-16 w-3 h-3 bg-secondary/50 rounded-full animate-pulse" style={{ animationDelay: '1s' }} />
+        <div className="absolute top-1/3 right-1/4 w-2 h-2 bg-primary/40 rounded-full animate-pulse" style={{ animationDelay: '0.5s' }} />
         
         <div className="container mx-auto px-4 relative">
+          {/* Header */}
           <div className="text-center mb-16">
-            <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-gradient-to-r from-secondary/20 to-primary/20 backdrop-blur-sm border border-secondary/20 text-secondary text-sm font-semibold mb-6">
-              <Zap className="w-4 h-4" />
-              Was haben Sie zu gewinnen?
+            <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-gradient-to-r from-emerald-500/20 to-secondary/20 backdrop-blur-sm border border-emerald-500/30 text-emerald-600 dark:text-emerald-400 text-sm font-semibold mb-6">
+              <Gift className="w-4 h-4" />
+              100% Kostenlos für Partner
             </div>
             <h2 className="text-4xl md:text-6xl font-bold mb-6 tracking-tight">
-              Ihre <span className="bg-gradient-to-r from-secondary via-primary to-secondary bg-clip-text text-transparent bg-[length:200%_auto] animate-[gradient_3s_linear_infinite]">Vorteile</span>
+              Ihre <span className="bg-gradient-to-r from-emerald-500 via-secondary to-primary bg-clip-text text-transparent">kostenlose Mitgliedschaft</span>
             </h2>
             <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-              Entdecken Sie alle Vorteile einer Partnerschaft mit katew
+              Als Partner genießen Sie alle Vorteile komplett kostenfrei – für Einrichtungen und Privatpersonen
             </p>
           </div>
 
-          {/* Main Stats - Floating Cards */}
-          <div className="max-w-6xl mx-auto mb-20">
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-              {benefits.map((benefit, index) => {
-                const delays = ['0ms', '100ms', '200ms', '300ms'];
-                return (
-                  <CounterCard
-                    key={index}
-                    icon={benefit.icon}
-                    stat={benefit.stat}
-                    statLabel={benefit.statLabel}
-                    title={benefit.title}
-                    description={benefit.description}
-                    delay={delays[index]}
-                  />
-                );
-              })}
-            </div>
-          </div>
-
-          {/* Features - Alternating Layout */}
+          {/* Main Pricing Card */}
           <div className="max-w-5xl mx-auto">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              {/* Left Column */}
-              <div className="space-y-6">
-                {features.filter((_, i) => i % 2 === 0).map((feature, index) => {
-                  const Icon = feature.icon;
-                  const isHighlight = 'highlight' in feature && feature.highlight;
-                  return (
-                    <div
-                      key={index}
-                      className={`group relative flex items-start gap-5 backdrop-blur-sm border rounded-2xl p-6 transition-all duration-300 ${
-                        isHighlight 
-                          ? 'bg-gradient-to-br from-secondary/20 to-primary/20 border-secondary/40 ring-2 ring-secondary/20' 
-                          : 'bg-card/50 border-border/50 hover:border-secondary/40 hover:bg-card'
-                      }`}
-                    >
-                      {isHighlight && (
-                        <div className="absolute -top-3 left-6 px-3 py-1 bg-gradient-to-r from-secondary to-primary text-primary-foreground text-xs font-bold rounded-full flex items-center gap-1">
-                          <Sparkles className="w-3 h-3" />
-                          TOP
-                        </div>
-                      )}
-                      <div className={`shrink-0 w-14 h-14 rounded-xl flex items-center justify-center group-hover:scale-110 transition-all duration-300 ${
-                        isHighlight 
-                          ? 'bg-gradient-to-br from-secondary to-primary' 
-                          : 'bg-gradient-to-br from-secondary/10 to-primary/10 border border-secondary/20 group-hover:border-secondary/50'
-                      }`}>
-                        <Icon className={`w-6 h-6 ${isHighlight ? 'text-primary-foreground' : 'text-secondary'}`} />
-                      </div>
-                      <div className="flex-1">
-                        <h3 className={`font-bold text-lg mb-1 transition-colors ${isHighlight ? 'text-secondary' : 'group-hover:text-secondary'}`}>{feature.title}</h3>
-                        <p className="text-muted-foreground text-sm">{feature.description}</p>
-                      </div>
-                      <ArrowRight className={`w-5 h-5 shrink-0 self-center transition-all duration-300 ${
-                        isHighlight ? 'text-secondary opacity-100' : 'text-muted-foreground opacity-0 group-hover:opacity-100 group-hover:text-secondary'
-                      }`} />
-                    </div>
-                  );
-                })}
-              </div>
+            <div className="relative">
+              {/* Glow effect behind card */}
+              <div className="absolute -inset-4 bg-gradient-to-r from-emerald-500/20 via-secondary/20 to-primary/20 rounded-[3rem] blur-2xl opacity-60" />
               
-              {/* Right Column - Offset */}
-              <div className="space-y-6 md:mt-12">
-                {features.filter((_, i) => i % 2 === 1).map((feature, index) => {
-                  const Icon = feature.icon;
-                  return (
-                    <div
-                      key={index}
-                      className="group relative flex items-start gap-5 bg-card/50 backdrop-blur-sm border border-border/50 rounded-2xl p-6 hover:border-primary/40 hover:bg-card transition-all duration-300"
-                    >
-                      <div className="shrink-0 w-14 h-14 rounded-xl bg-gradient-to-br from-primary/10 to-secondary/10 border border-primary/20 flex items-center justify-center group-hover:scale-110 group-hover:border-primary/50 transition-all duration-300">
-                        <Icon className="w-6 h-6 text-primary" />
+              <div className="relative bg-card/80 backdrop-blur-xl border-2 border-emerald-500/30 rounded-[2.5rem] overflow-hidden shadow-2xl">
+                {/* Top Banner */}
+                <div className="bg-gradient-to-r from-emerald-500 via-emerald-600 to-secondary p-6 text-center">
+                  <div className="inline-flex items-center gap-3 px-6 py-3 bg-white/20 backdrop-blur-sm rounded-full">
+                    <Crown className="w-6 h-6 text-white" />
+                    <span className="text-white font-bold text-lg">Partner Mitgliedschaft</span>
+                    <Sparkles className="w-5 h-5 text-yellow-300" />
+                  </div>
+                </div>
+                
+                <div className="p-8 md:p-12">
+                  {/* Pricing Display */}
+                  <div className="text-center mb-12">
+                    <div className="inline-flex items-center gap-4 mb-6">
+                      <div className="relative">
+                        <div className="absolute -inset-3 bg-emerald-500/20 rounded-full blur-xl" />
+                        <div className="relative flex items-baseline gap-2">
+                          <span className="text-7xl md:text-8xl font-black bg-gradient-to-r from-emerald-500 to-emerald-600 bg-clip-text text-transparent">0</span>
+                          <span className="text-4xl md:text-5xl font-bold text-emerald-500">€</span>
+                        </div>
                       </div>
-                      <div className="flex-1">
-                        <h3 className="font-bold text-lg mb-1 group-hover:text-primary transition-colors">{feature.title}</h3>
-                        <p className="text-muted-foreground text-sm">{feature.description}</p>
-                      </div>
-                      <ArrowRight className="w-5 h-5 text-muted-foreground opacity-0 group-hover:opacity-100 group-hover:text-primary transition-all duration-300 shrink-0 self-center" />
                     </div>
-                  );
-                })}
+                    <div className="flex items-center justify-center gap-2 mb-4">
+                      <Infinity className="w-6 h-6 text-emerald-500" />
+                      <span className="text-xl font-semibold text-muted-foreground">Für immer kostenlos</span>
+                    </div>
+                    <p className="text-muted-foreground max-w-lg mx-auto">
+                      Keine versteckten Kosten, keine Abonnements – alle Funktionen komplett gratis für Sie als Partner
+                    </p>
+                  </div>
+
+                  {/* Two Column Partner Types */}
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
+                    {/* Einrichtungen */}
+                    <div className="relative group">
+                      <div className="absolute -inset-1 bg-gradient-to-r from-emerald-500/20 to-secondary/20 rounded-2xl blur-lg opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                      <div className="relative bg-gradient-to-br from-emerald-500/5 to-emerald-500/10 border border-emerald-500/20 rounded-2xl p-6 h-full">
+                        <div className="flex items-center gap-3 mb-4">
+                          <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-emerald-500 to-emerald-600 flex items-center justify-center shadow-lg shadow-emerald-500/25">
+                            <Hospital className="w-6 h-6 text-white" />
+                          </div>
+                          <div>
+                            <h3 className="font-bold text-lg">Für Einrichtungen</h3>
+                            <p className="text-sm text-emerald-600 dark:text-emerald-400 font-medium">0€ / kostenlos</p>
+                          </div>
+                        </div>
+                        <p className="text-sm text-muted-foreground">
+                          Krankenhäuser, Pflegeeinrichtungen, Arztpraxen & Krankenkassen
+                        </p>
+                      </div>
+                    </div>
+
+                    {/* Privatpersonen */}
+                    <div className="relative group">
+                      <div className="absolute -inset-1 bg-gradient-to-r from-secondary/20 to-primary/20 rounded-2xl blur-lg opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                      <div className="relative bg-gradient-to-br from-secondary/5 to-secondary/10 border border-secondary/20 rounded-2xl p-6 h-full">
+                        <div className="flex items-center gap-3 mb-4">
+                          <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-secondary to-primary flex items-center justify-center shadow-lg shadow-secondary/25">
+                            <Users className="w-6 h-6 text-white" />
+                          </div>
+                          <div>
+                            <h3 className="font-bold text-lg">Für Privatpersonen</h3>
+                            <p className="text-sm text-secondary font-medium">0€ / kostenlos</p>
+                          </div>
+                        </div>
+                        <p className="text-sm text-muted-foreground">
+                          Patienten, Angehörige & alle, die Krankenfahrten benötigen
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* CTA Buttons */}
+                  <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
+                    <Button 
+                      size="lg"
+                      className="bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:to-emerald-700 text-white text-lg px-10 py-7 h-auto shadow-xl shadow-emerald-500/30 group"
+                      onClick={() => window.location.href = '/auth'}
+                    >
+                      <Gift className="mr-2 w-5 h-5 group-hover:scale-110 transition-transform" />
+                      Jetzt kostenlos starten
+                      <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                    </Button>
+                    <Button 
+                      size="lg"
+                      variant="outline"
+                      className="border-2 border-border hover:border-secondary text-lg px-8 py-7 h-auto group"
+                      onClick={() => window.location.href = '/kontakt'}
+                    >
+                      Beratung anfragen
+                      <ArrowRight className="ml-2 w-5 h-5 opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all" />
+                    </Button>
+                  </div>
+
+                  {/* All Features Grid */}
+                  <div className="border-t border-border/50 pt-10">
+                    <div className="text-center mb-8">
+                      <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-muted/50 text-sm font-semibold mb-4">
+                        <BadgeCheck className="w-4 h-4 text-emerald-500" />
+                        Alles inklusive
+                      </div>
+                      <h3 className="text-2xl font-bold">Ihre Vorteile als Partner</h3>
+                    </div>
+                    
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                      {pricingFeatures.map((feature, index) => {
+                        const Icon = feature.icon;
+                        const isHighlight = feature.highlight;
+                        return (
+                          <div
+                            key={index}
+                            className={`group relative flex items-start gap-4 p-5 rounded-xl transition-all duration-300 ${
+                              isHighlight 
+                                ? 'bg-gradient-to-br from-secondary/15 to-primary/15 border-2 border-secondary/40 ring-2 ring-secondary/10' 
+                                : 'bg-muted/30 hover:bg-muted/50 border border-border/50 hover:border-secondary/30'
+                            }`}
+                          >
+                            {isHighlight && (
+                              <div className="absolute -top-2 right-4 px-2 py-0.5 bg-gradient-to-r from-secondary to-primary text-primary-foreground text-xs font-bold rounded-full flex items-center gap-1">
+                                <Star className="w-3 h-3" />
+                                TOP
+                              </div>
+                            )}
+                            <div className={`shrink-0 w-11 h-11 rounded-lg flex items-center justify-center transition-transform group-hover:scale-110 ${
+                              isHighlight 
+                                ? 'bg-gradient-to-br from-secondary to-primary' 
+                                : 'bg-gradient-to-br from-emerald-500/20 to-secondary/20 border border-emerald-500/30'
+                            }`}>
+                              <Icon className={`w-5 h-5 ${isHighlight ? 'text-white' : 'text-emerald-600 dark:text-emerald-400'}`} />
+                            </div>
+                            <div className="flex-1 min-w-0">
+                              <h4 className={`font-semibold mb-1 transition-colors ${isHighlight ? 'text-secondary' : 'group-hover:text-emerald-600 dark:group-hover:text-emerald-400'}`}>
+                                {feature.title}
+                              </h4>
+                              <p className="text-sm text-muted-foreground line-clamp-2">{feature.description}</p>
+                            </div>
+                            <Check className={`w-5 h-5 shrink-0 self-start mt-1 ${isHighlight ? 'text-secondary' : 'text-emerald-500'}`} />
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </div>
+                </div>
+
+                {/* Bottom Trust Indicators */}
+                <div className="bg-gradient-to-r from-emerald-500/10 via-secondary/10 to-primary/10 border-t border-border/50 px-8 py-6">
+                  <div className="flex flex-wrap justify-center items-center gap-6 md:gap-10 text-sm">
+                    <div className="flex items-center gap-2">
+                      <div className="w-8 h-8 rounded-full bg-emerald-500/20 flex items-center justify-center">
+                        <Shield className="w-4 h-4 text-emerald-500" />
+                      </div>
+                      <span className="font-medium">100% Kostenlos</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <div className="w-8 h-8 rounded-full bg-secondary/20 flex items-center justify-center">
+                        <Zap className="w-4 h-4 text-secondary" />
+                      </div>
+                      <span className="font-medium">Sofortiger Zugang</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <div className="w-8 h-8 rounded-full bg-primary/20 flex items-center justify-center">
+                        <HeartHandshake className="w-4 h-4 text-primary" />
+                      </div>
+                      <span className="font-medium">24/7 Support</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <div className="w-8 h-8 rounded-full bg-emerald-500/20 flex items-center justify-center">
+                        <Network className="w-4 h-4 text-emerald-500" />
+                      </div>
+                      <span className="font-medium">850+ Anbieter</span>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
