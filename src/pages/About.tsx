@@ -3,6 +3,8 @@ import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { ContactFormCTA } from "@/components/ContactFormCTA";
+import teamChanu from "@/assets/team-chanu.jpeg";
+import teamDino from "@/assets/team-dino.png";
 import { 
   UserPlus, 
   FileText, 
@@ -136,11 +138,13 @@ const teamMembers = [
     name: "Dino Lalic",
     role: "CEO",
     linkedin: "#",
+    image: teamDino,
   },
   {
     name: "Chanu De Silva",
     role: "CTO",
     linkedin: "#",
+    image: teamChanu,
   },
 ];
 
@@ -624,10 +628,12 @@ const About = () => {
                           
                           {/* Avatar Container */}
                           <div className={`relative w-32 h-32 rounded-full bg-gradient-to-br ${index === 0 ? 'from-primary to-secondary' : 'from-secondary to-primary'} p-1 group-hover:scale-105 transition-transform duration-500 shadow-2xl`}>
-                            <div className="w-full h-full rounded-full bg-card flex items-center justify-center">
-                              <span className={`text-5xl font-bold bg-gradient-to-br ${index === 0 ? 'from-primary to-secondary' : 'from-secondary to-primary'} bg-clip-text text-transparent`}>
-                                {member.name.split(' ').map(n => n[0]).join('')}
-                              </span>
+                            <div className="w-full h-full rounded-full overflow-hidden">
+                              <img 
+                                src={member.image} 
+                                alt={member.name}
+                                className="w-full h-full object-cover"
+                              />
                             </div>
                           </div>
 
