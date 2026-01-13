@@ -61,28 +61,28 @@ export const Header = () => {
           </a>
 
           {/* Navigation - Center */}
-          <nav className="hidden md:flex items-center gap-1">
+          <nav className="hidden md:flex items-center gap-2">
             <a
               href="/"
-              className="px-4 py-2 text-sm font-semibold text-muted-foreground hover:text-foreground transition-colors rounded-xl hover:bg-muted/50"
+              className="px-5 py-2.5 text-base font-medium text-foreground/80 hover:text-foreground transition-all duration-200 rounded-xl hover:bg-muted/60 tracking-tight"
             >
               Start
             </a>
             <a
               href="/plattform"
-              className="px-4 py-2 text-sm font-semibold text-muted-foreground hover:text-foreground transition-colors rounded-xl hover:bg-muted/50"
+              className="px-5 py-2.5 text-base font-medium text-foreground/80 hover:text-foreground transition-all duration-200 rounded-xl hover:bg-muted/60 tracking-tight"
             >
               Plattform
             </a>
             <Link
               to="/fuer-anbieter"
-              className="px-4 py-2 text-sm font-semibold text-muted-foreground hover:text-foreground transition-colors rounded-xl hover:bg-muted/50"
+              className="px-5 py-2.5 text-base font-medium text-foreground/80 hover:text-foreground transition-all duration-200 rounded-xl hover:bg-muted/60 tracking-tight"
             >
               Für Anbieter
             </Link>
             <Link
               to="/fuer-partner"
-              className="px-4 py-2 text-sm font-semibold text-muted-foreground hover:text-foreground transition-colors rounded-xl hover:bg-muted/50"
+              className="px-5 py-2.5 text-base font-medium text-foreground/80 hover:text-foreground transition-all duration-200 rounded-xl hover:bg-muted/60 tracking-tight"
             >
               Für Partner
             </Link>
