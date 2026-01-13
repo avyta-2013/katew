@@ -2,14 +2,8 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { MapPin, Navigation, ArrowRight, Calendar, Clock, Users, Sparkles, Shield, Zap, CheckCircle2 } from "lucide-react";
+import { MapPin, Navigation, ArrowRight, Calendar, Clock, Sparkles, CheckCircle2 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
-
-const stats = [
-  { value: "500+", label: "Partner", icon: Users },
-  { value: "98%", label: "Zufriedenheit", icon: Shield },
-  { value: "<2h", label: "Vermittlung", icon: Zap },
-];
 
 const rotatingWords = ["schnell", "sicher", "einfach", "digital"];
 
@@ -232,33 +226,6 @@ export const Hero = () => {
             </div>
           </motion.div>
 
-          {/* Stats row */}
-          <motion.div 
-            className="grid grid-cols-3 gap-4 md:gap-8 max-w-2xl mx-auto mt-16"
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.5 }}
-          >
-            {stats.map((stat, index) => {
-              const Icon = stat.icon;
-              return (
-                <motion.div 
-                  key={stat.label}
-                  className="text-center group"
-                  whileHover={{ y: -5 }}
-                  transition={{ type: "spring", stiffness: 400 }}
-                >
-                  <div className="inline-flex items-center justify-center w-12 h-12 rounded-2xl bg-gradient-to-br from-primary/10 to-secondary/10 mb-3 group-hover:from-primary/20 group-hover:to-secondary/20 transition-all">
-                    <Icon className="w-5 h-5 text-primary" />
-                  </div>
-                  <p className="text-3xl md:text-4xl font-black bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
-                    {stat.value}
-                  </p>
-                  <p className="text-sm text-muted-foreground font-medium mt-1">{stat.label}</p>
-                </motion.div>
-              );
-            })}
-          </motion.div>
         </div>
       </div>
 
