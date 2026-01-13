@@ -1,6 +1,6 @@
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
-import { Shield, Award, Clock, Users, Star, CheckCircle2 } from "lucide-react";
+import { Shield, Award, Clock, Users, CheckCircle2 } from "lucide-react";
 
 const trustItems = [
   {
@@ -33,29 +33,6 @@ const trustItems = [
   },
 ];
 
-const reviews = [
-  {
-    name: "Maria S.",
-    location: "München",
-    rating: 5,
-    text: "Schnelle Vermittlung, freundlicher Fahrer. Sehr zufrieden!",
-    avatar: "MS",
-  },
-  {
-    name: "Thomas K.",
-    location: "Hamburg",
-    rating: 5,
-    text: "Endlich eine einfache Lösung für Krankenfahrten. Top Service!",
-    avatar: "TK",
-  },
-  {
-    name: "Anna M.",
-    location: "Berlin",
-    rating: 5,
-    text: "Professionell und zuverlässig. Klare Empfehlung!",
-    avatar: "AM",
-  },
-];
 
 export const TrustIndicators = () => {
   const ref = useRef(null);
@@ -133,61 +110,6 @@ export const TrustIndicators = () => {
           })}
         </div>
 
-        {/* Reviews section */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6, delay: 0.4 }}
-        >
-          <div className="text-center mb-10">
-            <h3 className="text-2xl md:text-3xl font-bold mb-2">
-              Was unsere Nutzer sagen
-            </h3>
-            <div className="flex items-center justify-center gap-2">
-              <div className="flex">
-                {[1, 2, 3, 4, 5].map((star) => (
-                  <Star key={star} className="w-5 h-5 text-yellow-500 fill-yellow-500" />
-                ))}
-              </div>
-              <span className="text-muted-foreground">4.9 von 5 Sternen</span>
-            </div>
-          </div>
-
-          <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
-            {reviews.map((review, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, scale: 0.95 }}
-                animate={isInView ? { opacity: 1, scale: 1 } : {}}
-                transition={{ duration: 0.5, delay: 0.5 + index * 0.1 }}
-                className="group"
-              >
-                <motion.div 
-                  className="h-full bg-card border border-border/50 rounded-2xl p-6 hover:border-secondary/30 transition-all"
-                  whileHover={{ y: -3 }}
-                >
-                  <div className="flex items-center gap-4 mb-4">
-                    <div className="w-12 h-12 rounded-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center text-primary-foreground font-bold">
-                      {review.avatar}
-                    </div>
-                    <div>
-                      <p className="font-semibold">{review.name}</p>
-                      <p className="text-sm text-muted-foreground">{review.location}</p>
-                    </div>
-                  </div>
-                  <div className="flex gap-1 mb-3">
-                    {[...Array(review.rating)].map((_, i) => (
-                      <Star key={i} className="w-4 h-4 text-yellow-500 fill-yellow-500" />
-                    ))}
-                  </div>
-                  <p className="text-muted-foreground text-sm leading-relaxed">
-                    "{review.text}"
-                  </p>
-                </motion.div>
-              </motion.div>
-            ))}
-          </div>
-        </motion.div>
 
         {/* Certifications */}
         <motion.div 
