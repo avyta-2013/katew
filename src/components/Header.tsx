@@ -69,7 +69,7 @@ export const Header = () => {
               Start
             </a>
             <a
-              href="/wir"
+              href="/plattform"
               className="px-4 py-2 text-sm font-semibold text-muted-foreground hover:text-foreground transition-colors rounded-xl hover:bg-muted/50"
             >
               Plattform
