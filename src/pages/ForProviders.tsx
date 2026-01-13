@@ -16,7 +16,10 @@ import {
   Star,
   Quote,
   Building2,
-  Sparkles
+  Sparkles,
+  MousePointerClick,
+  Layers,
+  Rocket
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Header } from "@/components/Header";
@@ -24,6 +27,8 @@ import { Footer } from "@/components/Footer";
 import { CounterCard } from "@/components/CounterCard";
 import { ContactFormCTA } from "@/components/ContactFormCTA";
 import { PartnersLogoSlider } from "@/components/PartnersLogoSlider";
+import { motion, useInView } from "framer-motion";
+import { useRef, useState } from "react";
 
 const benefits = [
   {
@@ -132,6 +137,293 @@ const testimonials = [
   },
 ];
 
+// Premium Features Showcase Component
+interface FeatureItem {
+  icon: React.ComponentType<{ className?: string }>;
+  title: string;
+  description: string;
+  highlight?: boolean;
+}
+
+const FeaturesShowcase = ({ features }: { features: FeatureItem[] }) => {
+  const sectionRef = useRef<HTMLDivElement>(null);
+  const isInView = useInView(sectionRef, { once: true, margin: "-100px" });
+  const [activeFeature, setActiveFeature] = useState<number | null>(null);
+  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+        delayChildren: 0.2
+      }
+    }
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 40, scale: 0.95 },
+    visible: { 
+      opacity: 1, 
+      y: 0, 
+      scale: 1,
+      transition: {
+        type: "spring" as const,
+        stiffness: 100,
+        damping: 15
+      }
+    }
+  };
+
+  return (
+    <div ref={sectionRef} className="max-w-7xl mx-auto">
+      {/* Section Header */}
+      <motion.div 
+        className="text-center mb-16"
+        initial={{ opacity: 0, y: 30 }}
+        animate={isInView ? { opacity: 1, y: 0 } : {}}
+        transition={{ duration: 0.6 }}
+      >
+        <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-gradient-to-r from-primary/20 via-secondary/20 to-primary/20 backdrop-blur-sm border border-primary/30 text-primary text-sm font-semibold mb-6">
+          <Layers className="w-4 h-4" />
+          Alles aus einer Hand
+        </div>
+        <h3 className="text-3xl md:text-5xl font-bold mb-4">
+          <span className="bg-gradient-to-r from-primary via-secondary to-primary bg-clip-text text-transparent bg-[length:200%_auto]">
+            Unsere Leistungen
+          </span>
+        </h3>
+        <p className="text-lg text-muted-foreground max-w-xl mx-auto">
+          Alles was du brauchst, um erfolgreich zu sein – von der Buchung bis zur Abrechnung
+        </p>
+      </motion.div>
+
+      {/* Interactive Feature Grid */}
+      <motion.div 
+        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6"
+        variants={containerVariants}
+        initial="hidden"
+        animate={isInView ? "visible" : "hidden"}
+      >
+        {features.map((feature, index) => {
+          const Icon = feature.icon;
+          const isHighlight = 'highlight' in feature && feature.highlight;
+          const isActive = activeFeature === index;
+          const isHovered = hoveredIndex === index;
+
+          return (
+            <motion.div
+              key={index}
+              variants={itemVariants}
+              className={`group relative cursor-pointer ${isHighlight ? 'md:col-span-2 lg:col-span-2 xl:col-span-2' : ''}`}
+              onMouseEnter={() => setHoveredIndex(index)}
+              onMouseLeave={() => setHoveredIndex(null)}
+              onClick={() => setActiveFeature(isActive ? null : index)}
+            >
+              {/* Animated Glow Effect */}
+              <motion.div 
+                className={`absolute -inset-1 rounded-[2rem] bg-gradient-to-r ${
+                  isHighlight 
+                    ? 'from-primary via-secondary to-primary' 
+                    : 'from-primary/60 via-secondary/60 to-primary/60'
+                } blur-xl`}
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ 
+                  opacity: isHovered ? 0.6 : 0, 
+                  scale: isHovered ? 1 : 0.8 
+                }}
+                transition={{ duration: 0.3 }}
+              />
+
+              {/* Main Card */}
+              <motion.div 
+                className={`relative h-full rounded-3xl border backdrop-blur-xl overflow-hidden transition-colors duration-500 ${
+                  isHighlight 
+                    ? 'bg-gradient-to-br from-primary/15 via-card to-secondary/15 border-primary/40' 
+                    : 'bg-card/90 border-border/50 hover:border-primary/50'
+                }`}
+                animate={{ 
+                  scale: isHovered ? 1.02 : 1,
+                  y: isHovered ? -8 : 0
+                }}
+                transition={{ type: "spring", stiffness: 400, damping: 25 }}
+              >
+                {/* Animated Background Pattern */}
+                <div className="absolute inset-0 overflow-hidden">
+                  <motion.div 
+                    className="absolute inset-0 opacity-[0.03]"
+                    style={{
+                      backgroundImage: `radial-gradient(circle at 2px 2px, currentColor 1px, transparent 0)`,
+                      backgroundSize: '24px 24px'
+                    }}
+                    animate={{ 
+                      backgroundPosition: isHovered ? ['0px 0px', '24px 24px'] : '0px 0px'
+                    }}
+                    transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+                  />
+                  
+                  {/* Floating Orb */}
+                  <motion.div 
+                    className="absolute -top-10 -right-10 w-40 h-40 rounded-full bg-gradient-to-br from-primary/20 to-secondary/20 blur-3xl"
+                    animate={{ 
+                      opacity: isHovered ? 1 : 0.3,
+                      scale: isHovered ? 1.2 : 1,
+                      x: isHovered ? -10 : 0,
+                      y: isHovered ? 10 : 0
+                    }}
+                    transition={{ duration: 0.5 }}
+                  />
+                </div>
+
+                {/* Highlight Badge */}
+                {isHighlight && (
+                  <div className="absolute top-0 left-0 right-0 flex justify-center">
+                    <motion.div 
+                      className="px-5 py-2 bg-gradient-to-r from-primary to-secondary text-primary-foreground text-xs font-bold rounded-b-2xl flex items-center gap-2 shadow-lg shadow-primary/30"
+                      initial={{ y: -30 }}
+                      animate={{ y: 0 }}
+                      transition={{ delay: 0.5, type: "spring" }}
+                    >
+                      <Sparkles className="w-3.5 h-3.5" />
+                      EXKLUSIV FÜR MITGLIEDER
+                    </motion.div>
+                  </div>
+                )}
+
+                <div className={`relative p-6 md:p-8 ${isHighlight ? 'pt-12' : ''}`}>
+                  {/* Icon with 3D Effect */}
+                  <div className="mb-6 relative">
+                    <motion.div 
+                      className={`w-16 h-16 md:w-20 md:h-20 rounded-2xl flex items-center justify-center relative ${
+                        isHighlight 
+                          ? 'bg-gradient-to-br from-primary to-secondary shadow-2xl shadow-primary/40' 
+                          : 'bg-gradient-to-br from-primary/10 to-secondary/10 border border-primary/20'
+                      }`}
+                      animate={{ 
+                        rotateY: isHovered ? 10 : 0,
+                        rotateX: isHovered ? -5 : 0,
+                        scale: isHovered ? 1.1 : 1
+                      }}
+                      transition={{ type: "spring", stiffness: 300 }}
+                      style={{ transformStyle: "preserve-3d" }}
+                    >
+                      <Icon className={`w-8 h-8 md:w-10 md:h-10 ${isHighlight ? 'text-primary-foreground' : 'text-primary'}`} />
+                      
+                      {/* Icon Glow */}
+                      <motion.div 
+                        className="absolute inset-0 rounded-2xl bg-primary/30 blur-xl"
+                        animate={{ opacity: isHovered ? 0.8 : 0 }}
+                      />
+                    </motion.div>
+
+                    {/* Animated Rings */}
+                    <motion.div 
+                      className="absolute -inset-3 rounded-3xl border-2 border-dashed border-primary/30"
+                      animate={{ 
+                        rotate: isHovered ? 360 : 0,
+                        opacity: isHovered ? 1 : 0
+                      }}
+                      transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
+                    />
+                    <motion.div 
+                      className="absolute -inset-5 rounded-3xl border border-secondary/20"
+                      animate={{ 
+                        rotate: isHovered ? -360 : 0,
+                        opacity: isHovered ? 0.5 : 0
+                      }}
+                      transition={{ duration: 12, repeat: Infinity, ease: "linear" }}
+                    />
+                  </div>
+
+                  {/* Content */}
+                  <motion.h4 
+                    className={`font-bold text-xl md:text-2xl mb-3 ${
+                      isHighlight ? 'text-primary' : 'text-foreground'
+                    }`}
+                    animate={{ x: isHovered ? 4 : 0 }}
+                    transition={{ type: "spring", stiffness: 300 }}
+                  >
+                    {feature.title}
+                  </motion.h4>
+                  
+                  <p className="text-muted-foreground leading-relaxed mb-6 text-sm md:text-base">
+                    {feature.description}
+                  </p>
+
+                  {/* Interactive CTA */}
+                  <motion.div 
+                    className="flex items-center gap-2 text-sm font-semibold text-primary"
+                    animate={{ x: isHovered ? 8 : 0 }}
+                    transition={{ type: "spring", stiffness: 300 }}
+                  >
+                    <MousePointerClick className="w-4 h-4" />
+                    <span>Mehr erfahren</span>
+                    <motion.div animate={{ x: isHovered ? 4 : 0 }}>
+                      <ArrowRight className="w-4 h-4" />
+                    </motion.div>
+                  </motion.div>
+                </div>
+
+                {/* Bottom Gradient Line */}
+                <motion.div 
+                  className="absolute bottom-0 left-0 right-0 h-1.5 bg-gradient-to-r from-primary via-secondary to-primary"
+                  initial={{ scaleX: 0 }}
+                  animate={{ scaleX: isHovered ? 1 : 0 }}
+                  transition={{ duration: 0.4 }}
+                  style={{ transformOrigin: "left" }}
+                />
+
+                {/* Corner Accent */}
+                <motion.div 
+                  className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-bl from-primary/10 to-transparent"
+                  animate={{ opacity: isHovered ? 1 : 0.3 }}
+                />
+              </motion.div>
+            </motion.div>
+          );
+        })}
+      </motion.div>
+
+      {/* Bottom Stats Bar */}
+      <motion.div 
+        className="mt-16 flex flex-col sm:flex-row items-center justify-center gap-6 sm:gap-12"
+        initial={{ opacity: 0, y: 30 }}
+        animate={isInView ? { opacity: 1, y: 0 } : {}}
+        transition={{ delay: 0.8, duration: 0.6 }}
+      >
+        <div className="flex items-center gap-4 px-6 py-4 rounded-2xl bg-gradient-to-r from-primary/10 to-secondary/10 border border-primary/20 backdrop-blur-sm">
+          <div className="flex -space-x-3">
+            {['MS', 'AK', 'TL', 'RB'].map((initials, i) => (
+              <motion.div 
+                key={i} 
+                className="w-11 h-11 rounded-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center text-primary-foreground text-sm font-bold border-2 border-background shadow-lg"
+                initial={{ scale: 0, x: 20 }}
+                animate={isInView ? { scale: 1, x: 0 } : {}}
+                transition={{ delay: 1 + i * 0.1, type: "spring" }}
+              >
+                {initials}
+              </motion.div>
+            ))}
+          </div>
+          <div className="text-left">
+            <div className="font-bold text-lg text-foreground">500+ Anbieter</div>
+            <div className="text-sm text-muted-foreground">vertrauen auf katew</div>
+          </div>
+        </div>
+
+        <div className="flex items-center gap-3 px-6 py-4 rounded-2xl bg-card border border-border/50">
+          <Rocket className="w-6 h-6 text-secondary" />
+          <div>
+            <div className="font-bold text-foreground">Starte noch heute</div>
+            <div className="text-sm text-muted-foreground">Keine versteckten Kosten</div>
+          </div>
+        </div>
+      </motion.div>
+    </div>
+  );
+};
+
 export default function ForProviders() {
   return (
     <>
@@ -219,134 +511,8 @@ export default function ForProviders() {
             </div>
           </div>
 
-          {/* Features - Premium Bento Grid */}
-          <div className="max-w-6xl mx-auto">
-            <div className="text-center mb-12">
-              <h3 className="text-2xl md:text-3xl font-bold mb-3">
-                <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">Unsere Leistungen</span>
-              </h3>
-              <p className="text-muted-foreground">Alles was du brauchst, um erfolgreich zu sein</p>
-            </div>
-
-            {/* Bento Grid Layout */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {features.map((feature, index) => {
-                const Icon = feature.icon;
-                const isHighlight = 'highlight' in feature && feature.highlight;
-                const isLarge = index === 0 || index === 6;
-                
-                return (
-                  <div
-                    key={index}
-                    className={`group relative overflow-hidden ${isLarge ? 'md:col-span-2 lg:col-span-1' : ''} ${isHighlight ? 'lg:row-span-1' : ''}`}
-                  >
-                    {/* Card Glow */}
-                    <div className={`absolute -inset-0.5 rounded-[1.75rem] bg-gradient-to-r ${
-                      isHighlight 
-                        ? 'from-primary via-secondary to-primary' 
-                        : index % 2 === 0 
-                          ? 'from-primary/50 to-secondary/50' 
-                          : 'from-secondary/50 to-primary/50'
-                    } opacity-0 group-hover:opacity-100 blur-sm transition-all duration-500`} />
-                    
-                    {/* Main Card */}
-                    <div className={`relative h-full rounded-3xl border backdrop-blur-xl transition-all duration-500 ${
-                      isHighlight 
-                        ? 'bg-gradient-to-br from-primary/20 via-card to-secondary/20 border-primary/40' 
-                        : 'bg-card/80 border-border/50 hover:border-primary/40'
-                    } p-8`}>
-                      
-                      {/* Highlight Badge */}
-                      {isHighlight && (
-                        <div className="absolute -top-px left-1/2 -translate-x-1/2">
-                          <div className="px-4 py-1.5 bg-gradient-to-r from-primary to-secondary text-primary-foreground text-xs font-bold rounded-b-xl flex items-center gap-1.5 shadow-lg">
-                            <Sparkles className="w-3 h-3" />
-                            EXKLUSIV
-                          </div>
-                        </div>
-                      )}
-
-                      {/* Background Pattern */}
-                      <div className="absolute inset-0 opacity-[0.02] rounded-3xl overflow-hidden">
-                        <div className="absolute inset-0" style={{
-                          backgroundImage: `radial-gradient(circle at 2px 2px, currentColor 1px, transparent 0)`,
-                          backgroundSize: '20px 20px'
-                        }} />
-                      </div>
-
-                      {/* Floating Decorative Elements */}
-                      <div className="absolute top-4 right-4 w-20 h-20 rounded-full bg-gradient-to-br from-primary/10 to-secondary/10 blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-
-                      <div className="relative">
-                        {/* Icon Container */}
-                        <div className="mb-6 relative">
-                          <div className={`w-16 h-16 rounded-2xl flex items-center justify-center transition-all duration-500 group-hover:scale-110 group-hover:rotate-3 ${
-                            isHighlight 
-                              ? 'bg-gradient-to-br from-primary to-secondary shadow-lg shadow-primary/30' 
-                              : 'bg-gradient-to-br from-primary/10 to-secondary/10 border border-primary/20 group-hover:border-primary/50 group-hover:shadow-lg group-hover:shadow-primary/20'
-                          }`}>
-                            <Icon className={`w-7 h-7 ${isHighlight ? 'text-primary-foreground' : 'text-primary'}`} />
-                          </div>
-                          
-                          {/* Animated Ring */}
-                          <div className={`absolute -inset-2 rounded-3xl border-2 border-dashed ${
-                            isHighlight ? 'border-primary/40' : 'border-primary/20'
-                          } opacity-0 group-hover:opacity-100 transition-opacity duration-500`} style={{
-                            animation: 'spin 20s linear infinite'
-                          }} />
-                        </div>
-
-                        {/* Content */}
-                        <h3 className={`font-bold text-xl mb-3 transition-colors duration-300 ${
-                          isHighlight ? 'text-primary' : 'group-hover:text-primary'
-                        }`}>
-                          {feature.title}
-                        </h3>
-                        
-                        <p className="text-muted-foreground leading-relaxed mb-6">
-                          {feature.description}
-                        </p>
-
-                        {/* Action Link */}
-                        <div className={`flex items-center gap-2 text-sm font-medium transition-all duration-300 ${
-                          isHighlight 
-                            ? 'text-primary' 
-                            : 'text-muted-foreground group-hover:text-primary'
-                        }`}>
-                          <span>Mehr erfahren</span>
-                          <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" />
-                        </div>
-                      </div>
-
-                      {/* Bottom Accent */}
-                      <div className={`absolute bottom-0 left-6 right-6 h-1 rounded-full bg-gradient-to-r ${
-                        isHighlight 
-                          ? 'from-primary to-secondary opacity-100' 
-                          : 'from-primary to-secondary opacity-0 group-hover:opacity-100'
-                      } transition-opacity duration-500`} />
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-
-            {/* Bottom CTA */}
-            <div className="mt-12 text-center">
-              <div className="inline-flex items-center gap-4 px-8 py-4 rounded-2xl bg-gradient-to-r from-primary/10 to-secondary/10 border border-primary/20 backdrop-blur-sm">
-                <div className="flex -space-x-2">
-                  {['MS', 'AK', 'TL'].map((initials, i) => (
-                    <div key={i} className="w-10 h-10 rounded-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center text-primary-foreground text-sm font-bold border-2 border-background">
-                      {initials}
-                    </div>
-                  ))}
-                </div>
-                <div className="text-left">
-                  <div className="font-semibold text-foreground">500+ Anbieter vertrauen uns</div>
-                  <div className="text-sm text-muted-foreground">Werde Teil des Netzwerks</div>
-                </div>
-              </div>
-            </div>
-          </div>
+          {/* Features - Premium Interactive Section */}
+          <FeaturesShowcase features={features} />
         </div>
       </section>
 
