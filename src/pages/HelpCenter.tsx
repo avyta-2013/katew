@@ -838,9 +838,6 @@ export default function HelpCenter() {
                 </span>
               </h1>
 
-              <p className="text-xl md:text-2xl text-muted-foreground mb-12 max-w-2xl mx-auto leading-relaxed animate-fade-in" style={{ animationDelay: '0.2s' }}>
-                Antworten, Anleitungen und persönlicher Support – alles an einem Ort
-              </p>
               
               {/* Search Box - Glassmorphism Style */}
               <div 
