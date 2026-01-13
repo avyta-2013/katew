@@ -89,7 +89,7 @@ export default function ForProviders() {
             </div>
             <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 tracking-tight">
               <span className="bg-gradient-to-r from-primary via-secondary to-primary bg-clip-text text-transparent">
-                Werde Teil von Katew
+                Mehr Fahrten. Mehr Umsatz.
               </span>
             </h1>
             <p className="text-xl md:text-2xl text-muted-foreground mb-6 max-w-2xl mx-auto leading-relaxed">
