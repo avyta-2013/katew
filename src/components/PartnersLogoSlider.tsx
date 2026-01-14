@@ -99,8 +99,9 @@ export const PartnersLogoSlider = ({
             Exklusive Partnerschaften
           </motion.div>
           
+          
           <h3 className="text-3xl md:text-5xl font-bold mb-4">
-            {title} <span className="bg-gradient-to-r from-primary via-secondary to-primary bg-clip-text text-transparent bg-[length:200%_auto]">{highlightedWord}</span>
+            Unsere Partner sind <span className="bg-gradient-to-r from-primary via-secondary to-primary bg-clip-text text-transparent bg-[length:200%_auto]">überall</span>
           </h3>
           <p className="text-lg text-muted-foreground max-w-xl mx-auto">
             Als Partner profitieren Sie von unseren Kooperationen mit führenden Unternehmen
@@ -177,7 +178,7 @@ export const PartnersLogoSlider = ({
           
           <div 
             ref={scrollRef}
-            className="flex gap-6 overflow-hidden py-4"
+            className="flex gap-8 overflow-hidden py-6"
             style={{ scrollBehavior: 'auto' }}
           >
             {/* Double the logos for seamless loop */}
@@ -198,17 +199,17 @@ export const PartnersLogoSlider = ({
                     transition={{ duration: 0.3 }}
                   >
                     <motion.div 
-                      className="relative w-48 h-32 bg-card/80 backdrop-blur-sm border border-border/50 rounded-3xl flex flex-col items-center justify-center gap-3 cursor-pointer overflow-hidden group"
+                      className="relative w-64 h-44 bg-card/90 backdrop-blur-md border border-border/40 rounded-3xl flex flex-col items-center justify-center gap-4 cursor-pointer overflow-hidden group shadow-lg shadow-black/5"
                       animate={{ 
-                        y: isHovered ? -8 : 0,
+                        y: isHovered ? -10 : 0,
                         scale: isHovered ? 1.05 : 1,
                       }}
                       transition={{ type: "spring", stiffness: 400, damping: 25 }}
                     >
                       {/* Hover Glow */}
                       <motion.div 
-                        className="absolute -inset-1 bg-gradient-to-r from-primary/50 via-secondary/50 to-primary/50 rounded-3xl blur-xl"
-                        animate={{ opacity: isHovered ? 0.6 : 0 }}
+                        className="absolute -inset-2 bg-gradient-to-r from-primary/40 via-secondary/40 to-primary/40 rounded-3xl blur-2xl"
+                        animate={{ opacity: isHovered ? 0.7 : 0 }}
                         transition={{ duration: 0.3 }}
                       />
                       
@@ -219,35 +220,35 @@ export const PartnersLogoSlider = ({
                       
                       {/* Verified Badge */}
                       {partner.verified && (
-                        <div className="absolute top-2 right-2 w-5 h-5 rounded-full bg-gradient-to-r from-primary to-secondary flex items-center justify-center">
-                          <CheckCircle className="w-3 h-3 text-primary-foreground" />
+                        <div className="absolute top-3 right-3 w-6 h-6 rounded-full bg-gradient-to-r from-primary to-secondary flex items-center justify-center shadow-md">
+                          <CheckCircle className="w-3.5 h-3.5 text-primary-foreground" />
                         </div>
                       )}
                       
                       {/* Category Icon */}
-                      <div className="absolute top-2 left-2">
-                        <CategoryIcon className="w-4 h-4 text-muted-foreground/50" />
+                      <div className="absolute top-3 left-3">
+                        <CategoryIcon className="w-5 h-5 text-muted-foreground/60" />
                       </div>
                       
                       {/* Main Content */}
-                      <div className="relative z-10 flex flex-col items-center gap-2">
+                      <div className="relative z-10 flex flex-col items-center gap-3">
                         <motion.div 
-                          className="w-14 h-14 rounded-2xl bg-gradient-to-br from-primary/15 to-secondary/15 border border-primary/20 flex items-center justify-center group-hover:border-primary/50 transition-colors duration-300"
+                          className="w-20 h-20 rounded-2xl bg-gradient-to-br from-primary/20 to-secondary/20 border-2 border-primary/25 flex items-center justify-center group-hover:border-primary/60 transition-all duration-300 shadow-inner"
                           animate={{ rotate: isHovered ? [0, -5, 5, 0] : 0 }}
                           transition={{ duration: 0.5 }}
                         >
-                          <span className="text-2xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+                          <span className="text-3xl font-black bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
                             {partner.logo}
                           </span>
                         </motion.div>
-                        <span className="text-sm text-muted-foreground font-medium group-hover:text-foreground transition-colors">
+                        <span className="text-base text-muted-foreground font-semibold group-hover:text-foreground transition-colors">
                           {partner.name}
                         </span>
                       </div>
                       
                       {/* Bottom Accent Line */}
                       <motion.div 
-                        className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-primary via-secondary to-primary"
+                        className="absolute bottom-0 left-0 right-0 h-1.5 bg-gradient-to-r from-primary via-secondary to-primary"
                         initial={{ scaleX: 0 }}
                         animate={{ scaleX: isHovered ? 1 : 0 }}
                         transition={{ duration: 0.3 }}
