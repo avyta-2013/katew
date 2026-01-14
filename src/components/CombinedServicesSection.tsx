@@ -70,28 +70,28 @@ const transportTypes = [
     title: "Sitzend",
     description: "Für gehfähige Patienten mit leichten Einschränkungen",
     features: ["Komfortabler Sitzplatz", "Begleitung möglich", "Schnelle Verfügbarkeit"],
-    color: "from-blue-500 to-blue-600",
+    color: "from-primary to-primary/80",
   },
   {
     image: transportWheelchair,
     title: "Rollstuhl",
     description: "Spezialisierter Transport für Rollstuhlfahrer",
     features: ["Barrierefreier Zugang", "Sichere Befestigung", "Rampen-Ausstattung"],
-    color: "from-violet-500 to-violet-600",
+    color: "from-secondary to-secondary/80",
   },
   {
     image: transportStairchair,
     title: "Tragestuhl",
     description: "Optimal für enge Treppenhäuser und schwierige Zugänge",
     features: ["Treppengängig", "Schonender Transport", "Erfahrenes Personal"],
-    color: "from-emerald-500 to-emerald-600",
+    color: "from-primary to-secondary",
   },
   {
     image: transportStretcher,
     title: "Liegend",
     description: "Vollausgestatteter Transport auf Trage",
     features: ["Sichere Stabilisierung", "Schonender Transport", "Komfortable Liegefläche"],
-    color: "from-rose-500 to-rose-600",
+    color: "from-secondary to-primary",
   },
 ];
 
@@ -331,11 +331,11 @@ export const CombinedServicesSection = () => {
           </motion.div>
           <h2 className="text-4xl md:text-6xl lg:text-7xl font-black mb-6 tracking-tight">
             <span className="bg-gradient-to-r from-primary via-secondary to-primary bg-clip-text text-transparent">
-              Services & Ablauf
+              Das was Sie benötigen
             </span>
           </h2>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            Entdecken Sie unsere Lösungen für Ihren Krankentransport
+            Entdecken Sie unsere Lösungen für Ihre Krankenfahrt
           </p>
         </motion.div>
 
