@@ -90,7 +90,7 @@ const transportTypes = [
     image: transportStretcher,
     title: "Liegend",
     description: "Vollausgestatteter Transport auf Trage",
-    features: ["Keine medizinische Betreuung", "Klimatisiert", "Komfortable Liegefläche"],
+    features: ["Sichere Stabilisierung", "Schonender Transport", "Komfortable Liegefläche"],
     color: "from-rose-500 to-rose-600",
   },
 ];
