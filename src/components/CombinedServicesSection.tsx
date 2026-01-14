@@ -407,7 +407,7 @@ export const CombinedServicesSection = () => {
                     size="lg" 
                     className="w-full h-14 rounded-2xl font-bold shadow-lg shadow-primary/20 bg-gradient-to-r from-primary to-primary/90 hover:shadow-xl hover:shadow-primary/30 transition-all"
                   >
-                    <a href="/services">
+                    <a href="/plattform">
                       Mehr erfahren
                       <ArrowRight className="ml-2 w-5 h-5" />
                     </a>
