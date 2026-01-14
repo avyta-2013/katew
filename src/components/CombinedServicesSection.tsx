@@ -330,8 +330,9 @@ export const CombinedServicesSection = () => {
             <span>Alles auf einen Blick</span>
           </motion.div>
           <h2 className="text-4xl md:text-6xl lg:text-7xl font-black mb-6 tracking-tight">
+            Das was Sie{" "}
             <span className="bg-gradient-to-r from-primary via-secondary to-primary bg-clip-text text-transparent">
-              Das was Sie benötigen
+              benötigen
             </span>
           </h2>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
