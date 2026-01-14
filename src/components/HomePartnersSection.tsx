@@ -53,7 +53,7 @@ export const HomePartnersSection = () => {
             transition={{ duration: 0.5 }}
           >
             Unsere Partner sind{" "}
-            <span className="text-primary">überall</span>
+            <span className="bg-gradient-to-r from-primary via-secondary to-primary bg-clip-text text-transparent">überall</span>
           </motion.h2>
           
           {/* Filter & Navigation */}
