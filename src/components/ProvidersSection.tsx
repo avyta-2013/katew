@@ -160,11 +160,11 @@ export const ProvidersSection = () => {
                 <Button 
                   asChild 
                   size="lg" 
-                  className="h-14 px-8 rounded-2xl font-bold bg-gradient-to-r from-primary to-primary/90 shadow-xl shadow-primary/25 hover:shadow-2xl hover:shadow-primary/30 transition-all"
+                  className="h-14 px-8 rounded-2xl font-bold bg-gradient-to-r from-primary to-secondary hover:opacity-90 shadow-xl shadow-primary/25 hover:shadow-2xl hover:shadow-primary/30 transition-all group"
                 >
                   <Link to="/anmelden?type=anbieter">
                     Jetzt Anbieter werden
-                    <ArrowRight className="ml-2 w-5 h-5" />
+                    <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
                   </Link>
                 </Button>
               </motion.div>
