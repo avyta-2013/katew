@@ -308,7 +308,7 @@ export const PartnersSection = () => {
                     </div>
                     <div className="flex items-center gap-2">
                       <CheckCircle2 className="w-5 h-5 text-white/80" />
-                      <span className="text-sm text-white/80">Keine Kreditkarte</span>
+                      <span className="text-sm text-white/80">Keine Kosten</span>
                     </div>
                   </div>
                 </div>
