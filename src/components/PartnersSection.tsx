@@ -39,7 +39,7 @@ const partnerTypes = [
     image: partnerFacilityImg,
     title: "Einrichtungen",
     subtitle: "Kliniken, Pflegeheime, Praxen",
-    features: ["Flexible Abrechnungen", "API-Anbindung", "Persönlicher Ansprechpartner"],
+    features: ["Zentrale Verwaltung", "API-Anbindung", "Prioritäts-Betreuung"],
     color: "secondary",
   },
 ];
