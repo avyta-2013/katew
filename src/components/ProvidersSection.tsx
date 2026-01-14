@@ -1,7 +1,7 @@
-import { useRef, useState } from "react";
-import { motion, useInView, AnimatePresence } from "framer-motion";
+import { useRef } from "react";
+import { motion, useInView } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { Zap, TrendingUp, Handshake, ArrowRight, Globe, Navigation, Star, MapPin, ChevronLeft, ChevronRight, Truck, Users, CheckCircle2 } from "lucide-react";
+import { Zap, TrendingUp, Handshake, ArrowRight, MapPin, Star, Truck, Users } from "lucide-react";
 import { Link } from "react-router-dom";
 import { ScrollArea } from "@/components/ui/scroll-area";
 
@@ -59,24 +59,6 @@ const benefits = [
   },
 ];
 
-const deutschlandweiteUnternehmen = [
-  { name: "MediTrans Deutschland", city: "Berlin", rating: 4.9, reviews: 234, verified: true },
-  { name: "Bundesweiter Krankenfahrdienst", city: "Hamburg", rating: 4.8, reviews: 189, verified: true },
-  { name: "CareMobil Pro", city: "München", rating: 4.9, reviews: 312, verified: true },
-  { name: "TransMed Services", city: "Frankfurt", rating: 4.7, reviews: 156, verified: true },
-  { name: "AllCare Transport", city: "Köln", rating: 4.8, reviews: 201, verified: true },
-  { name: "NationCare Fahrten", city: "Stuttgart", rating: 4.9, reviews: 178, verified: true },
-];
-
-const regionaleUnternehmen = [
-  { name: "Frankfurt Krankenfahrt", city: "Frankfurt", rating: 4.9, reviews: 89, verified: true },
-  { name: "Main-Taunus Care", city: "Hofheim", rating: 4.8, reviews: 67, verified: true },
-  { name: "Rhein-Main MediTaxi", city: "Offenbach", rating: 4.7, reviews: 54, verified: true },
-  { name: "Hessen Mobil Plus", city: "Wiesbaden", rating: 4.9, reviews: 112, verified: true },
-  { name: "Darmstadt Fahrservice", city: "Darmstadt", rating: 4.8, reviews: 78, verified: true },
-  { name: "Taunus MediCare", city: "Bad Homburg", rating: 4.8, reviews: 56, verified: true },
-];
-
 const stats = [
   { value: "500+", label: "Partner", icon: Users },
   { value: "30+", label: "Städte", icon: MapPin },
@@ -86,20 +68,6 @@ const stats = [
 export const ProvidersSection = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
-  const [viewMode, setViewMode] = useState<"deutschland" | "regional">("deutschland");
-  const scrollRef = useRef<HTMLDivElement>(null);
-
-  const companies = viewMode === "deutschland" ? deutschlandweiteUnternehmen : regionaleUnternehmen;
-
-  const scroll = (direction: "left" | "right") => {
-    if (scrollRef.current) {
-      const scrollAmount = 340;
-      scrollRef.current.scrollBy({
-        left: direction === "left" ? -scrollAmount : scrollAmount,
-        behavior: "smooth",
-      });
-    }
-  };
 
   return (
     <section ref={ref} id="anbieter" className="py-24 md:py-32 bg-background overflow-hidden relative">
@@ -266,138 +234,6 @@ export const ProvidersSection = () => {
               </motion.div>
             </motion.div>
           </div>
-
-          {/* Partners Slider */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.6, delay: 0.5 }}
-          >
-            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-8">
-              <div>
-                <h3 className="text-2xl md:text-3xl font-bold">
-                  <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
-                    Unsere Partner sind überall
-                  </span>
-                </h3>
-              </div>
-              
-              {/* Toggle + Navigation */}
-              <div className="flex items-center gap-4">
-                <div className="inline-flex p-1 bg-muted rounded-xl">
-                  {[
-                    { id: "deutschland", label: "Deutschlandweit", icon: Globe },
-                    { id: "regional", label: "Regional", icon: Navigation },
-                  ].map((mode) => (
-                    <motion.button
-                      key={mode.id}
-                      onClick={() => setViewMode(mode.id as "deutschland" | "regional")}
-                      className={`relative flex items-center gap-2 px-4 py-2.5 rounded-lg text-sm font-medium transition-colors ${
-                        viewMode === mode.id 
-                          ? "text-primary-foreground" 
-                          : "text-muted-foreground hover:text-foreground"
-                      }`}
-                      whileTap={{ scale: 0.98 }}
-                    >
-                      {viewMode === mode.id && (
-                        <motion.div
-                          layoutId="viewModeTab"
-                          className="absolute inset-0 bg-primary rounded-lg shadow-md"
-                          transition={{ type: "spring", stiffness: 400, damping: 30 }}
-                        />
-                      )}
-                      <mode.icon className="w-4 h-4 relative z-10" />
-                      <span className="hidden sm:inline relative z-10">{mode.label}</span>
-                    </motion.button>
-                  ))}
-                </div>
-                
-                {/* Scroll buttons */}
-                <div className="hidden sm:flex items-center gap-2">
-                  <motion.button
-                    onClick={() => scroll("left")}
-                    className="w-11 h-11 rounded-xl bg-muted hover:bg-primary hover:text-primary-foreground flex items-center justify-center transition-colors"
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                  >
-                    <ChevronLeft className="w-5 h-5" />
-                  </motion.button>
-                  <motion.button
-                    onClick={() => scroll("right")}
-                    className="w-11 h-11 rounded-xl bg-muted hover:bg-primary hover:text-primary-foreground flex items-center justify-center transition-colors"
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                  >
-                    <ChevronRight className="w-5 h-5" />
-                  </motion.button>
-                </div>
-              </div>
-            </div>
-
-            {/* Slider */}
-            <AnimatePresence mode="wait">
-              <motion.div 
-                key={viewMode}
-                ref={scrollRef}
-                className="flex gap-5 overflow-x-auto pb-4 scrollbar-hide snap-x snap-mandatory"
-                style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
-                initial={{ opacity: 0, x: 20 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: -20 }}
-                transition={{ duration: 0.3 }}
-              >
-                {companies.map((company, index) => (
-                  <motion.div
-                    key={index}
-                    className="flex-shrink-0 w-[320px] snap-start"
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: index * 0.05 }}
-                  >
-                    <motion.div 
-                      className="h-full bg-card border border-border/50 rounded-2xl p-6 hover:border-primary/30 transition-all group"
-                      whileHover={{ y: -5, boxShadow: "0 20px 40px -15px rgba(0,0,0,0.1)" }}
-                    >
-                      <div className="flex items-start justify-between mb-4">
-                        <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-primary/20 to-secondary/20 flex items-center justify-center">
-                          <Truck className="w-7 h-7 text-primary" />
-                        </div>
-                        <div className="flex items-center gap-1.5 px-3 py-1.5 bg-yellow-500/10 rounded-xl">
-                          <Star className="w-4 h-4 text-yellow-500 fill-yellow-500" />
-                          <span className="font-bold text-sm">{company.rating}</span>
-                        </div>
-                      </div>
-                      
-                      <h4 className="font-bold text-lg mb-2 group-hover:text-primary transition-colors">
-                        {company.name}
-                      </h4>
-                      <p className="text-sm text-muted-foreground mb-4 flex items-center gap-1.5">
-                        <MapPin className="w-4 h-4" />
-                        {company.city}
-                      </p>
-
-                      {company.verified && (
-                        <div className="flex items-center gap-2 text-xs text-secondary mb-4">
-                          <CheckCircle2 className="w-4 h-4" />
-                          Verifizierter Partner
-                        </div>
-                      )}
-                      
-                      <div className="flex items-center justify-between pt-4 border-t border-border/50">
-                        <span className="text-xs text-muted-foreground">
-                          {company.reviews} Bewertungen
-                        </span>
-                        <Button variant="ghost" size="sm" className="h-8 text-primary hover:text-primary font-medium">
-                          Profil
-                          <ArrowRight className="w-4 h-4 ml-1" />
-                        </Button>
-                      </div>
-                    </motion.div>
-                  </motion.div>
-                ))}
-              </motion.div>
-            </AnimatePresence>
-          </motion.div>
         </div>
       </div>
     </section>
