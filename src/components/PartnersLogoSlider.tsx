@@ -1,33 +1,29 @@
-import { useEffect, useRef, useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { Building2, Heart, Activity, Code, Sparkles, ArrowRight, CheckCircle } from "lucide-react";
+import { useState } from "react";
+import { motion } from "framer-motion";
+import { Truck, MapPin, CheckCircle, Star, ArrowRight, ChevronLeft, ChevronRight, Globe, Navigation } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
-type PartnerCategory = "Alle" | "Krankenhaus" | "Reha" | "Pflege" | "Software";
+interface Partner {
+  id: string;
+  name: string;
+  location: string;
+  rating: number;
+  reviewCount: number;
+  verified: boolean;
+}
 
-const categoryIcons = {
-  "Alle": Sparkles,
-  "Krankenhaus": Building2,
-  "Reha": Activity,
-  "Pflege": Heart,
-  "Software": Code,
-};
-
-const partnerLogos = [
-  { name: "Charité Berlin", logo: "CB", category: "Krankenhaus" as PartnerCategory, verified: true },
-  { name: "Helios Kliniken", logo: "HK", category: "Krankenhaus" as PartnerCategory, verified: true },
-  { name: "Asklepios", logo: "AS", category: "Krankenhaus" as PartnerCategory, verified: true },
-  { name: "Universitätsklinik", logo: "UK", category: "Krankenhaus" as PartnerCategory, verified: false },
-  { name: "MediaReha", logo: "MR", category: "Reha" as PartnerCategory, verified: true },
-  { name: "Kur + Reha", logo: "KR", category: "Reha" as PartnerCategory, verified: false },
-  { name: "RehaZentrum", logo: "RZ", category: "Reha" as PartnerCategory, verified: true },
-  { name: "Caritas Pflege", logo: "CP", category: "Pflege" as PartnerCategory, verified: true },
-  { name: "AWO Seniorendienste", logo: "AW", category: "Pflege" as PartnerCategory, verified: true },
-  { name: "Korian", logo: "KO", category: "Pflege" as PartnerCategory, verified: false },
-  { name: "Alloheim", logo: "AL", category: "Pflege" as PartnerCategory, verified: true },
-  { name: "Connext Vivendi", logo: "CV", category: "Software" as PartnerCategory, verified: true },
-  { name: "CGM", logo: "CG", category: "Software" as PartnerCategory, verified: true },
-  { name: "Medifox", logo: "MF", category: "Software" as PartnerCategory, verified: false },
+const partners: Partner[] = [
+  { id: "1", name: "MediTrans Deutschland", location: "Berlin", rating: 4.9, reviewCount: 234, verified: true },
+  { id: "2", name: "Bundesweiter Krankenfahrdienst", location: "Hamburg", rating: 4.8, reviewCount: 189, verified: true },
+  { id: "3", name: "CareMobil Pro", location: "München", rating: 4.9, reviewCount: 312, verified: true },
+  { id: "4", name: "TransMed Services", location: "Frankfurt", rating: 4.7, reviewCount: 156, verified: true },
+  { id: "5", name: "MobiCare Express", location: "Köln", rating: 4.8, reviewCount: 278, verified: true },
+  { id: "6", name: "SaniTrans GmbH", location: "Stuttgart", rating: 4.6, reviewCount: 145, verified: true },
+  { id: "7", name: "FlexMed Transport", location: "Düsseldorf", rating: 4.9, reviewCount: 203, verified: true },
+  { id: "8", name: "VitaCare Fahrdienst", location: "Leipzig", rating: 4.7, reviewCount: 167, verified: true },
 ];
+
+type FilterType = "deutschlandweit" | "regional";
 
 interface PartnersLogoSliderProps {
   title?: string;
@@ -35,232 +31,184 @@ interface PartnersLogoSliderProps {
 }
 
 export const PartnersLogoSlider = ({ 
-  title = "Starke", 
-  highlightedWord = "Branchenpartner" 
+  title = "Unsere Partner sind", 
+  highlightedWord = "überall" 
 }: PartnersLogoSliderProps) => {
-  const scrollRef = useRef<HTMLDivElement>(null);
-  const [isPaused, setIsPaused] = useState(false);
-  const [selectedCategory, setSelectedCategory] = useState<PartnerCategory>("Alle");
-  const [hoveredPartner, setHoveredPartner] = useState<string | null>(null);
-
-  const filteredPartners = selectedCategory === "Alle" 
-    ? partnerLogos 
-    : partnerLogos.filter(p => p.category === selectedCategory);
-
-  useEffect(() => {
-    const scrollContainer = scrollRef.current;
-    if (!scrollContainer) return;
-
-    let animationId: number;
-    let scrollPosition = 0;
-
-    const scroll = () => {
-      if (!isPaused && scrollContainer) {
-        scrollPosition += 0.5;
-        if (scrollPosition >= scrollContainer.scrollWidth / 2) {
-          scrollPosition = 0;
-        }
-        scrollContainer.scrollLeft = scrollPosition;
-      }
-      animationId = requestAnimationFrame(scroll);
-    };
-
-    animationId = requestAnimationFrame(scroll);
-
-    return () => cancelAnimationFrame(animationId);
-  }, [isPaused, selectedCategory]);
+  const [filter, setFilter] = useState<FilterType>("deutschlandweit");
+  const [currentIndex, setCurrentIndex] = useState(0);
+  
+  const visibleCards = 4;
+  const maxIndex = Math.max(0, partners.length - visibleCards);
+  
+  const handlePrev = () => {
+    setCurrentIndex(prev => Math.max(0, prev - 1));
+  };
+  
+  const handleNext = () => {
+    setCurrentIndex(prev => Math.min(maxIndex, prev + 1));
+  };
 
   return (
-    <section className="py-20 md:py-28 relative overflow-hidden">
-      {/* Animated Background */}
-      <div className="absolute inset-0">
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-primary/5 to-transparent" />
-        <div className="absolute top-1/2 left-1/4 w-[400px] h-[400px] bg-primary/10 rounded-full blur-[100px] -translate-y-1/2" />
-        <div className="absolute top-1/2 right-1/4 w-[300px] h-[300px] bg-secondary/10 rounded-full blur-[80px] -translate-y-1/2" />
-      </div>
-      
-      <div className="container mx-auto px-4 relative">
-        {/* Header with Animation */}
-        <motion.div 
-          className="text-center mb-14"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-        >
-          <motion.div 
-            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-gradient-to-r from-primary/15 via-secondary/15 to-primary/15 backdrop-blur-sm border border-primary/20 text-primary text-sm font-semibold mb-6"
-            initial={{ opacity: 0, scale: 0.9 }}
-            whileInView={{ opacity: 1, scale: 1 }}
+    <section className="py-20 md:py-28 bg-gradient-to-b from-background via-muted/30 to-background">
+      <div className="container mx-auto px-4">
+        {/* Header Section */}
+        <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6 mb-12">
+          <motion.h2 
+            className="text-3xl md:text-4xl lg:text-5xl font-bold text-foreground"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ delay: 0.2 }}
+            transition={{ duration: 0.5 }}
           >
-            <Sparkles className="w-4 h-4" />
-            Exklusive Partnerschaften
-          </motion.div>
+            {title}{" "}
+            <span className="text-primary">{highlightedWord}</span>
+          </motion.h2>
           
-          
-          <h3 className="text-3xl md:text-5xl font-bold mb-4">
-            Unsere Partner sind <span className="bg-gradient-to-r from-primary via-secondary to-primary bg-clip-text text-transparent bg-[length:200%_auto]">überall</span>
-          </h3>
-          <p className="text-lg text-muted-foreground max-w-xl mx-auto">
-            Als Partner profitieren Sie von unseren Kooperationen mit führenden Unternehmen
-          </p>
-        </motion.div>
-
-        {/* Modern Category Tabs */}
-        <motion.div 
-          className="flex flex-wrap justify-center gap-3 mb-12"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.3, duration: 0.5 }}
-        >
-          {(["Alle", "Krankenhaus", "Reha", "Pflege", "Software"] as PartnerCategory[]).map((category, index) => {
-            const count = category === "Alle" 
-              ? partnerLogos.length 
-              : partnerLogos.filter(p => p.category === category).length;
-            const isActive = selectedCategory === category;
-            const Icon = categoryIcons[category];
-            
-            return (
-              <motion.button
-                key={category}
-                onClick={() => setSelectedCategory(category)}
-                className={`relative px-6 py-3 rounded-2xl text-sm font-medium transition-all duration-500 flex items-center gap-2.5 overflow-hidden ${
-                  isActive
-                    ? "text-primary-foreground shadow-xl shadow-primary/30"
-                    : "bg-card/80 border border-border/50 text-muted-foreground hover:border-primary/40 hover:text-primary hover:bg-card"
+          {/* Filter & Navigation */}
+          <motion.div 
+            className="flex items-center gap-3"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.1 }}
+          >
+            {/* Filter Buttons */}
+            <div className="flex rounded-full bg-muted/50 p-1 border border-border/50">
+              <Button
+                variant={filter === "deutschlandweit" ? "default" : "ghost"}
+                size="sm"
+                className={`rounded-full px-4 py-2 text-sm font-medium transition-all ${
+                  filter === "deutschlandweit" 
+                    ? "bg-primary text-primary-foreground shadow-md" 
+                    : "text-muted-foreground hover:text-foreground"
                 }`}
-                initial={{ opacity: 0, y: 10 }}
+                onClick={() => setFilter("deutschlandweit")}
+              >
+                <Globe className="w-4 h-4 mr-2" />
+                Deutschlandweit
+              </Button>
+              <Button
+                variant={filter === "regional" ? "default" : "ghost"}
+                size="sm"
+                className={`rounded-full px-4 py-2 text-sm font-medium transition-all ${
+                  filter === "regional" 
+                    ? "bg-primary text-primary-foreground shadow-md" 
+                    : "text-muted-foreground hover:text-foreground"
+                }`}
+                onClick={() => setFilter("regional")}
+              >
+                <Navigation className="w-4 h-4 mr-2" />
+                Regional
+              </Button>
+            </div>
+            
+            {/* Navigation Arrows */}
+            <div className="flex gap-2">
+              <button
+                onClick={handlePrev}
+                disabled={currentIndex === 0}
+                className="w-10 h-10 rounded-full border border-border bg-card flex items-center justify-center text-muted-foreground hover:text-foreground hover:border-primary/50 transition-all disabled:opacity-40 disabled:cursor-not-allowed"
+              >
+                <ChevronLeft className="w-5 h-5" />
+              </button>
+              <button
+                onClick={handleNext}
+                disabled={currentIndex >= maxIndex}
+                className="w-10 h-10 rounded-full border border-border bg-card flex items-center justify-center text-muted-foreground hover:text-foreground hover:border-primary/50 transition-all disabled:opacity-40 disabled:cursor-not-allowed"
+              >
+                <ChevronRight className="w-5 h-5" />
+              </button>
+            </div>
+          </motion.div>
+        </div>
+        
+        {/* Partner Cards Grid */}
+        <div className="overflow-hidden">
+          <motion.div 
+            className="flex gap-6"
+            animate={{ x: -currentIndex * (100 / visibleCards + 1.5) + "%" }}
+            transition={{ type: "spring", stiffness: 300, damping: 30 }}
+          >
+            {partners.map((partner, index) => (
+              <motion.div
+                key={partner.id}
+                className="flex-shrink-0 w-full sm:w-[calc(50%-12px)] lg:w-[calc(25%-18px)]"
+                initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ delay: 0.3 + index * 0.05 }}
-                whileHover={{ scale: isActive ? 1 : 1.03 }}
-                whileTap={{ scale: 0.98 }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
               >
-                {/* Active Background */}
-                {isActive && (
-                  <motion.div 
-                    className="absolute inset-0 bg-gradient-to-r from-primary via-secondary to-primary bg-[length:200%_auto]"
-                    layoutId="activeCategory"
-                    transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
-                    animate={{ backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"] }}
-                    style={{ animationDuration: "3s", animationIterationCount: "infinite" }}
-                  />
-                )}
-                
-                <span className="relative z-10 flex items-center gap-2.5">
-                  <Icon className="w-4 h-4" />
-                  {category}
-                  <span className={`text-xs px-2 py-0.5 rounded-full transition-colors ${
-                    isActive 
-                      ? "bg-white/20 text-primary-foreground" 
-                      : "bg-muted/80 text-muted-foreground"
-                  }`}>
-                    {count}
-                  </span>
-                </span>
-              </motion.button>
-            );
-          })}
-        </motion.div>
-
-        {/* Logo Slider with Enhanced Cards */}
-        <div 
-          className="relative"
-          onMouseEnter={() => setIsPaused(true)}
-          onMouseLeave={() => setIsPaused(false)}
-        >
-          {/* Gradient Overlays */}
-          <div className="absolute left-0 top-0 bottom-0 w-32 bg-gradient-to-r from-background via-background/80 to-transparent z-10 pointer-events-none" />
-          <div className="absolute right-0 top-0 bottom-0 w-32 bg-gradient-to-l from-background via-background/80 to-transparent z-10 pointer-events-none" />
-          
-          <div 
-            ref={scrollRef}
-            className="flex gap-8 overflow-hidden py-6"
-            style={{ scrollBehavior: 'auto' }}
-          >
-            {/* Double the logos for seamless loop */}
-            <AnimatePresence mode="popLayout">
-              {[...filteredPartners, ...filteredPartners].map((partner, index) => {
-                const isHovered = hoveredPartner === `${partner.name}-${index}`;
-                const CategoryIcon = categoryIcons[partner.category];
-                
-                return (
-                  <motion.div
-                    key={`${partner.name}-${index}`}
-                    className="flex-shrink-0"
-                    onMouseEnter={() => setHoveredPartner(`${partner.name}-${index}`)}
-                    onMouseLeave={() => setHoveredPartner(null)}
-                    initial={{ opacity: 0, scale: 0.8 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    exit={{ opacity: 0, scale: 0.8 }}
-                    transition={{ duration: 0.3 }}
-                  >
-                    <motion.div 
-                      className="relative w-64 h-44 bg-card/90 backdrop-blur-md border border-border/40 rounded-3xl flex flex-col items-center justify-center gap-4 cursor-pointer overflow-hidden group shadow-lg shadow-black/5"
-                      animate={{ 
-                        y: isHovered ? -10 : 0,
-                        scale: isHovered ? 1.05 : 1,
-                      }}
-                      transition={{ type: "spring", stiffness: 400, damping: 25 }}
-                    >
-                      {/* Hover Glow */}
-                      <motion.div 
-                        className="absolute -inset-2 bg-gradient-to-r from-primary/40 via-secondary/40 to-primary/40 rounded-3xl blur-2xl"
-                        animate={{ opacity: isHovered ? 0.7 : 0 }}
-                        transition={{ duration: 0.3 }}
-                      />
-                      
-                      {/* Card Background Effect */}
-                      <motion.div 
-                        className="absolute inset-0 bg-gradient-to-br from-primary/10 via-transparent to-secondary/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-                      />
-                      
-                      {/* Verified Badge */}
-                      {partner.verified && (
-                        <div className="absolute top-3 right-3 w-6 h-6 rounded-full bg-gradient-to-r from-primary to-secondary flex items-center justify-center shadow-md">
-                          <CheckCircle className="w-3.5 h-3.5 text-primary-foreground" />
-                        </div>
-                      )}
-                      
-                      {/* Category Icon */}
-                      <div className="absolute top-3 left-3">
-                        <CategoryIcon className="w-5 h-5 text-muted-foreground/60" />
-                      </div>
-                      
-                      {/* Main Content */}
-                      <div className="relative z-10 flex flex-col items-center gap-3">
-                        <motion.div 
-                          className="w-20 h-20 rounded-2xl bg-gradient-to-br from-primary/20 to-secondary/20 border-2 border-primary/25 flex items-center justify-center group-hover:border-primary/60 transition-all duration-300 shadow-inner"
-                          animate={{ rotate: isHovered ? [0, -5, 5, 0] : 0 }}
-                          transition={{ duration: 0.5 }}
-                        >
-                          <span className="text-3xl font-black bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
-                            {partner.logo}
-                          </span>
-                        </motion.div>
-                        <span className="text-base text-muted-foreground font-semibold group-hover:text-foreground transition-colors">
-                          {partner.name}
-                        </span>
-                      </div>
-                      
-                      {/* Bottom Accent Line */}
-                      <motion.div 
-                        className="absolute bottom-0 left-0 right-0 h-1.5 bg-gradient-to-r from-primary via-secondary to-primary"
-                        initial={{ scaleX: 0 }}
-                        animate={{ scaleX: isHovered ? 1 : 0 }}
-                        transition={{ duration: 0.3 }}
-                        style={{ transformOrigin: "center" }}
-                      />
-                    </motion.div>
-                  </motion.div>
-                );
-              })}
-            </AnimatePresence>
-          </div>
+                <div className="group bg-card border border-border/60 rounded-2xl p-6 hover:border-primary/40 hover:shadow-xl hover:shadow-primary/5 transition-all duration-300">
+                  {/* Top Section - Icon & Rating */}
+                  <div className="flex items-start justify-between mb-5">
+                    {/* Truck Icon */}
+                    <div className="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center">
+                      <Truck className="w-7 h-7 text-primary" />
+                    </div>
+                    
+                    {/* Rating */}
+                    <div className="flex items-center gap-1.5 bg-muted/50 rounded-full px-3 py-1.5">
+                      <Star className="w-4 h-4 text-yellow-500 fill-yellow-500" />
+                      <span className="text-sm font-semibold text-foreground">{partner.rating}</span>
+                    </div>
+                  </div>
+                  
+                  {/* Partner Name */}
+                  <h3 className="text-lg font-bold text-foreground mb-2 group-hover:text-primary transition-colors line-clamp-2 min-h-[56px]">
+                    {partner.name}
+                  </h3>
+                  
+                  {/* Location */}
+                  <div className="flex items-center gap-2 text-muted-foreground mb-3">
+                    <MapPin className="w-4 h-4" />
+                    <span className="text-sm">{partner.location}</span>
+                  </div>
+                  
+                  {/* Verified Badge */}
+                  {partner.verified && (
+                    <div className="flex items-center gap-2 text-primary mb-5">
+                      <CheckCircle className="w-4 h-4" />
+                      <span className="text-sm font-medium">Verifizierter Partner</span>
+                    </div>
+                  )}
+                  
+                  {/* Bottom Section - Reviews & Profile Link */}
+                  <div className="flex items-center justify-between pt-4 border-t border-border/50">
+                    <span className="text-sm text-muted-foreground">
+                      {partner.reviewCount} Bewertungen
+                    </span>
+                    <button className="flex items-center gap-1.5 text-primary font-semibold text-sm hover:gap-2.5 transition-all group/link">
+                      Profil
+                      <ArrowRight className="w-4 h-4 group-hover/link:translate-x-1 transition-transform" />
+                    </button>
+                  </div>
+                </div>
+              </motion.div>
+            ))}
+          </motion.div>
         </div>
+        
+        {/* Bottom Stats */}
+        <motion.div 
+          className="flex flex-wrap justify-center gap-8 md:gap-16 mt-14 pt-10 border-t border-border/50"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, delay: 0.3 }}
+        >
+          <div className="text-center">
+            <div className="text-3xl md:text-4xl font-bold text-primary mb-1">500+</div>
+            <div className="text-sm text-muted-foreground">Partner deutschlandweit</div>
+          </div>
+          <div className="text-center">
+            <div className="text-3xl md:text-4xl font-bold text-primary mb-1">50.000+</div>
+            <div className="text-sm text-muted-foreground">Fahrten pro Monat</div>
+          </div>
+          <div className="text-center">
+            <div className="text-3xl md:text-4xl font-bold text-primary mb-1">4.8</div>
+            <div className="text-sm text-muted-foreground">Durchschnittliche Bewertung</div>
+          </div>
+        </motion.div>
       </div>
     </section>
   );
