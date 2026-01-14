@@ -65,14 +65,14 @@ export const HomePartnersSection = () => {
             transition={{ duration: 0.5, delay: 0.1 }}
           >
             {/* Filter Buttons */}
-            <div className="flex rounded-full bg-muted/50 p-1 border border-border/50">
+            <div className="flex rounded-full bg-card/80 backdrop-blur-sm p-1.5 border border-border/50 shadow-lg">
               <Button
                 variant={filter === "deutschlandweit" ? "default" : "ghost"}
                 size="sm"
-                className={`rounded-full px-4 py-2 text-sm font-medium transition-all ${
+                className={`rounded-full px-5 py-2.5 text-sm font-medium transition-all duration-300 ${
                   filter === "deutschlandweit" 
-                    ? "bg-primary text-primary-foreground shadow-md" 
-                    : "text-muted-foreground hover:text-foreground"
+                    ? "bg-gradient-to-r from-primary via-secondary to-primary text-primary-foreground shadow-lg shadow-primary/25" 
+                    : "text-muted-foreground hover:text-primary hover:bg-primary/5"
                 }`}
                 onClick={() => setFilter("deutschlandweit")}
               >
@@ -82,10 +82,10 @@ export const HomePartnersSection = () => {
               <Button
                 variant={filter === "regional" ? "default" : "ghost"}
                 size="sm"
-                className={`rounded-full px-4 py-2 text-sm font-medium transition-all ${
+                className={`rounded-full px-5 py-2.5 text-sm font-medium transition-all duration-300 ${
                   filter === "regional" 
-                    ? "bg-primary text-primary-foreground shadow-md" 
-                    : "text-muted-foreground hover:text-foreground"
+                    ? "bg-gradient-to-r from-primary via-secondary to-primary text-primary-foreground shadow-lg shadow-primary/25" 
+                    : "text-muted-foreground hover:text-primary hover:bg-primary/5"
                 }`}
                 onClick={() => setFilter("regional")}
               >
@@ -96,20 +96,24 @@ export const HomePartnersSection = () => {
             
             {/* Navigation Arrows */}
             <div className="flex gap-2">
-              <button
+              <motion.button
                 onClick={handlePrev}
                 disabled={currentIndex === 0}
-                className="w-10 h-10 rounded-full border border-border bg-card flex items-center justify-center text-muted-foreground hover:text-foreground hover:border-primary/50 transition-all disabled:opacity-40 disabled:cursor-not-allowed"
+                className="w-11 h-11 rounded-full border border-border/50 bg-card/80 backdrop-blur-sm flex items-center justify-center text-muted-foreground hover:text-primary hover:border-primary/50 hover:bg-primary/5 hover:shadow-lg hover:shadow-primary/10 transition-all duration-300 disabled:opacity-40 disabled:cursor-not-allowed"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
               >
                 <ChevronLeft className="w-5 h-5" />
-              </button>
-              <button
+              </motion.button>
+              <motion.button
                 onClick={handleNext}
                 disabled={currentIndex >= maxIndex}
-                className="w-10 h-10 rounded-full border border-border bg-card flex items-center justify-center text-muted-foreground hover:text-foreground hover:border-primary/50 transition-all disabled:opacity-40 disabled:cursor-not-allowed"
+                className="w-11 h-11 rounded-full border border-border/50 bg-card/80 backdrop-blur-sm flex items-center justify-center text-muted-foreground hover:text-primary hover:border-primary/50 hover:bg-primary/5 hover:shadow-lg hover:shadow-primary/10 transition-all duration-300 disabled:opacity-40 disabled:cursor-not-allowed"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
               >
                 <ChevronRight className="w-5 h-5" />
-              </button>
+              </motion.button>
             </div>
           </motion.div>
         </div>
@@ -130,51 +134,75 @@ export const HomePartnersSection = () => {
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
               >
-                <div className="group bg-card border border-border/60 rounded-2xl p-6 hover:border-primary/40 hover:shadow-xl hover:shadow-primary/5 transition-all duration-300">
+                <motion.div 
+                  className="group relative bg-card/90 backdrop-blur-sm border border-border/50 rounded-2xl p-6 hover:border-primary/40 transition-all duration-300 overflow-hidden"
+                  whileHover={{ y: -8, boxShadow: "0 25px 50px -12px rgba(0,0,0,0.15)" }}
+                >
+                  {/* Hover gradient overlay */}
+                  <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-secondary/5 to-primary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                  
+                  {/* Bottom accent line */}
+                  <motion.div 
+                    className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-primary via-secondary to-primary"
+                    initial={{ scaleX: 0 }}
+                    whileHover={{ scaleX: 1 }}
+                    transition={{ duration: 0.3 }}
+                    style={{ transformOrigin: "left" }}
+                  />
+                  
                   {/* Top Section - Icon & Rating */}
-                  <div className="flex items-start justify-between mb-5">
+                  <div className="relative flex items-start justify-between mb-5">
                     {/* Truck Icon */}
-                    <div className="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center">
-                      <Truck className="w-7 h-7 text-primary" />
-                    </div>
+                    <motion.div 
+                      className="w-14 h-14 rounded-xl bg-gradient-to-br from-primary/15 to-secondary/15 flex items-center justify-center group-hover:from-primary/25 group-hover:to-secondary/25 transition-all duration-300"
+                      whileHover={{ rotate: [0, -5, 5, 0] }}
+                      transition={{ duration: 0.4 }}
+                    >
+                      <Truck className="w-7 h-7 text-primary group-hover:scale-110 transition-transform duration-300" />
+                    </motion.div>
                     
                     {/* Rating */}
-                    <div className="flex items-center gap-1.5 bg-muted/50 rounded-full px-3 py-1.5">
+                    <div className="flex items-center gap-1.5 bg-gradient-to-r from-amber-500/10 to-yellow-500/10 border border-amber-500/20 rounded-full px-3 py-1.5">
                       <Star className="w-4 h-4 text-yellow-500 fill-yellow-500" />
                       <span className="text-sm font-semibold text-foreground">{partner.rating}</span>
                     </div>
                   </div>
                   
                   {/* Partner Name */}
-                  <h3 className="text-lg font-bold text-foreground mb-2 group-hover:text-primary transition-colors line-clamp-2 min-h-[56px]">
+                  <h3 className="relative text-lg font-bold text-foreground mb-2 group-hover:text-primary transition-colors duration-300 line-clamp-2 min-h-[56px]">
                     {partner.name}
                   </h3>
                   
                   {/* Location */}
-                  <div className="flex items-center gap-2 text-muted-foreground mb-3">
+                  <div className="relative flex items-center gap-2 text-muted-foreground mb-3">
                     <MapPin className="w-4 h-4" />
                     <span className="text-sm">{partner.location}</span>
                   </div>
                   
                   {/* Verified Badge */}
                   {partner.verified && (
-                    <div className="flex items-center gap-2 text-primary mb-5">
-                      <CheckCircle className="w-4 h-4" />
-                      <span className="text-sm font-medium">Verifizierter Partner</span>
+                    <div className="relative flex items-center gap-2 mb-5">
+                      <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-gradient-to-r from-primary/10 to-secondary/10 border border-primary/20">
+                        <CheckCircle className="w-4 h-4 text-primary" />
+                        <span className="text-sm font-medium bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">Verifizierter Anbieter</span>
+                      </div>
                     </div>
                   )}
                   
                   {/* Bottom Section - Reviews & Profile Link */}
-                  <div className="flex items-center justify-between pt-4 border-t border-border/50">
+                  <div className="relative flex items-center justify-between pt-4 border-t border-border/50">
                     <span className="text-sm text-muted-foreground">
                       {partner.reviewCount} Bewertungen
                     </span>
-                    <button className="flex items-center gap-1.5 text-primary font-semibold text-sm hover:gap-2.5 transition-all group/link">
+                    <motion.button 
+                      className="flex items-center gap-1.5 text-sm font-semibold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent group/link"
+                      whileHover={{ x: 3 }}
+                    >
                       Profil
-                      <ArrowRight className="w-4 h-4 group-hover/link:translate-x-1 transition-transform" />
-                    </button>
+                      <ArrowRight className="w-4 h-4 text-primary group-hover/link:translate-x-1 transition-transform" />
+                    </motion.button>
                   </div>
-                </div>
+                </motion.div>
               </motion.div>
             ))}
           </motion.div>
@@ -188,18 +216,27 @@ export const HomePartnersSection = () => {
           viewport={{ once: true }}
           transition={{ duration: 0.5, delay: 0.3 }}
         >
-          <div className="text-center">
-            <div className="text-3xl md:text-4xl font-bold text-primary mb-1">500+</div>
-            <div className="text-sm text-muted-foreground">Partner deutschlandweit</div>
-          </div>
-          <div className="text-center">
-            <div className="text-3xl md:text-4xl font-bold text-primary mb-1">50.000+</div>
-            <div className="text-sm text-muted-foreground">Fahrten pro Monat</div>
-          </div>
-          <div className="text-center">
-            <div className="text-3xl md:text-4xl font-bold text-primary mb-1">4.8</div>
-            <div className="text-sm text-muted-foreground">Durchschnittliche Bewertung</div>
-          </div>
+          <motion.div 
+            className="text-center group"
+            whileHover={{ scale: 1.05 }}
+          >
+            <div className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-primary via-secondary to-primary bg-clip-text text-transparent mb-1">500+</div>
+            <div className="text-sm text-muted-foreground group-hover:text-foreground transition-colors">Anbieter deutschlandweit</div>
+          </motion.div>
+          <motion.div 
+            className="text-center group"
+            whileHover={{ scale: 1.05 }}
+          >
+            <div className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-primary via-secondary to-primary bg-clip-text text-transparent mb-1">50.000+</div>
+            <div className="text-sm text-muted-foreground group-hover:text-foreground transition-colors">Fahrten pro Monat</div>
+          </motion.div>
+          <motion.div 
+            className="text-center group"
+            whileHover={{ scale: 1.05 }}
+          >
+            <div className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-primary via-secondary to-primary bg-clip-text text-transparent mb-1">4.8</div>
+            <div className="text-sm text-muted-foreground group-hover:text-foreground transition-colors">Durchschnittliche Bewertung</div>
+          </motion.div>
         </motion.div>
       </div>
     </section>
