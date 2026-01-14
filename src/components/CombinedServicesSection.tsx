@@ -361,10 +361,10 @@ export const CombinedServicesSection = () => {
                       onClick={() => setActiveCategory(category.id)}
                       className={`w-full text-left p-5 rounded-2xl transition-all duration-300 relative overflow-hidden group ${
                         isActive 
-                          ? "bg-gradient-to-r from-primary to-primary/90 text-primary-foreground shadow-xl shadow-primary/20" 
-                          : "bg-card/80 backdrop-blur-sm border border-border/50 hover:border-primary/30"
+                          ? "bg-gradient-to-r from-primary via-secondary to-primary text-primary-foreground shadow-xl shadow-primary/25" 
+                          : "bg-card/80 backdrop-blur-sm border border-border/50 hover:border-primary/40 hover:shadow-lg hover:shadow-primary/10"
                       }`}
-                      whileHover={{ x: isActive ? 0 : 4 }}
+                      whileHover={{ x: isActive ? 0 : 6, scale: isActive ? 1 : 1.02 }}
                       initial={{ opacity: 0, y: 20 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ delay: 0.3 + index * 0.1 }}
@@ -372,25 +372,32 @@ export const CombinedServicesSection = () => {
                       {/* Shine effect on active */}
                       {isActive && (
                         <motion.div 
-                          className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -skew-x-12"
+                          className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -skew-x-12"
                           animate={{ x: ["-100%", "200%"] }}
                           transition={{ duration: 3, repeat: Infinity, repeatDelay: 2 }}
                         />
                       )}
                       
+                      {/* Hover gradient effect for inactive */}
+                      {!isActive && (
+                        <motion.div 
+                          className="absolute inset-0 bg-gradient-to-r from-primary/5 via-secondary/5 to-primary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                        />
+                      )}
+                      
                       <div className="relative flex items-center gap-4">
-                        <div className={`w-12 h-12 rounded-xl ${isActive ? "bg-white/20" : "bg-primary/10"} flex items-center justify-center transition-colors`}>
-                          <Icon className={`w-6 h-6 ${isActive ? "text-primary-foreground" : "text-primary"}`} />
+                        <div className={`w-12 h-12 rounded-xl ${isActive ? "bg-white/20" : "bg-gradient-to-br from-primary/15 to-secondary/15 group-hover:from-primary/25 group-hover:to-secondary/25"} flex items-center justify-center transition-all duration-300`}>
+                          <Icon className={`w-6 h-6 ${isActive ? "text-primary-foreground" : "text-primary group-hover:scale-110"} transition-transform duration-300`} />
                         </div>
                         <div className="flex-1 min-w-0">
                           <h3 className={`font-bold text-lg ${!isActive && "group-hover:text-primary transition-colors"}`}>
                             {category.title}
                           </h3>
-                          <p className={`text-sm ${isActive ? "text-primary-foreground/70" : "text-muted-foreground"}`}>
+                          <p className={`text-sm ${isActive ? "text-primary-foreground/80" : "text-muted-foreground"}`}>
                             {category.subtitle}
                           </p>
                         </div>
-                        <ChevronRight className={`w-5 h-5 transition-all ${isActive ? "text-primary-foreground rotate-90" : "text-muted-foreground/50 group-hover:text-primary group-hover:translate-x-1"}`} />
+                        <ChevronRight className={`w-5 h-5 transition-all duration-300 ${isActive ? "text-primary-foreground rotate-90" : "text-muted-foreground/50 group-hover:text-primary group-hover:translate-x-1"}`} />
                       </div>
                     </motion.button>
                   );
@@ -406,11 +413,11 @@ export const CombinedServicesSection = () => {
                   <Button 
                     asChild
                     size="lg" 
-                    className="w-full h-14 rounded-2xl font-bold shadow-lg shadow-primary/20 bg-gradient-to-r from-primary to-primary/90 hover:shadow-xl hover:shadow-primary/30 transition-all"
+                    className="w-full h-14 rounded-2xl font-bold shadow-lg shadow-primary/25 bg-gradient-to-r from-primary via-secondary to-primary bg-[length:200%_auto] hover:bg-right transition-all duration-500 hover:shadow-xl hover:shadow-primary/30 group"
                   >
                     <a href="/plattform">
                       Mehr erfahren
-                      <ArrowRight className="ml-2 w-5 h-5" />
+                      <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
                     </a>
                   </Button>
                 </motion.div>
