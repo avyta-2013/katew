@@ -107,7 +107,7 @@ export const ProvidersSection = () => {
               </span>
             </h2>
             <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-              Über 500 Krankenfahrt-Unternehmen deutschlandweit vertrauen auf katew
+              Über 500 Krankenfahrtunternehmen deutschlandweit vertrauen auf uns
             </p>
           </motion.div>
 
