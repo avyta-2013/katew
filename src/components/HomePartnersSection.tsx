@@ -53,7 +53,7 @@ export const HomePartnersSection = () => {
             transition={{ duration: 0.5 }}
           >
             Unsere Anbieter sind{" "}
-            <span className="bg-gradient-to-r from-primary via-secondary to-primary bg-clip-text text-transparent">überall</span>
+            <span className="bg-gradient-to-r from-primary via-primary/70 to-accent bg-clip-text text-transparent">überall</span>
           </motion.h2>
           
           {/* Filter & Navigation */}
@@ -71,7 +71,7 @@ export const HomePartnersSection = () => {
                 size="sm"
                 className={`rounded-full px-5 py-2.5 text-sm font-medium transition-all duration-300 ${
                   filter === "deutschlandweit" 
-                    ? "bg-gradient-to-r from-primary via-secondary to-primary text-primary-foreground shadow-lg shadow-primary/25" 
+                    ? "bg-primary text-primary-foreground shadow-lg shadow-primary/25" 
                     : "text-muted-foreground hover:text-primary hover:bg-primary/5"
                 }`}
                 onClick={() => setFilter("deutschlandweit")}
@@ -84,7 +84,7 @@ export const HomePartnersSection = () => {
                 size="sm"
                 className={`rounded-full px-5 py-2.5 text-sm font-medium transition-all duration-300 ${
                   filter === "regional" 
-                    ? "bg-gradient-to-r from-primary via-secondary to-primary text-primary-foreground shadow-lg shadow-primary/25" 
+                    ? "bg-primary text-primary-foreground shadow-lg shadow-primary/25" 
                     : "text-muted-foreground hover:text-primary hover:bg-primary/5"
                 }`}
                 onClick={() => setFilter("regional")}
@@ -139,11 +139,11 @@ export const HomePartnersSection = () => {
                   whileHover={{ y: -8, boxShadow: "0 25px 50px -12px rgba(0,0,0,0.15)" }}
                 >
                   {/* Hover gradient overlay */}
-                  <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-secondary/5 to-primary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                  <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-primary/3 to-accent/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                   
                   {/* Bottom accent line */}
                   <motion.div 
-                    className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-primary via-secondary to-primary"
+                    className="absolute bottom-0 left-0 right-0 h-1 bg-primary"
                     initial={{ scaleX: 0 }}
                     whileHover={{ scaleX: 1 }}
                     transition={{ duration: 0.3 }}
@@ -154,7 +154,7 @@ export const HomePartnersSection = () => {
                   <div className="relative flex items-start justify-between mb-5">
                     {/* Truck Icon */}
                     <motion.div 
-                      className="w-14 h-14 rounded-xl bg-gradient-to-br from-primary/15 to-secondary/15 flex items-center justify-center group-hover:from-primary/25 group-hover:to-secondary/25 transition-all duration-300"
+                      className="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-all duration-300"
                       whileHover={{ rotate: [0, -5, 5, 0] }}
                       transition={{ duration: 0.4 }}
                     >
@@ -182,9 +182,9 @@ export const HomePartnersSection = () => {
                   {/* Verified Badge */}
                   {partner.verified && (
                     <div className="relative flex items-center gap-2 mb-5">
-                      <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-gradient-to-r from-primary/10 to-secondary/10 border border-primary/20">
+                      <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-primary/10 border border-primary/20">
                         <CheckCircle className="w-4 h-4 text-primary" />
-                        <span className="text-sm font-medium bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">Verifizierter Anbieter</span>
+                        <span className="text-sm font-medium text-primary">Verifizierter Anbieter</span>
                       </div>
                     </div>
                   )}
@@ -195,7 +195,7 @@ export const HomePartnersSection = () => {
                       {partner.reviewCount} Bewertungen
                     </span>
                     <motion.button 
-                      className="flex items-center gap-1.5 text-sm font-semibold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent group/link"
+                      className="flex items-center gap-1.5 text-sm font-semibold text-primary group/link"
                       whileHover={{ x: 3 }}
                     >
                       Profil
@@ -220,21 +220,21 @@ export const HomePartnersSection = () => {
             className="text-center group"
             whileHover={{ scale: 1.05 }}
           >
-            <div className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-primary via-secondary to-primary bg-clip-text text-transparent mb-1">500+</div>
+            <div className="text-3xl md:text-4xl font-bold text-primary mb-1">500+</div>
             <div className="text-sm text-muted-foreground group-hover:text-foreground transition-colors">Anbieter deutschlandweit</div>
           </motion.div>
           <motion.div 
             className="text-center group"
             whileHover={{ scale: 1.05 }}
           >
-            <div className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-primary via-secondary to-primary bg-clip-text text-transparent mb-1">50.000+</div>
+            <div className="text-3xl md:text-4xl font-bold text-primary mb-1">50.000+</div>
             <div className="text-sm text-muted-foreground group-hover:text-foreground transition-colors">Fahrten pro Monat</div>
           </motion.div>
           <motion.div 
             className="text-center group"
             whileHover={{ scale: 1.05 }}
           >
-            <div className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-primary via-secondary to-primary bg-clip-text text-transparent mb-1">4.8</div>
+            <div className="text-3xl md:text-4xl font-bold text-primary mb-1">4.8</div>
             <div className="text-sm text-muted-foreground group-hover:text-foreground transition-colors">Durchschnittliche Bewertung</div>
           </motion.div>
         </motion.div>

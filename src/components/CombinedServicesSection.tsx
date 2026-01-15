@@ -323,7 +323,7 @@ export const CombinedServicesSection = () => {
           transition={{ duration: 0.6 }}
         >
           <motion.div 
-            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-gradient-to-r from-primary/10 via-secondary/10 to-primary/10 border border-primary/20 text-sm font-medium mb-6"
+            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-primary/10 border border-primary/20 text-sm font-medium mb-6"
             whileHover={{ scale: 1.02 }}
           >
             <Sparkles className="w-4 h-4 text-primary" />
@@ -331,7 +331,7 @@ export const CombinedServicesSection = () => {
           </motion.div>
           <h2 className="text-4xl md:text-6xl lg:text-7xl font-black mb-6 tracking-tight">
             Das was Sie{" "}
-            <span className="bg-gradient-to-r from-primary via-secondary to-primary bg-clip-text text-transparent">
+            <span className="text-primary">
               benötigen
             </span>
           </h2>
@@ -361,7 +361,7 @@ export const CombinedServicesSection = () => {
                       onClick={() => setActiveCategory(category.id)}
                       className={`w-full text-left p-5 rounded-2xl transition-all duration-300 relative overflow-hidden group ${
                         isActive 
-                          ? "bg-gradient-to-r from-primary via-secondary to-primary text-primary-foreground shadow-xl shadow-primary/25" 
+                          ? "bg-primary text-primary-foreground shadow-xl shadow-primary/25" 
                           : "bg-card/80 backdrop-blur-sm border border-border/50 hover:border-primary/40 hover:shadow-lg hover:shadow-primary/10"
                       }`}
                       whileHover={{ x: isActive ? 0 : 6, scale: isActive ? 1 : 1.02 }}
@@ -381,12 +381,12 @@ export const CombinedServicesSection = () => {
                       {/* Hover gradient effect for inactive */}
                       {!isActive && (
                         <motion.div 
-                          className="absolute inset-0 bg-gradient-to-r from-primary/5 via-secondary/5 to-primary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                          className="absolute inset-0 bg-primary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
                         />
                       )}
                       
                       <div className="relative flex items-center gap-4">
-                        <div className={`w-12 h-12 rounded-xl ${isActive ? "bg-white/20" : "bg-gradient-to-br from-primary/15 to-secondary/15 group-hover:from-primary/25 group-hover:to-secondary/25"} flex items-center justify-center transition-all duration-300`}>
+                        <div className={`w-12 h-12 rounded-xl ${isActive ? "bg-white/20" : "bg-primary/10 group-hover:bg-primary/20"} flex items-center justify-center transition-all duration-300`}>
                           <Icon className={`w-6 h-6 ${isActive ? "text-primary-foreground" : "text-primary group-hover:scale-110"} transition-transform duration-300`} />
                         </div>
                         <div className="flex-1 min-w-0">
@@ -413,7 +413,7 @@ export const CombinedServicesSection = () => {
                   <Button 
                     asChild
                     size="lg" 
-                    className="w-full h-14 rounded-2xl font-bold shadow-lg shadow-primary/25 bg-gradient-to-r from-primary via-secondary to-primary bg-[length:200%_auto] hover:bg-right transition-all duration-500 hover:shadow-xl hover:shadow-primary/30 group"
+                    className="w-full h-14 rounded-2xl font-bold shadow-lg shadow-primary/25 bg-primary hover:bg-primary/90 transition-all duration-300 hover:shadow-xl hover:shadow-primary/30 group"
                   >
                     <a href="/plattform">
                       Mehr erfahren
