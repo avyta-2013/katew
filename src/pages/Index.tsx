@@ -20,7 +20,6 @@ const Index = () => {
       <BlogNewsletter />
       <FAQ />
       <Footer />
-      <Footer />
     </main>
   );
 };
