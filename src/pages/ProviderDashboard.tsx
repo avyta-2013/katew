@@ -68,9 +68,10 @@ const ProviderDashboard = () => {
   const [cancelReason, setCancelReason] = useState("");
   const [showPaymentDialog, setShowPaymentDialog] = useState(false);
   const [editingPaymentMethod, setEditingPaymentMethod] = useState<"card" | "sepa" | null>(null);
+  const [editingPaymentId, setEditingPaymentId] = useState<number | null>(null);
   const [paymentMethods, setPaymentMethods] = useState([
-    { id: 1, type: "card" as const, label: "Kreditkarte", last4: "4242", brand: "Visa", expiry: "12/27", isDefault: true },
-    { id: 2, type: "sepa" as const, label: "SEPA-Lastschrift", iban: "DE89 •••• •••• •••• •••• 00", bank: "Deutsche Bank", isDefault: false },
+    { id: 1, type: "card" as const, label: "Kreditkarte", last4: "4242", brand: "Visa", expiry: "12/27", cardNumber: "•••• •••• •••• 4242", cardName: "Max Mustermann", isDefault: true },
+    { id: 2, type: "sepa" as const, label: "SEPA-Lastschrift", iban: "DE89 3704 0044 0532 0130 00", bank: "Deutsche Bank", accountHolder: "MediTrans GmbH", isDefault: false },
   ]);
   const [newCardNumber, setNewCardNumber] = useState("");
   const [newCardExpiry, setNewCardExpiry] = useState("");
@@ -2096,45 +2097,53 @@ const ProviderDashboard = () => {
                   </DialogTrigger>
                   <DialogContent className="sm:max-w-md">
                     <DialogHeader>
-                      <DialogTitle className="text-xl font-bold">Zahlungsmethode hinzufügen</DialogTitle>
-                      <DialogDescription>Wählen Sie eine Zahlungsart aus</DialogDescription>
+                      <DialogTitle className="text-xl font-bold">
+                        {editingPaymentId ? "Zahlungsmethode bearbeiten" : "Zahlungsmethode hinzufügen"}
+                      </DialogTitle>
+                      <DialogDescription>
+                        {editingPaymentId 
+                          ? "Aktualisieren Sie Ihre Zahlungsdaten" 
+                          : "Wählen Sie eine Zahlungsart aus"}
+                      </DialogDescription>
                     </DialogHeader>
                     <div className="space-y-4 pt-4">
-                      {/* Payment Type Selection */}
-                      <div className="grid grid-cols-2 gap-3">
-                        <button
-                          onClick={() => setEditingPaymentMethod("card")}
-                          className={cn(
-                            "p-4 rounded-xl border-2 transition-all duration-300 text-left",
-                            editingPaymentMethod === "card" 
-                              ? "border-primary bg-primary/5" 
-                              : "border-muted hover:border-primary/50"
-                          )}
-                        >
-                          <CreditCard className={cn(
-                            "w-6 h-6 mb-2",
-                            editingPaymentMethod === "card" ? "text-primary" : "text-muted-foreground"
-                          )} />
-                          <p className="font-semibold text-sm">Kreditkarte</p>
-                          <p className="text-xs text-muted-foreground">Visa, Mastercard, etc.</p>
-                        </button>
-                        <button
-                          onClick={() => setEditingPaymentMethod("sepa")}
-                          className={cn(
-                            "p-4 rounded-xl border-2 transition-all duration-300 text-left",
-                            editingPaymentMethod === "sepa" 
-                              ? "border-primary bg-primary/5" 
-                              : "border-muted hover:border-primary/50"
-                          )}
-                        >
-                          <Building2 className={cn(
-                            "w-6 h-6 mb-2",
-                            editingPaymentMethod === "sepa" ? "text-primary" : "text-muted-foreground"
-                          )} />
-                          <p className="font-semibold text-sm">SEPA-Lastschrift</p>
-                          <p className="text-xs text-muted-foreground">Bankeinzug</p>
-                        </button>
-                      </div>
+                      {/* Payment Type Selection - only show when adding new */}
+                      {!editingPaymentId && (
+                        <div className="grid grid-cols-2 gap-3">
+                          <button
+                            onClick={() => setEditingPaymentMethod("card")}
+                            className={cn(
+                              "p-4 rounded-xl border-2 transition-all duration-300 text-left",
+                              editingPaymentMethod === "card" 
+                                ? "border-primary bg-primary/5" 
+                                : "border-muted hover:border-primary/50"
+                            )}
+                          >
+                            <CreditCard className={cn(
+                              "w-6 h-6 mb-2",
+                              editingPaymentMethod === "card" ? "text-primary" : "text-muted-foreground"
+                            )} />
+                            <p className="font-semibold text-sm">Kreditkarte</p>
+                            <p className="text-xs text-muted-foreground">Visa, Mastercard, etc.</p>
+                          </button>
+                          <button
+                            onClick={() => setEditingPaymentMethod("sepa")}
+                            className={cn(
+                              "p-4 rounded-xl border-2 transition-all duration-300 text-left",
+                              editingPaymentMethod === "sepa" 
+                                ? "border-primary bg-primary/5" 
+                                : "border-muted hover:border-primary/50"
+                            )}
+                          >
+                            <Building2 className={cn(
+                              "w-6 h-6 mb-2",
+                              editingPaymentMethod === "sepa" ? "text-primary" : "text-muted-foreground"
+                            )} />
+                            <p className="font-semibold text-sm">SEPA-Lastschrift</p>
+                            <p className="text-xs text-muted-foreground">Bankeinzug</p>
+                          </button>
+                        </div>
+                      )}
 
                       {/* Credit Card Form */}
                       {editingPaymentMethod === "card" && (
@@ -2148,15 +2157,25 @@ const ProviderDashboard = () => {
                               className="h-10 bg-muted/30 border border-muted focus-visible:border-primary focus-visible:ring-0 rounded-lg text-sm"
                             />
                           </div>
-                          <div className="space-y-1">
-                            <Label className="text-xs font-semibold">Kartennummer</Label>
-                            <Input 
-                              value={newCardNumber}
-                              onChange={(e) => setNewCardNumber(e.target.value)}
-                              placeholder="1234 5678 9012 3456"
-                              className="h-10 bg-muted/30 border border-muted focus-visible:border-primary focus-visible:ring-0 rounded-lg text-sm"
-                            />
-                          </div>
+                          {/* Only show card number field when adding new */}
+                          {!editingPaymentId && (
+                            <div className="space-y-1">
+                              <Label className="text-xs font-semibold">Kartennummer</Label>
+                              <Input 
+                                value={newCardNumber}
+                                onChange={(e) => setNewCardNumber(e.target.value)}
+                                placeholder="1234 5678 9012 3456"
+                                className="h-10 bg-muted/30 border border-muted focus-visible:border-primary focus-visible:ring-0 rounded-lg text-sm"
+                              />
+                            </div>
+                          )}
+                          {editingPaymentId && (
+                            <div className="p-3 rounded-lg bg-muted/30 border border-muted">
+                              <p className="text-xs text-muted-foreground">
+                                Kartennummer: •••• •••• •••• {paymentMethods.find(m => m.id === editingPaymentId)?.last4}
+                              </p>
+                            </div>
+                          )}
                           <div className="grid grid-cols-2 gap-3">
                             <div className="space-y-1">
                               <Label className="text-xs font-semibold">Gültig bis</Label>
@@ -2167,16 +2186,19 @@ const ProviderDashboard = () => {
                                 className="h-10 bg-muted/30 border border-muted focus-visible:border-primary focus-visible:ring-0 rounded-lg text-sm"
                               />
                             </div>
-                            <div className="space-y-1">
-                              <Label className="text-xs font-semibold">CVC</Label>
-                              <Input 
-                                value={newCardCvc}
-                                onChange={(e) => setNewCardCvc(e.target.value)}
-                                placeholder="123"
-                                type="password"
-                                className="h-10 bg-muted/30 border border-muted focus-visible:border-primary focus-visible:ring-0 rounded-lg text-sm"
-                              />
-                            </div>
+                            {/* Only show CVC when adding new */}
+                            {!editingPaymentId && (
+                              <div className="space-y-1">
+                                <Label className="text-xs font-semibold">CVC</Label>
+                                <Input 
+                                  value={newCardCvc}
+                                  onChange={(e) => setNewCardCvc(e.target.value)}
+                                  placeholder="123"
+                                  type="password"
+                                  className="h-10 bg-muted/30 border border-muted focus-visible:border-primary focus-visible:ring-0 rounded-lg text-sm"
+                                />
+                              </div>
+                            )}
                           </div>
                         </div>
                       )}
@@ -2204,7 +2226,9 @@ const ProviderDashboard = () => {
                           </div>
                           <div className="p-3 rounded-lg bg-muted/30 border border-muted">
                             <p className="text-xs text-muted-foreground">
-                              Mit dem Hinzufügen dieser Zahlungsmethode ermächtigen Sie uns, Zahlungen von Ihrem Konto einzuziehen.
+                              {editingPaymentId 
+                                ? "Ihre aktualisierten Bankdaten werden für zukünftige Abbuchungen verwendet."
+                                : "Mit dem Hinzufügen dieser Zahlungsmethode ermächtigen Sie uns, Zahlungen von Ihrem Konto einzuziehen."}
                             </p>
                           </div>
                         </div>
@@ -2227,7 +2251,27 @@ const ProviderDashboard = () => {
                           <Button 
                             className="bg-primary hover:bg-primary/90 text-primary-foreground"
                             onClick={() => {
-                              if (editingPaymentMethod === "card" && newCardNumber) {
+                              if (editingPaymentId) {
+                                // Update existing payment method
+                                setPaymentMethods(paymentMethods.map(m => {
+                                  if (m.id === editingPaymentId) {
+                                    if (m.type === "card") {
+                                      return {
+                                        ...m,
+                                        expiry: newCardExpiry || m.expiry,
+                                        cardName: newCardName || m.cardName,
+                                      };
+                                    } else {
+                                      return {
+                                        ...m,
+                                        iban: newIban || m.iban,
+                                        accountHolder: newAccountHolder || m.accountHolder,
+                                      };
+                                    }
+                                  }
+                                  return m;
+                                }));
+                              } else if (editingPaymentMethod === "card" && newCardNumber) {
                                 const newMethod = {
                                   id: paymentMethods.length + 1,
                                   type: "card" as const,
@@ -2235,6 +2279,8 @@ const ProviderDashboard = () => {
                                   last4: newCardNumber.slice(-4),
                                   brand: "Visa",
                                   expiry: newCardExpiry,
+                                  cardNumber: `•••• •••• •••• ${newCardNumber.slice(-4)}`,
+                                  cardName: newCardName,
                                   isDefault: false,
                                 };
                                 setPaymentMethods([...paymentMethods, newMethod]);
@@ -2243,14 +2289,16 @@ const ProviderDashboard = () => {
                                   id: paymentMethods.length + 1,
                                   type: "sepa" as const,
                                   label: "SEPA-Lastschrift",
-                                  iban: `${newIban.slice(0, 4)} •••• •••• •••• •••• ${newIban.slice(-2)}`,
+                                  iban: newIban,
                                   bank: "Ihre Bank",
+                                  accountHolder: newAccountHolder,
                                   isDefault: false,
                                 };
                                 setPaymentMethods([...paymentMethods, newMethod]);
                               }
                               setShowPaymentDialog(false);
                               setEditingPaymentMethod(null);
+                              setEditingPaymentId(null);
                               setNewCardNumber("");
                               setNewCardExpiry("");
                               setNewCardCvc("");
@@ -2334,7 +2382,21 @@ const ProviderDashboard = () => {
                           </Button>
                         </DropdownMenuTrigger>
                         <DropdownMenuContent align="end" className="w-48">
-                          <DropdownMenuItem className="cursor-pointer">
+                          <DropdownMenuItem 
+                            className="cursor-pointer"
+                            onClick={() => {
+                              setEditingPaymentId(method.id);
+                              setEditingPaymentMethod(method.type);
+                              if (method.type === "card") {
+                                setNewCardExpiry(method.expiry || "");
+                                setNewCardName(method.cardName || "");
+                              } else {
+                                setNewIban(method.iban || "");
+                                setNewAccountHolder(method.accountHolder || "");
+                              }
+                              setShowPaymentDialog(true);
+                            }}
+                          >
                             <CreditCard className="w-4 h-4 mr-2" />
                             Bearbeiten
                           </DropdownMenuItem>
