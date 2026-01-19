@@ -1947,16 +1947,38 @@ const ProviderDashboard = () => {
         <TabsContent value="mitgliedschaft" className="space-y-5 mt-5">
           {/* Current Plan Status */}
           <Card className="border-0 shadow-lg bg-gradient-to-br from-card to-muted/20 overflow-hidden relative">
-            <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-primary via-secondary to-primary" />
+            <div className={cn(
+              "absolute top-0 left-0 right-0 h-1",
+              currentPlan === "premium" 
+                ? "bg-gradient-to-r from-primary via-secondary to-primary" 
+                : "bg-gradient-to-r from-muted-foreground/40 via-muted-foreground/60 to-muted-foreground/40"
+            )} />
             <CardHeader className="pb-3 pt-5 px-4">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-3">
-                  <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-primary to-secondary flex items-center justify-center shadow-lg">
+                  <div className={cn(
+                    "w-12 h-12 rounded-xl flex items-center justify-center shadow-lg",
+                    currentPlan === "premium" 
+                      ? "bg-gradient-to-br from-primary to-secondary" 
+                      : "bg-gradient-to-br from-muted-foreground/60 to-muted-foreground/80"
+                  )}>
                     <Crown className="w-6 h-6 text-white" />
                   </div>
                   <div>
                     <div className="flex items-center gap-2">
-                      <CardTitle className="text-lg font-bold">{membershipData.plan} Mitgliedschaft</CardTitle>
+                      <CardTitle className="text-lg font-bold">
+                        {currentPlan === "premium" ? "Premium" : "Free"} Plan
+                      </CardTitle>
+                      {currentPlan === "premium" ? (
+                        <Badge className="px-2.5 py-1 text-xs font-bold border-0 bg-gradient-to-r from-secondary to-secondary/80 text-secondary-foreground shadow-sm">
+                          <Crown className="w-3 h-3 mr-1" />
+                          PREMIUM
+                        </Badge>
+                      ) : (
+                        <Badge variant="outline" className="px-2.5 py-1 text-xs font-medium border-muted-foreground/30 text-muted-foreground">
+                          FREE
+                        </Badge>
+                      )}
                       <Badge className={cn(
                         "px-2 py-0.5 text-xs font-semibold border-0",
                         membershipStatus === "active" && "bg-secondary/20 text-secondary",
@@ -1967,18 +1989,25 @@ const ProviderDashboard = () => {
                       </Badge>
                     </div>
                     <CardDescription className="text-xs mt-0.5">
-                      Mitglied seit {membershipData.startDate}
+                      {currentPlan === "premium" 
+                        ? `Mitglied seit ${membershipData.startDate}` 
+                        : "Upgrade auf Premium für alle Funktionen"}
                     </CardDescription>
                   </div>
                 </div>
                 <div className="text-right">
                   <div className="flex items-baseline gap-1">
-                    <span className="text-3xl font-black bg-gradient-to-br from-primary to-secondary bg-clip-text text-transparent">
-                      {membershipData.price}€
+                    <span className={cn(
+                      "text-3xl font-black bg-clip-text text-transparent",
+                      currentPlan === "premium" 
+                        ? "bg-gradient-to-br from-primary to-secondary" 
+                        : "bg-gradient-to-br from-muted-foreground to-muted-foreground"
+                    )}>
+                      {currentPlan === "premium" ? membershipData.price : "0"}€
                     </span>
                     <span className="text-sm text-muted-foreground">/ Monat</span>
                   </div>
-                  <p className="text-xs text-muted-foreground">(netto)</p>
+                  {currentPlan === "premium" && <p className="text-xs text-muted-foreground">(netto)</p>}
                 </div>
               </div>
             </CardHeader>
