@@ -51,7 +51,6 @@ const transportProviders = [
     reviews: 234,
     responseTime: "< 5 Min.",
     verified: true,
-    premium: true,
   },
   {
     id: 2,
@@ -60,7 +59,6 @@ const transportProviders = [
     reviews: 189,
     responseTime: "< 10 Min.",
     verified: true,
-    premium: false,
   },
   {
     id: 3,
@@ -69,7 +67,6 @@ const transportProviders = [
     reviews: 156,
     responseTime: "< 15 Min.",
     verified: true,
-    premium: true,
   },
   {
     id: 4,
@@ -78,7 +75,6 @@ const transportProviders = [
     reviews: 98,
     responseTime: "< 10 Min.",
     verified: true,
-    premium: false,
   },
   {
     id: 5,
@@ -87,7 +83,6 @@ const transportProviders = [
     reviews: 312,
     responseTime: "< 5 Min.",
     verified: true,
-    premium: true,
   },
   {
     id: 6,
@@ -96,7 +91,6 @@ const transportProviders = [
     reviews: 267,
     responseTime: "< 10 Min.",
     verified: true,
-    premium: false,
   },
 ];
 
@@ -825,12 +819,6 @@ export default function BookingResults() {
                           ? "border-primary/50 shadow-xl shadow-primary/10"
                           : "border-border/50 hover:border-border hover:shadow-lg"
                       }`}>
-                        {/* Premium Badge */}
-                        {provider.premium && (
-                          <div className="absolute -top-2 -right-2 px-3 py-1 bg-gradient-to-r from-amber-500 to-orange-500 text-white text-xs font-bold rounded-full shadow-lg">
-                            Premium
-                          </div>
-                        )}
 
                         <div className="flex items-center gap-4 md:gap-6">
                           {/* Checkbox */}
