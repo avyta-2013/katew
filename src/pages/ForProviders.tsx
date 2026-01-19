@@ -150,7 +150,7 @@ export default function ForProviders() {
                         <div className="relative bg-gradient-to-br from-green-500 to-emerald-600 text-white rounded-2xl p-6 text-center min-w-[140px]">
                           <Gift className="w-8 h-8 mx-auto mb-2" />
                           <div className="text-3xl font-black">0€</div>
-                          <div className="text-sm opacity-90">3 Monate</div>
+                          <div className="text-sm opacity-90">60 Tage</div>
                         </div>
                       </div>
                       
