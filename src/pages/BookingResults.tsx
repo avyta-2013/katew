@@ -1028,7 +1028,7 @@ export default function BookingResults() {
                         
                         {/* Premium Badge - Orange Ribbon at top right */}
                         {provider.isPremium && (
-                          <div className="absolute -right-8 top-4 rotate-45 bg-gradient-to-r from-orange-500 to-amber-500 text-white text-[10px] font-bold px-8 py-1 shadow-lg">
+                          <div className="absolute -right-10 -top-1 rotate-45 bg-gradient-to-r from-orange-500 to-amber-500 text-white text-[10px] font-bold px-10 py-1 shadow-lg">
                             <span className="flex items-center gap-1">
                               <Crown className="w-3 h-3" />
                               PREMIUM
