@@ -150,6 +150,15 @@ export default function BookingResults() {
     notiz: "",
   });
 
+  // Legal checkboxes
+  const [legalAccepted, setLegalAccepted] = useState({
+    datenschutz: false,
+    agb: false,
+    befoerderungsvertrag: false,
+  });
+
+  const allLegalAccepted = legalAccepted.datenschutz && legalAccepted.agb && legalAccepted.befoerderungsvertrag;
+
   const allSelected = selectedProviders.length === transportProviders.length;
   
   const toggleProvider = (id: number) => {
@@ -175,7 +184,7 @@ export default function BookingResults() {
   };
 
   const handleNextStep = () => {
-    if (currentStep < 3) {
+    if (currentStep < 4) {
       setCurrentStep(currentStep + 1);
     }
   };
@@ -505,7 +514,197 @@ export default function BookingResults() {
     </div>
   );
 
-  // Step 3: Confirmation - Enhanced visual design
+  // Step 3: Summary with legal checkboxes
+  const renderSummaryStep = () => (
+    <div className="space-y-6">
+      {/* Header */}
+      <div className="text-center space-y-2">
+        <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-br from-primary to-secondary shadow-lg shadow-primary/30">
+          <FileText className="w-8 h-8 text-white" />
+        </div>
+        <h3 className="text-xl font-bold">Buchungsübersicht</h3>
+        <p className="text-sm text-muted-foreground">Bitte überprüfen Sie Ihre Angaben</p>
+      </div>
+
+      {/* Journey Summary */}
+      <div className="bg-gradient-to-br from-primary/5 via-secondary/5 to-primary/5 rounded-2xl p-5 border border-border/30">
+        <div className="flex items-center gap-3 mb-4">
+          <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-primary to-secondary flex items-center justify-center shadow-md">
+            <Navigation className="w-5 h-5 text-white" />
+          </div>
+          <h4 className="font-bold">Fahrtdetails</h4>
+        </div>
+        <div className="grid grid-cols-2 gap-4">
+          <div className="flex items-center gap-3 p-3 bg-background rounded-xl border border-border/50">
+            <MapPin className="w-5 h-5 text-primary flex-shrink-0" />
+            <div className="min-w-0">
+              <p className="text-xs text-muted-foreground">Start</p>
+              <p className="font-medium truncate">{startAddress}</p>
+            </div>
+          </div>
+          <div className="flex items-center gap-3 p-3 bg-background rounded-xl border border-border/50">
+            <Navigation className="w-5 h-5 text-secondary flex-shrink-0" />
+            <div className="min-w-0">
+              <p className="text-xs text-muted-foreground">Ziel</p>
+              <p className="font-medium truncate">{endAddress}</p>
+            </div>
+          </div>
+        </div>
+        {(formData.datum || formData.schnellstmoeglich) && (
+          <div className="mt-3 flex items-center gap-3 p-3 bg-background rounded-xl border border-border/50">
+            <Calendar className="w-5 h-5 text-muted-foreground flex-shrink-0" />
+            <div>
+              <p className="text-xs text-muted-foreground">Termin</p>
+              <p className="font-medium">
+                {formData.schnellstmoeglich ? "Schnellstmöglich" : `${formData.datum}${formData.uhrzeit ? ` um ${formData.uhrzeit}` : ""}`}
+              </p>
+            </div>
+          </div>
+        )}
+      </div>
+
+      {/* Personal Data Summary */}
+      <div className="bg-card rounded-2xl p-5 border-2 border-border/50">
+        <div className="flex items-center gap-3 mb-4">
+          <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-primary to-primary/80 flex items-center justify-center shadow-md">
+            <User className="w-5 h-5 text-white" />
+          </div>
+          <h4 className="font-bold">Persönliche Daten</h4>
+        </div>
+        <div className="grid grid-cols-2 gap-3 text-sm">
+          <div className="p-3 bg-muted/30 rounded-xl">
+            <p className="text-xs text-muted-foreground">Name</p>
+            <p className="font-medium">{formData.anrede} {formData.vorname} {formData.nachname}</p>
+          </div>
+          <div className="p-3 bg-muted/30 rounded-xl">
+            <p className="text-xs text-muted-foreground">Geburtsdatum</p>
+            <p className="font-medium">{formData.geburtsdatum || "-"}</p>
+          </div>
+          <div className="p-3 bg-muted/30 rounded-xl">
+            <p className="text-xs text-muted-foreground">Pflegegrad</p>
+            <p className="font-medium">{formData.pflegegrad || "-"}</p>
+          </div>
+          <div className="p-3 bg-muted/30 rounded-xl">
+            <p className="text-xs text-muted-foreground">Krankenkasse</p>
+            <p className="font-medium">{formData.krankenkasse || "-"}</p>
+          </div>
+          {formData.telefon && (
+            <div className="p-3 bg-muted/30 rounded-xl col-span-2">
+              <p className="text-xs text-muted-foreground">Telefon</p>
+              <p className="font-medium">{formData.telefon}</p>
+            </div>
+          )}
+        </div>
+      </div>
+
+      {/* Filter Summary */}
+      <div className="bg-card rounded-2xl p-5 border-2 border-border/50">
+        <div className="flex items-center gap-3 mb-4">
+          <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-secondary to-secondary/80 flex items-center justify-center shadow-md">
+            <Truck className="w-5 h-5 text-white" />
+          </div>
+          <h4 className="font-bold">Transportdetails</h4>
+        </div>
+        <div className="flex flex-wrap gap-2">
+          <span className="px-3 py-1.5 bg-primary/10 text-primary rounded-full text-sm font-medium">
+            {selectedFilters.anbieter}
+          </span>
+          <span className="px-3 py-1.5 bg-secondary/10 text-secondary rounded-full text-sm font-medium">
+            {selectedFilters.transportart}
+          </span>
+          <span className="px-3 py-1.5 bg-amber-500/10 text-amber-600 rounded-full text-sm font-medium">
+            {selectedFilters.transportmittel}
+          </span>
+          {formData.grund && (
+            <span className="px-3 py-1.5 bg-muted text-muted-foreground rounded-full text-sm font-medium">
+              {formData.grund}
+            </span>
+          )}
+        </div>
+        <div className="mt-3 text-sm text-muted-foreground">
+          Anfrage an <span className="font-bold text-foreground">{selectedProviders.length} Anbieter</span>
+        </div>
+      </div>
+
+      {/* Legal Checkboxes */}
+      <div className="bg-gradient-to-br from-amber-500/5 to-orange-500/5 rounded-2xl p-5 border border-amber-500/20">
+        <div className="flex items-center gap-3 mb-4">
+          <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-amber-500 to-orange-500 flex items-center justify-center shadow-md">
+            <Shield className="w-5 h-5 text-white" />
+          </div>
+          <div>
+            <h4 className="font-bold">Rechtliche Hinweise</h4>
+            <p className="text-xs text-muted-foreground">Bitte bestätigen Sie die folgenden Punkte</p>
+          </div>
+        </div>
+        <div className="space-y-3">
+          <label className="flex items-start gap-3 p-3 bg-background rounded-xl border border-border/50 cursor-pointer hover:border-primary/30 transition-colors">
+            <Checkbox
+              checked={legalAccepted.datenschutz}
+              onCheckedChange={(checked) => setLegalAccepted(prev => ({ ...prev, datenschutz: checked === true }))}
+              className="mt-0.5 data-[state=checked]:bg-primary data-[state=checked]:border-primary"
+            />
+            <span className="text-sm">
+              Ich habe die{" "}
+              <Link to="/datenschutz" target="_blank" className="text-primary font-medium hover:underline">
+                Datenschutzerklärung
+              </Link>{" "}
+              gelesen und akzeptiere diese.
+            </span>
+          </label>
+          <label className="flex items-start gap-3 p-3 bg-background rounded-xl border border-border/50 cursor-pointer hover:border-primary/30 transition-colors">
+            <Checkbox
+              checked={legalAccepted.agb}
+              onCheckedChange={(checked) => setLegalAccepted(prev => ({ ...prev, agb: checked === true }))}
+              className="mt-0.5 data-[state=checked]:bg-primary data-[state=checked]:border-primary"
+            />
+            <span className="text-sm">
+              Ich akzeptiere die{" "}
+              <Link to="/agb" target="_blank" className="text-primary font-medium hover:underline">
+                Allgemeinen Geschäftsbedingungen (AGB)
+              </Link>.
+            </span>
+          </label>
+          <label className="flex items-start gap-3 p-3 bg-background rounded-xl border border-border/50 cursor-pointer hover:border-primary/30 transition-colors">
+            <Checkbox
+              checked={legalAccepted.befoerderungsvertrag}
+              onCheckedChange={(checked) => setLegalAccepted(prev => ({ ...prev, befoerderungsvertrag: checked === true }))}
+              className="mt-0.5 data-[state=checked]:bg-primary data-[state=checked]:border-primary"
+            />
+            <span className="text-sm">
+              Ich akzeptiere die Bedingungen des{" "}
+              <Link to="/personenbefoerderungsvertrag" target="_blank" className="text-primary font-medium hover:underline">
+                Personenbeförderungsvertrags
+              </Link>.
+            </span>
+          </label>
+        </div>
+      </div>
+
+      {/* Book Button */}
+      <div className="pt-2">
+        <Button
+          onClick={handleNextStep}
+          disabled={!allLegalAccepted}
+          className={`w-full h-14 rounded-2xl text-base font-bold shadow-xl transition-all ${
+            allLegalAccepted
+              ? "bg-gradient-to-r from-primary via-primary/90 to-secondary hover:opacity-90 shadow-primary/25 hover:shadow-2xl hover:-translate-y-0.5"
+              : "bg-muted text-muted-foreground cursor-not-allowed"
+          }`}
+        >
+          <CheckCircle className="w-5 h-5 mr-2" />
+          Jetzt verbindlich buchen
+        </Button>
+        {!allLegalAccepted && (
+          <p className="text-xs text-center text-muted-foreground mt-2">
+            Bitte akzeptieren Sie alle rechtlichen Hinweise, um fortzufahren.
+          </p>
+        )}
+      </div>
+    </div>
+  );
+
+  // Step 4: Confirmation - Enhanced visual design
   const renderConfirmationStep = () => (
     <div className="relative py-6 space-y-8 overflow-hidden">
       {/* Background decorative elements */}
@@ -937,9 +1136,10 @@ export default function BookingResults() {
               <DialogTitle className="text-xl font-bold">
                 {currentStep === 1 && "Filter auswählen"}
                 {currentStep === 2 && "Persönliche Daten"}
-                {currentStep === 3 && "Buchungsbestätigung"}
+                {currentStep === 3 && "Buchungsübersicht"}
+                {currentStep === 4 && "Buchungsbestätigung"}
               </DialogTitle>
-              {currentStep < 3 && (
+              {currentStep < 4 && (
                 <div className="flex items-center gap-2">
                   {[1, 2, 3].map((step) => (
                     <div
@@ -961,7 +1161,8 @@ export default function BookingResults() {
           <div className="py-4">
             {currentStep === 1 && renderFilterStep()}
             {currentStep === 2 && renderPersonalDataStep()}
-            {currentStep === 3 && renderConfirmationStep()}
+            {currentStep === 3 && renderSummaryStep()}
+            {currentStep === 4 && renderConfirmationStep()}
           </div>
 
           {currentStep < 3 && (
@@ -979,6 +1180,13 @@ export default function BookingResults() {
               >
                 Weiter
                 <ChevronRight className="w-4 h-4 ml-2" />
+              </Button>
+            </div>
+          )}
+          {currentStep === 3 && (
+            <div className="flex justify-start pt-4 border-t">
+              <Button variant="outline" onClick={handlePreviousStep} className="rounded-xl">
+                Zurück
               </Button>
             </div>
           )}
