@@ -18,7 +18,8 @@ import {
   CheckCircle,
   Truck,
   Users,
-  Armchair
+  Armchair,
+  Crown
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -51,6 +52,7 @@ const transportProviders = [
     reviews: 234,
     responseTime: "< 5 Min.",
     verified: true,
+    isPremium: true,
   },
   {
     id: 2,
@@ -59,6 +61,7 @@ const transportProviders = [
     reviews: 189,
     responseTime: "< 10 Min.",
     verified: true,
+    isPremium: true,
   },
   {
     id: 3,
@@ -67,6 +70,7 @@ const transportProviders = [
     reviews: 156,
     responseTime: "< 15 Min.",
     verified: true,
+    isPremium: false,
   },
   {
     id: 4,
@@ -75,6 +79,7 @@ const transportProviders = [
     reviews: 98,
     responseTime: "< 10 Min.",
     verified: true,
+    isPremium: true,
   },
   {
     id: 5,
@@ -83,6 +88,7 @@ const transportProviders = [
     reviews: 312,
     responseTime: "< 5 Min.",
     verified: true,
+    isPremium: false,
   },
   {
     id: 6,
@@ -91,6 +97,7 @@ const transportProviders = [
     reviews: 267,
     responseTime: "< 10 Min.",
     verified: true,
+    isPremium: true,
   },
 ];
 
@@ -1047,9 +1054,17 @@ export default function BookingResults() {
 
                           {/* Provider Info */}
                           <div className="flex-1 min-w-0">
-                            <h4 className="font-bold text-lg mb-1 truncate group-hover:text-primary transition-colors">
-                              {provider.name}
-                            </h4>
+                            <div className="flex items-center gap-2 mb-1">
+                              <h4 className="font-bold text-lg truncate group-hover:text-primary transition-colors">
+                                {provider.name}
+                              </h4>
+                              {provider.isPremium && (
+                                <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold bg-gradient-to-r from-secondary to-secondary/80 text-secondary-foreground shadow-sm flex-shrink-0">
+                                  <Crown className="w-3 h-3" />
+                                  PREMIUM
+                                </span>
+                              )}
+                            </div>
                             <div className="flex flex-wrap items-center gap-3">
                               <div className="flex items-center gap-1.5">
                                 {renderStars(provider.rating)}
