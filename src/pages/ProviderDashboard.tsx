@@ -2370,7 +2370,7 @@ const ProviderDashboard = () => {
                 </div>
                 <div>
                   <CardTitle className="text-base font-bold">Mitgliedschaft verwalten</CardTitle>
-                  <CardDescription className="text-xs">Kündigung oder Planänderung</CardDescription>
+                  <CardDescription className="text-xs">Verwalten Sie Ihre Mitgliedschaft</CardDescription>
                 </div>
               </div>
             </CardHeader>
@@ -2379,66 +2379,104 @@ const ProviderDashboard = () => {
                 <div className="flex items-start gap-3">
                   <AlertTriangle className="w-5 h-5 text-amber-500 flex-shrink-0 mt-0.5" />
                   <div className="flex-1">
-                    <p className="text-sm font-medium">Möchten Sie Ihre Mitgliedschaft kündigen?</p>
+                    <p className="text-sm font-medium">Möchten Sie Ihre Premium-Mitgliedschaft kündigen?</p>
                     <p className="text-xs text-muted-foreground mt-1">
-                      Bei einer Kündigung bleibt Ihr Zugang bis zum Ende der aktuellen Abrechnungsperiode ({membershipData.nextBilling}) bestehen. Sie können jederzeit wieder aktivieren.
+                      Bei einer Kündigung wechseln Sie zum kostenlosen Free Plan. Ihr Premium-Zugang bleibt bis zum {membershipData.nextBilling} bestehen.
                     </p>
                   </div>
                 </div>
-                <div className="flex justify-end mt-4 gap-3">
-                  <Button variant="outline" size="sm" className="text-muted-foreground">
-                    Plan ändern
-                  </Button>
+                <div className="flex justify-end mt-4">
                   <Dialog open={showCancelDialog} onOpenChange={setShowCancelDialog}>
                     <DialogTrigger asChild>
                       <Button variant="destructive" size="sm" className="gap-2">
                         <XCircle className="w-4 h-4" />
-                        Mitgliedschaft kündigen
+                        Zum Free Plan wechseln
                       </Button>
                     </DialogTrigger>
-                    <DialogContent className="sm:max-w-md">
+                    <DialogContent className="sm:max-w-lg">
                       <DialogHeader>
                         <DialogTitle className="text-xl font-bold flex items-center gap-2">
                           <AlertTriangle className="w-5 h-5 text-destructive" />
-                          Kündigung bestätigen
+                          Wechsel zum Free Plan bestätigen
                         </DialogTitle>
                         <DialogDescription>
-                          Sind Sie sicher, dass Sie Ihre Premium-Mitgliedschaft kündigen möchten?
+                          Sie wechseln von Premium (49€/Monat) zum kostenlosen Free Plan.
                         </DialogDescription>
                       </DialogHeader>
                       <div className="space-y-4 pt-4">
-                        <div className="p-4 rounded-xl bg-destructive/10 border border-destructive/20">
-                          <p className="text-sm text-destructive font-medium">Nach der Kündigung verlieren Sie:</p>
-                          <ul className="mt-2 space-y-1">
-                            <li className="text-xs text-muted-foreground flex items-center gap-2">
-                              <XCircle className="w-3 h-3 text-destructive" />
-                              Zugang zu neuen Buchungsanfragen
-                            </li>
-                            <li className="text-xs text-muted-foreground flex items-center gap-2">
-                              <XCircle className="w-3 h-3 text-destructive" />
-                              Teilnahme an Ausschreibungen
-                            </li>
-                            <li className="text-xs text-muted-foreground flex items-center gap-2">
-                              <XCircle className="w-3 h-3 text-destructive" />
-                              Premium-Support
-                            </li>
-                          </ul>
+                        {/* Comparison */}
+                        <div className="grid grid-cols-2 gap-3">
+                          <div className="p-3 rounded-xl bg-destructive/5 border border-destructive/20">
+                            <p className="text-xs font-semibold text-destructive mb-2 flex items-center gap-1.5">
+                              <XCircle className="w-3.5 h-3.5" />
+                              Free Plan (Kostenlos)
+                            </p>
+                            <ul className="space-y-1.5">
+                              <li className="text-xs text-muted-foreground flex items-center gap-1.5">
+                                <XCircle className="w-3 h-3 text-destructive flex-shrink-0" />
+                                Keine neuen Buchungsanfragen
+                              </li>
+                              <li className="text-xs text-muted-foreground flex items-center gap-1.5">
+                                <XCircle className="w-3 h-3 text-destructive flex-shrink-0" />
+                                Keine Ausschreibungen
+                              </li>
+                              <li className="text-xs text-muted-foreground flex items-center gap-1.5">
+                                <XCircle className="w-3 h-3 text-destructive flex-shrink-0" />
+                                Kein Premium-Support
+                              </li>
+                              <li className="text-xs text-muted-foreground flex items-center gap-1.5">
+                                <Check className="w-3 h-3 text-muted-foreground flex-shrink-0" />
+                                Profilansicht bleibt
+                              </li>
+                            </ul>
+                          </div>
+                          <div className="p-3 rounded-xl bg-secondary/5 border border-secondary/20">
+                            <p className="text-xs font-semibold text-secondary mb-2 flex items-center gap-1.5">
+                              <Crown className="w-3.5 h-3.5" />
+                              Premium (Aktuell)
+                            </p>
+                            <ul className="space-y-1.5">
+                              <li className="text-xs text-muted-foreground flex items-center gap-1.5">
+                                <Check className="w-3 h-3 text-secondary flex-shrink-0" />
+                                Unbegrenzte Buchungsanfragen
+                              </li>
+                              <li className="text-xs text-muted-foreground flex items-center gap-1.5">
+                                <Check className="w-3 h-3 text-secondary flex-shrink-0" />
+                                Zugang zu Ausschreibungen
+                              </li>
+                              <li className="text-xs text-muted-foreground flex items-center gap-1.5">
+                                <Check className="w-3 h-3 text-secondary flex-shrink-0" />
+                                Premium-Support
+                              </li>
+                              <li className="text-xs text-muted-foreground flex items-center gap-1.5">
+                                <Check className="w-3 h-3 text-secondary flex-shrink-0" />
+                                Prioritäre Anzeige
+                              </li>
+                            </ul>
+                          </div>
                         </div>
+                        
+                        <div className="p-3 rounded-lg bg-amber-500/10 border border-amber-500/20">
+                          <p className="text-xs text-amber-700 dark:text-amber-400">
+                            <strong>Hinweis:</strong> Ihr Premium-Zugang bleibt bis zum {membershipData.nextBilling} aktiv. Danach wechseln Sie automatisch zum Free Plan.
+                          </p>
+                        </div>
+
                         <div className="space-y-2">
-                          <Label className="text-sm font-semibold">Grund für die Kündigung (optional)</Label>
+                          <Label className="text-sm font-semibold">Warum wechseln Sie? (optional)</Label>
                           <Textarea 
                             value={cancelReason}
                             onChange={(e) => setCancelReason(e.target.value)}
-                            placeholder="Teilen Sie uns mit, warum Sie kündigen möchten..."
+                            placeholder="Ihr Feedback hilft uns, besser zu werden..."
                             className="min-h-20 bg-muted/30 border border-muted focus-visible:border-destructive focus-visible:ring-0 rounded-lg resize-none"
                           />
                         </div>
                         <div className="flex justify-end gap-3 pt-2">
                           <Button variant="outline" onClick={() => setShowCancelDialog(false)}>
-                            Abbrechen
+                            Premium behalten
                           </Button>
                           <Button variant="destructive" onClick={() => setShowCancelDialog(false)}>
-                            Kündigung bestätigen
+                            Zum Free Plan wechseln
                           </Button>
                         </div>
                       </div>
