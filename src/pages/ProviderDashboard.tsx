@@ -64,7 +64,9 @@ const ProviderDashboard = () => {
 
   // Membership state
   const [membershipStatus] = useState<"trial" | "active" | "cancelled">("active");
+  const [currentPlan, setCurrentPlan] = useState<"free" | "premium">("premium");
   const [showCancelDialog, setShowCancelDialog] = useState(false);
+  const [showChangePlanDialog, setShowChangePlanDialog] = useState(false);
   const [cancelReason, setCancelReason] = useState("");
   const [showPaymentDialog, setShowPaymentDialog] = useState(false);
   const [editingPaymentMethod, setEditingPaymentMethod] = useState<"card" | "sepa" | null>(null);
@@ -2423,38 +2425,189 @@ const ProviderDashboard = () => {
             </CardContent>
           </Card>
 
-          {/* Cancel Membership */}
+          {/* Manage Membership */}
           <Card className="border-0 shadow-lg bg-gradient-to-br from-card to-muted/20 overflow-hidden">
             <CardHeader className="pb-3 pt-4 px-4">
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-lg bg-destructive/10 flex items-center justify-center">
-                  <CalendarX className="w-5 h-5 text-destructive" />
+                <div className="w-10 h-10 rounded-lg bg-secondary/10 flex items-center justify-center">
+                  <Crown className="w-5 h-5 text-secondary" />
                 </div>
                 <div>
                   <CardTitle className="text-base font-bold">Mitgliedschaft verwalten</CardTitle>
-                  <CardDescription className="text-xs">Verwalten Sie Ihre Mitgliedschaft</CardDescription>
+                  <CardDescription className="text-xs">Plan ändern oder kündigen</CardDescription>
                 </div>
               </div>
             </CardHeader>
-            <CardContent className="px-4 pb-4">
-              <div className="p-4 rounded-xl bg-muted/30 border border-muted">
+            <CardContent className="px-4 pb-4 space-y-4">
+              {/* Change Plan Section */}
+              <div className="p-4 rounded-xl bg-secondary/5 border border-secondary/20">
                 <div className="flex items-start gap-3">
-                  <AlertTriangle className="w-5 h-5 text-amber-500 flex-shrink-0 mt-0.5" />
+                  <Sparkles className="w-5 h-5 text-secondary flex-shrink-0 mt-0.5" />
                   <div className="flex-1">
-                    <p className="text-sm font-medium">Möchten Sie Ihre Premium-Mitgliedschaft kündigen?</p>
+                    <p className="text-sm font-medium">Plan ändern</p>
                     <p className="text-xs text-muted-foreground mt-1">
-                      Bei einer Kündigung wechseln Sie zum kostenlosen Free Plan. Ihr Premium-Zugang bleibt bis zum {membershipData.nextBilling} bestehen.
+                      Vergleichen Sie unsere Pläne und wählen Sie den passenden für Ihr Unternehmen.
                     </p>
                   </div>
                 </div>
                 <div className="flex justify-end mt-4">
-                  <Dialog open={showCancelDialog} onOpenChange={setShowCancelDialog}>
+                  <Dialog open={showChangePlanDialog} onOpenChange={setShowChangePlanDialog}>
                     <DialogTrigger asChild>
-                      <Button variant="destructive" size="sm" className="gap-2">
-                        <XCircle className="w-4 h-4" />
-                        Zum Free Plan wechseln
+                      <Button variant="outline" size="sm" className="gap-2 border-secondary/30 hover:bg-secondary/10">
+                        <Crown className="w-4 h-4" />
+                        Plan vergleichen
                       </Button>
                     </DialogTrigger>
+                    <DialogContent className="sm:max-w-2xl">
+                      <DialogHeader>
+                        <DialogTitle className="text-xl font-bold flex items-center gap-2">
+                          <Crown className="w-5 h-5 text-secondary" />
+                          Wählen Sie Ihren Plan
+                        </DialogTitle>
+                        <DialogDescription>
+                          Vergleichen Sie unsere Pläne und wählen Sie den besten für Ihr Unternehmen.
+                        </DialogDescription>
+                      </DialogHeader>
+                      <div className="grid grid-cols-2 gap-4 pt-4">
+                        {/* Free Plan */}
+                        <div className={cn(
+                          "p-5 rounded-xl border-2 transition-all relative",
+                          currentPlan === "free" 
+                            ? "border-primary bg-primary/5" 
+                            : "border-muted hover:border-muted-foreground/30"
+                        )}>
+                          {currentPlan === "free" && (
+                            <Badge className="absolute -top-2.5 left-4 bg-primary text-primary-foreground text-[10px]">
+                              Aktueller Plan
+                            </Badge>
+                          )}
+                          <div className="mb-4">
+                            <h3 className="text-lg font-bold">Free Plan</h3>
+                            <p className="text-2xl font-bold mt-1">0€<span className="text-sm font-normal text-muted-foreground">/Monat</span></p>
+                          </div>
+                          <ul className="space-y-2.5 mb-6">
+                            <li className="text-sm flex items-center gap-2">
+                              <Check className="w-4 h-4 text-muted-foreground flex-shrink-0" />
+                              Profil sichtbar
+                            </li>
+                            <li className="text-sm flex items-center gap-2">
+                              <Check className="w-4 h-4 text-muted-foreground flex-shrink-0" />
+                              Basis-Dashboard
+                            </li>
+                            <li className="text-sm flex items-center gap-2 text-muted-foreground">
+                              <XCircle className="w-4 h-4 text-destructive/60 flex-shrink-0" />
+                              Keine Buchungsanfragen
+                            </li>
+                            <li className="text-sm flex items-center gap-2 text-muted-foreground">
+                              <XCircle className="w-4 h-4 text-destructive/60 flex-shrink-0" />
+                              Kein Zugang zu Ausschreibungen
+                            </li>
+                            <li className="text-sm flex items-center gap-2 text-muted-foreground">
+                              <XCircle className="w-4 h-4 text-destructive/60 flex-shrink-0" />
+                              Standard-Support
+                            </li>
+                          </ul>
+                          <Button 
+                            variant={currentPlan === "free" ? "secondary" : "outline"} 
+                            className="w-full"
+                            disabled={currentPlan === "free"}
+                            onClick={() => {
+                              setShowChangePlanDialog(false);
+                              setShowCancelDialog(true);
+                            }}
+                          >
+                            {currentPlan === "free" ? "Aktueller Plan" : "Zu Free wechseln"}
+                          </Button>
+                        </div>
+
+                        {/* Premium Plan */}
+                        <div className={cn(
+                          "p-5 rounded-xl border-2 transition-all relative",
+                          currentPlan === "premium" 
+                            ? "border-secondary bg-secondary/5" 
+                            : "border-muted hover:border-secondary/50"
+                        )}>
+                          {currentPlan === "premium" && (
+                            <Badge className="absolute -top-2.5 left-4 bg-secondary text-secondary-foreground text-[10px]">
+                              Aktueller Plan
+                            </Badge>
+                          )}
+                          <div className="absolute -top-2.5 right-4">
+                            <Badge variant="outline" className="bg-gradient-to-r from-amber-500 to-orange-500 text-white border-0 text-[10px]">
+                              Empfohlen
+                            </Badge>
+                          </div>
+                          <div className="mb-4">
+                            <h3 className="text-lg font-bold flex items-center gap-2">
+                              Premium
+                              <Crown className="w-4 h-4 text-secondary" />
+                            </h3>
+                            <p className="text-2xl font-bold mt-1">49€<span className="text-sm font-normal text-muted-foreground">/Monat</span></p>
+                          </div>
+                          <ul className="space-y-2.5 mb-6">
+                            <li className="text-sm flex items-center gap-2">
+                              <Check className="w-4 h-4 text-secondary flex-shrink-0" />
+                              Unbegrenzte Buchungsanfragen
+                            </li>
+                            <li className="text-sm flex items-center gap-2">
+                              <Check className="w-4 h-4 text-secondary flex-shrink-0" />
+                              Zugang zu allen Ausschreibungen
+                            </li>
+                            <li className="text-sm flex items-center gap-2">
+                              <Check className="w-4 h-4 text-secondary flex-shrink-0" />
+                              Prioritäre Anzeige im Netzwerk
+                            </li>
+                            <li className="text-sm flex items-center gap-2">
+                              <Check className="w-4 h-4 text-secondary flex-shrink-0" />
+                              Premium-Support
+                            </li>
+                            <li className="text-sm flex items-center gap-2">
+                              <Check className="w-4 h-4 text-secondary flex-shrink-0" />
+                              Detaillierte Statistiken
+                            </li>
+                          </ul>
+                          <Button 
+                            className={cn(
+                              "w-full",
+                              currentPlan === "premium" 
+                                ? "bg-secondary hover:bg-secondary/90" 
+                                : "bg-gradient-to-r from-secondary to-secondary/80 hover:from-secondary/90 hover:to-secondary/70"
+                            )}
+                            disabled={currentPlan === "premium"}
+                            onClick={() => {
+                              setCurrentPlan("premium");
+                              setShowChangePlanDialog(false);
+                            }}
+                          >
+                            {currentPlan === "premium" ? "Aktueller Plan" : "Zu Premium upgraden"}
+                          </Button>
+                        </div>
+                      </div>
+                    </DialogContent>
+                  </Dialog>
+                </div>
+              </div>
+
+              {/* Cancel Section - Only show for Premium users */}
+              {currentPlan === "premium" && (
+                <div className="p-4 rounded-xl bg-muted/30 border border-muted">
+                  <div className="flex items-start gap-3">
+                    <AlertTriangle className="w-5 h-5 text-amber-500 flex-shrink-0 mt-0.5" />
+                    <div className="flex-1">
+                      <p className="text-sm font-medium">Mitgliedschaft kündigen</p>
+                      <p className="text-xs text-muted-foreground mt-1">
+                        Bei einer Kündigung wechseln Sie zum kostenlosen Free Plan.
+                      </p>
+                    </div>
+                  </div>
+                  <div className="flex justify-end mt-4">
+                    <Dialog open={showCancelDialog} onOpenChange={setShowCancelDialog}>
+                      <DialogTrigger asChild>
+                        <Button variant="ghost" size="sm" className="gap-2 text-muted-foreground hover:text-destructive">
+                          <XCircle className="w-4 h-4" />
+                          Kündigen
+                        </Button>
+                      </DialogTrigger>
                     <DialogContent className="sm:max-w-lg">
                       <DialogHeader>
                         <DialogTitle className="text-xl font-bold flex items-center gap-2">
@@ -2537,15 +2690,22 @@ const ProviderDashboard = () => {
                           <Button variant="outline" onClick={() => setShowCancelDialog(false)}>
                             Premium behalten
                           </Button>
-                          <Button variant="destructive" onClick={() => setShowCancelDialog(false)}>
+                          <Button 
+                            variant="destructive" 
+                            onClick={() => {
+                              setCurrentPlan("free");
+                              setShowCancelDialog(false);
+                            }}
+                          >
                             Zum Free Plan wechseln
                           </Button>
                         </div>
                       </div>
                     </DialogContent>
                   </Dialog>
+                  </div>
                 </div>
-              </div>
+              )}
             </CardContent>
           </Card>
         </TabsContent>
