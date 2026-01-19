@@ -1028,7 +1028,7 @@ export default function BookingResults() {
                         
                         {/* Premium Badge - Corner tag */}
                         {provider.isPremium && (
-                          <div className="absolute top-0 left-0 bg-gradient-to-r from-orange-500 to-amber-500 text-white text-[10px] font-bold px-3 py-1 rounded-tl-xl rounded-br-xl shadow-md flex items-center gap-1">
+                          <div className="absolute top-0 right-0 bg-gradient-to-r from-orange-500 to-amber-500 text-white text-[10px] font-bold px-3 py-1 rounded-tr-xl rounded-bl-xl shadow-md flex items-center gap-1">
                             <Crown className="w-3 h-3" />
                             PREMIUM
                           </div>
