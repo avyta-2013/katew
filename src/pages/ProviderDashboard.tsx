@@ -4,7 +4,8 @@ import {
   CalendarDays, CheckCircle2, XCircle, Clock, LayoutDashboard, TrendingUp, Camera, Upload, 
   ArrowUpRight, Truck, Route, Timer, Star, FileText, MoreHorizontal, Trophy, MessageSquare,
   MapPinned, Bookmark, BarChart3, PieChart, Euro, ClipboardList, Activity, Users, Zap, Target,
-  AlertCircle, ChevronRight, ChevronLeft, Filter, Search, Download, RefreshCw, Accessibility, Armchair, BedDouble, Ticket, Plus, HelpCircle, Home
+  AlertCircle, ChevronRight, ChevronLeft, Filter, Search, Download, RefreshCw, Accessibility, Armchair, BedDouble, Ticket, Plus, HelpCircle, Home,
+  Crown, Gift, CreditCard, Check, AlertTriangle, Sparkles, CalendarX
 } from "lucide-react";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
@@ -60,6 +61,11 @@ const ProviderDashboard = () => {
   const [selectedTicket, setSelectedTicket] = useState<typeof tickets[0] | null>(null);
   const [ticketDetailOpen, setTicketDetailOpen] = useState(false);
   const [newTicketMessage, setNewTicketMessage] = useState("");
+
+  // Membership state
+  const [membershipStatus] = useState<"trial" | "active" | "cancelled">("active");
+  const [showCancelDialog, setShowCancelDialog] = useState(false);
+  const [cancelReason, setCancelReason] = useState("");
 
   const navItems = [
     { id: "uebersicht" as NavItem, label: "Übersicht", icon: LayoutDashboard },
@@ -1711,6 +1717,28 @@ const ProviderDashboard = () => {
     </div>
   );
 
+
+  const membershipData = {
+    plan: "Premium",
+    price: 49,
+    nextBilling: "01.02.2026",
+    startDate: "01.11.2025",
+    trialEnds: "01.02.2026",
+    features: [
+      { name: "Transportschein-Buchungen", included: true },
+      { name: "Selbstzahler-Buchungen", included: true },
+      { name: "Ausschreibungen", included: true },
+      { name: "24/7 Support", included: true },
+      { name: "Unbegrenzte Buchungen", included: true },
+      { name: "Statistiken & Berichte", included: true },
+    ],
+    invoices: [
+      { id: "INV-2026-001", date: "01.01.2026", amount: "49,00€", status: "bezahlt" },
+      { id: "INV-2025-012", date: "01.12.2025", amount: "49,00€", status: "bezahlt" },
+      { id: "INV-2025-011", date: "01.11.2025", amount: "0,00€", status: "Testphase" },
+    ],
+  };
+
   const renderSettings = () => (
     <div className="space-y-5">
       <div>
@@ -1718,172 +1746,411 @@ const ProviderDashboard = () => {
         <p className="text-muted-foreground mt-1 text-sm">Verwalten Sie Ihre Kontoeinstellungen</p>
       </div>
 
-      {/* Logo Upload Card */}
-      <Card className="border-0 shadow-lg bg-gradient-to-br from-card to-muted/20 overflow-hidden">
-        <CardHeader className="pb-2 pt-4 px-4">
-          <div className="flex items-center gap-2">
-            <div className="w-9 h-9 rounded-lg bg-gradient-to-br from-primary/10 to-secondary/10 flex items-center justify-center">
-              <Camera className="w-4 h-4 text-primary" />
-            </div>
-            <div>
-              <CardTitle className="text-base font-bold">Unternehmenslogo</CardTitle>
-              <CardDescription className="text-xs">Logo hochladen</CardDescription>
-            </div>
-          </div>
-        </CardHeader>
-        <CardContent className="px-4 pb-4">
-          <div className="flex items-center gap-5">
-            <div className="relative group">
-              <Avatar className="w-20 h-20 border-2 border-background ring-1 ring-primary/20">
-                <AvatarImage src={profileImage || ""} />
-                <AvatarFallback className="bg-gradient-to-br from-secondary to-primary text-white text-xl font-bold">
-                  MT
-                </AvatarFallback>
-              </Avatar>
-              <button
-                onClick={triggerFileInput}
-                className="absolute inset-0 flex items-center justify-center bg-black/60 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-300 cursor-pointer"
-              >
-                <Camera className="w-6 h-6 text-white" />
-              </button>
-            </div>
-            <div className="flex-1">
-              <input
-                ref={fileInputRef}
-                type="file"
-                accept="image/*"
-                onChange={handleImageUpload}
-                className="hidden"
-              />
-              <Button onClick={triggerFileInput} size="sm" className="gap-2 bg-primary hover:bg-primary/90 text-primary-foreground">
-                <Upload className="w-3.5 h-3.5" />
-                Hochladen
-              </Button>
-              <p className="text-xs text-muted-foreground mt-2">
-                JPG, PNG • Max. 5MB
-              </p>
-            </div>
-          </div>
-        </CardContent>
-      </Card>
+      <Tabs defaultValue="allgemein" className="w-full">
+        <TabsList className="grid w-full grid-cols-2 h-12 p-1 bg-muted/50 rounded-xl">
+          <TabsTrigger value="allgemein" className="rounded-lg data-[state=active]:bg-background data-[state=active]:shadow-md font-medium">
+            <Settings className="w-4 h-4 mr-2" />
+            Allgemein
+          </TabsTrigger>
+          <TabsTrigger value="mitgliedschaft" className="rounded-lg data-[state=active]:bg-background data-[state=active]:shadow-md font-medium">
+            <Crown className="w-4 h-4 mr-2" />
+            Mitgliedschaft
+          </TabsTrigger>
+        </TabsList>
 
-      {/* Notifications */}
-      <Card className="border-0 shadow-lg bg-gradient-to-br from-card to-muted/20 overflow-hidden">
-        <CardHeader className="pb-3 pt-4 px-4">
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-primary/10 to-secondary/10 flex items-center justify-center">
-              <Bell className="w-5 h-5 text-primary" />
-            </div>
-            <div>
-              <CardTitle className="text-base font-bold">Benachrichtigungen</CardTitle>
-              <CardDescription className="text-xs">Verwalten Sie Ihre Benachrichtigungseinstellungen</CardDescription>
-            </div>
-          </div>
-        </CardHeader>
-        <CardContent className="px-4 pb-4 space-y-3">
-          <div className="flex items-center justify-between py-2 px-3 rounded-lg hover:bg-muted/30 transition-colors">
-            <div className="flex items-center gap-3">
-              <Mail className="w-4 h-4 text-muted-foreground" />
-              <span className="text-sm font-medium">Neue Buchungen per E-Mail</span>
-            </div>
-            <Switch 
-              checked={emailNotifications} 
-              onCheckedChange={setEmailNotifications}
-            />
-          </div>
-          <div className="flex items-center justify-between py-2 px-3 rounded-lg hover:bg-muted/30 transition-colors">
-            <div className="flex items-center gap-3">
-              <MessageSquare className="w-4 h-4 text-muted-foreground" />
-              <span className="text-sm font-medium">Neue Buchungen per WhatsApp</span>
-            </div>
-            <Switch 
-              checked={whatsappNotifications} 
-              onCheckedChange={setWhatsappNotifications}
-            />
-          </div>
-          <div className="flex justify-end pt-2">
-            <Button size="sm" className="px-6 h-9 bg-primary hover:bg-primary/90 text-sm font-medium rounded-lg text-primary-foreground">
-              Speichern
-            </Button>
-          </div>
-        </CardContent>
-      </Card>
+        {/* Allgemein Tab */}
+        <TabsContent value="allgemein" className="space-y-5 mt-5">
+          {/* Logo Upload Card */}
+          <Card className="border-0 shadow-lg bg-gradient-to-br from-card to-muted/20 overflow-hidden">
+            <CardHeader className="pb-2 pt-4 px-4">
+              <div className="flex items-center gap-2">
+                <div className="w-9 h-9 rounded-lg bg-gradient-to-br from-primary/10 to-secondary/10 flex items-center justify-center">
+                  <Camera className="w-4 h-4 text-primary" />
+                </div>
+                <div>
+                  <CardTitle className="text-base font-bold">Unternehmenslogo</CardTitle>
+                  <CardDescription className="text-xs">Logo hochladen</CardDescription>
+                </div>
+              </div>
+            </CardHeader>
+            <CardContent className="px-4 pb-4">
+              <div className="flex items-center gap-5">
+                <div className="relative group">
+                  <Avatar className="w-20 h-20 border-2 border-background ring-1 ring-primary/20">
+                    <AvatarImage src={profileImage || ""} />
+                    <AvatarFallback className="bg-gradient-to-br from-secondary to-primary text-white text-xl font-bold">
+                      MT
+                    </AvatarFallback>
+                  </Avatar>
+                  <button
+                    onClick={triggerFileInput}
+                    className="absolute inset-0 flex items-center justify-center bg-black/60 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-300 cursor-pointer"
+                  >
+                    <Camera className="w-6 h-6 text-white" />
+                  </button>
+                </div>
+                <div className="flex-1">
+                  <input
+                    ref={fileInputRef}
+                    type="file"
+                    accept="image/*"
+                    onChange={handleImageUpload}
+                    className="hidden"
+                  />
+                  <Button onClick={triggerFileInput} size="sm" className="gap-2 bg-primary hover:bg-primary/90 text-primary-foreground">
+                    <Upload className="w-3.5 h-3.5" />
+                    Hochladen
+                  </Button>
+                  <p className="text-xs text-muted-foreground mt-2">
+                    JPG, PNG • Max. 5MB
+                  </p>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
 
-      {/* Password */}
-      <Card className="border-0 shadow-lg bg-gradient-to-br from-card to-muted/20 overflow-hidden">
-        <CardHeader className="pb-3 pt-4 px-4">
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-primary/10 to-secondary/10 flex items-center justify-center">
-              <Lock className="w-5 h-5 text-primary" />
-            </div>
-            <div>
-              <CardTitle className="text-base font-bold">Passwort ändern</CardTitle>
-              <CardDescription className="text-xs">Aktualisieren Sie Ihr Passwort</CardDescription>
-            </div>
-          </div>
-        </CardHeader>
-        <CardContent className="space-y-3 px-4 pb-4">
-          <div className="space-y-1">
-            <Label className="text-xs font-semibold">Aktuelles Passwort</Label>
-            <div className="relative max-w-md">
-              <Input 
-                type={showCurrentPassword ? "text" : "password"} 
-                placeholder="••••••••"
-                className="h-10 bg-muted/30 border border-muted focus-visible:border-primary focus-visible:ring-0 rounded-lg text-sm pr-10"
-              />
-              <button
-                type="button"
-                onClick={() => setShowCurrentPassword(!showCurrentPassword)}
-                className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
-              >
-                {showCurrentPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
-              </button>
-            </div>
-          </div>
+          {/* Notifications */}
+          <Card className="border-0 shadow-lg bg-gradient-to-br from-card to-muted/20 overflow-hidden">
+            <CardHeader className="pb-3 pt-4 px-4">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-primary/10 to-secondary/10 flex items-center justify-center">
+                  <Bell className="w-5 h-5 text-primary" />
+                </div>
+                <div>
+                  <CardTitle className="text-base font-bold">Benachrichtigungen</CardTitle>
+                  <CardDescription className="text-xs">Verwalten Sie Ihre Benachrichtigungseinstellungen</CardDescription>
+                </div>
+              </div>
+            </CardHeader>
+            <CardContent className="px-4 pb-4 space-y-3">
+              <div className="flex items-center justify-between py-2 px-3 rounded-lg hover:bg-muted/30 transition-colors">
+                <div className="flex items-center gap-3">
+                  <Mail className="w-4 h-4 text-muted-foreground" />
+                  <span className="text-sm font-medium">Neue Buchungen per E-Mail</span>
+                </div>
+                <Switch 
+                  checked={emailNotifications} 
+                  onCheckedChange={setEmailNotifications}
+                />
+              </div>
+              <div className="flex items-center justify-between py-2 px-3 rounded-lg hover:bg-muted/30 transition-colors">
+                <div className="flex items-center gap-3">
+                  <MessageSquare className="w-4 h-4 text-muted-foreground" />
+                  <span className="text-sm font-medium">Neue Buchungen per WhatsApp</span>
+                </div>
+                <Switch 
+                  checked={whatsappNotifications} 
+                  onCheckedChange={setWhatsappNotifications}
+                />
+              </div>
+              <div className="flex justify-end pt-2">
+                <Button size="sm" className="px-6 h-9 bg-primary hover:bg-primary/90 text-sm font-medium rounded-lg text-primary-foreground">
+                  Speichern
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
 
-          <div className="space-y-1">
-            <Label className="text-xs font-semibold">Neues Passwort</Label>
-            <div className="relative max-w-md">
-              <Input 
-                type={showNewPassword ? "text" : "password"} 
-                placeholder="••••••••"
-                className="h-10 bg-muted/30 border border-muted focus-visible:border-primary focus-visible:ring-0 rounded-lg text-sm pr-10"
-              />
-              <button
-                type="button"
-                onClick={() => setShowNewPassword(!showNewPassword)}
-                className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
-              >
-                {showNewPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
-              </button>
-            </div>
-          </div>
+          {/* Password */}
+          <Card className="border-0 shadow-lg bg-gradient-to-br from-card to-muted/20 overflow-hidden">
+            <CardHeader className="pb-3 pt-4 px-4">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-primary/10 to-secondary/10 flex items-center justify-center">
+                  <Lock className="w-5 h-5 text-primary" />
+                </div>
+                <div>
+                  <CardTitle className="text-base font-bold">Passwort ändern</CardTitle>
+                  <CardDescription className="text-xs">Aktualisieren Sie Ihr Passwort</CardDescription>
+                </div>
+              </div>
+            </CardHeader>
+            <CardContent className="space-y-3 px-4 pb-4">
+              <div className="space-y-1">
+                <Label className="text-xs font-semibold">Aktuelles Passwort</Label>
+                <div className="relative max-w-md">
+                  <Input 
+                    type={showCurrentPassword ? "text" : "password"} 
+                    placeholder="••••••••"
+                    className="h-10 bg-muted/30 border border-muted focus-visible:border-primary focus-visible:ring-0 rounded-lg text-sm pr-10"
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setShowCurrentPassword(!showCurrentPassword)}
+                    className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
+                  >
+                    {showCurrentPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                  </button>
+                </div>
+              </div>
 
-          <div className="space-y-1">
-            <Label className="text-xs font-semibold">Passwort bestätigen</Label>
-            <div className="relative max-w-md">
-              <Input 
-                type={showConfirmPassword ? "text" : "password"} 
-                placeholder="••••••••"
-                className="h-10 bg-muted/30 border border-muted focus-visible:border-primary focus-visible:ring-0 rounded-lg text-sm pr-10"
-              />
-              <button
-                type="button"
-                onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
-              >
-                {showConfirmPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
-              </button>
-            </div>
-          </div>
+              <div className="space-y-1">
+                <Label className="text-xs font-semibold">Neues Passwort</Label>
+                <div className="relative max-w-md">
+                  <Input 
+                    type={showNewPassword ? "text" : "password"} 
+                    placeholder="••••••••"
+                    className="h-10 bg-muted/30 border border-muted focus-visible:border-primary focus-visible:ring-0 rounded-lg text-sm pr-10"
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setShowNewPassword(!showNewPassword)}
+                    className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
+                  >
+                    {showNewPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                  </button>
+                </div>
+              </div>
 
-          <div className="flex justify-end pt-3">
-            <Button size="sm" className="px-6 h-9 bg-primary hover:bg-primary/90 text-sm font-medium rounded-lg text-primary-foreground">
-              Passwort ändern
-            </Button>
-          </div>
-        </CardContent>
-      </Card>
+              <div className="space-y-1">
+                <Label className="text-xs font-semibold">Passwort bestätigen</Label>
+                <div className="relative max-w-md">
+                  <Input 
+                    type={showConfirmPassword ? "text" : "password"} 
+                    placeholder="••••••••"
+                    className="h-10 bg-muted/30 border border-muted focus-visible:border-primary focus-visible:ring-0 rounded-lg text-sm pr-10"
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                    className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
+                  >
+                    {showConfirmPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                  </button>
+                </div>
+              </div>
+
+              <div className="flex justify-end pt-3">
+                <Button size="sm" className="px-6 h-9 bg-primary hover:bg-primary/90 text-sm font-medium rounded-lg text-primary-foreground">
+                  Passwort ändern
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
+        </TabsContent>
+
+        {/* Mitgliedschaft Tab */}
+        <TabsContent value="mitgliedschaft" className="space-y-5 mt-5">
+          {/* Current Plan Status */}
+          <Card className="border-0 shadow-lg bg-gradient-to-br from-card to-muted/20 overflow-hidden relative">
+            <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-primary via-secondary to-primary" />
+            <CardHeader className="pb-3 pt-5 px-4">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-3">
+                  <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-primary to-secondary flex items-center justify-center shadow-lg">
+                    <Crown className="w-6 h-6 text-white" />
+                  </div>
+                  <div>
+                    <div className="flex items-center gap-2">
+                      <CardTitle className="text-lg font-bold">{membershipData.plan} Mitgliedschaft</CardTitle>
+                      <Badge className={cn(
+                        "px-2 py-0.5 text-xs font-semibold border-0",
+                        membershipStatus === "active" && "bg-secondary/20 text-secondary",
+                        membershipStatus === "trial" && "bg-primary/20 text-primary",
+                        membershipStatus === "cancelled" && "bg-destructive/20 text-destructive"
+                      )}>
+                        {membershipStatus === "active" ? "Aktiv" : membershipStatus === "trial" ? "Testphase" : "Gekündigt"}
+                      </Badge>
+                    </div>
+                    <CardDescription className="text-xs mt-0.5">
+                      Mitglied seit {membershipData.startDate}
+                    </CardDescription>
+                  </div>
+                </div>
+                <div className="text-right">
+                  <div className="flex items-baseline gap-1">
+                    <span className="text-3xl font-black bg-gradient-to-br from-primary to-secondary bg-clip-text text-transparent">
+                      {membershipData.price}€
+                    </span>
+                    <span className="text-sm text-muted-foreground">/ Monat</span>
+                  </div>
+                  <p className="text-xs text-muted-foreground">(netto)</p>
+                </div>
+              </div>
+            </CardHeader>
+            <CardContent className="px-4 pb-4">
+              {/* Next Billing Info */}
+              <div className="flex items-center justify-between p-4 rounded-xl bg-muted/30 border border-muted mb-4">
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
+                    <CalendarDays className="w-5 h-5 text-primary" />
+                  </div>
+                  <div>
+                    <p className="text-sm font-medium">Nächste Abrechnung</p>
+                    <p className="text-xs text-muted-foreground">{membershipData.nextBilling}</p>
+                  </div>
+                </div>
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-lg bg-secondary/10 flex items-center justify-center">
+                    <CreditCard className="w-5 h-5 text-secondary" />
+                  </div>
+                  <div>
+                    <p className="text-sm font-medium">Zahlungsmethode</p>
+                    <p className="text-xs text-muted-foreground">•••• •••• •••• 4242</p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Included Features */}
+              <div className="space-y-3">
+                <h4 className="text-sm font-semibold flex items-center gap-2">
+                  <Sparkles className="w-4 h-4 text-primary" />
+                  Enthaltene Leistungen
+                </h4>
+                <div className="grid grid-cols-2 gap-2">
+                  {membershipData.features.map((feature, index) => (
+                    <div key={index} className="flex items-center gap-2 p-2 rounded-lg bg-muted/20">
+                      <div className="w-5 h-5 rounded-full bg-secondary/20 flex items-center justify-center flex-shrink-0">
+                        <Check className="w-3 h-3 text-secondary" />
+                      </div>
+                      <span className="text-sm">{feature.name}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Invoice History */}
+          <Card className="border-0 shadow-lg bg-gradient-to-br from-card to-muted/20 overflow-hidden">
+            <CardHeader className="pb-3 pt-4 px-4">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-primary/10 to-secondary/10 flex items-center justify-center">
+                    <FileText className="w-5 h-5 text-primary" />
+                  </div>
+                  <div>
+                    <CardTitle className="text-base font-bold">Rechnungshistorie</CardTitle>
+                    <CardDescription className="text-xs">Ihre bisherigen Rechnungen</CardDescription>
+                  </div>
+                </div>
+              </div>
+            </CardHeader>
+            <CardContent className="px-4 pb-4">
+              <div className="space-y-2">
+                {membershipData.invoices.map((invoice) => (
+                  <div 
+                    key={invoice.id} 
+                    className="flex items-center justify-between p-3 rounded-xl bg-muted/30 border border-muted hover:border-primary/30 transition-colors group"
+                  >
+                    <div className="flex items-center gap-3">
+                      <div className="w-9 h-9 rounded-lg bg-muted flex items-center justify-center">
+                        <FileText className="w-4 h-4 text-muted-foreground" />
+                      </div>
+                      <div>
+                        <p className="text-sm font-medium">{invoice.id}</p>
+                        <p className="text-xs text-muted-foreground">{invoice.date}</p>
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-3">
+                      <div className="text-right">
+                        <p className="text-sm font-semibold">{invoice.amount}</p>
+                        <Badge className={cn(
+                          "px-1.5 py-0.5 text-[10px] font-medium border-0",
+                          invoice.status === "bezahlt" && "bg-secondary/20 text-secondary",
+                          invoice.status === "Testphase" && "bg-primary/20 text-primary"
+                        )}>
+                          {invoice.status}
+                        </Badge>
+                      </div>
+                      <Button variant="ghost" size="icon" className="h-8 w-8 opacity-0 group-hover:opacity-100 transition-opacity">
+                        <Download className="w-4 h-4" />
+                      </Button>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Cancel Membership */}
+          <Card className="border-0 shadow-lg bg-gradient-to-br from-card to-muted/20 overflow-hidden">
+            <CardHeader className="pb-3 pt-4 px-4">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-lg bg-destructive/10 flex items-center justify-center">
+                  <CalendarX className="w-5 h-5 text-destructive" />
+                </div>
+                <div>
+                  <CardTitle className="text-base font-bold">Mitgliedschaft verwalten</CardTitle>
+                  <CardDescription className="text-xs">Kündigung oder Planänderung</CardDescription>
+                </div>
+              </div>
+            </CardHeader>
+            <CardContent className="px-4 pb-4">
+              <div className="p-4 rounded-xl bg-muted/30 border border-muted">
+                <div className="flex items-start gap-3">
+                  <AlertTriangle className="w-5 h-5 text-amber-500 flex-shrink-0 mt-0.5" />
+                  <div className="flex-1">
+                    <p className="text-sm font-medium">Möchten Sie Ihre Mitgliedschaft kündigen?</p>
+                    <p className="text-xs text-muted-foreground mt-1">
+                      Bei einer Kündigung bleibt Ihr Zugang bis zum Ende der aktuellen Abrechnungsperiode ({membershipData.nextBilling}) bestehen. Sie können jederzeit wieder aktivieren.
+                    </p>
+                  </div>
+                </div>
+                <div className="flex justify-end mt-4 gap-3">
+                  <Button variant="outline" size="sm" className="text-muted-foreground">
+                    Plan ändern
+                  </Button>
+                  <Dialog open={showCancelDialog} onOpenChange={setShowCancelDialog}>
+                    <DialogTrigger asChild>
+                      <Button variant="destructive" size="sm" className="gap-2">
+                        <XCircle className="w-4 h-4" />
+                        Mitgliedschaft kündigen
+                      </Button>
+                    </DialogTrigger>
+                    <DialogContent className="sm:max-w-md">
+                      <DialogHeader>
+                        <DialogTitle className="text-xl font-bold flex items-center gap-2">
+                          <AlertTriangle className="w-5 h-5 text-destructive" />
+                          Kündigung bestätigen
+                        </DialogTitle>
+                        <DialogDescription>
+                          Sind Sie sicher, dass Sie Ihre Premium-Mitgliedschaft kündigen möchten?
+                        </DialogDescription>
+                      </DialogHeader>
+                      <div className="space-y-4 pt-4">
+                        <div className="p-4 rounded-xl bg-destructive/10 border border-destructive/20">
+                          <p className="text-sm text-destructive font-medium">Nach der Kündigung verlieren Sie:</p>
+                          <ul className="mt-2 space-y-1">
+                            <li className="text-xs text-muted-foreground flex items-center gap-2">
+                              <XCircle className="w-3 h-3 text-destructive" />
+                              Zugang zu neuen Buchungsanfragen
+                            </li>
+                            <li className="text-xs text-muted-foreground flex items-center gap-2">
+                              <XCircle className="w-3 h-3 text-destructive" />
+                              Teilnahme an Ausschreibungen
+                            </li>
+                            <li className="text-xs text-muted-foreground flex items-center gap-2">
+                              <XCircle className="w-3 h-3 text-destructive" />
+                              Premium-Support
+                            </li>
+                          </ul>
+                        </div>
+                        <div className="space-y-2">
+                          <Label className="text-sm font-semibold">Grund für die Kündigung (optional)</Label>
+                          <Textarea 
+                            value={cancelReason}
+                            onChange={(e) => setCancelReason(e.target.value)}
+                            placeholder="Teilen Sie uns mit, warum Sie kündigen möchten..."
+                            className="min-h-20 bg-muted/30 border border-muted focus-visible:border-destructive focus-visible:ring-0 rounded-lg resize-none"
+                          />
+                        </div>
+                        <div className="flex justify-end gap-3 pt-2">
+                          <Button variant="outline" onClick={() => setShowCancelDialog(false)}>
+                            Abbrechen
+                          </Button>
+                          <Button variant="destructive" onClick={() => setShowCancelDialog(false)}>
+                            Kündigung bestätigen
+                          </Button>
+                        </div>
+                      </div>
+                    </DialogContent>
+                  </Dialog>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        </TabsContent>
+      </Tabs>
     </div>
   );
 
