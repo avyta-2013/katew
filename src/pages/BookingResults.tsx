@@ -1026,13 +1026,11 @@ export default function BookingResults() {
                           : "border-border/50 hover:border-border hover:shadow-lg"
                       }`}>
                         
-                        {/* Premium Badge - Orange Ribbon at top right */}
+                        {/* Premium Badge - Corner tag */}
                         {provider.isPremium && (
-                          <div className="absolute -right-10 -top-1 rotate-45 bg-gradient-to-r from-orange-500 to-amber-500 text-white text-[10px] font-bold px-10 py-1 shadow-lg">
-                            <span className="flex items-center gap-1">
-                              <Crown className="w-3 h-3" />
-                              PREMIUM
-                            </span>
+                          <div className="absolute top-0 left-0 bg-gradient-to-r from-orange-500 to-amber-500 text-white text-[10px] font-bold px-3 py-1 rounded-tl-xl rounded-br-xl shadow-md flex items-center gap-1">
+                            <Crown className="w-3 h-3" />
+                            PREMIUM
                           </div>
                         )}
 
