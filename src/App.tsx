@@ -15,6 +15,7 @@ import FAQ from "./pages/FAQ";
 import Impressum from "./pages/Impressum";
 import Datenschutz from "./pages/Datenschutz";
 import AGB from "./pages/AGB";
+import Personenbefoerderungsvertrag from "./pages/Personenbefoerderungsvertrag";
 import Karriere from "./pages/Karriere";
 import JobDetail from "./pages/JobDetail";
 import BlogPost from "./pages/BlogPost";
@@ -45,6 +46,7 @@ const App = () => (
           <Route path="/impressum" element={<Impressum />} />
           <Route path="/datenschutz" element={<Datenschutz />} />
           <Route path="/agb" element={<AGB />} />
+          <Route path="/personenbefoerderungsvertrag" element={<Personenbefoerderungsvertrag />} />
           <Route path="/karriere" element={<Karriere />} />
           <Route path="/partner-dashboard" element={<PartnerDashboard />} />
           <Route path="/anbieter-dashboard" element={<ProviderDashboard />} />
