@@ -66,6 +66,18 @@ const ProviderDashboard = () => {
   const [membershipStatus] = useState<"trial" | "active" | "cancelled">("active");
   const [showCancelDialog, setShowCancelDialog] = useState(false);
   const [cancelReason, setCancelReason] = useState("");
+  const [showPaymentDialog, setShowPaymentDialog] = useState(false);
+  const [editingPaymentMethod, setEditingPaymentMethod] = useState<"card" | "sepa" | null>(null);
+  const [paymentMethods, setPaymentMethods] = useState([
+    { id: 1, type: "card" as const, label: "Kreditkarte", last4: "4242", brand: "Visa", expiry: "12/27", isDefault: true },
+    { id: 2, type: "sepa" as const, label: "SEPA-Lastschrift", iban: "DE89 •••• •••• •••• •••• 00", bank: "Deutsche Bank", isDefault: false },
+  ]);
+  const [newCardNumber, setNewCardNumber] = useState("");
+  const [newCardExpiry, setNewCardExpiry] = useState("");
+  const [newCardCvc, setNewCardCvc] = useState("");
+  const [newCardName, setNewCardName] = useState("");
+  const [newIban, setNewIban] = useState("");
+  const [newAccountHolder, setNewAccountHolder] = useState("");
 
   const navItems = [
     { id: "uebersicht" as NavItem, label: "Übersicht", icon: LayoutDashboard },
@@ -2055,6 +2067,293 @@ const ProviderDashboard = () => {
                       <Button variant="ghost" size="icon" className="h-8 w-8 opacity-0 group-hover:opacity-100 transition-opacity">
                         <Download className="w-4 h-4" />
                       </Button>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Payment Methods */}
+          <Card className="border-0 shadow-lg bg-gradient-to-br from-card to-muted/20 overflow-hidden">
+            <CardHeader className="pb-3 pt-4 px-4">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-primary/10 to-secondary/10 flex items-center justify-center">
+                    <CreditCard className="w-5 h-5 text-primary" />
+                  </div>
+                  <div>
+                    <CardTitle className="text-base font-bold">Zahlungsmethoden</CardTitle>
+                    <CardDescription className="text-xs">Verwalten Sie Ihre Zahlungsmethoden</CardDescription>
+                  </div>
+                </div>
+                <Dialog open={showPaymentDialog} onOpenChange={setShowPaymentDialog}>
+                  <DialogTrigger asChild>
+                    <Button size="sm" variant="outline" className="gap-2">
+                      <Plus className="w-4 h-4" />
+                      Hinzufügen
+                    </Button>
+                  </DialogTrigger>
+                  <DialogContent className="sm:max-w-md">
+                    <DialogHeader>
+                      <DialogTitle className="text-xl font-bold">Zahlungsmethode hinzufügen</DialogTitle>
+                      <DialogDescription>Wählen Sie eine Zahlungsart aus</DialogDescription>
+                    </DialogHeader>
+                    <div className="space-y-4 pt-4">
+                      {/* Payment Type Selection */}
+                      <div className="grid grid-cols-2 gap-3">
+                        <button
+                          onClick={() => setEditingPaymentMethod("card")}
+                          className={cn(
+                            "p-4 rounded-xl border-2 transition-all duration-300 text-left",
+                            editingPaymentMethod === "card" 
+                              ? "border-primary bg-primary/5" 
+                              : "border-muted hover:border-primary/50"
+                          )}
+                        >
+                          <CreditCard className={cn(
+                            "w-6 h-6 mb-2",
+                            editingPaymentMethod === "card" ? "text-primary" : "text-muted-foreground"
+                          )} />
+                          <p className="font-semibold text-sm">Kreditkarte</p>
+                          <p className="text-xs text-muted-foreground">Visa, Mastercard, etc.</p>
+                        </button>
+                        <button
+                          onClick={() => setEditingPaymentMethod("sepa")}
+                          className={cn(
+                            "p-4 rounded-xl border-2 transition-all duration-300 text-left",
+                            editingPaymentMethod === "sepa" 
+                              ? "border-primary bg-primary/5" 
+                              : "border-muted hover:border-primary/50"
+                          )}
+                        >
+                          <Building2 className={cn(
+                            "w-6 h-6 mb-2",
+                            editingPaymentMethod === "sepa" ? "text-primary" : "text-muted-foreground"
+                          )} />
+                          <p className="font-semibold text-sm">SEPA-Lastschrift</p>
+                          <p className="text-xs text-muted-foreground">Bankeinzug</p>
+                        </button>
+                      </div>
+
+                      {/* Credit Card Form */}
+                      {editingPaymentMethod === "card" && (
+                        <div className="space-y-3 pt-2">
+                          <div className="space-y-1">
+                            <Label className="text-xs font-semibold">Karteninhaber</Label>
+                            <Input 
+                              value={newCardName}
+                              onChange={(e) => setNewCardName(e.target.value)}
+                              placeholder="Max Mustermann"
+                              className="h-10 bg-muted/30 border border-muted focus-visible:border-primary focus-visible:ring-0 rounded-lg text-sm"
+                            />
+                          </div>
+                          <div className="space-y-1">
+                            <Label className="text-xs font-semibold">Kartennummer</Label>
+                            <Input 
+                              value={newCardNumber}
+                              onChange={(e) => setNewCardNumber(e.target.value)}
+                              placeholder="1234 5678 9012 3456"
+                              className="h-10 bg-muted/30 border border-muted focus-visible:border-primary focus-visible:ring-0 rounded-lg text-sm"
+                            />
+                          </div>
+                          <div className="grid grid-cols-2 gap-3">
+                            <div className="space-y-1">
+                              <Label className="text-xs font-semibold">Gültig bis</Label>
+                              <Input 
+                                value={newCardExpiry}
+                                onChange={(e) => setNewCardExpiry(e.target.value)}
+                                placeholder="MM/JJ"
+                                className="h-10 bg-muted/30 border border-muted focus-visible:border-primary focus-visible:ring-0 rounded-lg text-sm"
+                              />
+                            </div>
+                            <div className="space-y-1">
+                              <Label className="text-xs font-semibold">CVC</Label>
+                              <Input 
+                                value={newCardCvc}
+                                onChange={(e) => setNewCardCvc(e.target.value)}
+                                placeholder="123"
+                                type="password"
+                                className="h-10 bg-muted/30 border border-muted focus-visible:border-primary focus-visible:ring-0 rounded-lg text-sm"
+                              />
+                            </div>
+                          </div>
+                        </div>
+                      )}
+
+                      {/* SEPA Form */}
+                      {editingPaymentMethod === "sepa" && (
+                        <div className="space-y-3 pt-2">
+                          <div className="space-y-1">
+                            <Label className="text-xs font-semibold">Kontoinhaber</Label>
+                            <Input 
+                              value={newAccountHolder}
+                              onChange={(e) => setNewAccountHolder(e.target.value)}
+                              placeholder="Max Mustermann"
+                              className="h-10 bg-muted/30 border border-muted focus-visible:border-primary focus-visible:ring-0 rounded-lg text-sm"
+                            />
+                          </div>
+                          <div className="space-y-1">
+                            <Label className="text-xs font-semibold">IBAN</Label>
+                            <Input 
+                              value={newIban}
+                              onChange={(e) => setNewIban(e.target.value)}
+                              placeholder="DE89 3704 0044 0532 0130 00"
+                              className="h-10 bg-muted/30 border border-muted focus-visible:border-primary focus-visible:ring-0 rounded-lg text-sm"
+                            />
+                          </div>
+                          <div className="p-3 rounded-lg bg-muted/30 border border-muted">
+                            <p className="text-xs text-muted-foreground">
+                              Mit dem Hinzufügen dieser Zahlungsmethode ermächtigen Sie uns, Zahlungen von Ihrem Konto einzuziehen.
+                            </p>
+                          </div>
+                        </div>
+                      )}
+
+                      {editingPaymentMethod && (
+                        <div className="flex justify-end gap-3 pt-2">
+                          <Button variant="outline" onClick={() => {
+                            setShowPaymentDialog(false);
+                            setEditingPaymentMethod(null);
+                            setNewCardNumber("");
+                            setNewCardExpiry("");
+                            setNewCardCvc("");
+                            setNewCardName("");
+                            setNewIban("");
+                            setNewAccountHolder("");
+                          }}>
+                            Abbrechen
+                          </Button>
+                          <Button 
+                            className="bg-primary hover:bg-primary/90 text-primary-foreground"
+                            onClick={() => {
+                              if (editingPaymentMethod === "card" && newCardNumber) {
+                                const newMethod = {
+                                  id: paymentMethods.length + 1,
+                                  type: "card" as const,
+                                  label: "Kreditkarte",
+                                  last4: newCardNumber.slice(-4),
+                                  brand: "Visa",
+                                  expiry: newCardExpiry,
+                                  isDefault: false,
+                                };
+                                setPaymentMethods([...paymentMethods, newMethod]);
+                              } else if (editingPaymentMethod === "sepa" && newIban) {
+                                const newMethod = {
+                                  id: paymentMethods.length + 1,
+                                  type: "sepa" as const,
+                                  label: "SEPA-Lastschrift",
+                                  iban: `${newIban.slice(0, 4)} •••• •••• •••• •••• ${newIban.slice(-2)}`,
+                                  bank: "Ihre Bank",
+                                  isDefault: false,
+                                };
+                                setPaymentMethods([...paymentMethods, newMethod]);
+                              }
+                              setShowPaymentDialog(false);
+                              setEditingPaymentMethod(null);
+                              setNewCardNumber("");
+                              setNewCardExpiry("");
+                              setNewCardCvc("");
+                              setNewCardName("");
+                              setNewIban("");
+                              setNewAccountHolder("");
+                            }}
+                          >
+                            Speichern
+                          </Button>
+                        </div>
+                      )}
+                    </div>
+                  </DialogContent>
+                </Dialog>
+              </div>
+            </CardHeader>
+            <CardContent className="px-4 pb-4">
+              <div className="space-y-3">
+                {paymentMethods.map((method) => (
+                  <div 
+                    key={method.id} 
+                    className={cn(
+                      "flex items-center justify-between p-4 rounded-xl border transition-all duration-300",
+                      method.isDefault 
+                        ? "bg-primary/5 border-primary/30" 
+                        : "bg-muted/30 border-muted hover:border-primary/30"
+                    )}
+                  >
+                    <div className="flex items-center gap-4">
+                      <div className={cn(
+                        "w-12 h-12 rounded-xl flex items-center justify-center",
+                        method.type === "card" ? "bg-gradient-to-br from-primary/20 to-secondary/20" : "bg-gradient-to-br from-secondary/20 to-primary/20"
+                      )}>
+                        {method.type === "card" ? (
+                          <CreditCard className="w-6 h-6 text-primary" />
+                        ) : (
+                          <Building2 className="w-6 h-6 text-secondary" />
+                        )}
+                      </div>
+                      <div>
+                        <div className="flex items-center gap-2">
+                          <p className="font-semibold text-sm">{method.label}</p>
+                          {method.isDefault && (
+                            <Badge className="px-1.5 py-0.5 text-[10px] font-medium border-0 bg-primary/20 text-primary">
+                              Standard
+                            </Badge>
+                          )}
+                        </div>
+                        {method.type === "card" ? (
+                          <p className="text-xs text-muted-foreground">
+                            {method.brand} •••• {method.last4} • Gültig bis {method.expiry}
+                          </p>
+                        ) : (
+                          <p className="text-xs text-muted-foreground">
+                            {method.iban} • {method.bank}
+                          </p>
+                        )}
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      {!method.isDefault && (
+                        <Button 
+                          variant="ghost" 
+                          size="sm" 
+                          className="text-xs text-muted-foreground hover:text-foreground"
+                          onClick={() => {
+                            setPaymentMethods(paymentMethods.map(m => ({
+                              ...m,
+                              isDefault: m.id === method.id
+                            })));
+                          }}
+                        >
+                          Als Standard
+                        </Button>
+                      )}
+                      <DropdownMenu>
+                        <DropdownMenuTrigger asChild>
+                          <Button variant="ghost" size="icon" className="h-8 w-8">
+                            <MoreHorizontal className="w-4 h-4" />
+                          </Button>
+                        </DropdownMenuTrigger>
+                        <DropdownMenuContent align="end" className="w-48">
+                          <DropdownMenuItem className="cursor-pointer">
+                            <CreditCard className="w-4 h-4 mr-2" />
+                            Bearbeiten
+                          </DropdownMenuItem>
+                          {!method.isDefault && (
+                            <>
+                              <DropdownMenuSeparator />
+                              <DropdownMenuItem 
+                                className="cursor-pointer text-destructive focus:text-destructive"
+                                onClick={() => {
+                                  setPaymentMethods(paymentMethods.filter(m => m.id !== method.id));
+                                }}
+                              >
+                                <XCircle className="w-4 h-4 mr-2" />
+                                Entfernen
+                              </DropdownMenuItem>
+                            </>
+                          )}
+                        </DropdownMenuContent>
+                      </DropdownMenu>
                     </div>
                   </div>
                 ))}
