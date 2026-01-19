@@ -1020,11 +1020,21 @@ export default function BookingResults() {
                         <div className="absolute inset-0 bg-gradient-to-r from-primary/20 to-secondary/20 rounded-2xl blur-xl opacity-50" />
                       )}
                       
-                      <div className={`relative bg-card rounded-2xl border-2 p-5 md:p-6 transition-all duration-300 ${
+                      <div className={`relative bg-card rounded-2xl border-2 p-5 md:p-6 transition-all duration-300 overflow-hidden ${
                         isSelected
                           ? "border-primary/50 shadow-xl shadow-primary/10"
                           : "border-border/50 hover:border-border hover:shadow-lg"
                       }`}>
+                        
+                        {/* Premium Badge - Orange Ribbon at top right */}
+                        {provider.isPremium && (
+                          <div className="absolute -right-8 top-4 rotate-45 bg-gradient-to-r from-orange-500 to-amber-500 text-white text-[10px] font-bold px-8 py-1 shadow-lg">
+                            <span className="flex items-center gap-1">
+                              <Crown className="w-3 h-3" />
+                              PREMIUM
+                            </span>
+                          </div>
+                        )}
 
                         <div className="flex items-center gap-4 md:gap-6">
                           {/* Checkbox */}
@@ -1058,12 +1068,6 @@ export default function BookingResults() {
                               <h4 className="font-bold text-lg truncate group-hover:text-primary transition-colors">
                                 {provider.name}
                               </h4>
-                              {provider.isPremium && (
-                                <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold bg-gradient-to-r from-secondary to-secondary/80 text-secondary-foreground shadow-sm flex-shrink-0">
-                                  <Crown className="w-3 h-3" />
-                                  PREMIUM
-                                </span>
-                              )}
                             </div>
                             <div className="flex flex-wrap items-center gap-3">
                               <div className="flex items-center gap-1.5">
