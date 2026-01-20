@@ -13,6 +13,7 @@ const footerLinks = {
     { label: "Plattform", href: "/plattform" },
     { label: "Blog", href: "/blog" },
     { label: "Karriere", href: "/karriere" },
+    { label: "Für Anbieter", href: "/timeline" },
   ],
   support: [
     { label: "Hilfecenter", href: "/hilfe" },
