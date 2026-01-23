@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Building2, Heart, Activity, Code, Sparkles, ArrowRight, CheckCircle } from "lucide-react";
+import { Link } from "react-router-dom";
 
 type PartnerCategory = "Alle" | "Krankenhaus" | "Reha" | "Pflege" | "Software";
 
@@ -13,20 +14,20 @@ const categoryIcons = {
 };
 
 const partnerLogos = [
-  { name: "Charité Berlin", logo: "CB", category: "Krankenhaus" as PartnerCategory, verified: true },
-  { name: "Helios Kliniken", logo: "HK", category: "Krankenhaus" as PartnerCategory, verified: true },
-  { name: "Asklepios", logo: "AS", category: "Krankenhaus" as PartnerCategory, verified: true },
-  { name: "Universitätsklinik", logo: "UK", category: "Krankenhaus" as PartnerCategory, verified: false },
-  { name: "MediaReha", logo: "MR", category: "Reha" as PartnerCategory, verified: true },
-  { name: "Kur + Reha", logo: "KR", category: "Reha" as PartnerCategory, verified: false },
-  { name: "RehaZentrum", logo: "RZ", category: "Reha" as PartnerCategory, verified: true },
-  { name: "Caritas Pflege", logo: "CP", category: "Pflege" as PartnerCategory, verified: true },
-  { name: "AWO Seniorendienste", logo: "AW", category: "Pflege" as PartnerCategory, verified: true },
-  { name: "Korian", logo: "KO", category: "Pflege" as PartnerCategory, verified: false },
-  { name: "Alloheim", logo: "AL", category: "Pflege" as PartnerCategory, verified: true },
-  { name: "Connext Vivendi", logo: "CV", category: "Software" as PartnerCategory, verified: true },
-  { name: "CGM", logo: "CG", category: "Software" as PartnerCategory, verified: true },
-  { name: "Medifox", logo: "MF", category: "Software" as PartnerCategory, verified: false },
+  { id: "charite-berlin", name: "Charité Berlin", logo: "CB", category: "Krankenhaus" as PartnerCategory, verified: true },
+  { id: "helios-kliniken", name: "Helios Kliniken", logo: "HK", category: "Krankenhaus" as PartnerCategory, verified: true },
+  { id: "asklepios", name: "Asklepios", logo: "AS", category: "Krankenhaus" as PartnerCategory, verified: true },
+  { id: "universitaetsklinik", name: "Universitätsklinik", logo: "UK", category: "Krankenhaus" as PartnerCategory, verified: false },
+  { id: "mediareha", name: "MediaReha", logo: "MR", category: "Reha" as PartnerCategory, verified: true },
+  { id: "kur-reha", name: "Kur + Reha", logo: "KR", category: "Reha" as PartnerCategory, verified: false },
+  { id: "rehazentrum", name: "RehaZentrum", logo: "RZ", category: "Reha" as PartnerCategory, verified: true },
+  { id: "caritas-pflege", name: "Caritas Pflege", logo: "CP", category: "Pflege" as PartnerCategory, verified: true },
+  { id: "awo-seniorendienste", name: "AWO Seniorendienste", logo: "AW", category: "Pflege" as PartnerCategory, verified: true },
+  { id: "korian", name: "Korian", logo: "KO", category: "Pflege" as PartnerCategory, verified: false },
+  { id: "alloheim", name: "Alloheim", logo: "AL", category: "Pflege" as PartnerCategory, verified: true },
+  { id: "connext-vivendi", name: "Connext Vivendi", logo: "CV", category: "Software" as PartnerCategory, verified: true },
+  { id: "cgm", name: "CGM", logo: "CG", category: "Software" as PartnerCategory, verified: true },
+  { id: "medifox", name: "Medifox", logo: "MF", category: "Software" as PartnerCategory, verified: false },
 ];
 
 interface PartnersLogoSliderProps {
@@ -187,75 +188,78 @@ export const PartnersLogoSlider = ({
                 const isHovered = hoveredPartner === `${partner.name}-${index}`;
                 const CategoryIcon = categoryIcons[partner.category];
                 
-                return (
-                  <motion.div
-                    key={`${partner.name}-${index}`}
-                    className="flex-shrink-0"
-                    onMouseEnter={() => setHoveredPartner(`${partner.name}-${index}`)}
-                    onMouseLeave={() => setHoveredPartner(null)}
-                    initial={{ opacity: 0, scale: 0.8 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    exit={{ opacity: 0, scale: 0.8 }}
-                    transition={{ duration: 0.3 }}
-                  >
-                    <motion.div 
-                      className="relative w-48 h-32 bg-card/90 backdrop-blur-md border border-border/40 rounded-2xl flex flex-col items-center justify-center gap-3 cursor-pointer overflow-hidden group shadow-md shadow-black/5"
-                      animate={{ 
-                        y: isHovered ? -8 : 0,
-                        scale: isHovered ? 1.05 : 1,
-                      }}
-                      transition={{ type: "spring", stiffness: 400, damping: 25 }}
+                  return (
+                    <motion.div
+                      key={`${partner.name}-${index}`}
+                      className="flex-shrink-0"
+                      onMouseEnter={() => setHoveredPartner(`${partner.name}-${index}`)}
+                      onMouseLeave={() => setHoveredPartner(null)}
+                      initial={{ opacity: 0, scale: 0.8 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      exit={{ opacity: 0, scale: 0.8 }}
+                      transition={{ duration: 0.3 }}
+                      onClick={(e) => e.stopPropagation()}
                     >
-                      {/* Hover Glow */}
-                      <motion.div 
-                        className="absolute -inset-2 bg-gradient-to-r from-primary/40 via-secondary/40 to-primary/40 rounded-2xl blur-xl"
-                        animate={{ opacity: isHovered ? 0.6 : 0 }}
-                        transition={{ duration: 0.3 }}
-                      />
-                      
-                      {/* Card Background Effect */}
-                      <motion.div 
-                        className="absolute inset-0 bg-gradient-to-br from-primary/10 via-transparent to-secondary/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-                      />
-                      
-                      {/* Verified Badge */}
-                      {partner.verified && (
-                        <div className="absolute top-2 right-2 w-5 h-5 rounded-full bg-gradient-to-r from-primary to-secondary flex items-center justify-center shadow-sm">
-                          <CheckCircle className="w-3 h-3 text-primary-foreground" />
-                        </div>
-                      )}
-                      
-                      {/* Category Icon */}
-                      <div className="absolute top-2 left-2">
-                        <CategoryIcon className="w-4 h-4 text-muted-foreground/60" />
-                      </div>
-                      
-                      {/* Main Content */}
-                      <div className="relative z-10 flex flex-col items-center gap-2">
+                      <Link to={`/kooperationspartner/${partner.id}`}>
                         <motion.div 
-                          className="w-14 h-14 rounded-xl bg-gradient-to-br from-primary/20 to-secondary/20 border border-primary/25 flex items-center justify-center group-hover:border-primary/50 transition-all duration-300"
-                          animate={{ rotate: isHovered ? [0, -3, 3, 0] : 0 }}
-                          transition={{ duration: 0.4 }}
+                          className="relative w-48 h-32 bg-card/90 backdrop-blur-md border border-border/40 rounded-2xl flex flex-col items-center justify-center gap-3 cursor-pointer overflow-hidden group shadow-md shadow-black/5"
+                          animate={{ 
+                            y: isHovered ? -8 : 0,
+                            scale: isHovered ? 1.05 : 1,
+                          }}
+                          transition={{ type: "spring", stiffness: 400, damping: 25 }}
                         >
-                          <span className="text-xl font-black bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
-                            {partner.logo}
-                          </span>
+                          {/* Hover Glow */}
+                          <motion.div 
+                            className="absolute -inset-2 bg-gradient-to-r from-primary/40 via-secondary/40 to-primary/40 rounded-2xl blur-xl"
+                            animate={{ opacity: isHovered ? 0.6 : 0 }}
+                            transition={{ duration: 0.3 }}
+                          />
+                          
+                          {/* Card Background Effect */}
+                          <motion.div 
+                            className="absolute inset-0 bg-gradient-to-br from-primary/10 via-transparent to-secondary/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                          />
+                          
+                          {/* Verified Badge */}
+                          {partner.verified && (
+                            <div className="absolute top-2 right-2 w-5 h-5 rounded-full bg-gradient-to-r from-primary to-secondary flex items-center justify-center shadow-sm">
+                              <CheckCircle className="w-3 h-3 text-primary-foreground" />
+                            </div>
+                          )}
+                          
+                          {/* Category Icon */}
+                          <div className="absolute top-2 left-2">
+                            <CategoryIcon className="w-4 h-4 text-muted-foreground/60" />
+                          </div>
+                          
+                          {/* Main Content */}
+                          <div className="relative z-10 flex flex-col items-center gap-2">
+                            <motion.div 
+                              className="w-14 h-14 rounded-xl bg-gradient-to-br from-primary/20 to-secondary/20 border border-primary/25 flex items-center justify-center group-hover:border-primary/50 transition-all duration-300"
+                              animate={{ rotate: isHovered ? [0, -3, 3, 0] : 0 }}
+                              transition={{ duration: 0.4 }}
+                            >
+                              <span className="text-xl font-black bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+                                {partner.logo}
+                              </span>
+                            </motion.div>
+                            <span className="text-sm text-muted-foreground font-medium group-hover:text-foreground transition-colors text-center px-2">
+                              {partner.name}
+                            </span>
+                          </div>
+                          
+                          {/* Bottom Accent Line */}
+                          <motion.div 
+                            className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-primary via-secondary to-primary"
+                            initial={{ scaleX: 0 }}
+                            animate={{ scaleX: isHovered ? 1 : 0 }}
+                            transition={{ duration: 0.3 }}
+                            style={{ transformOrigin: "center" }}
+                          />
                         </motion.div>
-                        <span className="text-sm text-muted-foreground font-medium group-hover:text-foreground transition-colors text-center px-2">
-                          {partner.name}
-                        </span>
-                      </div>
-                      
-                      {/* Bottom Accent Line */}
-                      <motion.div 
-                        className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-primary via-secondary to-primary"
-                        initial={{ scaleX: 0 }}
-                        animate={{ scaleX: isHovered ? 1 : 0 }}
-                        transition={{ duration: 0.3 }}
-                        style={{ transformOrigin: "center" }}
-                      />
+                      </Link>
                     </motion.div>
-                  </motion.div>
                 );
               })}
             </AnimatePresence>
