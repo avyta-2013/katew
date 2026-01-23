@@ -6,6 +6,7 @@ const footerLinks = {
     { label: "Fahrt buchen", href: "/" },
     { label: "Für Anbieter", href: "/fuer-anbieter" },
     { label: "Für Partner", href: "/fuer-partner" },
+    { label: "Kooperationsvorteile", href: "/kooperationspartner/charite-berlin" },
     { label: "Partner Dashboard", href: "/partner-dashboard" },
     { label: "Anbieter Dashboard", href: "/anbieter-dashboard" },
   ],
@@ -13,7 +14,6 @@ const footerLinks = {
     { label: "Plattform", href: "/plattform" },
     { label: "Blog", href: "/blog" },
     { label: "Karriere", href: "/karriere" },
-    { label: "Für Anbieter", href: "/timeline" },
   ],
   support: [
     { label: "Hilfecenter", href: "/hilfe" },
