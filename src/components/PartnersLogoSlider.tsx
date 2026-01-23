@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Building2, Heart, Activity, Code, Sparkles, ArrowRight, CheckCircle } from "lucide-react";
 import { Link } from "react-router-dom";
+import { Button } from "@/components/ui/button";
 
 type PartnerCategory = "Alle" | "Krankenhaus" | "Reha" | "Pflege" | "Software";
 
@@ -33,11 +34,13 @@ const partnerLogos = [
 interface PartnersLogoSliderProps {
   title?: string;
   highlightedWord?: string;
+  showCTA?: boolean;
 }
 
 export const PartnersLogoSlider = ({ 
   title = "Starke", 
-  highlightedWord = "Branchenpartner" 
+  highlightedWord = "Branchenpartner",
+  showCTA = false
 }: PartnersLogoSliderProps) => {
   const scrollRef = useRef<HTMLDivElement>(null);
   const [isPaused, setIsPaused] = useState(false);
@@ -104,9 +107,28 @@ export const PartnersLogoSlider = ({
           <h3 className="text-3xl md:text-5xl font-bold mb-4">
             {title} <span className="bg-gradient-to-r from-primary via-secondary to-primary bg-clip-text text-transparent bg-[length:200%_auto]">{highlightedWord}</span>
           </h3>
-          <p className="text-lg text-muted-foreground max-w-xl mx-auto">
+          <p className="text-lg text-muted-foreground max-w-xl mx-auto mb-6">
             Als Partner profitieren Sie von unseren Kooperationen mit führenden Unternehmen
           </p>
+          
+          {showCTA && (
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.4 }}
+            >
+              <Link to="/kooperationspartner/charite-berlin">
+                <Button 
+                  size="lg" 
+                  className="bg-gradient-to-r from-primary to-secondary hover:opacity-90 shadow-lg shadow-primary/25 group"
+                >
+                  Alle Kooperationsvorteile entdecken
+                  <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                </Button>
+              </Link>
+            </motion.div>
+          )}
         </motion.div>
 
         {/* Modern Category Tabs */}
