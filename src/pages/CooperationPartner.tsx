@@ -23,13 +23,17 @@ import {
 } from "lucide-react";
 import { motion } from "framer-motion";
 
-type PartnerCategory = "Krankenhaus" | "Reha" | "Pflege" | "Software";
+type MainCategory = "anbieter" | "partner";
+
+type ProviderCategory = "Krankenhaus" | "Reha" | "Pflege" | "Software";
+type PartnerCategory = "Krankenkasse" | "Verband" | "Dienstleister" | "Behörde";
 
 interface CooperationPartner {
   id: string;
   name: string;
   logo: string;
-  category: PartnerCategory;
+  category: ProviderCategory | PartnerCategory;
+  mainCategory: MainCategory;
   verified: boolean;
   description: string;
   benefits: string[];
@@ -46,26 +50,42 @@ interface CooperationPartner {
   }[];
 }
 
-const categoryIcons: Record<PartnerCategory, React.ComponentType<{ className?: string }>> = {
+const providerCategoryIcons: Record<ProviderCategory, React.ComponentType<{ className?: string }>> = {
   "Krankenhaus": Building2,
   "Reha": Activity,
   "Pflege": Heart,
   "Software": Code,
 };
 
-const categoryColors: Record<PartnerCategory, { bg: string; text: string; border: string }> = {
+const partnerCategoryIcons: Record<PartnerCategory, React.ComponentType<{ className?: string }>> = {
+  "Krankenkasse": Heart,
+  "Verband": Users,
+  "Dienstleister": Code,
+  "Behörde": Building2,
+};
+
+const providerCategoryColors: Record<ProviderCategory, { bg: string; text: string; border: string }> = {
   "Krankenhaus": { bg: "from-blue-500/10 to-blue-600/5", text: "text-blue-500", border: "border-blue-500/20" },
   "Reha": { bg: "from-purple-500/10 to-purple-600/5", text: "text-purple-500", border: "border-purple-500/20" },
   "Pflege": { bg: "from-rose-500/10 to-rose-600/5", text: "text-rose-500", border: "border-rose-500/20" },
   "Software": { bg: "from-green-500/10 to-green-600/5", text: "text-green-500", border: "border-green-500/20" },
 };
 
-const cooperationPartners: CooperationPartner[] = [
+const partnerCategoryColors: Record<PartnerCategory, { bg: string; text: string; border: string }> = {
+  "Krankenkasse": { bg: "from-emerald-500/10 to-emerald-600/5", text: "text-emerald-500", border: "border-emerald-500/20" },
+  "Verband": { bg: "from-amber-500/10 to-amber-600/5", text: "text-amber-500", border: "border-amber-500/20" },
+  "Dienstleister": { bg: "from-cyan-500/10 to-cyan-600/5", text: "text-cyan-500", border: "border-cyan-500/20" },
+  "Behörde": { bg: "from-indigo-500/10 to-indigo-600/5", text: "text-indigo-500", border: "border-indigo-500/20" },
+};
+
+// Provider partners (Für Anbieter)
+const providerPartners: CooperationPartner[] = [
   {
     id: "charite-berlin",
     name: "Charité Berlin",
     logo: "CB",
     category: "Krankenhaus",
+    mainCategory: "anbieter",
     verified: true,
     description: "Die Charité – Universitätsmedizin Berlin ist eine der größten Universitätskliniken Europas. Als langjähriger Partner profitieren katew-Mitglieder von exklusiven Konditionen bei Krankenfahrten zu allen Charité-Standorten.",
     benefits: [
@@ -92,6 +112,7 @@ const cooperationPartners: CooperationPartner[] = [
     name: "Helios Kliniken",
     logo: "HK",
     category: "Krankenhaus",
+    mainCategory: "anbieter",
     verified: true,
     description: "Helios betreibt über 80 Kliniken in ganz Deutschland. Durch unsere Partnerschaft erhalten Sie Zugang zu einem der größten privaten Klinikbetreiber mit garantierten Auftragsvolumen.",
     benefits: [
@@ -118,6 +139,7 @@ const cooperationPartners: CooperationPartner[] = [
     name: "Asklepios",
     logo: "AS",
     category: "Krankenhaus",
+    mainCategory: "anbieter",
     verified: true,
     description: "Asklepios ist einer der führenden privaten Klinikbetreiber in Deutschland. Unsere Kooperation ermöglicht Ihnen bevorzugten Zugang zu Transportaufträgen in der gesamten Asklepios-Gruppe.",
     benefits: [
@@ -140,36 +162,11 @@ const cooperationPartners: CooperationPartner[] = [
     ]
   },
   {
-    id: "universitaetsklinik",
-    name: "Universitätsklinik",
-    logo: "UK",
-    category: "Krankenhaus",
-    verified: false,
-    description: "Verschiedene Universitätskliniken in Deutschland sind Teil unseres Kooperationsnetzwerks. Profitieren Sie von speziellen Konditionen für akademische Einrichtungen.",
-    benefits: [
-      "Zugang zu universitären Einrichtungen",
-      "Forschungsprojekt-Beteiligung",
-      "Spezielle Ausbildungsprogramme",
-      "Netzwerk-Events"
-    ],
-    discount: "Individuelle Vereinbarungen",
-    contact: {
-      email: "info@katew.de",
-      phone: "+49 800 KATEW-00",
-      website: "www.katew.de/universitaeten",
-      address: "Verschiedene Standorte"
-    },
-    stats: [
-      { label: "Partner-Unis", value: "12" },
-      { label: "Studierende", value: "50.000+" },
-      { label: "Partner seit", value: "2023" }
-    ]
-  },
-  {
     id: "mediareha",
     name: "MediaReha",
     logo: "MR",
     category: "Reha",
+    mainCategory: "anbieter",
     verified: true,
     description: "MediaReha ist ein führender Anbieter von Rehabilitationsleistungen. Unsere Partnerschaft sichert Ihnen regelmäßige Aufträge im Bereich der Reha-Transporte.",
     benefits: [
@@ -192,62 +189,11 @@ const cooperationPartners: CooperationPartner[] = [
     ]
   },
   {
-    id: "kur-reha",
-    name: "Kur + Reha",
-    logo: "KR",
-    category: "Reha",
-    verified: false,
-    description: "Kur + Reha verbindet traditionelle Kureinrichtungen mit modernen Rehabilitationsangeboten. Als Partner profitieren Sie von Aufträgen in beliebten Kurorten.",
-    benefits: [
-      "Aufträge in Kurorten bundesweit",
-      "Saisonale Auftragsspitzen",
-      "Langstrecken-Transporte",
-      "Komfort-Transporte"
-    ],
-    discount: "5% Bonus bei hohem Volumen",
-    contact: {
-      email: "buchung@kur-reha.de",
-      phone: "+49 7221 930-0",
-      website: "www.kur-reha.de",
-      address: "Kurhaus-Allee 1, 76530 Baden-Baden"
-    },
-    stats: [
-      { label: "Kurorte", value: "30+" },
-      { label: "Fahrten/Jahr", value: "8.000" },
-      { label: "Partner seit", value: "2022" }
-    ]
-  },
-  {
-    id: "rehazentrum",
-    name: "RehaZentrum",
-    logo: "RZ",
-    category: "Reha",
-    verified: true,
-    description: "RehaZentrum betreibt spezialisierte Rehabilitationskliniken in ganz Deutschland. Nutzen Sie unsere Kooperation für verlässliche Auftragsströme.",
-    benefits: [
-      "Verlässliche Auftragsströme",
-      "Spezialisierte Anforderungen",
-      "Premium-Service für Patienten",
-      "Langfristige Verträge möglich"
-    ],
-    discount: "12% auf Abrechnungsservices",
-    contact: {
-      email: "logistik@rehazentrum.de",
-      phone: "+49 711 8899-0",
-      website: "www.rehazentrum.de",
-      address: "Gesundheitsweg 10, 70173 Stuttgart"
-    },
-    stats: [
-      { label: "Standorte", value: "22" },
-      { label: "Betten", value: "5.500" },
-      { label: "Partner seit", value: "2020" }
-    ]
-  },
-  {
     id: "caritas-pflege",
     name: "Caritas Pflege",
     logo: "CP",
     category: "Pflege",
+    mainCategory: "anbieter",
     verified: true,
     description: "Die Caritas ist einer der größten Wohlfahrtsverbände Deutschlands. Durch unsere Kooperation erhalten Sie Zugang zu einem breiten Netzwerk an Pflegeeinrichtungen.",
     benefits: [
@@ -270,88 +216,11 @@ const cooperationPartners: CooperationPartner[] = [
     ]
   },
   {
-    id: "awo-seniorendienste",
-    name: "AWO Seniorendienste",
-    logo: "AW",
-    category: "Pflege",
-    verified: true,
-    description: "Die AWO bietet umfassende Seniorendienste in ganz Deutschland. Unsere Partnerschaft garantiert Ihnen regelmäßige Aufträge im Bereich Seniorentransport.",
-    benefits: [
-      "Regelmäßige Seniorentransporte",
-      "Tagespflege-Fahrten",
-      "Arztfahrten-Vermittlung",
-      "Schulungen für Umgang mit Senioren"
-    ],
-    discount: "10% auf Fortbildungen",
-    contact: {
-      email: "senioren@awo.org",
-      phone: "+49 30 26309-0",
-      website: "www.awo.org",
-      address: "Heinrich-Albertz-Haus, 10715 Berlin"
-    },
-    stats: [
-      { label: "Ortsvereine", value: "3.300" },
-      { label: "Ehrenamtliche", value: "66.000" },
-      { label: "Partner seit", value: "2020" }
-    ]
-  },
-  {
-    id: "korian",
-    name: "Korian",
-    logo: "KO",
-    category: "Pflege",
-    verified: false,
-    description: "Korian ist der europäische Marktführer in der Pflege- und Betreuungsbranche. Nutzen Sie unsere Kooperation für europaweite Transportmöglichkeiten.",
-    benefits: [
-      "Europaweite Möglichkeiten",
-      "Standardisierte Qualität",
-      "Moderne Einrichtungen",
-      "Internationale Expansion"
-    ],
-    discount: "Verhandlungsbasiert",
-    contact: {
-      email: "transport@korian.de",
-      phone: "+49 89 24418-0",
-      website: "www.korian.de",
-      address: "Hohenzollernstraße 1, 80801 München"
-    },
-    stats: [
-      { label: "Länder", value: "6" },
-      { label: "Einrichtungen", value: "1.000+" },
-      { label: "Partner seit", value: "2023" }
-    ]
-  },
-  {
-    id: "alloheim",
-    name: "Alloheim",
-    logo: "AL",
-    category: "Pflege",
-    verified: true,
-    description: "Alloheim ist einer der größten privaten Pflegeheimbetreiber Deutschlands. Durch unsere Partnerschaft profitieren Sie von stabilen Auftragsvolumen.",
-    benefits: [
-      "Über 200 Einrichtungen bundesweit",
-      "Stabile Auftragsvolumen",
-      "Digitale Auftragserfassung",
-      "Qualitätsstandards"
-    ],
-    discount: "15% auf Dispositionssoftware",
-    contact: {
-      email: "logistik@alloheim.de",
-      phone: "+49 211 540690-0",
-      website: "www.alloheim.de",
-      address: "Am Seestern 8, 40547 Düsseldorf"
-    },
-    stats: [
-      { label: "Standorte", value: "240" },
-      { label: "Bewohner", value: "22.000" },
-      { label: "Partner seit", value: "2021" }
-    ]
-  },
-  {
     id: "connext-vivendi",
     name: "Connext Vivendi",
     logo: "CV",
     category: "Software",
+    mainCategory: "anbieter",
     verified: true,
     description: "Connext Vivendi ist führend in der Sozialwirtschafts-Software. Als Partner erhalten Sie Sonderkonditionen für die Integration unserer Systeme.",
     benefits: [
@@ -373,70 +242,219 @@ const cooperationPartners: CooperationPartner[] = [
       { label: "Partner seit", value: "2020" }
     ]
   },
+];
+// Partner partners (Für Partner - e.g., hospitals, insurance companies)
+const partnerPartners: CooperationPartner[] = [
   {
-    id: "cgm",
-    name: "CGM",
-    logo: "CG",
-    category: "Software",
+    id: "aok-bundesverband",
+    name: "AOK Bundesverband",
+    logo: "AO",
+    category: "Krankenkasse",
+    mainCategory: "partner",
     verified: true,
-    description: "CompuGroup Medical (CGM) ist einer der weltweit führenden eHealth-Anbieter. Nutzen Sie unsere Kooperation für optimale Softwareintegration.",
+    description: "Die AOK ist mit über 27 Millionen Versicherten die größte Krankenversicherung Deutschlands. Durch unsere Partnerschaft profitieren Sie von vereinfachten Genehmigungsprozessen für Krankenfahrten.",
     benefits: [
-      "Weltweit führende eHealth-Lösung",
-      "Kompatibilität mit allen Systemen",
-      "Schulungsprogramme",
-      "24/7 Technischer Support"
+      "Schnelle Genehmigung von Krankenfahrten",
+      "Vereinfachte Abrechnungsprozesse",
+      "Direkter Kontakt zu AOK-Sachbearbeitern",
+      "Digitale Antragsstellung"
     ],
-    discount: "30% auf Erstintegration",
+    discount: "Direkte Abrechnung ohne Vorleistung",
     contact: {
-      email: "partner@cgm.com",
-      phone: "+49 261 8000-0",
-      website: "www.cgm.com",
-      address: "Maria Trost 21, 56070 Koblenz"
+      email: "service@aok.de",
+      phone: "+49 800 0265000",
+      website: "www.aok.de",
+      address: "Rosenthaler Str. 31, 10178 Berlin"
     },
     stats: [
-      { label: "Länder", value: "56" },
-      { label: "Mitarbeiter", value: "8.500" },
+      { label: "Versicherte", value: "27 Mio." },
+      { label: "Geschäftsstellen", value: "1.200" },
+      { label: "Partner seit", value: "2020" }
+    ]
+  },
+  {
+    id: "barmer",
+    name: "BARMER",
+    logo: "BA",
+    category: "Krankenkasse",
+    mainCategory: "partner",
+    verified: true,
+    description: "Die BARMER gehört zu den größten gesetzlichen Krankenkassen in Deutschland. Unsere Kooperation ermöglicht reibungslose Krankenfahrt-Genehmigungen.",
+    benefits: [
+      "Express-Genehmigungsverfahren",
+      "Online-Portal für Anträge",
+      "Persönlicher Ansprechpartner",
+      "Transparente Abrechnungsübersicht"
+    ],
+    discount: "Kostenlose Premium-Partnerschaft",
+    contact: {
+      email: "partner@barmer.de",
+      phone: "+49 800 3331010",
+      website: "www.barmer.de",
+      address: "Lichtscheider Str. 89, 42285 Wuppertal"
+    },
+    stats: [
+      { label: "Versicherte", value: "9 Mio." },
+      { label: "Mitarbeiter", value: "15.000" },
+      { label: "Partner seit", value: "2021" }
+    ]
+  },
+  {
+    id: "techniker-krankenkasse",
+    name: "Techniker Krankenkasse",
+    logo: "TK",
+    category: "Krankenkasse",
+    mainCategory: "partner",
+    verified: true,
+    description: "Die Techniker Krankenkasse ist bekannt für ihre digitalen Lösungen. Nutzen Sie unsere Integration für nahtlose digitale Prozesse.",
+    benefits: [
+      "Vollständig digitale Prozesse",
+      "API-Integration verfügbar",
+      "Echtzeit-Statusupdates",
+      "Automatische Genehmigungen"
+    ],
+    discount: "Priorisierte Bearbeitung",
+    contact: {
+      email: "firmenservice@tk.de",
+      phone: "+49 800 2858585",
+      website: "www.tk.de",
+      address: "Bramfelder Str. 140, 22305 Hamburg"
+    },
+    stats: [
+      { label: "Versicherte", value: "11 Mio." },
+      { label: "Digital-Index", value: "#1" },
       { label: "Partner seit", value: "2019" }
     ]
   },
   {
-    id: "medifox",
-    name: "Medifox",
-    logo: "MF",
-    category: "Software",
-    verified: false,
-    description: "Medifox bietet spezialisierte Softwarelösungen für die Pflegebranche. Unsere Kooperation ermöglicht einfache Datenübertragung und Prozessoptimierung.",
+    id: "dkg",
+    name: "Deutsche Krankenhausgesellschaft",
+    logo: "DK",
+    category: "Verband",
+    mainCategory: "partner",
+    verified: true,
+    description: "Die DKG ist der Dachverband aller Krankenhausträger in Deutschland. Als Partner profitieren Sie von Branchenstandards und Netzwerken.",
     benefits: [
-      "Pflegespezifische Lösungen",
-      "Einfache Datenübertragung",
-      "Mobile Apps verfügbar",
-      "Cloud-basierte Lösungen"
+      "Zugang zu DKG-Mitgliedskrankenhäusern",
+      "Branchenstandards & Best Practices",
+      "Netzwerk-Events & Kongresse",
+      "Fachpublikationen & Schulungen"
     ],
-    discount: "20% auf Cloud-Services",
+    discount: "Ermäßigte Kongressgebühren",
     contact: {
-      email: "info@medifox.de",
-      phone: "+49 5121 28890-0",
-      website: "www.medifox.de",
-      address: "Junkersstraße 1, 31137 Hildesheim"
+      email: "info@dkgev.de",
+      phone: "+49 30 39801-0",
+      website: "www.dkgev.de",
+      address: "Wegelystraße 3, 10623 Berlin"
     },
     stats: [
-      { label: "Anwender", value: "6.200" },
-      { label: "Pflegekräfte", value: "180.000" },
+      { label: "Mitglieder", value: "1.900" },
+      { label: "Betten", value: "500.000" },
+      { label: "Partner seit", value: "2020" }
+    ]
+  },
+  {
+    id: "bpa",
+    name: "Bundesverband privater Anbieter",
+    logo: "BP",
+    category: "Verband",
+    mainCategory: "partner",
+    verified: false,
+    description: "Der bpa vertritt die Interessen privater Anbieter sozialer Dienstleistungen. Nutzen Sie unser Netzwerk für Pflegeheim-Kooperationen.",
+    benefits: [
+      "Zugang zu 12.000+ Mitgliedseinrichtungen",
+      "Branchenlobbying & Interessenvertretung",
+      "Fortbildungsangebote",
+      "Rechtliche Unterstützung"
+    ],
+    discount: "Sonderkonditionen für Mitglieder",
+    contact: {
+      email: "info@bpa.de",
+      phone: "+49 30 30877880",
+      website: "www.bpa.de",
+      address: "Friedrichstraße 148, 10117 Berlin"
+    },
+    stats: [
+      { label: "Mitglieder", value: "12.000" },
+      { label: "Pflegeplätze", value: "400.000" },
       { label: "Partner seit", value: "2022" }
     ]
-  }
+  },
+  {
+    id: "gematik",
+    name: "gematik GmbH",
+    logo: "GE",
+    category: "Dienstleister",
+    mainCategory: "partner",
+    verified: true,
+    description: "Die gematik verantwortet die Telematikinfrastruktur im Gesundheitswesen. Unsere Kooperation ermöglicht sichere digitale Prozesse.",
+    benefits: [
+      "Zugang zur Telematikinfrastruktur",
+      "ePA-Integration",
+      "E-Rezept-Kompatibilität",
+      "Sichere Datenübertragung"
+    ],
+    discount: "Technische Unterstützung inklusive",
+    contact: {
+      email: "info@gematik.de",
+      phone: "+49 30 40041-0",
+      website: "www.gematik.de",
+      address: "Friedrichstraße 136, 10117 Berlin"
+    },
+    stats: [
+      { label: "Anbindungen", value: "200.000+" },
+      { label: "Transaktionen/Tag", value: "1 Mio." },
+      { label: "Partner seit", value: "2021" }
+    ]
+  },
+  {
+    id: "bmas",
+    name: "Bundesministerium für Arbeit",
+    logo: "BM",
+    category: "Behörde",
+    mainCategory: "partner",
+    verified: true,
+    description: "Das BMAS setzt Rahmenbedingungen für soziale Dienste. Durch unsere Zusammenarbeit sind wir stets über regulatorische Änderungen informiert.",
+    benefits: [
+      "Frühinformation über Gesetzesänderungen",
+      "Teilnahme an Konsultationen",
+      "Qualitätssiegel-Möglichkeit",
+      "Förderprogramm-Zugang"
+    ],
+    discount: "Fördermittel-Beratung",
+    contact: {
+      email: "info@bmas.bund.de",
+      phone: "+49 30 18527-0",
+      website: "www.bmas.de",
+      address: "Wilhelmstraße 49, 10117 Berlin"
+    },
+    stats: [
+      { label: "Förderprogramme", value: "50+" },
+      { label: "Budget", value: "€170 Mrd." },
+      { label: "Partner seit", value: "2023" }
+    ]
+  },
 ];
+
+// Combined partners list
+const cooperationPartners: CooperationPartner[] = [...providerPartners, ...partnerPartners];
 
 export default function CooperationPartner() {
   const { partnerId } = useParams<{ partnerId: string }>();
   const navigate = useNavigate();
-  const [selectedCategory, setSelectedCategory] = useState<PartnerCategory | "Alle">("Alle");
   
   const currentPartner = cooperationPartners.find(p => p.id === partnerId);
   
+  // Determine which main category based on current partner
+  const [mainCategory, setMainCategory] = useState<MainCategory>(
+    currentPartner?.mainCategory || "anbieter"
+  );
+  const [selectedSubCategory, setSelectedSubCategory] = useState<string>("Alle");
+  
   useEffect(() => {
     if (currentPartner) {
-      setSelectedCategory(currentPartner.category);
+      setMainCategory(currentPartner.mainCategory);
+      setSelectedSubCategory(currentPartner.category);
     }
   }, [currentPartner]);
 
@@ -459,16 +477,53 @@ export default function CooperationPartner() {
     );
   }
 
-  const CategoryIcon = categoryIcons[currentPartner.category];
-  const categoryColor = categoryColors[currentPartner.category];
+  // Get current icons and colors based on the current partner's main category
+  const isProviderPartner = currentPartner.mainCategory === "anbieter";
   
-  const filteredPartners = selectedCategory === "Alle" 
-    ? cooperationPartners 
-    : cooperationPartners.filter(p => p.category === selectedCategory);
+  // Helper function to get icon
+  const getCategoryIcon = (category: string) => {
+    if (isProviderPartner) {
+      return providerCategoryIcons[category as ProviderCategory];
+    }
+    return partnerCategoryIcons[category as PartnerCategory];
+  };
+  
+  // Helper function to get color
+  const getCategoryColor = (category: string) => {
+    if (isProviderPartner) {
+      return providerCategoryColors[category as ProviderCategory];
+    }
+    return partnerCategoryColors[category as PartnerCategory];
+  };
+  
+  const categories = isProviderPartner 
+    ? (["Alle", "Krankenhaus", "Reha", "Pflege", "Software"] as const)
+    : (["Alle", "Krankenkasse", "Verband", "Dienstleister", "Behörde"] as const);
+  
+  // Get the partners for the current main category
+  const mainCategoryPartners = mainCategory === "anbieter" ? providerPartners : partnerPartners;
+  
+  const CategoryIcon = getCategoryIcon(currentPartner.category);
+  const categoryColor = getCategoryColor(currentPartner.category);
+  
+  const filteredPartners = selectedSubCategory === "Alle" 
+    ? mainCategoryPartners 
+    : mainCategoryPartners.filter(p => p.category === selectedSubCategory);
 
   const currentIndex = filteredPartners.findIndex(p => p.id === partnerId);
   const prevPartner = currentIndex > 0 ? filteredPartners[currentIndex - 1] : null;
   const nextPartner = currentIndex < filteredPartners.length - 1 ? filteredPartners[currentIndex + 1] : null;
+
+  // Handle main category switch
+  const handleMainCategorySwitch = (newMainCategory: MainCategory) => {
+    setMainCategory(newMainCategory);
+    setSelectedSubCategory("Alle");
+    // Navigate to first partner in new category
+    const firstPartner = newMainCategory === "anbieter" ? providerPartners[0] : partnerPartners[0];
+    if (firstPartner) {
+      navigate(`/kooperationspartner/${firstPartner.id}`);
+    }
+  };
 
   return (
     <>
@@ -477,13 +532,13 @@ export default function CooperationPartner() {
         {/* Breadcrumb */}
         <div className="container mx-auto px-4 mb-8">
           <nav className="flex items-center gap-2 text-sm text-muted-foreground">
-            <Link to="/fuer-anbieter" className="hover:text-primary transition-colors">
-              Für Anbieter
+            <Link to={mainCategory === "anbieter" ? "/fuer-anbieter" : "/fuer-partner"} className="hover:text-primary transition-colors">
+              {mainCategory === "anbieter" ? "Für Anbieter" : "Für Partner"}
             </Link>
             <ChevronRight className="w-4 h-4" />
-            <Link to="/fuer-anbieter#kooperationen" className="hover:text-primary transition-colors">
+            <span className="hover:text-primary transition-colors">
               Kooperationsvorteile
-            </Link>
+            </span>
             <ChevronRight className="w-4 h-4" />
             <span className="text-foreground font-medium">{currentPartner.name}</span>
           </nav>
@@ -494,21 +549,50 @@ export default function CooperationPartner() {
             {/* Sidebar */}
             <aside className="w-full lg:w-72 shrink-0">
               <div className="sticky top-24 space-y-6">
+                {/* Main Category Toggle */}
+                <div className="bg-card border border-border/50 rounded-2xl p-4">
+                  <h3 className="font-semibold mb-4 text-sm text-muted-foreground uppercase tracking-wide">Bereich</h3>
+                  <div className="grid grid-cols-2 gap-2">
+                    <button
+                      onClick={() => handleMainCategorySwitch("anbieter")}
+                      className={`flex flex-col items-center gap-2 px-3 py-4 rounded-xl text-sm font-medium transition-all ${
+                        mainCategory === "anbieter"
+                          ? "bg-gradient-to-br from-primary to-secondary text-primary-foreground shadow-lg shadow-primary/25"
+                          : "bg-muted/50 hover:bg-muted text-muted-foreground hover:text-foreground"
+                      }`}
+                    >
+                      <Building2 className="w-5 h-5" />
+                      <span>Für Anbieter</span>
+                    </button>
+                    <button
+                      onClick={() => handleMainCategorySwitch("partner")}
+                      className={`flex flex-col items-center gap-2 px-3 py-4 rounded-xl text-sm font-medium transition-all ${
+                        mainCategory === "partner"
+                          ? "bg-gradient-to-br from-primary to-secondary text-primary-foreground shadow-lg shadow-primary/25"
+                          : "bg-muted/50 hover:bg-muted text-muted-foreground hover:text-foreground"
+                      }`}
+                    >
+                      <Heart className="w-5 h-5" />
+                      <span>Für Partner</span>
+                    </button>
+                  </div>
+                </div>
+
                 {/* Category Filter */}
                 <div className="bg-card border border-border/50 rounded-2xl p-4">
                   <h3 className="font-semibold mb-4 text-sm text-muted-foreground uppercase tracking-wide">Kategorien</h3>
                   <div className="space-y-1">
-                    {(["Alle", "Krankenhaus", "Reha", "Pflege", "Software"] as const).map((category) => {
+                    {categories.map((category) => {
                       const count = category === "Alle" 
-                        ? cooperationPartners.length 
-                        : cooperationPartners.filter(p => p.category === category).length;
-                      const Icon = category === "Alle" ? Users : categoryIcons[category as PartnerCategory];
-                      const isActive = selectedCategory === category;
+                        ? mainCategoryPartners.length 
+                        : mainCategoryPartners.filter(p => p.category === category).length;
+                      const Icon = category === "Alle" ? Users : getCategoryIcon(category);
+                      const isActive = selectedSubCategory === category;
                       
                       return (
                         <button
                           key={category}
-                          onClick={() => setSelectedCategory(category)}
+                          onClick={() => setSelectedSubCategory(category)}
                           className={`w-full flex items-center justify-between px-3 py-2.5 rounded-xl text-sm font-medium transition-all ${
                             isActive
                               ? "bg-primary text-primary-foreground"
@@ -516,7 +600,7 @@ export default function CooperationPartner() {
                           }`}
                         >
                           <span className="flex items-center gap-2.5">
-                            <Icon className="w-4 h-4" />
+                            {Icon && <Icon className="w-4 h-4" />}
                             {category}
                           </span>
                           <span className={`text-xs px-2 py-0.5 rounded-full ${
@@ -537,7 +621,7 @@ export default function CooperationPartner() {
                   <h3 className="font-semibold mb-4 text-sm text-muted-foreground uppercase tracking-wide">Partner</h3>
                   <div className="space-y-1">
                     {filteredPartners.map((partner) => {
-                      const Icon = categoryIcons[partner.category];
+                      const Icon = getCategoryIcon(partner.category);
                       const isActive = partner.id === partnerId;
                       
                       return (
@@ -560,7 +644,7 @@ export default function CooperationPartner() {
                           <div className="flex-1 min-w-0">
                             <div className="font-medium truncate">{partner.name}</div>
                             <div className="text-xs text-muted-foreground flex items-center gap-1">
-                              <Icon className="w-3 h-3" />
+                              {Icon && <Icon className="w-3 h-3" />}
                               {partner.category}
                             </div>
                           </div>
