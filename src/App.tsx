@@ -21,6 +21,7 @@ import JobDetail from "./pages/JobDetail";
 import BlogPost from "./pages/BlogPost";
 import BookingResults from "./pages/BookingResults";
 import Timeline from "./pages/Timeline";
+import CooperationPartner from "./pages/CooperationPartner";
 import NotFound from "./pages/NotFound";
 import PartnerDashboard from "./pages/PartnerDashboard";
 import ProviderDashboard from "./pages/ProviderDashboard";
@@ -52,6 +53,7 @@ const App = () => (
           <Route path="/partner-dashboard" element={<PartnerDashboard />} />
           <Route path="/anbieter-dashboard" element={<ProviderDashboard />} />
           <Route path="/timeline" element={<Timeline />} />
+          <Route path="/kooperationspartner/:partnerId" element={<CooperationPartner />} />
           <Route path="/karriere/:slug" element={<JobDetail />} />
           <Route path="/blog/:slug" element={<BlogPost />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
