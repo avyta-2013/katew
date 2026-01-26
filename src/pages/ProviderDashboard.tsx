@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { 
   User, Calendar, Settings, LogOut, Bell, Lock, Eye, EyeOff, Building2, Phone, Mail, MapPin, 
   CalendarDays, CheckCircle2, XCircle, Clock, LayoutDashboard, TrendingUp, Camera, Upload, 
@@ -7,6 +7,7 @@ import {
   AlertCircle, ChevronRight, ChevronLeft, Filter, Search, Download, RefreshCw, Accessibility, Armchair, BedDouble, Ticket, Plus, HelpCircle, Home,
   Crown, Gift, CreditCard, Check, AlertTriangle, Sparkles, CalendarX
 } from "lucide-react";
+import AGBAcceptanceModal from "@/components/AGBAcceptanceModal";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Button } from "@/components/ui/button";
@@ -41,6 +42,26 @@ const ProviderDashboard = () => {
   const [bookingPage, setBookingPage] = useState(1);
   const BOOKINGS_PER_PAGE = 10;
   const fileInputRef = useRef<HTMLInputElement>(null);
+
+  // AGB Acceptance state
+  const [showAGBModal, setShowAGBModal] = useState(false);
+  const [agbAccepted, setAgbAccepted] = useState(false);
+
+  // Check if AGB was already accepted (simulated with localStorage for demo)
+  useEffect(() => {
+    const accepted = localStorage.getItem("provider_agb_accepted");
+    if (accepted === "true") {
+      setAgbAccepted(true);
+    } else {
+      setShowAGBModal(true);
+    }
+  }, []);
+
+  const handleAGBAccept = () => {
+    localStorage.setItem("provider_agb_accepted", "true");
+    setAgbAccepted(true);
+    setShowAGBModal(false);
+  };
 
   // Tickets state
   const [ticketDialogOpen, setTicketDialogOpen] = useState(false);
@@ -3209,23 +3230,27 @@ const ProviderDashboard = () => {
 
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-background via-muted/20 to-background flex flex-col">
-      {renderAdminHeader()}
+    <>
+      <AGBAcceptanceModal open={showAGBModal} onAccept={handleAGBAccept} />
       
-      <div className="flex flex-1">
-        {renderSidebar()}
+      <div className="min-h-screen bg-gradient-to-br from-background via-muted/20 to-background flex flex-col">
+        {renderAdminHeader()}
         
-        <main className="flex-1 p-6 max-w-5xl overflow-y-auto">
-          {activeNav === "uebersicht" && renderOverview()}
-          {activeNav === "profil" && renderProfile()}
-          {activeNav === "buchungen" && renderBookings()}
-          {activeNav === "aktivitaeten" && renderActivities()}
-          {activeNav === "bewertungen" && renderRatings()}
-          {activeNav === "einstellungen" && renderSettings()}
-          {activeNav === "tickets" && renderTickets()}
-        </main>
+        <div className="flex flex-1">
+          {renderSidebar()}
+          
+          <main className="flex-1 p-6 max-w-5xl overflow-y-auto">
+            {activeNav === "uebersicht" && renderOverview()}
+            {activeNav === "profil" && renderProfile()}
+            {activeNav === "buchungen" && renderBookings()}
+            {activeNav === "aktivitaeten" && renderActivities()}
+            {activeNav === "bewertungen" && renderRatings()}
+            {activeNav === "einstellungen" && renderSettings()}
+            {activeNav === "tickets" && renderTickets()}
+          </main>
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 
