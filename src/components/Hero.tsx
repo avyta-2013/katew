@@ -108,16 +108,6 @@ export const Hero = () => {
             </h1>
           </motion.div>
 
-          {/* Subtitle */}
-          <motion.p 
-            className="text-xl md:text-2xl text-muted-foreground mb-12 max-w-3xl mx-auto text-center font-light leading-relaxed"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-          >
-            Finden Sie zuverlässige Transportunternehmen in Ihrer Nähe – 
-            <span className="text-foreground font-medium"> transparent, digital und sicher.</span>
-          </motion.p>
 
           {/* Search Card */}
           <motion.div 
