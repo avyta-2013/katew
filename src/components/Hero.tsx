@@ -25,7 +25,7 @@ export const Hero = () => {
   };
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center pt-20 overflow-hidden">
+    <section className="relative min-h-screen flex items-center justify-center pt-12 overflow-hidden">
       {/* Animated background */}
       <div className="absolute inset-0">
         {/* Gradient orbs */}
@@ -57,7 +57,7 @@ export const Hero = () => {
         <div className="absolute inset-0 bg-[linear-gradient(rgba(0,0,0,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(0,0,0,0.02)_1px,transparent_1px)] bg-[size:60px_60px] [mask-image:radial-gradient(ellipse_at_center,black_30%,transparent_70%)]" />
       </div>
 
-      <div className="container mx-auto px-4 py-16 md:py-24 relative z-10">
+      <div className="container mx-auto px-4 py-8 md:py-16 relative z-10">
         <div className="max-w-5xl mx-auto">
           {/* Badge */}
           <motion.div 
