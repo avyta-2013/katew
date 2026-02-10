@@ -932,6 +932,39 @@ export default function BookingResults() {
                     </div>
                   </div>
 
+                  {/* Additional filters row */}
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+                    <div className="relative">
+                      <Users className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+                      <select className="w-full h-12 pl-11 pr-4 text-sm bg-muted/30 border-0 rounded-xl appearance-none cursor-pointer focus:ring-2 focus:ring-primary/30 transition-all text-foreground">
+                        <option value="">Anbieter wählen</option>
+                        <option value="alle">Alle Anbieter</option>
+                        <option value="premium">Premium Anbieter</option>
+                        <option value="standard">Standard Anbieter</option>
+                      </select>
+                    </div>
+                    <div className="relative">
+                      <FileText className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+                      <select className="w-full h-12 pl-11 pr-4 text-sm bg-muted/30 border-0 rounded-xl appearance-none cursor-pointer focus:ring-2 focus:ring-primary/30 transition-all text-foreground">
+                        <option value="">Transportart wählen</option>
+                        <option value="krankenfahrt">Krankenfahrt</option>
+                        <option value="dialyse">Dialysefahrt</option>
+                        <option value="bestrahlung">Bestrahlungsfahrt</option>
+                        <option value="entlassung">Entlassungsfahrt</option>
+                      </select>
+                    </div>
+                    <div className="relative">
+                      <Truck className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+                      <select className="w-full h-12 pl-11 pr-4 text-sm bg-muted/30 border-0 rounded-xl appearance-none cursor-pointer focus:ring-2 focus:ring-primary/30 transition-all text-foreground">
+                        <option value="">Transportmittel wählen</option>
+                        <option value="pkw">PKW</option>
+                        <option value="ktw">KTW</option>
+                        <option value="mietwagen">Mietwagen</option>
+                        <option value="taxi">Taxi</option>
+                      </select>
+                    </div>
+                  </div>
+
                   {/* Date, time and button row */}
                   <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
                     <div className="relative col-span-1">
