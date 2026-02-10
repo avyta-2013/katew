@@ -889,73 +889,101 @@ export default function BookingResults() {
               {/* Search Card */}
               <div className="relative">
                 <div className="absolute inset-0 bg-gradient-to-r from-primary/20 to-secondary/20 rounded-3xl blur-xl" />
-                <div className="relative bg-card/80 backdrop-blur-xl rounded-2xl border border-border/50 shadow-2xl p-6 md:p-8">
-                  <div className="flex flex-col lg:flex-row items-center gap-6">
-                    {/* Start */}
-                    <div className="flex-1 w-full">
-                      <label className="text-xs font-medium text-muted-foreground uppercase tracking-wider mb-2 block">
-                        Startpunkt
-                      </label>
-                      <div className="relative group">
-                        <div className="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-xl bg-gradient-to-br from-primary to-primary/80 flex items-center justify-center shadow-lg shadow-primary/25 group-focus-within:scale-110 transition-transform">
-                          <MapPin className="w-5 h-5 text-primary-foreground" />
-                        </div>
-                        <Input
-                          value={startAddress}
-                          onChange={(e) => setStartAddress(e.target.value)}
-                          placeholder="Startadresse eingeben"
-                          className="h-14 pl-16 bg-muted/50 border-0 rounded-xl text-base focus:ring-2 focus:ring-primary/20 transition-all"
-                        />
-                      </div>
-                    </div>
-
-                    {/* Distance Indicator */}
-                    <div className="flex flex-col items-center lg:px-4">
-                      <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-foreground to-foreground/80 text-background flex items-center justify-center shadow-xl">
-                        <ArrowLeftRight className="w-6 h-6" />
-                      </div>
-                      <div className="mt-2 px-3 py-1 rounded-full bg-muted text-xs font-bold">
-                        33.3 KM
-                      </div>
-                    </div>
-
-                    {/* End */}
-                    <div className="flex-1 w-full">
-                      <label className="text-xs font-medium text-muted-foreground uppercase tracking-wider mb-2 block">
-                        Zielort
-                      </label>
-                      <div className="relative group">
-                        <div className="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-xl bg-gradient-to-br from-secondary to-secondary/80 flex items-center justify-center shadow-lg shadow-secondary/25 group-focus-within:scale-110 transition-transform">
-                          <Navigation className="w-5 h-5 text-secondary-foreground" />
-                        </div>
-                        <Input
-                          value={endAddress}
-                          onChange={(e) => setEndAddress(e.target.value)}
-                          placeholder="Zieladresse eingeben"
-                          className="h-14 pl-16 bg-muted/50 border-0 rounded-xl text-base focus:ring-2 focus:ring-secondary/20 transition-all"
-                        />
-                      </div>
-                    </div>
-
-                    {/* Confirm Button or Login Button */}
-                    {isLoggedIn ? (
-                      <Button 
-                        onClick={handleConfirm}
-                        disabled={selectedProviders.length === 0}
-                        className="h-14 px-8 bg-gradient-to-r from-primary to-secondary hover:opacity-90 rounded-xl text-base font-semibold shadow-xl shadow-primary/25 transition-all hover:shadow-2xl hover:shadow-primary/30 hover:-translate-y-0.5"
+                <div className="relative bg-card/80 backdrop-blur-xl rounded-3xl border border-border/50 shadow-2xl p-6 md:p-8">
+                  {/* Transport type tabs */}
+                  <div className="flex flex-wrap gap-2 mb-6">
+                    {["Sitzend", "Rollstuhl", "Tragestuhl", "Liegend"].map((type, index) => (
+                      <button
+                        key={type}
+                        className={`px-4 py-2 rounded-xl text-sm font-medium transition-all ${
+                          index === 0 
+                            ? "bg-primary text-primary-foreground shadow-lg shadow-primary/25" 
+                            : "bg-muted/50 text-muted-foreground hover:bg-muted hover:text-foreground"
+                        }`}
                       >
-                        Bestätigen
-                      </Button>
-                    ) : (
-                      <Link to="/anmelden">
+                        {type}
+                      </button>
+                    ))}
+                  </div>
+
+                  {/* Address inputs */}
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                    <div className="relative group">
+                      <div className="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center group-focus-within:bg-primary/20 transition-colors">
+                        <MapPin className="w-5 h-5 text-primary" />
+                      </div>
+                      <Input
+                        value={startAddress}
+                        onChange={(e) => setStartAddress(e.target.value)}
+                        placeholder="Startadresse eingeben"
+                        className="h-16 pl-16 pr-4 text-base bg-muted/30 border-0 rounded-2xl focus:ring-2 focus:ring-primary/30 focus:bg-muted/50 transition-all"
+                      />
+                    </div>
+                    <div className="relative group">
+                      <div className="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-xl bg-secondary/10 flex items-center justify-center group-focus-within:bg-secondary/20 transition-colors">
+                        <Navigation className="w-5 h-5 text-secondary" />
+                      </div>
+                      <Input
+                        value={endAddress}
+                        onChange={(e) => setEndAddress(e.target.value)}
+                        placeholder="Zieladresse eingeben"
+                        className="h-16 pl-16 pr-4 text-base bg-muted/30 border-0 rounded-2xl focus:ring-2 focus:ring-secondary/30 focus:bg-muted/50 transition-all"
+                      />
+                    </div>
+                  </div>
+
+                  {/* Date, time and button row */}
+                  <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+                    <div className="relative col-span-1">
+                      <Calendar className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+                      <Input
+                        type="date"
+                        className="h-12 pl-11 text-sm bg-muted/30 border-0 rounded-xl"
+                      />
+                    </div>
+                    <div className="relative col-span-1">
+                      <Clock className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+                      <Input
+                        type="time"
+                        className="h-12 pl-11 text-sm bg-muted/30 border-0 rounded-xl"
+                      />
+                    </div>
+                    <div className="col-span-2">
+                      {isLoggedIn ? (
                         <Button 
-                          className="h-14 px-8 bg-gradient-to-r from-primary to-secondary hover:opacity-90 rounded-xl text-base font-semibold shadow-xl shadow-primary/25 transition-all hover:shadow-2xl hover:shadow-primary/30 hover:-translate-y-0.5"
+                          onClick={handleConfirm}
+                          disabled={selectedProviders.length === 0}
+                          className="w-full h-12 text-base font-bold rounded-xl bg-gradient-to-r from-primary to-primary/90 hover:from-primary/90 hover:to-primary shadow-lg shadow-primary/25 hover:shadow-xl hover:shadow-primary/30 transition-all"
                         >
-                          <LogIn className="w-5 h-5 mr-2" />
-                          Zur Anmeldung
+                          Bestätigen
                         </Button>
-                      </Link>
-                    )}
+                      ) : (
+                        <Link to="/anmelden" className="block">
+                          <Button 
+                            className="w-full h-12 text-base font-bold rounded-xl bg-gradient-to-r from-primary to-primary/90 hover:from-primary/90 hover:to-primary shadow-lg shadow-primary/25 hover:shadow-xl hover:shadow-primary/30 transition-all"
+                          >
+                            <LogIn className="w-5 h-5 mr-2" />
+                            Zur Anmeldung
+                          </Button>
+                        </Link>
+                      )}
+                    </div>
+                  </div>
+
+                  {/* Trust indicators */}
+                  <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm text-muted-foreground pt-2 border-t border-border/30">
+                    {[
+                      "500+ Partner",
+                      "98% Zufriedenheit",
+                      "<5min Vermittlung",
+                      "24/7 Erreichbar",
+                      "DSGVO Konform",
+                    ].map((text) => (
+                      <div key={text} className="flex items-center gap-1.5">
+                        <CheckCircle2 className="w-3.5 h-3.5 text-secondary" />
+                        <span className="text-xs">{text}</span>
+                      </div>
+                    ))}
                   </div>
                 </div>
               </div>
