@@ -617,14 +617,6 @@ export default function BookingResults() {
         </div>
         <div className="grid grid-cols-2 gap-3 text-sm">
           <div className="p-3 bg-muted/30 rounded-xl">
-            <p className="text-xs text-muted-foreground">Datum</p>
-            <p className="font-medium">{formData.datum || "-"}</p>
-          </div>
-          <div className="p-3 bg-muted/30 rounded-xl">
-            <p className="text-xs text-muted-foreground">Uhrzeit</p>
-            <p className="font-medium">{formData.schnellstmoeglich ? "Schnellstmöglich" : (formData.uhrzeit || "-")}</p>
-          </div>
-          <div className="p-3 bg-muted/30 rounded-xl">
             <p className="text-xs text-muted-foreground">Anbieter</p>
             <p className="font-medium">{selectedFilters.anbieter}</p>
           </div>
