@@ -556,18 +556,21 @@ export default function BookingResults() {
               <p className="font-medium truncate">{endAddress}</p>
             </div>
           </div>
-        </div>
-        {(formData.datum || formData.schnellstmoeglich) && (
-          <div className="mt-3 flex items-center gap-3 p-3 bg-background rounded-xl border border-border/50">
+          <div className="flex items-center gap-3 p-3 bg-background rounded-xl border border-border/50">
             <Calendar className="w-5 h-5 text-muted-foreground flex-shrink-0" />
-            <div>
-              <p className="text-xs text-muted-foreground">Termin</p>
-              <p className="font-medium">
-                {formData.schnellstmoeglich ? "Schnellstmöglich" : `${formData.datum}${formData.uhrzeit ? ` um ${formData.uhrzeit}` : ""}`}
-              </p>
+            <div className="min-w-0">
+              <p className="text-xs text-muted-foreground">Datum</p>
+              <p className="font-medium">{formData.datum || "-"}</p>
             </div>
           </div>
-        )}
+          <div className="flex items-center gap-3 p-3 bg-background rounded-xl border border-border/50">
+            <Clock className="w-5 h-5 text-muted-foreground flex-shrink-0" />
+            <div className="min-w-0">
+              <p className="text-xs text-muted-foreground">Uhrzeit</p>
+              <p className="font-medium">{formData.schnellstmoeglich ? "Schnellstmöglich" : (formData.uhrzeit || "-")}</p>
+            </div>
+          </div>
+        </div>
       </div>
 
       {/* Personal Data Summary */}
