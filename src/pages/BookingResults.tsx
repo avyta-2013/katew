@@ -570,70 +570,20 @@ export default function BookingResults() {
               <p className="font-medium truncate">{endAddress}</p>
             </div>
           </div>
-        </div>
-      </div>
-
-      {/* Personal Data Summary */}
-      <div className="bg-card rounded-2xl p-5 border-2 border-border/50">
-        <div className="flex items-center gap-3 mb-4">
-          <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-primary to-primary/80 flex items-center justify-center shadow-md">
-            <User className="w-5 h-5 text-white" />
-          </div>
-          <h4 className="font-bold">Persönliche Daten</h4>
-        </div>
-        <div className="grid grid-cols-2 gap-3 text-sm">
-          <div className="p-3 bg-muted/30 rounded-xl">
-            <p className="text-xs text-muted-foreground">Name</p>
-            <p className="font-medium">{formData.anrede} {formData.vorname} {formData.nachname}</p>
-          </div>
-          <div className="p-3 bg-muted/30 rounded-xl">
-            <p className="text-xs text-muted-foreground">Geburtsdatum</p>
-            <p className="font-medium">{formData.geburtsdatum || "-"}</p>
-          </div>
-          <div className="p-3 bg-muted/30 rounded-xl">
-            <p className="text-xs text-muted-foreground">Pflegegrad</p>
-            <p className="font-medium">{formData.pflegegrad || "-"}</p>
-          </div>
-          <div className="p-3 bg-muted/30 rounded-xl">
-            <p className="text-xs text-muted-foreground">Krankenkasse</p>
-            <p className="font-medium">{formData.krankenkasse || "-"}</p>
-          </div>
-          {formData.telefon && (
-            <div className="p-3 bg-muted/30 rounded-xl col-span-2">
-              <p className="text-xs text-muted-foreground">Telefon</p>
-              <p className="font-medium">{formData.telefon}</p>
+          <div className="flex items-center gap-3 p-3 bg-background rounded-xl border border-border/50">
+            <FileText className="w-5 h-5 text-secondary flex-shrink-0" />
+            <div className="min-w-0">
+              <p className="text-xs text-muted-foreground">Transportart</p>
+              <p className="font-medium">{selectedFilters.transportart}</p>
             </div>
-          )}
-        </div>
-      </div>
-
-      {/* Filter & Transport Summary */}
-      <div className="bg-card rounded-2xl p-5 border-2 border-border/50">
-        <div className="flex items-center gap-3 mb-4">
-          <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-secondary to-secondary/80 flex items-center justify-center shadow-md">
-            <Truck className="w-5 h-5 text-white" />
           </div>
-          <h4 className="font-bold">Transportdetails</h4>
-        </div>
-        <div className="grid grid-cols-2 gap-3 text-sm">
-          <div className="p-3 bg-muted/30 rounded-xl">
-            <p className="text-xs text-muted-foreground">Anbieter</p>
-            <p className="font-medium">{selectedFilters.anbieter}</p>
-          </div>
-          <div className="p-3 bg-muted/30 rounded-xl">
-            <p className="text-xs text-muted-foreground">Transportart</p>
-            <p className="font-medium">{selectedFilters.transportart}</p>
-          </div>
-          <div className="p-3 bg-muted/30 rounded-xl">
-            <p className="text-xs text-muted-foreground">Transportmittel</p>
-            <p className="font-medium">{selectedFilters.transportmittel}</p>
-          </div>
-          {formData.grund && (
-            <div className="p-3 bg-muted/30 rounded-xl">
-              <p className="text-xs text-muted-foreground">Grund</p>
-              <p className="font-medium">{formData.grund}</p>
+          <div className="flex items-center gap-3 p-3 bg-background rounded-xl border border-border/50">
+            <Armchair className="w-5 h-5 text-amber-500 flex-shrink-0" />
+            <div className="min-w-0">
+              <p className="text-xs text-muted-foreground">Transportmittel</p>
+              <p className="font-medium">{selectedFilters.transportmittel}</p>
             </div>
-          )}
+          </div>
         </div>
         <div className="mt-3 text-sm text-muted-foreground">
           Anfrage an <span className="font-bold text-foreground">{selectedProviders.length} Anbieter</span>
