@@ -746,52 +746,6 @@ export default function BookingResults() {
         </div>
       </div>
 
-      {/* Journey Summary Card */}
-      <div className="bg-gradient-to-r from-card via-card to-card/80 rounded-2xl p-6 border-2 border-border/50 shadow-xl max-w-xl mx-auto">
-        <div className="flex items-center gap-3 mb-4">
-          <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-primary to-secondary flex items-center justify-center shadow-md">
-            <Navigation className="w-5 h-5 text-white" />
-          </div>
-          <h4 className="font-bold text-lg">Ihre Fahrtdetails</h4>
-        </div>
-        <div className="flex items-center gap-4">
-          <div className="flex-1">
-            <div className="flex items-center gap-3 p-3 bg-primary/5 rounded-xl border border-primary/10">
-              <MapPin className="w-5 h-5 text-primary flex-shrink-0" />
-              <div className="min-w-0">
-                <p className="text-xs text-muted-foreground">Start</p>
-                <p className="font-medium truncate">{startAddress}</p>
-              </div>
-            </div>
-          </div>
-          <div className="flex flex-col items-center">
-            <div className="w-8 h-8 rounded-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center">
-              <ArrowLeftRight className="w-4 h-4 text-white" />
-            </div>
-          </div>
-          <div className="flex-1">
-            <div className="flex items-center gap-3 p-3 bg-secondary/5 rounded-xl border border-secondary/10">
-              <Navigation className="w-5 h-5 text-secondary flex-shrink-0" />
-              <div className="min-w-0">
-                <p className="text-xs text-muted-foreground">Ziel</p>
-                <p className="font-medium truncate">{endAddress}</p>
-              </div>
-            </div>
-          </div>
-        </div>
-        {formData.datum && (
-          <div className="mt-4 flex items-center gap-3 p-3 bg-muted/50 rounded-xl">
-            <Calendar className="w-5 h-5 text-muted-foreground" />
-            <div>
-              <p className="text-xs text-muted-foreground">Termin</p>
-              <p className="font-medium">
-                {formData.datum}{formData.uhrzeit && ` um ${formData.uhrzeit}`}
-                {formData.schnellstmoeglich && " (Schnellstmöglich)"}
-              </p>
-            </div>
-          </div>
-        )}
-      </div>
 
       {/* Action Buttons */}
       <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4 max-w-md mx-auto">
