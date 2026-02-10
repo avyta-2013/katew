@@ -543,20 +543,6 @@ export default function BookingResults() {
         </div>
         <div className="grid grid-cols-2 gap-4">
           <div className="flex items-center gap-3 p-3 bg-background rounded-xl border border-border/50">
-            <MapPin className="w-5 h-5 text-primary flex-shrink-0" />
-            <div className="min-w-0">
-              <p className="text-xs text-muted-foreground">Start</p>
-              <p className="font-medium truncate">{startAddress}</p>
-            </div>
-          </div>
-          <div className="flex items-center gap-3 p-3 bg-background rounded-xl border border-border/50">
-            <Navigation className="w-5 h-5 text-secondary flex-shrink-0" />
-            <div className="min-w-0">
-              <p className="text-xs text-muted-foreground">Ziel</p>
-              <p className="font-medium truncate">{endAddress}</p>
-            </div>
-          </div>
-          <div className="flex items-center gap-3 p-3 bg-background rounded-xl border border-border/50">
             <Calendar className="w-5 h-5 text-muted-foreground flex-shrink-0" />
             <div className="min-w-0">
               <p className="text-xs text-muted-foreground">Datum</p>
@@ -568,6 +554,20 @@ export default function BookingResults() {
             <div className="min-w-0">
               <p className="text-xs text-muted-foreground">Uhrzeit</p>
               <p className="font-medium">{formData.schnellstmoeglich ? "Schnellstmöglich" : (formData.uhrzeit || "-")}</p>
+            </div>
+          </div>
+          <div className="flex items-center gap-3 p-3 bg-background rounded-xl border border-border/50">
+            <MapPin className="w-5 h-5 text-primary flex-shrink-0" />
+            <div className="min-w-0">
+              <p className="text-xs text-muted-foreground">Start</p>
+              <p className="font-medium truncate">{startAddress}</p>
+            </div>
+          </div>
+          <div className="flex items-center gap-3 p-3 bg-background rounded-xl border border-border/50">
+            <Navigation className="w-5 h-5 text-secondary flex-shrink-0" />
+            <div className="min-w-0">
+              <p className="text-xs text-muted-foreground">Ziel</p>
+              <p className="font-medium truncate">{endAddress}</p>
             </div>
           </div>
         </div>
