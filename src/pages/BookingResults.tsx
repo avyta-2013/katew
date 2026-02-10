@@ -186,7 +186,7 @@ export default function BookingResults() {
 
   const handleConfirm = () => {
     if (!isLoggedIn) return;
-    setCurrentStep(1);
+    setCurrentStep(2);
     setDialogOpen(true);
   };
 
@@ -197,7 +197,7 @@ export default function BookingResults() {
   };
 
   const handlePreviousStep = () => {
-    if (currentStep > 1) {
+    if (currentStep > 2) {
       setCurrentStep(currentStep - 1);
     }
   };
@@ -604,7 +604,7 @@ export default function BookingResults() {
         </div>
       </div>
 
-      {/* Filter Summary */}
+      {/* Filter & Transport Summary */}
       <div className="bg-card rounded-2xl p-5 border-2 border-border/50">
         <div className="flex items-center gap-3 mb-4">
           <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-secondary to-secondary/80 flex items-center justify-center shadow-md">
@@ -612,20 +612,32 @@ export default function BookingResults() {
           </div>
           <h4 className="font-bold">Transportdetails</h4>
         </div>
-        <div className="flex flex-wrap gap-2">
-          <span className="px-3 py-1.5 bg-primary/10 text-primary rounded-full text-sm font-medium">
-            {selectedFilters.anbieter}
-          </span>
-          <span className="px-3 py-1.5 bg-secondary/10 text-secondary rounded-full text-sm font-medium">
-            {selectedFilters.transportart}
-          </span>
-          <span className="px-3 py-1.5 bg-amber-500/10 text-amber-600 rounded-full text-sm font-medium">
-            {selectedFilters.transportmittel}
-          </span>
+        <div className="grid grid-cols-2 gap-3 text-sm">
+          <div className="p-3 bg-muted/30 rounded-xl">
+            <p className="text-xs text-muted-foreground">Datum</p>
+            <p className="font-medium">{formData.datum || "-"}</p>
+          </div>
+          <div className="p-3 bg-muted/30 rounded-xl">
+            <p className="text-xs text-muted-foreground">Uhrzeit</p>
+            <p className="font-medium">{formData.schnellstmoeglich ? "Schnellstmöglich" : (formData.uhrzeit || "-")}</p>
+          </div>
+          <div className="p-3 bg-muted/30 rounded-xl">
+            <p className="text-xs text-muted-foreground">Anbieter</p>
+            <p className="font-medium">{selectedFilters.anbieter}</p>
+          </div>
+          <div className="p-3 bg-muted/30 rounded-xl">
+            <p className="text-xs text-muted-foreground">Transportart</p>
+            <p className="font-medium">{selectedFilters.transportart}</p>
+          </div>
+          <div className="p-3 bg-muted/30 rounded-xl">
+            <p className="text-xs text-muted-foreground">Transportmittel</p>
+            <p className="font-medium">{selectedFilters.transportmittel}</p>
+          </div>
           {formData.grund && (
-            <span className="px-3 py-1.5 bg-muted text-muted-foreground rounded-full text-sm font-medium">
-              {formData.grund}
-            </span>
+            <div className="p-3 bg-muted/30 rounded-xl">
+              <p className="text-xs text-muted-foreground">Grund</p>
+              <p className="font-medium">{formData.grund}</p>
+            </div>
           )}
         </div>
         <div className="mt-3 text-sm text-muted-foreground">
@@ -1210,14 +1222,13 @@ export default function BookingResults() {
           <DialogHeader>
             <div className="flex items-center justify-between">
               <DialogTitle className="text-xl font-bold">
-                {currentStep === 1 && "Filter auswählen"}
                 {currentStep === 2 && "Persönliche Daten"}
                 {currentStep === 3 && "Buchungsübersicht"}
                 {currentStep === 4 && "Buchungsbestätigung"}
               </DialogTitle>
               {currentStep < 4 && (
                 <div className="flex items-center gap-2">
-                  {[1, 2, 3].map((step) => (
+                  {[2, 3].map((step) => (
                     <div
                       key={step}
                       className={`w-2.5 h-2.5 rounded-full transition-all ${
@@ -1235,21 +1246,13 @@ export default function BookingResults() {
           </DialogHeader>
 
           <div className="py-4">
-            {currentStep === 1 && renderFilterStep()}
             {currentStep === 2 && renderPersonalDataStep()}
             {currentStep === 3 && renderSummaryStep()}
             {currentStep === 4 && renderConfirmationStep()}
           </div>
 
-          {currentStep < 3 && (
-            <div className="flex justify-between pt-4 border-t">
-              {currentStep > 1 ? (
-                <Button variant="outline" onClick={handlePreviousStep} className="rounded-xl">
-                  Zurück
-                </Button>
-              ) : (
-                <div />
-              )}
+          {currentStep === 2 && (
+            <div className="flex justify-end pt-4 border-t">
               <Button
                 onClick={handleNextStep}
                 className="bg-gradient-to-r from-primary to-secondary hover:opacity-90 rounded-xl px-8"
