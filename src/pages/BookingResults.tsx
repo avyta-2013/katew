@@ -896,132 +896,150 @@ export default function BookingResults() {
               {/* Search Card */}
               <div className="relative">
                 <div className="absolute inset-0 bg-gradient-to-r from-primary/20 to-secondary/20 rounded-3xl blur-xl" />
-                <div className="relative bg-card/80 backdrop-blur-xl rounded-3xl border border-border/50 shadow-2xl p-6 md:p-8">
-                  {/* Transport type tabs */}
-                  <div className="flex flex-wrap gap-2 mb-6">
-                    {["Sitzend", "Rollstuhl", "Tragestuhl", "Liegend"].map((type, index) => (
-                      <button
-                        key={type}
-                        className={`px-4 py-2 rounded-xl text-sm font-medium transition-all ${
-                          index === 0 
-                            ? "bg-primary text-primary-foreground shadow-lg shadow-primary/25" 
-                            : "bg-muted/50 text-muted-foreground hover:bg-muted hover:text-foreground"
-                        }`}
-                      >
-                        {type}
-                      </button>
-                    ))}
-                  </div>
-
-                  {/* Address inputs */}
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-                    <div className="relative group">
-                      <div className="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center group-focus-within:bg-primary/20 transition-colors">
-                        <MapPin className="w-5 h-5 text-primary" />
+                <div className="relative bg-card/80 backdrop-blur-xl rounded-3xl border border-border/50 shadow-2xl overflow-hidden">
+                  
+                  {/* Top section: Addresses */}
+                  <div className="p-6 md:p-8 pb-0">
+                    <div className="flex items-center gap-3 mb-5">
+                      <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-primary to-secondary flex items-center justify-center">
+                        <Navigation className="w-4 h-4 text-primary-foreground" />
                       </div>
-                      <Input
-                        value={startAddress}
-                        onChange={(e) => setStartAddress(e.target.value)}
-                        placeholder="Startadresse eingeben"
-                        className="h-16 pl-16 pr-4 text-base bg-muted/30 border-0 rounded-2xl focus:ring-2 focus:ring-primary/30 focus:bg-muted/50 transition-all"
-                      />
+                      <h3 className="font-bold text-lg">Route</h3>
                     </div>
-                    <div className="relative group">
-                      <div className="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-xl bg-secondary/10 flex items-center justify-center group-focus-within:bg-secondary/20 transition-colors">
-                        <Navigation className="w-5 h-5 text-secondary" />
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      <div className="relative group">
+                        <div className="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center group-focus-within:bg-primary/20 transition-colors">
+                          <MapPin className="w-5 h-5 text-primary" />
+                        </div>
+                        <Input
+                          value={startAddress}
+                          onChange={(e) => setStartAddress(e.target.value)}
+                          placeholder="Startadresse eingeben"
+                          className="h-14 pl-16 pr-4 text-base bg-muted/30 border-0 rounded-2xl focus:ring-2 focus:ring-primary/30 focus:bg-muted/50 transition-all"
+                        />
                       </div>
-                      <Input
-                        value={endAddress}
-                        onChange={(e) => setEndAddress(e.target.value)}
-                        placeholder="Zieladresse eingeben"
-                        className="h-16 pl-16 pr-4 text-base bg-muted/30 border-0 rounded-2xl focus:ring-2 focus:ring-secondary/30 focus:bg-muted/50 transition-all"
-                      />
+                      <div className="relative group">
+                        <div className="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-xl bg-secondary/10 flex items-center justify-center group-focus-within:bg-secondary/20 transition-colors">
+                          <Navigation className="w-5 h-5 text-secondary" />
+                        </div>
+                        <Input
+                          value={endAddress}
+                          onChange={(e) => setEndAddress(e.target.value)}
+                          placeholder="Zieladresse eingeben"
+                          className="h-14 pl-16 pr-4 text-base bg-muted/30 border-0 rounded-2xl focus:ring-2 focus:ring-secondary/30 focus:bg-muted/50 transition-all"
+                        />
+                      </div>
                     </div>
                   </div>
 
-                  {/* Additional filters row */}
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
-                    <div className="relative">
-                      <Users className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-                      <select className="w-full h-12 pl-11 pr-4 text-sm bg-card border-0 rounded-xl appearance-none cursor-pointer focus:ring-2 focus:ring-primary/30 transition-all text-foreground">
-                        <option value="alle">Alle</option>
-                        <option value="taxi">Taxi</option>
-                        <option value="mietwagen">Mietwagen</option>
-                      </select>
-                    </div>
-                    <div className="relative">
-                      <Truck className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-                      <select className="w-full h-12 pl-11 pr-4 text-sm bg-card border-0 rounded-xl appearance-none cursor-pointer focus:ring-2 focus:ring-primary/30 transition-all text-foreground">
-                        <option value="">Transportmittel wählen</option>
-                        <option value="sitzend">Sitzend</option>
-                        <option value="rollstuhl">Rollstuhl</option>
-                        <option value="tragestuhl">Tragestuhl</option>
-                        <option value="liegend">Liegend</option>
-                      </select>
-                    </div>
-                    <div className="relative">
-                      <FileText className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-                      <select className="w-full h-12 pl-11 pr-4 text-sm bg-card border-0 rounded-xl appearance-none cursor-pointer focus:ring-2 focus:ring-primary/30 transition-all text-foreground">
-                        <option value="">Transportart wählen</option>
-                        <option value="transportschein">Transportschein</option>
-                        <option value="selbstzahler">Selbstzahler</option>
-                        <option value="ausschreibung">Ausschreibung</option>
-                      </select>
+                  {/* Divider */}
+                  <div className="mx-6 md:mx-8 my-5 border-t border-border/40" />
+
+                  {/* Middle section: Filters in a compact row */}
+                  <div className="px-6 md:px-8">
+                    <div className="grid grid-cols-2 md:grid-cols-5 gap-3">
+                      {/* Datum */}
+                      <div className="space-y-1.5">
+                        <label className="text-xs font-medium text-muted-foreground pl-1">Datum</label>
+                        <div className="relative">
+                          <Calendar className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+                          <Input
+                            type="date"
+                            className="h-11 pl-10 text-sm bg-muted/30 border-0 rounded-xl focus:ring-2 focus:ring-primary/30"
+                          />
+                        </div>
+                      </div>
+                      {/* Uhrzeit */}
+                      <div className="space-y-1.5">
+                        <label className="text-xs font-medium text-muted-foreground pl-1">Uhrzeit</label>
+                        <div className="relative">
+                          <Clock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+                          <Input
+                            type="time"
+                            className="h-11 pl-10 text-sm bg-muted/30 border-0 rounded-xl focus:ring-2 focus:ring-primary/30"
+                          />
+                        </div>
+                      </div>
+                      {/* Anbieter */}
+                      <div className="space-y-1.5">
+                        <label className="text-xs font-medium text-muted-foreground pl-1">Anbieter</label>
+                        <div className="relative">
+                          <Users className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground z-10" />
+                          <select className="w-full h-11 pl-10 pr-3 text-sm bg-muted/30 border-0 rounded-xl appearance-none cursor-pointer focus:ring-2 focus:ring-primary/30 transition-all text-foreground">
+                            <option value="alle">Alle</option>
+                            <option value="taxi">Taxi</option>
+                            <option value="mietwagen">Mietwagen</option>
+                          </select>
+                        </div>
+                      </div>
+                      {/* Transportmittel */}
+                      <div className="space-y-1.5">
+                        <label className="text-xs font-medium text-muted-foreground pl-1">Transportmittel</label>
+                        <div className="relative">
+                          <Truck className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground z-10" />
+                          <select className="w-full h-11 pl-10 pr-3 text-sm bg-muted/30 border-0 rounded-xl appearance-none cursor-pointer focus:ring-2 focus:ring-primary/30 transition-all text-foreground">
+                            <option value="sitzend">Sitzend</option>
+                            <option value="rollstuhl">Rollstuhl</option>
+                            <option value="tragestuhl">Tragestuhl</option>
+                            <option value="liegend">Liegend</option>
+                          </select>
+                        </div>
+                      </div>
+                      {/* Transportart */}
+                      <div className="space-y-1.5">
+                        <label className="text-xs font-medium text-muted-foreground pl-1">Transportart</label>
+                        <div className="relative">
+                          <FileText className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground z-10" />
+                          <select className="w-full h-11 pl-10 pr-3 text-sm bg-muted/30 border-0 rounded-xl appearance-none cursor-pointer focus:ring-2 focus:ring-primary/30 transition-all text-foreground">
+                            <option value="transportschein">Transportschein</option>
+                            <option value="selbstzahler">Selbstzahler</option>
+                            <option value="ausschreibung">Ausschreibung</option>
+                          </select>
+                        </div>
+                      </div>
                     </div>
                   </div>
 
-                  {/* Date, time and button row */}
-                  <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
-                    <div className="relative col-span-1">
-                      <Calendar className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-                      <Input
-                        type="date"
-                        className="h-12 pl-11 text-sm bg-muted/30 border-0 rounded-xl"
-                      />
-                    </div>
-                    <div className="relative col-span-1">
-                      <Clock className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-                      <Input
-                        type="time"
-                        className="h-12 pl-11 text-sm bg-muted/30 border-0 rounded-xl"
-                      />
-                    </div>
-                    <div className="col-span-2">
-                      {isLoggedIn ? (
-                        <Button 
-                          onClick={handleConfirm}
-                          disabled={selectedProviders.length === 0}
-                          className="w-full h-12 text-base font-bold rounded-xl bg-gradient-to-r from-primary to-primary/90 hover:from-primary/90 hover:to-primary shadow-lg shadow-primary/25 hover:shadow-xl hover:shadow-primary/30 transition-all"
-                        >
-                          Bestätigen
-                        </Button>
-                      ) : (
-                        <Link to="/anmelden" className="block">
+                  {/* Bottom section: CTA + trust */}
+                  <div className="p-6 md:px-8 md:pb-8 pt-5">
+                    <div className="flex flex-col sm:flex-row items-center gap-4">
+                      <div className="w-full sm:flex-1">
+                        {isLoggedIn ? (
                           <Button 
-                            className="w-full h-12 text-base font-bold rounded-xl bg-gradient-to-r from-primary to-primary/90 hover:from-primary/90 hover:to-primary shadow-lg shadow-primary/25 hover:shadow-xl hover:shadow-primary/30 transition-all"
+                            onClick={handleConfirm}
+                            disabled={selectedProviders.length === 0}
+                            className="w-full h-13 text-base font-bold rounded-2xl bg-gradient-to-r from-primary to-secondary hover:opacity-90 shadow-lg shadow-primary/25 hover:shadow-xl transition-all hover:-translate-y-0.5"
                           >
-                            <LogIn className="w-5 h-5 mr-2" />
-                            Zur Anmeldung
+                            <CheckCircle className="w-5 h-5 mr-2" />
+                            Anbieter anfragen
                           </Button>
-                        </Link>
-                      )}
-                    </div>
-                  </div>
-
-                  {/* Trust indicators */}
-                  <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm text-muted-foreground pt-2 border-t border-border/30">
-                    {[
-                      "500+ Partner",
-                      "98% Zufriedenheit",
-                      "<5min Vermittlung",
-                      "24/7 Erreichbar",
-                      "DSGVO Konform",
-                    ].map((text) => (
-                      <div key={text} className="flex items-center gap-1.5">
-                        <CheckCircle2 className="w-3.5 h-3.5 text-secondary" />
-                        <span className="text-xs">{text}</span>
+                        ) : (
+                          <Link to="/anmelden" className="block">
+                            <Button 
+                              className="w-full h-13 text-base font-bold rounded-2xl bg-gradient-to-r from-primary to-secondary hover:opacity-90 shadow-lg shadow-primary/25 hover:shadow-xl transition-all hover:-translate-y-0.5"
+                            >
+                              <LogIn className="w-5 h-5 mr-2" />
+                              Zur Anmeldung
+                            </Button>
+                          </Link>
+                        )}
                       </div>
-                    ))}
+                    </div>
+                    {/* Trust indicators */}
+                    <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm text-muted-foreground pt-5 mt-5 border-t border-border/30">
+                      {[
+                        "500+ Partner",
+                        "98% Zufriedenheit",
+                        "<5min Vermittlung",
+                        "24/7 Erreichbar",
+                        "DSGVO Konform",
+                      ].map((text) => (
+                        <div key={text} className="flex items-center gap-1.5">
+                          <CheckCircle2 className="w-3.5 h-3.5 text-secondary" />
+                          <span className="text-xs">{text}</span>
+                        </div>
+                      ))}
+                    </div>
                   </div>
                 </div>
               </div>
