@@ -1,12 +1,15 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   ChevronLeft, ChevronRight, AlertTriangle, Zap, Clock, HeartHandshake,
   Monitor, ListChecks, Building2, Users, Stethoscope, Heart, Wallet,
   TrendingUp, Shield, Target, Handshake, BarChart3, DollarSign,
   Repeat, Globe, Rocket, Flag, Eye, ArrowRight, Maximize, Minimize,
-  Brain, Layers, UserCheck, Lightbulb, Network, LineChart, Package
+  Brain, Layers, UserCheck, Lightbulb, Network, LineChart, Package,
+  Download, Loader2
 } from "lucide-react";
+import html2canvas from "html2canvas";
+import jsPDF from "jspdf";
 import logoTransparent from "@/assets/katew-logo-transparent.png";
 import teamDino from "@/assets/team-dino.png";
 
@@ -15,6 +18,7 @@ const TOTAL_SLIDES = 12;
 const Presentation = () => {
   const [current, setCurrent] = useState(0);
   const [isFullscreen, setIsFullscreen] = useState(false);
+  const [isExporting, setIsExporting] = useState(false);
 
   const next = useCallback(() => setCurrent(c => Math.min(c + 1, TOTAL_SLIDES - 1)), []);
   const prev = useCallback(() => setCurrent(c => Math.max(c - 1, 0)), []);
@@ -41,6 +45,53 @@ const Presentation = () => {
     else document.exitFullscreen();
   };
   const exitFullscreen = () => { if (document.fullscreenElement) document.exitFullscreen(); };
+
+  const exportPDF = async () => {
+    setIsExporting(true);
+    try {
+      const pdf = new jsPDF({ orientation: "landscape", unit: "px", format: [1920, 1080] });
+      const container = document.createElement("div");
+      container.style.cssText = "position:fixed;left:-9999px;top:0;width:1920px;height:1080px;overflow:hidden;";
+      document.body.appendChild(container);
+
+      const allSlides = [
+        <SlideCover />, <SlideProblem />, <SlideSolution />, <SlideTargetGroups />,
+        <SlideValue />, <SlideUSP />, <SlideGTM />, <SlideBusinessModel />,
+        <SlideMarket />, <SlideTeam />, <SlideRoadmap />, <SlideVision />,
+      ];
+
+      for (let i = 0; i < allSlides.length; i++) {
+        // Render slide into container using a temporary root
+        const { createRoot } = await import("react-dom/client");
+        const wrapper = document.createElement("div");
+        wrapper.className = "h-screen w-screen bg-foreground overflow-hidden relative";
+        wrapper.style.cssText = "width:1920px;height:1080px;";
+        container.innerHTML = "";
+        container.appendChild(wrapper);
+
+        const root = createRoot(wrapper);
+        root.render(allSlides[i]);
+        await new Promise(r => setTimeout(r, 500)); // wait for render
+
+        const canvas = await html2canvas(wrapper, {
+          width: 1920, height: 1080, scale: 1,
+          backgroundColor: null, useCORS: true,
+        });
+
+        root.unmount();
+
+        if (i > 0) pdf.addPage([1920, 1080], "landscape");
+        pdf.addImage(canvas.toDataURL("image/jpeg", 0.92), "JPEG", 0, 0, 1920, 1080);
+      }
+
+      document.body.removeChild(container);
+      pdf.save("katew-praesentation.pdf");
+    } catch (err) {
+      console.error("PDF export failed:", err);
+    } finally {
+      setIsExporting(false);
+    }
+  };
 
   const slides = [
     <SlideCover />,
@@ -112,6 +163,14 @@ const Presentation = () => {
           </button>
           <button onClick={toggleFullscreen} className="p-2 rounded-lg text-primary-foreground/60 hover:text-primary-foreground hover:bg-primary-foreground/10 transition-all ml-1">
             {isFullscreen ? <Minimize className="w-5 h-5" /> : <Maximize className="w-5 h-5" />}
+          </button>
+          <button
+            onClick={exportPDF}
+            disabled={isExporting}
+            className="p-2 rounded-lg text-primary-foreground/60 hover:text-primary-foreground hover:bg-primary-foreground/10 disabled:opacity-50 transition-all"
+            title="Als PDF herunterladen"
+          >
+            {isExporting ? <Loader2 className="w-5 h-5 animate-spin" /> : <Download className="w-5 h-5" />}
           </button>
         </div>
       </div>
