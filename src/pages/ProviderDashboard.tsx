@@ -3104,9 +3104,24 @@ const ProviderDashboard = () => {
       {/* Right side - Actions */}
       <div className="flex items-center gap-2">
         {/* Help */}
-        <Button variant="ghost" size="icon" className="h-10 w-10 text-muted-foreground hover:text-foreground rounded-xl hover:bg-muted/60 transition-all duration-200">
-          <HelpCircle className="w-5 h-5" />
-        </Button>
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button variant="ghost" size="icon" className="h-10 w-10 text-muted-foreground hover:text-foreground rounded-xl hover:bg-muted/60 transition-all duration-200">
+              <HelpCircle className="w-5 h-5" />
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="end" className="w-64 rounded-xl border-border/50 shadow-elevated p-4 space-y-3">
+            <p className="text-sm font-semibold text-foreground">Hilfe & Kontakt</p>
+            <div className="flex items-center gap-3">
+              <Mail className="w-4 h-4 text-primary flex-shrink-0" />
+              <span className="text-sm text-muted-foreground">support@katew.de</span>
+            </div>
+            <div className="flex items-center gap-3">
+              <Phone className="w-4 h-4 text-primary flex-shrink-0" />
+              <span className="text-sm text-muted-foreground">+49 30 1234567</span>
+            </div>
+          </DropdownMenuContent>
+        </DropdownMenu>
 
         {/* Notifications */}
         <DropdownMenu>

@@ -85,9 +85,9 @@ const AGBAcceptanceModal = ({ open, onAccept }: AGBAcceptanceModalProps) => {
         </div>
 
         {/* AGB Content */}
-        <ScrollArea 
-          className="h-[350px] px-6" 
-          onScrollCapture={handleScroll}
+        <div 
+          className="h-[350px] px-6 overflow-y-auto" 
+          onScroll={handleScroll}
           ref={scrollRef}
         >
           <div className="py-4 space-y-6 text-sm text-muted-foreground">
@@ -195,7 +195,7 @@ const AGBAcceptanceModal = ({ open, onAccept }: AGBAcceptanceModalProps) => {
               </p>
             </div>
           </div>
-        </ScrollArea>
+        </div>
 
         {/* Footer */}
         <div className="p-6 pt-4 border-t border-border/50 bg-muted/20 space-y-4">
