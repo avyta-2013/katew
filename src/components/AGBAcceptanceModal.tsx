@@ -43,9 +43,10 @@ const AGBAcceptanceModal = ({ open, onAccept }: AGBAcceptanceModalProps) => {
   return (
     <Dialog open={open} onOpenChange={() => {}}>
       <DialogContent 
-        className="max-w-2xl max-h-[90vh] p-0 gap-0 overflow-hidden"
+        className="max-w-2xl max-h-[90vh] p-0 gap-0 overflow-hidden [&>button[class*='absolute']]:hidden"
         onPointerDownOutside={(e) => e.preventDefault()}
         onEscapeKeyDown={(e) => e.preventDefault()}
+        onInteractOutside={(e) => e.preventDefault()}
       >
         {/* Header */}
         <DialogHeader className="p-6 pb-4 border-b border-border/50 bg-gradient-to-br from-primary/5 to-secondary/5">
