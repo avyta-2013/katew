@@ -197,17 +197,6 @@ export const HomePartnersSection = () => {
                     <span className="text-sm">{partner.location}</span>
                   </div>
 
-                  <div className="flex items-center gap-2 flex-wrap">
-                    {partner.services.map((service) => (
-                      <span
-                        key={service}
-                        className="text-xs text-muted-foreground bg-muted/60 px-2 py-0.5 rounded-full"
-                      >
-                        {service}
-                      </span>
-                    ))}
-                  </div>
-
                   <p className="text-sm text-muted-foreground">
                     {partner.reviewCount} Bewertungen
                   </p>
