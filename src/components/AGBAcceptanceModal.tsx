@@ -43,7 +43,7 @@ const AGBAcceptanceModal = ({ open, onAccept }: AGBAcceptanceModalProps) => {
   return (
     <Dialog open={open} onOpenChange={() => {}}>
       <DialogContent 
-        className="max-w-2xl max-h-[90vh] p-0 gap-0 overflow-hidden [&>button[class*='absolute']]:hidden"
+        className="max-w-2xl max-h-[90vh] p-0 gap-0 overflow-hidden flex flex-col [&>button[class*='absolute']]:hidden"
         onPointerDownOutside={(e) => e.preventDefault()}
         onEscapeKeyDown={(e) => e.preventDefault()}
         onInteractOutside={(e) => e.preventDefault()}
@@ -87,7 +87,7 @@ const AGBAcceptanceModal = ({ open, onAccept }: AGBAcceptanceModalProps) => {
 
         {/* AGB Content */}
         <div 
-          className="h-[350px] px-6 overflow-y-auto" 
+          className="flex-1 min-h-0 max-h-[50vh] px-6 overflow-y-auto overscroll-contain" 
           onScroll={handleScroll}
           ref={scrollRef}
         >
