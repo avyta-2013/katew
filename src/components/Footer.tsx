@@ -9,6 +9,7 @@ const footerLinks = {
     { label: "Kooperationsvorteile", href: "/kooperationspartner/charite-berlin" },
     { label: "Partner Dashboard", href: "/partner-dashboard" },
     { label: "Anbieter Dashboard", href: "/anbieter-dashboard" },
+    { label: "Super Admin", href: "/super-admin" },
   ],
   unternehmen: [
     { label: "Plattform", href: "/plattform" },
