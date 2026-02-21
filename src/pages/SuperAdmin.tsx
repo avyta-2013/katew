@@ -16,7 +16,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { cn } from "@/lib/utils";
 import logoTransparent from "@/assets/katew-logo-transparent.png";
 
-type Section = "uebersicht" | "kunden" | "unternehmen" | "buchungen" | "bewertungen" | "blog" | "einstellungen" | "kunde-detail" | "unternehmen-detail";
+type Section = "uebersicht" | "kunden" | "unternehmen" | "buchungen" | "bewertungen" | "blog" | "einstellungen" | "kunde-detail" | "unternehmen-detail" | "buchung-detail";
 
 const navItems: { key: Section; label: string; icon: React.ElementType }[] = [
   { key: "uebersicht", label: "Übersicht", icon: LayoutDashboard },
@@ -45,12 +45,12 @@ const mockUnternehmen = [
 ];
 
 const mockBuchungen = [
-  { id: "19727886", datum: "20.02.2026 um 17:03", kunde: "Chanu De Silva", unternehmen: "Chanaka@Technohive.Tech", betrag: "0 €", status: "Offen" },
-  { id: "67960934", datum: "20.02.2026 um 16:00", kunde: "Chanu De Silva", unternehmen: "Chanaka@Technohive.Tech", betrag: "0 €", status: "Offen" },
-  { id: "47060294", datum: "17.02.2026 um 15:30", kunde: "Chanu De Silva", unternehmen: "Chanaka@Technohive.Tech", betrag: "0 €", status: "Bestätigt" },
-  { id: "18459128", datum: "17.02.2026 um 15:30", kunde: "Chanu De Silva", unternehmen: "Fulda Navigator360sl", betrag: "0 €", status: "Offen" },
-  { id: "66627039", datum: "13.02.2026 um 14:51", kunde: "Chanu De Silva", unternehmen: "Chanaka@Technohive.Tech", betrag: "0 €", status: "Bestätigt" },
-  { id: "03734986", datum: "21.01.2026 um 09:45", kunde: "Dino Lalic", unternehmen: "CKM-Krankenfahrdienst", betrag: "0 €", status: "Storniert" },
+  { id: "19727886", datum: "20.02.2026", uhrzeit: "17:03", kunde: "Chanu De Silva", unternehmen: "Chanaka@Technohive.Tech", betrag: "155.13€", status: "Bestätigt", profilId: "6995dbd522ec03bd06a89f29", anrede: "Herr", vorname: "Chanu", geburtsdatum: "26.02.1993", pflegegrad: "Pflegegrad 2", krankenkasse: "AOK", kontakt: "1742059280", notiz: "Lorem Ipsum is simply dummy text of the printing and typesetting", art: "Transportschein", mittel: "Sitzend", start: "Ferdinand-Schneider-Straße 10, 36043 Fulda, Deutschland", ziel: "Frankfurt am Main, Deutschland", grund: "Kur- oder Rehaklinik" },
+  { id: "67960934", datum: "20.02.2026", uhrzeit: "16:00", kunde: "Chanu De Silva", unternehmen: "Chanaka@Technohive.Tech", betrag: "0€", status: "Offen", profilId: "a1b2c3d4e5f6", anrede: "Herr", vorname: "Chanu", geburtsdatum: "26.02.1993", pflegegrad: "–", krankenkasse: "TK", kontakt: "1742059280", notiz: "", art: "Transportschein", mittel: "Sitzend", start: "Fulda Hbf", ziel: "Frankfurt Hbf", grund: "Arztbesuch" },
+  { id: "47060294", datum: "17.02.2026", uhrzeit: "15:30", kunde: "Chanu De Silva", unternehmen: "Chanaka@Technohive.Tech", betrag: "0€", status: "Bestätigt", profilId: "f6e5d4c3b2a1", anrede: "Herr", vorname: "Chanu", geburtsdatum: "26.02.1993", pflegegrad: "–", krankenkasse: "AOK", kontakt: "1742059280", notiz: "", art: "Transportschein", mittel: "Rollstuhl", start: "Fulda", ziel: "Marburg", grund: "Dialyse" },
+  { id: "18459128", datum: "17.02.2026", uhrzeit: "15:30", kunde: "Chanu De Silva", unternehmen: "Fulda Navigator360sl", betrag: "0€", status: "Offen", profilId: "112233445566", anrede: "Herr", vorname: "Chanu", geburtsdatum: "26.02.1993", pflegegrad: "–", krankenkasse: "Barmer", kontakt: "1742059280", notiz: "", art: "Selbstzahler", mittel: "Sitzend", start: "Fulda", ziel: "Frankfurt", grund: "Arztbesuch" },
+  { id: "66627039", datum: "13.02.2026", uhrzeit: "14:51", kunde: "Chanu De Silva", unternehmen: "Chanaka@Technohive.Tech", betrag: "0€", status: "Bestätigt", profilId: "aabbccddeeff", anrede: "Herr", vorname: "Chanu", geburtsdatum: "26.02.1993", pflegegrad: "–", krankenkasse: "AOK", kontakt: "1742059280", notiz: "", art: "Transportschein", mittel: "Sitzend", start: "Fulda", ziel: "Frankfurt", grund: "Kur- oder Rehaklinik" },
+  { id: "03734986", datum: "21.01.2026", uhrzeit: "09:45", kunde: "Dino Lalic", unternehmen: "CKM-Krankenfahrdienst", betrag: "0€", status: "Storniert", profilId: "998877665544", anrede: "Herr", vorname: "Dino", geburtsdatum: "29.06.1992", pflegegrad: "–", krankenkasse: "DAK", kontakt: "6915391405", notiz: "", art: "Transportschein", mittel: "Sitzend", start: "Frankfurt", ziel: "Offenbach", grund: "Arztbesuch" },
 ];
 
 const mockBewertungen = [
@@ -92,6 +92,8 @@ const SuperAdmin = () => {
   const [buchungFilter, setBuchungFilter] = useState("Offen");
   const [selectedKundeId, setSelectedKundeId] = useState<number | null>(null);
   const [selectedUnternehmenId, setSelectedUnternehmenId] = useState<number | null>(null);
+  const [selectedBuchungId, setSelectedBuchungId] = useState<string | null>(null);
+  const [buchungTab, setBuchungTab] = useState<"profil" | "klient" | "transport">("profil");
 
   // Login screen
   if (!isLoggedIn) {
@@ -155,9 +157,12 @@ const SuperAdmin = () => {
   const selectedKunde = selectedKundeId ? mockKunden.find(k => k.id === selectedKundeId) : null;
   const selectedUnternehmen = selectedUnternehmenId ? mockUnternehmen.find(u => u.id === selectedUnternehmenId) : null;
 
+  const selectedBuchung = selectedBuchungId ? mockBuchungen.find(b => b.id === selectedBuchungId) : null;
+
   const sidebarKey = (s: Section): Section => {
     if (s === "kunde-detail") return "kunden";
     if (s === "unternehmen-detail") return "unternehmen";
+    if (s === "buchung-detail") return "buchungen";
     return s;
   };
 
@@ -518,6 +523,127 @@ const SuperAdmin = () => {
           </div>
         );
 
+      // ====== BUCHUNG DETAIL ======
+      case "buchung-detail":
+        if (!selectedBuchung) return null;
+        return (
+          <div className="space-y-6 animate-fade-in">
+            <button
+              onClick={() => setActiveSection("buchungen")}
+              className="flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors group"
+            >
+              <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
+              Zurück zur Buchungsliste
+            </button>
+
+            <div className="flex items-center justify-between">
+              <h1 className="text-3xl font-bold text-foreground">Buchungs-ID {selectedBuchung.id}</h1>
+              <Button variant="ghost" size="icon" className="rounded-xl hover:bg-muted/50">
+                <MoreVertical className="w-5 h-5 text-muted-foreground" />
+              </Button>
+            </div>
+
+            {/* Tabs */}
+            <div className="grid grid-cols-3 rounded-2xl border border-border/50 overflow-hidden bg-muted/20">
+              {(["profil", "klient", "transport"] as const).map(tab => (
+                <button
+                  key={tab}
+                  onClick={() => setBuchungTab(tab)}
+                  className={cn(
+                    "py-3.5 text-sm font-semibold transition-all duration-200 capitalize",
+                    buchungTab === tab
+                      ? "bg-gradient-to-r from-primary to-primary/80 text-primary-foreground shadow-lg"
+                      : "text-muted-foreground hover:text-foreground hover:bg-muted/40"
+                  )}
+                >
+                  {tab === "profil" ? "Profil" : tab === "klient" ? "Klient" : "Transport"}
+                </button>
+              ))}
+            </div>
+
+            {/* Tab Content */}
+            <Card className="border-border/50 shadow-xl overflow-hidden">
+              <CardContent className="p-8">
+                {buchungTab === "profil" && (
+                  <div className="space-y-6">
+                    <div className="flex items-center justify-between">
+                      <h2 className="text-2xl font-bold text-foreground">Profil</h2>
+                      <p className="text-sm text-muted-foreground font-mono">Id : {selectedBuchung.profilId}</p>
+                    </div>
+                    <Separator className="bg-border/30" />
+                    <div className="grid grid-cols-3 gap-8 text-center py-4">
+                      <div>
+                        <Badge variant="outline" className={cn(
+                          "text-base font-bold px-6 py-2",
+                          selectedBuchung.status === "Offen" && "bg-amber-500/10 text-amber-600 border-amber-500/30",
+                          selectedBuchung.status === "Bestätigt" && "bg-secondary/10 text-secondary border-secondary/30",
+                          selectedBuchung.status === "Storniert" && "bg-destructive/10 text-destructive border-destructive/30",
+                        )}>{selectedBuchung.status}</Badge>
+                      </div>
+                      <div>
+                        <p className="text-lg font-bold text-foreground">{selectedBuchung.art}</p>
+                      </div>
+                      <div>
+                        <p className="text-2xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">{selectedBuchung.betrag}</p>
+                      </div>
+                    </div>
+                  </div>
+                )}
+
+                {buchungTab === "klient" && (
+                  <div className="space-y-6">
+                    <div className="flex items-center justify-between">
+                      <h2 className="text-2xl font-bold text-foreground">Klient</h2>
+                      <p className="text-lg font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">{selectedBuchung.art} {selectedBuchung.betrag}</p>
+                    </div>
+                    <Separator className="bg-border/30" />
+                    <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-6">
+                      <div className="space-y-2">
+                        <p className="text-xs font-medium text-muted-foreground uppercase tracking-wider">Anrede</p>
+                        <div className="flex rounded-xl overflow-hidden border border-border/50">
+                          <span className={cn("px-4 py-2 text-sm font-medium transition-all", selectedBuchung.anrede === "Herr" ? "bg-gradient-to-r from-primary to-primary/80 text-primary-foreground" : "bg-muted/30 text-muted-foreground")}>Herr</span>
+                          <span className={cn("px-4 py-2 text-sm font-medium transition-all", selectedBuchung.anrede === "Frau" ? "bg-gradient-to-r from-primary to-primary/80 text-primary-foreground" : "bg-muted/30 text-muted-foreground")}>Frau</span>
+                        </div>
+                      </div>
+                      <InfoField label="Vor- und Nachname" value={selectedBuchung.vorname} />
+                      <InfoField label="Geburtsdatum" value={selectedBuchung.geburtsdatum} />
+                      <InfoField label="Pflegegrad" value={selectedBuchung.pflegegrad} />
+                      <InfoField label="Krankenkasse" value={selectedBuchung.krankenkasse} />
+                    </div>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 pt-2">
+                      <InfoField label="Kontakt" value={selectedBuchung.kontakt} />
+                      <InfoField label="Notiz" value={selectedBuchung.notiz || "–"} />
+                    </div>
+                  </div>
+                )}
+
+                {buchungTab === "transport" && (
+                  <div className="space-y-6">
+                    <div className="flex items-center justify-between">
+                      <h2 className="text-2xl font-bold text-foreground">Transport</h2>
+                      <p className="text-lg font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">{selectedBuchung.art} {selectedBuchung.betrag}</p>
+                    </div>
+                    <Separator className="bg-border/30" />
+                    <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
+                      <InfoField label="Datum" value={selectedBuchung.datum} />
+                      <InfoField label="Uhrzeit" value={selectedBuchung.uhrzeit} />
+                      <InfoField label="Art" value={selectedBuchung.art} />
+                      <InfoField label="Mittel" value={selectedBuchung.mittel} />
+                    </div>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 pt-2">
+                      <InfoField label="Start" value={selectedBuchung.start} />
+                      <InfoField label="Ziel" value={selectedBuchung.ziel} />
+                    </div>
+                    <div className="pt-2">
+                      <InfoField label="Grund" value={selectedBuchung.grund} />
+                    </div>
+                  </div>
+                )}
+              </CardContent>
+            </Card>
+          </div>
+        );
+
       case "buchungen":
         return (
           <div className="space-y-6">
@@ -539,7 +665,7 @@ const SuperAdmin = () => {
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
               {filteredBuchungen.map((b) => (
-                <Card key={b.id} className="border-border/50 shadow-md hover:shadow-lg transition-all duration-300 group overflow-hidden hover:-translate-y-0.5">
+                <Card key={b.id} className="border-border/50 shadow-md hover:shadow-lg transition-all duration-300 group overflow-hidden hover:-translate-y-0.5 cursor-pointer" onClick={() => { setSelectedBuchungId(b.id); setBuchungTab("profil"); setActiveSection("buchung-detail"); }}>
                   <CardContent className="p-5 space-y-3">
                     <div className="flex items-center justify-between">
                       <h3 className="font-bold text-foreground">Buchungs-ID {b.id}</h3>
@@ -551,7 +677,7 @@ const SuperAdmin = () => {
                       )}>{b.status}</Badge>
                     </div>
                     <div className="space-y-1.5 text-sm text-muted-foreground">
-                      <div className="flex items-center gap-2"><Calendar className="w-3.5 h-3.5" /> {b.datum}</div>
+                      <div className="flex items-center gap-2"><Calendar className="w-3.5 h-3.5" /> {b.datum} um {b.uhrzeit}</div>
                       <div className="flex items-center gap-2"><Users className="w-3.5 h-3.5" /> {b.kunde}</div>
                       <div className="flex items-center gap-2"><Building2 className="w-3.5 h-3.5" /> {b.unternehmen}</div>
                     </div>
@@ -559,7 +685,7 @@ const SuperAdmin = () => {
                       <span className="text-xs text-muted-foreground">Transportschein</span>
                       <span className="font-bold text-foreground">{b.betrag}</span>
                     </div>
-                    <Button className="w-full rounded-xl bg-gradient-to-r from-primary to-primary/80 shadow-md shadow-primary/20 hover:shadow-lg transition-all">
+                    <Button className="w-full rounded-xl bg-gradient-to-r from-primary to-primary/80 shadow-md shadow-primary/20 hover:shadow-lg transition-all" onClick={(e) => { e.stopPropagation(); setSelectedBuchungId(b.id); setBuchungTab("profil"); setActiveSection("buchung-detail"); }}>
                       öffnen
                     </Button>
                   </CardContent>
