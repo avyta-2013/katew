@@ -611,6 +611,20 @@ const ProviderDashboard = () => {
                   </Badge>
                 ))}
               </div>
+
+              {/* Onboarding Help */}
+              <div className="flex items-center gap-2 pt-2 text-sm">
+                <HelpCircle className="w-4 h-4 text-muted-foreground flex-shrink-0" />
+                <span className="text-muted-foreground">Du hast Probleme?</span>
+                <a
+                  href="https://calendly.com/katew/onboarding"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-primary font-medium hover:underline"
+                >
+                  Jetzt Onboarding-Termin buchen →
+                </a>
+              </div>
             </div>
 
             {/* Status Icon */}
