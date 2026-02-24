@@ -13,6 +13,10 @@ import { Textarea } from "@/components/ui/textarea";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter, DialogDescription } from "@/components/ui/dialog";
+import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from "@/components/ui/alert-dialog";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import { Label } from "@/components/ui/label";
 import { cn } from "@/lib/utils";
 import logoTransparent from "@/assets/katew-logo-transparent.png";
 
@@ -95,6 +99,79 @@ const SuperAdmin = () => {
   const [selectedBuchungId, setSelectedBuchungId] = useState<string | null>(null);
   const [buchungTab, setBuchungTab] = useState<"profil" | "klient" | "transport">("profil");
 
+  // CRUD state
+  const [kunden, setKunden] = useState(mockKunden);
+  const [unternehmen, setUnternehmen] = useState(mockUnternehmen);
+
+  // Kunde modal state
+  const [kundeModalOpen, setKundeModalOpen] = useState(false);
+  const [kundeDeleteOpen, setKundeDeleteOpen] = useState(false);
+  const [editingKunde, setEditingKunde] = useState<typeof mockKunden[0] | null>(null);
+  const [deletingKundeId, setDeletingKundeId] = useState<number | null>(null);
+  const [kundeForm, setKundeForm] = useState({ vorname: "", nachname: "", email: "", telefon: "", strasse: "", stadt: "", plz: "", geburtsdatum: "", geschlecht: "männlich" });
+
+  // Unternehmen modal state
+  const [unternehmenModalOpen, setUnternehmenModalOpen] = useState(false);
+  const [unternehmenDeleteOpen, setUnternehmenDeleteOpen] = useState(false);
+  const [editingUnternehmen, setEditingUnternehmen] = useState<typeof mockUnternehmen[0] | null>(null);
+  const [deletingUnternehmenId, setDeletingUnternehmenId] = useState<number | null>(null);
+  const [unternehmenForm, setUnternehmenForm] = useState({ name: "", vorname: "", nachname: "", email: "", telefon: "", mobil: "", strasse: "", stadt: "", plz: "", amtsgericht: "" });
+
+  const openNewKunde = () => {
+    setEditingKunde(null);
+    setKundeForm({ vorname: "", nachname: "", email: "", telefon: "", strasse: "", stadt: "", plz: "", geburtsdatum: "", geschlecht: "männlich" });
+    setKundeModalOpen(true);
+  };
+
+  const openEditKunde = (k: typeof mockKunden[0]) => {
+    setEditingKunde(k);
+    setKundeForm({ vorname: k.vorname, nachname: k.nachname, email: k.email, telefon: k.telefon, strasse: k.strasse, stadt: k.stadt, plz: k.plz, geburtsdatum: k.geburtsdatum, geschlecht: k.geschlecht });
+    setKundeModalOpen(true);
+  };
+
+  const saveKunde = () => {
+    if (editingKunde) {
+      setKunden(prev => prev.map(k => k.id === editingKunde.id ? { ...k, ...kundeForm, name: `${kundeForm.vorname} ${kundeForm.nachname}` } : k));
+    } else {
+      const newId = Math.max(...kunden.map(k => k.id)) + 1;
+      setKunden(prev => [...prev, { id: newId, ...kundeForm, name: `${kundeForm.vorname} ${kundeForm.nachname}`, registrierung: new Date().toLocaleDateString("en-GB", { day: "2-digit", month: "short", year: "numeric" }), status: "Active" }]);
+    }
+    setKundeModalOpen(false);
+  };
+
+  const deleteKunde = () => {
+    if (deletingKundeId) setKunden(prev => prev.filter(k => k.id !== deletingKundeId));
+    setKundeDeleteOpen(false);
+    setDeletingKundeId(null);
+  };
+
+  const openNewUnternehmen = () => {
+    setEditingUnternehmen(null);
+    setUnternehmenForm({ name: "", vorname: "", nachname: "", email: "", telefon: "", mobil: "", strasse: "", stadt: "", plz: "", amtsgericht: "" });
+    setUnternehmenModalOpen(true);
+  };
+
+  const openEditUnternehmen = (u: typeof mockUnternehmen[0]) => {
+    setEditingUnternehmen(u);
+    setUnternehmenForm({ name: u.name, vorname: u.vorname, nachname: u.nachname, email: u.email, telefon: u.telefon, mobil: u.mobil, strasse: u.strasse, stadt: u.stadt, plz: u.plz, amtsgericht: u.amtsgericht });
+    setUnternehmenModalOpen(true);
+  };
+
+  const saveUnternehmen = () => {
+    if (editingUnternehmen) {
+      setUnternehmen(prev => prev.map(u => u.id === editingUnternehmen.id ? { ...u, ...unternehmenForm } : u));
+    } else {
+      const newId = Math.max(...unternehmen.map(u => u.id)) + 1;
+      setUnternehmen(prev => [...prev, { id: newId, ...unternehmenForm, telefax: "–", registrierung: new Date().toLocaleDateString("en-GB", { day: "2-digit", month: "short", year: "numeric" }), status: "Active", hubspotId: "–", avgRating: 0, standorte: 0 }]);
+    }
+    setUnternehmenModalOpen(false);
+  };
+
+  const deleteUnternehmen = () => {
+    if (deletingUnternehmenId) setUnternehmen(prev => prev.filter(u => u.id !== deletingUnternehmenId));
+    setUnternehmenDeleteOpen(false);
+    setDeletingUnternehmenId(null);
+  };
   // Login screen
   if (!isLoggedIn) {
     return (
@@ -154,8 +231,8 @@ const SuperAdmin = () => {
     return true;
   });
 
-  const selectedKunde = selectedKundeId ? mockKunden.find(k => k.id === selectedKundeId) : null;
-  const selectedUnternehmen = selectedUnternehmenId ? mockUnternehmen.find(u => u.id === selectedUnternehmenId) : null;
+  const selectedKunde = selectedKundeId ? kunden.find(k => k.id === selectedKundeId) : null;
+  const selectedUnternehmen = selectedUnternehmenId ? unternehmen.find(u => u.id === selectedUnternehmenId) : null;
 
   const selectedBuchung = selectedBuchungId ? mockBuchungen.find(b => b.id === selectedBuchungId) : null;
 
@@ -417,7 +494,7 @@ const SuperAdmin = () => {
                     <Button variant="outline" size="sm" className="rounded-xl" onClick={() => setActiveSection("kunden")}>Alle</Button>
                   </div>
                   <div className="space-y-3">
-                    {mockKunden.slice(0, 3).map((k) => (
+                     {mockKunden.slice(0, 3).map((k) => (
                       <div key={k.id} className="flex items-center justify-between p-3 rounded-xl bg-muted/30 hover:bg-muted/50 transition-colors cursor-pointer" onClick={() => { setSelectedKundeId(k.id); setActiveSection("kunde-detail"); }}>
                         <div>
                           <p className="font-semibold text-sm text-foreground">{k.name}</p>
@@ -438,8 +515,8 @@ const SuperAdmin = () => {
           <div className="space-y-6">
             <div className="flex items-center justify-between flex-wrap gap-4">
               <h1 className="text-3xl font-bold bg-gradient-to-r from-primary to-primary/70 bg-clip-text text-transparent">Kunden</h1>
-              <Button className="rounded-xl bg-gradient-to-r from-primary to-primary/80 shadow-lg shadow-primary/25">
-                <Plus className="w-4 h-4 mr-2" /> Kunden
+              <Button onClick={openNewKunde} className="rounded-xl bg-gradient-to-r from-primary to-primary/80 shadow-lg shadow-primary/25">
+                <Plus className="w-4 h-4 mr-2" /> Neuer Kunde
               </Button>
             </div>
             <div className="relative max-w-md">
@@ -457,7 +534,7 @@ const SuperAdmin = () => {
                     </tr>
                   </thead>
                   <tbody>
-                    {mockKunden.filter(k => !searchQuery || k.name.toLowerCase().includes(searchQuery.toLowerCase())).map((k) => (
+                    {kunden.filter(k => !searchQuery || k.name.toLowerCase().includes(searchQuery.toLowerCase())).map((k) => (
                       <tr key={k.id} className="border-b border-border/30 hover:bg-muted/20 transition-colors cursor-pointer" onClick={() => { setSelectedKundeId(k.id); setActiveSection("kunde-detail"); }}>
                         <td className="p-4 text-sm font-medium text-foreground">{k.name}</td>
                         <td className="p-4 text-sm text-muted-foreground">{k.registrierung}</td>
@@ -467,7 +544,24 @@ const SuperAdmin = () => {
                         <td className="p-4 text-sm text-muted-foreground">{k.plz}</td>
                         <td className="p-4"><Badge className="bg-secondary/10 text-secondary border-secondary/30 font-medium">{k.status}</Badge></td>
                         <td className="p-4">
-                          <Button variant="outline" size="sm" className="rounded-xl text-xs h-8 font-medium hover:bg-primary/10 hover:text-primary hover:border-primary/30" onClick={(e) => { e.stopPropagation(); setSelectedKundeId(k.id); setActiveSection("kunde-detail"); }}>öffnen</Button>
+                          <DropdownMenu>
+                            <DropdownMenuTrigger asChild onClick={(e) => e.stopPropagation()}>
+                              <Button variant="ghost" size="icon" className="rounded-xl h-8 w-8">
+                                <MoreVertical className="w-4 h-4" />
+                              </Button>
+                            </DropdownMenuTrigger>
+                            <DropdownMenuContent align="end" className="rounded-xl">
+                              <DropdownMenuItem onClick={(e) => { e.stopPropagation(); setSelectedKundeId(k.id); setActiveSection("kunde-detail"); }}>
+                                <Eye className="w-4 h-4 mr-2" /> Anzeigen
+                              </DropdownMenuItem>
+                              <DropdownMenuItem onClick={(e) => { e.stopPropagation(); openEditKunde(k); }}>
+                                <Edit3 className="w-4 h-4 mr-2" /> Bearbeiten
+                              </DropdownMenuItem>
+                              <DropdownMenuItem className="text-destructive focus:text-destructive" onClick={(e) => { e.stopPropagation(); setDeletingKundeId(k.id); setKundeDeleteOpen(true); }}>
+                                <Trash2 className="w-4 h-4 mr-2" /> Löschen
+                              </DropdownMenuItem>
+                            </DropdownMenuContent>
+                          </DropdownMenu>
                         </td>
                       </tr>
                     ))}
@@ -483,8 +577,8 @@ const SuperAdmin = () => {
           <div className="space-y-6">
             <div className="flex items-center justify-between flex-wrap gap-4">
               <h1 className="text-3xl font-bold bg-gradient-to-r from-primary to-primary/70 bg-clip-text text-transparent">Unternehmen</h1>
-              <Button className="rounded-xl bg-gradient-to-r from-primary to-primary/80 shadow-lg shadow-primary/25">
-                <Plus className="w-4 h-4 mr-2" /> Unternehmen
+              <Button onClick={openNewUnternehmen} className="rounded-xl bg-gradient-to-r from-primary to-primary/80 shadow-lg shadow-primary/25">
+                <Plus className="w-4 h-4 mr-2" /> Neues Unternehmen
               </Button>
             </div>
             <div className="relative max-w-md">
@@ -502,7 +596,7 @@ const SuperAdmin = () => {
                     </tr>
                   </thead>
                   <tbody>
-                    {mockUnternehmen.filter(u => !searchQuery || u.name.toLowerCase().includes(searchQuery.toLowerCase())).map((u) => (
+                    {unternehmen.filter(u => !searchQuery || u.name.toLowerCase().includes(searchQuery.toLowerCase())).map((u) => (
                       <tr key={u.id} className="border-b border-border/30 hover:bg-muted/20 transition-colors cursor-pointer" onClick={() => { setSelectedUnternehmenId(u.id); setActiveSection("unternehmen-detail"); }}>
                         <td className="p-4 text-sm font-medium text-foreground">{u.name}</td>
                         <td className="p-4 text-sm text-muted-foreground">{u.registrierung}</td>
@@ -512,7 +606,24 @@ const SuperAdmin = () => {
                         <td className="p-4 text-sm text-muted-foreground">{u.plz}</td>
                         <td className="p-4"><Badge className="bg-secondary/10 text-secondary border-secondary/30 font-medium">{u.status}</Badge></td>
                         <td className="p-4">
-                          <Button variant="outline" size="sm" className="rounded-xl text-xs h-8 font-medium hover:bg-primary/10 hover:text-primary hover:border-primary/30" onClick={(e) => { e.stopPropagation(); setSelectedUnternehmenId(u.id); setActiveSection("unternehmen-detail"); }}>öffnen</Button>
+                          <DropdownMenu>
+                            <DropdownMenuTrigger asChild onClick={(e) => e.stopPropagation()}>
+                              <Button variant="ghost" size="icon" className="rounded-xl h-8 w-8">
+                                <MoreVertical className="w-4 h-4" />
+                              </Button>
+                            </DropdownMenuTrigger>
+                            <DropdownMenuContent align="end" className="rounded-xl">
+                              <DropdownMenuItem onClick={(e) => { e.stopPropagation(); setSelectedUnternehmenId(u.id); setActiveSection("unternehmen-detail"); }}>
+                                <Eye className="w-4 h-4 mr-2" /> Anzeigen
+                              </DropdownMenuItem>
+                              <DropdownMenuItem onClick={(e) => { e.stopPropagation(); openEditUnternehmen(u); }}>
+                                <Edit3 className="w-4 h-4 mr-2" /> Bearbeiten
+                              </DropdownMenuItem>
+                              <DropdownMenuItem className="text-destructive focus:text-destructive" onClick={(e) => { e.stopPropagation(); setDeletingUnternehmenId(u.id); setUnternehmenDeleteOpen(true); }}>
+                                <Trash2 className="w-4 h-4 mr-2" /> Löschen
+                              </DropdownMenuItem>
+                            </DropdownMenuContent>
+                          </DropdownMenu>
                         </td>
                       </tr>
                     ))}
@@ -896,6 +1007,153 @@ const SuperAdmin = () => {
           {renderContent()}
         </div>
       </main>
+
+      {/* Kunde Erstellen/Bearbeiten Dialog */}
+      <Dialog open={kundeModalOpen} onOpenChange={setKundeModalOpen}>
+        <DialogContent className="sm:max-w-lg rounded-2xl">
+          <DialogHeader>
+            <DialogTitle>{editingKunde ? "Kunde bearbeiten" : "Neuer Kunde"}</DialogTitle>
+            <DialogDescription>{editingKunde ? "Kundendaten aktualisieren" : "Neuen Kunden anlegen"}</DialogDescription>
+          </DialogHeader>
+          <div className="grid grid-cols-2 gap-4 py-4">
+            <div className="space-y-2">
+              <Label>Vorname</Label>
+              <Input value={kundeForm.vorname} onChange={e => setKundeForm(f => ({ ...f, vorname: e.target.value }))} className="rounded-xl" />
+            </div>
+            <div className="space-y-2">
+              <Label>Nachname</Label>
+              <Input value={kundeForm.nachname} onChange={e => setKundeForm(f => ({ ...f, nachname: e.target.value }))} className="rounded-xl" />
+            </div>
+            <div className="space-y-2">
+              <Label>E-Mail</Label>
+              <Input type="email" value={kundeForm.email} onChange={e => setKundeForm(f => ({ ...f, email: e.target.value }))} className="rounded-xl" />
+            </div>
+            <div className="space-y-2">
+              <Label>Telefon</Label>
+              <Input value={kundeForm.telefon} onChange={e => setKundeForm(f => ({ ...f, telefon: e.target.value }))} className="rounded-xl" />
+            </div>
+            <div className="space-y-2">
+              <Label>Geburtsdatum</Label>
+              <Input value={kundeForm.geburtsdatum} onChange={e => setKundeForm(f => ({ ...f, geburtsdatum: e.target.value }))} placeholder="TT.MM.JJJJ" className="rounded-xl" />
+            </div>
+            <div className="space-y-2">
+              <Label>Geschlecht</Label>
+              <Select value={kundeForm.geschlecht} onValueChange={v => setKundeForm(f => ({ ...f, geschlecht: v }))}>
+                <SelectTrigger className="rounded-xl"><SelectValue /></SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="männlich">Männlich</SelectItem>
+                  <SelectItem value="weiblich">Weiblich</SelectItem>
+                  <SelectItem value="divers">Divers</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+            <div className="space-y-2 col-span-2">
+              <Label>Straße</Label>
+              <Input value={kundeForm.strasse} onChange={e => setKundeForm(f => ({ ...f, strasse: e.target.value }))} className="rounded-xl" />
+            </div>
+            <div className="space-y-2">
+              <Label>Stadt</Label>
+              <Input value={kundeForm.stadt} onChange={e => setKundeForm(f => ({ ...f, stadt: e.target.value }))} className="rounded-xl" />
+            </div>
+            <div className="space-y-2">
+              <Label>PLZ</Label>
+              <Input value={kundeForm.plz} onChange={e => setKundeForm(f => ({ ...f, plz: e.target.value }))} className="rounded-xl" />
+            </div>
+          </div>
+          <DialogFooter>
+            <Button variant="outline" onClick={() => setKundeModalOpen(false)} className="rounded-xl">Abbrechen</Button>
+            <Button onClick={saveKunde} className="rounded-xl bg-gradient-to-r from-primary to-primary/80">{editingKunde ? "Speichern" : "Erstellen"}</Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
+      {/* Kunde Löschen Dialog */}
+      <AlertDialog open={kundeDeleteOpen} onOpenChange={setKundeDeleteOpen}>
+        <AlertDialogContent className="rounded-2xl">
+          <AlertDialogHeader>
+            <AlertDialogTitle>Kunde löschen?</AlertDialogTitle>
+            <AlertDialogDescription>
+              Dieser Kunde wird unwiderruflich gelöscht. Diese Aktion kann nicht rückgängig gemacht werden.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel className="rounded-xl">Abbrechen</AlertDialogCancel>
+            <AlertDialogAction onClick={deleteKunde} className="rounded-xl bg-destructive hover:bg-destructive/90">Löschen</AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
+
+      {/* Unternehmen Erstellen/Bearbeiten Dialog */}
+      <Dialog open={unternehmenModalOpen} onOpenChange={setUnternehmenModalOpen}>
+        <DialogContent className="sm:max-w-lg rounded-2xl">
+          <DialogHeader>
+            <DialogTitle>{editingUnternehmen ? "Unternehmen bearbeiten" : "Neues Unternehmen"}</DialogTitle>
+            <DialogDescription>{editingUnternehmen ? "Unternehmensdaten aktualisieren" : "Neues Unternehmen anlegen"}</DialogDescription>
+          </DialogHeader>
+          <div className="grid grid-cols-2 gap-4 py-4">
+            <div className="space-y-2 col-span-2">
+              <Label>Unternehmensname</Label>
+              <Input value={unternehmenForm.name} onChange={e => setUnternehmenForm(f => ({ ...f, name: e.target.value }))} className="rounded-xl" />
+            </div>
+            <div className="space-y-2">
+              <Label>Vorname (Inhaber)</Label>
+              <Input value={unternehmenForm.vorname} onChange={e => setUnternehmenForm(f => ({ ...f, vorname: e.target.value }))} className="rounded-xl" />
+            </div>
+            <div className="space-y-2">
+              <Label>Nachname (Inhaber)</Label>
+              <Input value={unternehmenForm.nachname} onChange={e => setUnternehmenForm(f => ({ ...f, nachname: e.target.value }))} className="rounded-xl" />
+            </div>
+            <div className="space-y-2">
+              <Label>E-Mail</Label>
+              <Input type="email" value={unternehmenForm.email} onChange={e => setUnternehmenForm(f => ({ ...f, email: e.target.value }))} className="rounded-xl" />
+            </div>
+            <div className="space-y-2">
+              <Label>Telefon</Label>
+              <Input value={unternehmenForm.telefon} onChange={e => setUnternehmenForm(f => ({ ...f, telefon: e.target.value }))} className="rounded-xl" />
+            </div>
+            <div className="space-y-2">
+              <Label>Mobil</Label>
+              <Input value={unternehmenForm.mobil} onChange={e => setUnternehmenForm(f => ({ ...f, mobil: e.target.value }))} className="rounded-xl" />
+            </div>
+            <div className="space-y-2">
+              <Label>Amtsgericht</Label>
+              <Input value={unternehmenForm.amtsgericht} onChange={e => setUnternehmenForm(f => ({ ...f, amtsgericht: e.target.value }))} className="rounded-xl" />
+            </div>
+            <div className="space-y-2 col-span-2">
+              <Label>Straße</Label>
+              <Input value={unternehmenForm.strasse} onChange={e => setUnternehmenForm(f => ({ ...f, strasse: e.target.value }))} className="rounded-xl" />
+            </div>
+            <div className="space-y-2">
+              <Label>Stadt</Label>
+              <Input value={unternehmenForm.stadt} onChange={e => setUnternehmenForm(f => ({ ...f, stadt: e.target.value }))} className="rounded-xl" />
+            </div>
+            <div className="space-y-2">
+              <Label>PLZ</Label>
+              <Input value={unternehmenForm.plz} onChange={e => setUnternehmenForm(f => ({ ...f, plz: e.target.value }))} className="rounded-xl" />
+            </div>
+          </div>
+          <DialogFooter>
+            <Button variant="outline" onClick={() => setUnternehmenModalOpen(false)} className="rounded-xl">Abbrechen</Button>
+            <Button onClick={saveUnternehmen} className="rounded-xl bg-gradient-to-r from-primary to-primary/80">{editingUnternehmen ? "Speichern" : "Erstellen"}</Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
+      {/* Unternehmen Löschen Dialog */}
+      <AlertDialog open={unternehmenDeleteOpen} onOpenChange={setUnternehmenDeleteOpen}>
+        <AlertDialogContent className="rounded-2xl">
+          <AlertDialogHeader>
+            <AlertDialogTitle>Unternehmen löschen?</AlertDialogTitle>
+            <AlertDialogDescription>
+              Dieses Unternehmen wird unwiderruflich gelöscht. Diese Aktion kann nicht rückgängig gemacht werden.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel className="rounded-xl">Abbrechen</AlertDialogCancel>
+            <AlertDialogAction onClick={deleteUnternehmen} className="rounded-xl bg-destructive hover:bg-destructive/90">Löschen</AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </div>
   );
 };
