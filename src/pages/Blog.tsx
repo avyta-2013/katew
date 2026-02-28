@@ -19,11 +19,9 @@ import { Footer } from "@/components/Footer";
 import { Link } from "react-router-dom";
 
 const categories = [
-  { name: "Alle", count: 12 },
-  { name: "Branchennews", count: 4 },
-  { name: "Tipps & Ratgeber", count: 3 },
-  { name: "Digitalisierung", count: 3 },
-  { name: "Erfolgsgeschichten", count: 2 },
+  { name: "Alle", count: 2 },
+  { name: "Tipps & Ratgeber", count: 1 },
+  { name: "Digitalisierung", count: 1 },
 ];
 
 const featuredPost = {
@@ -32,7 +30,7 @@ const featuredPost = {
   category: "Digitalisierung",
   author: "Dr. Maria Schmidt",
   date: "15. Januar 2025",
-  readTime: "8 Min.",
+  readTime: "12 Min.",
   image: "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=1200&h=600&fit=crop",
 };
 
@@ -46,80 +44,6 @@ const posts = [
     readTime: "12 Min.",
     image: "https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=600&h=400&fit=crop",
     slug: "krankenfahrt-richtig-beantragen",
-  },
-  {
-    title: "Krankentransport Kosten: Was kostet ein Krankentransport?",
-    excerpt: "Alle Kosten für Krankentransport, Krankenfahrt und Rettungswagen im Überblick – mit Tipps zur Kostenübernahme.",
-    category: "Tipps & Ratgeber",
-    author: "Redaktion katew",
-    date: "28. Februar 2026",
-    readTime: "13 Min.",
-    image: "https://images.unsplash.com/photo-1516574187841-cb9cc2ca948b?w=600&h=400&fit=crop",
-    slug: "krankentransport-kosten",
-  },
-  {
-    title: "5 Tipps für die optimale Vorbereitung auf eine Krankenfahrt",
-    excerpt: "Praktische Ratschläge für Patienten und Angehörige zur Vorbereitung auf den Transport.",
-    category: "Tipps & Ratgeber",
-    author: "Thomas Müller",
-    date: "10. Januar 2025",
-    readTime: "5 Min.",
-    image: "https://images.unsplash.com/photo-1516574187841-cb9cc2ca948b?w=600&h=400&fit=crop",
-  },
-  {
-    title: "Neue Regelungen für Krankenfahrten ab 2025",
-    excerpt: "Wichtige Änderungen bei der Kostenübernahme und Verordnung von Krankenfahrten.",
-    category: "Branchennews",
-    author: "Anna Weber",
-    date: "5. Januar 2025",
-    readTime: "6 Min.",
-    image: "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=600&h=400&fit=crop",
-  },
-  {
-    title: "Erfolgsgeschichte: Klinikum Musterstadt spart 30% Transportkosten",
-    excerpt: "Wie ein Krankenhaus durch die digitale Transportkoordination erheblich profitiert.",
-    category: "Erfolgsgeschichten",
-    author: "Dr. Maria Schmidt",
-    date: "28. Dezember 2024",
-    readTime: "7 Min.",
-    image: "https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?w=600&h=400&fit=crop",
-  },
-  {
-    title: "Barrierefreier Transport: Worauf es ankommt",
-    excerpt: "Alles Wichtige über Rollstuhl- und Liegetransporte für mobilitätseingeschränkte Patienten.",
-    category: "Tipps & Ratgeber",
-    author: "Petra Hoffmann",
-    date: "20. Dezember 2024",
-    readTime: "4 Min.",
-    image: "https://images.unsplash.com/photo-1576765608535-5f04d1e3f289?w=600&h=400&fit=crop",
-  },
-  {
-    title: "Interview: So arbeiten moderne Krankenfahrt-Unternehmen",
-    excerpt: "Ein Blick hinter die Kulissen eines zertifizierten Transportunternehmens.",
-    category: "Branchennews",
-    author: "Thomas Müller",
-    date: "15. Dezember 2024",
-    readTime: "10 Min.",
-    image: "https://images.unsplash.com/photo-1587745416684-47953f16f02f?w=600&h=400&fit=crop",
-  },
-  {
-    title: "Digitalisierung im Gesundheitswesen: Chancen für die Patientenbeförderung",
-    excerpt: "Wie die digitale Transformation das Gesundheitswesen verändert – von der ePA bis zur intelligenten Krankenfahrt-Buchung.",
-    category: "Digitalisierung",
-    author: "Redaktion katew",
-    date: "28. Februar 2026",
-    readTime: "14 Min.",
-    image: "https://images.unsplash.com/photo-1530497610245-94d3c16cda28?w=600&h=400&fit=crop",
-    slug: "digitalisierung-im-gesundheitswesen",
-  },
-  {
-    title: "KI und Machine Learning im Patientenfahrdienst",
-    excerpt: "Wie künstliche Intelligenz die Routenplanung und Disposition optimiert.",
-    category: "Digitalisierung",
-    author: "Dr. Maria Schmidt",
-    date: "10. Dezember 2024",
-    readTime: "9 Min.",
-    image: "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=600&h=400&fit=crop",
   },
 ];
 
@@ -337,18 +261,7 @@ export default function Blog() {
                 })}
               </div>
 
-              {/* Pagination */}
-              <div className="flex justify-center items-center gap-2 mt-12">
-                <Button variant="outline" size="icon" className="rounded-full">
-                  <ChevronLeft className="w-4 h-4" />
-                </Button>
-                <Button className="rounded-full bg-gradient-to-r from-primary to-secondary text-primary-foreground">1</Button>
-                <Button variant="outline" className="rounded-full">2</Button>
-                <Button variant="outline" className="rounded-full">3</Button>
-                <Button variant="outline" size="icon" className="rounded-full">
-                  <ChevronRight className="w-4 h-4" />
-                </Button>
-              </div>
+
             </div>
           </div>
         </section>
