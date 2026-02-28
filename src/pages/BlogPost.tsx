@@ -205,12 +205,30 @@ const blogPosts = {
     author: "Dr. Maria Schmidt",
     authorRole: "Head of Product",
     date: "15. Januar 2025",
-    readTime: "8 Min.",
+    readTime: "12 Min.",
     image: "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=1200&h=600&fit=crop",
     content: [
       {
         type: "paragraph",
-        text: "Die Digitalisierung hat in den letzten Jahren nahezu jeden Bereich unseres Lebens verändert – und das Gesundheitswesen bildet dabei keine Ausnahme. Insbesondere im Bereich der Krankenfahrten und Patientenlogistik eröffnen sich durch digitale Lösungen völlig neue Möglichkeiten, die sowohl für Patienten als auch für Gesundheitseinrichtungen und Transportunternehmen erhebliche Vorteile bieten."
+        text: "Die Digitalisierung hat in den letzten Jahren nahezu jeden Bereich unseres Lebens verändert – und das Gesundheitswesen bildet dabei keine Ausnahme. Insbesondere im Bereich der Krankenfahrten und Patientenlogistik eröffnen sich durch digitale Lösungen völlig neue Möglichkeiten, die sowohl für Patienten als auch für Gesundheitseinrichtungen und Transportunternehmen erhebliche Vorteile bieten. Doch wie sieht die Zukunft der Krankenfahrten konkret aus? Welche Technologien treiben den Wandel voran? Und was bedeutet das für Sie als Patient, Klinik oder Transportunternehmen?"
+      },
+      {
+        type: "heading",
+        text: "Der Status quo: Warum Krankenfahrten dringend Digitalisierung brauchen"
+      },
+      {
+        type: "paragraph",
+        text: "Jährlich werden in Deutschland über 70 Millionen Krankenfahrten durchgeführt – zu Dialysen, Chemotherapien, stationären Aufnahmen und ambulanten Behandlungen. Trotz dieser enormen Bedeutung ist die Organisation von Krankenfahrten in vielen Regionen noch erstaunlich analog: Buchungen per Telefon, Disposition per Fax, Dokumentation auf Papier. Das führt zu vermeidbaren Problemen."
+      },
+      {
+        type: "list",
+        items: [
+          "Lange Wartezeiten: Patienten verbringen oft 30–60 Minuten am Telefon, um einen Transport zu organisieren.",
+          "Fehlende Transparenz: Weder Patienten noch Kliniken wissen, wann der Transport eintrifft oder welche Kosten entstehen.",
+          "Ineffiziente Routenplanung: Ohne digitale Tools fahren Transporter häufig unnötige Umwege oder stehen lange leer.",
+          "Hoher Verwaltungsaufwand: Kliniken und Praxen investieren wertvolle Arbeitszeit in die manuelle Koordination von Fahrten.",
+          "Kommunikationsbrüche: Informationen gehen zwischen Arzt, Patient, Krankenkasse und Transportunternehmen verloren."
+        ]
       },
       {
         type: "heading",
@@ -221,41 +239,156 @@ const blogPosts = {
         text: "Traditionell war die Organisation von Krankenfahrten ein zeitaufwändiger und oft ineffizienter Prozess. Patienten oder ihre Angehörigen mussten telefonisch Transporte buchen, Kliniken koordinierten Fahrten über Fax oder E-Mail, und Transportunternehmen arbeiteten häufig mit papierbasierten Systemen. Dies führte nicht selten zu Wartezeiten, Kommunikationsproblemen und suboptimaler Routenplanung."
       },
       {
+        type: "paragraph",
+        text: "Ein besonders kritischer Punkt: verpasste Arzttermine. Studien zeigen, dass in Deutschland jährlich Millionen Arzttermine nicht wahrgenommen werden – ein erheblicher Teil davon aufgrund von Transportproblemen. Das belastet nicht nur die Patienten, sondern auch das gesamte Gesundheitssystem mit Kosten in Milliardenhöhe."
+      },
+      {
         type: "heading",
         text: "Wie digitale Plattformen die Patientenlogistik revolutionieren"
       },
       {
         type: "paragraph",
-        text: "Moderne digitale Plattformen wie katew setzen genau hier an und bieten eine ganzheitliche Lösung für alle Beteiligten. Durch die zentrale Bündelung von Buchungen, automatisierte Prozesse und intelligente Algorithmen wird die gesamte Prozesskette optimiert."
+        text: "Moderne digitale Plattformen wie katew setzen genau hier an und bieten eine ganzheitliche Lösung für alle Beteiligten. Durch die zentrale Bündelung von Buchungen, automatisierte Prozesse und intelligente Algorithmen wird die gesamte Prozesskette optimiert – von der Buchung über die Durchführung bis zur Abrechnung."
       },
       {
         type: "list",
         items: [
-          "Schnelle Online-Buchung: Patienten und Einrichtungen können Fahrten in Sekundenschnelle buchen.",
-          "Automatisierte Disposition: KI-gestützte Systeme optimieren Routen und Fahrzeugzuweisungen automatisch.",
-          "Digitale Dokumentation: Alle relevanten Unterlagen werden digital verwaltet und sind jederzeit abrufbar.",
-          "Nahtlose Integration: Schnittstellen zu Krankenhaus- und Praxissystemen ermöglichen einen reibungslosen Datenaustausch."
+          "Schnelle Online-Buchung: Patienten und Einrichtungen können Krankenfahrten in wenigen Minuten online buchen – rund um die Uhr, ohne Wartezeiten am Telefon.",
+          "Intelligente Disposition: Algorithmen optimieren Routen und Fahrzeugzuweisungen automatisch, sodass Leerfahrten minimiert und Kapazitäten optimal genutzt werden.",
+          "Digitale Dokumentation: Verordnungen, Abrechnungen und Fahrtprotokolle werden digital verwaltet und sind jederzeit abrufbar – revisionssicher und DSGVO-konform.",
+          "Nahtlose Integration: Schnittstellen zu Krankenhausinformationssystemen (KIS) und Praxissoftware ermöglichen einen reibungslosen Datenaustausch ohne Medienbrüche.",
+          "Transparente Preise: Patienten und Einrichtungen sehen sofort die Kosten und können Angebote verschiedener Anbieter vergleichen."
         ]
       },
       {
         type: "heading",
-        text: "Vorteile für alle Beteiligten"
+        text: "Vorteile für Patienten: Einfacher, schneller, stressfreier"
       },
       {
         type: "paragraph",
-        text: "Die Digitalisierung der Krankenfahrten bringt messbare Vorteile für alle Stakeholder. Patienten profitieren von kürzeren Wartezeiten und mehr Transparenz. Gesundheitseinrichtungen sparen administrative Aufwände und können sich auf ihre Kernaufgaben konzentrieren. Transportunternehmen arbeiten effizienter und können ihre Ressourcen besser auslasten."
+        text: "Für Patienten bedeutet die Digitalisierung der Krankenfahrten vor allem eines: weniger Stress. Statt telefonisch nach einem Transportunternehmen zu suchen, können sie online buchen, Preise vergleichen und den passenden Anbieter auswählen. Besonders für ältere oder mobilitätseingeschränkte Menschen ist das eine enorme Erleichterung."
+      },
+      {
+        type: "list",
+        items: [
+          "24/7 Buchungsmöglichkeit: Keine Einschränkung durch Bürozeiten – buchen Sie Ihren Transport, wann es Ihnen passt.",
+          "Weniger Papierkram: Verordnungen und Genehmigungen werden digital übermittelt.",
+          "Bessere Planbarkeit: Frühzeitige Reservierung und unkomplizierte Änderungen bei Terminverschiebungen.",
+          "Barrierefreiheit: Spezielle Anforderungen wie Rollstuhltransport oder Liegefahrten können direkt bei der Buchung angegeben werden.",
+          "Persönlicher Support: Bei Fragen steht der Kundenservice telefonisch und online zur Verfügung."
+        ]
       },
       {
         type: "heading",
-        text: "Ein Blick in die Zukunft"
+        text: "Vorteile für Kliniken und Arztpraxen: Effizienz statt Bürokratie"
       },
       {
         type: "paragraph",
-        text: "Die Entwicklung ist noch lange nicht abgeschlossen. Künstliche Intelligenz, prädiktive Analysen und die weitere Vernetzung im Gesundheitswesen werden die Patientenlogistik weiter verbessern. Wir bei katew arbeiten kontinuierlich daran, diese Technologien zu integrieren und die Zukunft der Krankenfahrten aktiv mitzugestalten."
+        text: "Krankenhäuser und Arztpraxen gehören zu den größten Profiteuren der Digitalisierung im Bereich Krankenfahrten. Die manuelle Koordination von Patiententransporten bindet wertvolle Ressourcen, die für die eigentliche Patientenversorgung fehlen. Digitale Plattformen schaffen hier spürbare Entlastung."
+      },
+      {
+        type: "list",
+        items: [
+          "Bis zu 70 % Zeitersparnis: Transporte werden mit wenigen Klicks gebucht statt über langwierige Telefonate.",
+          "Effizientere Entlassungsplanung: Patienten können schneller entlassen werden, weil der Transport zuverlässig organisiert ist.",
+          "Lückenlose Dokumentation: Alle Buchungen werden automatisch protokolliert und sind jederzeit nachvollziehbar.",
+          "Reduzierte Fehlerquote: Digitale Systeme minimieren Kommunikationsfehler und Verwechslungen.",
+          "Schnittstellenintegration: Anbindung an bestehende KIS-Systeme ohne aufwändige IT-Projekte."
+        ]
+      },
+      {
+        type: "heading",
+        text: "Vorteile für Transportunternehmen: Mehr Aufträge, bessere Auslastung"
       },
       {
         type: "paragraph",
-        text: "Die Digitalisierung im Gesundheitswesen ist kein Trend, sondern eine Notwendigkeit. Wer jetzt die Weichen stellt, wird von den Vorteilen einer vernetzten, effizienten und patientenzentrierten Gesundheitslogistik profitieren."
+        text: "Auch für Krankentransportunternehmen eröffnet die Digitalisierung erhebliche Chancen. Statt auf telefonische Auftragsannahme und manuelle Disposition zu setzen, können Unternehmen digitale Plattformen nutzen, um ihre Reichweite zu erhöhen und Prozesse zu optimieren."
+      },
+      {
+        type: "list",
+        items: [
+          "Neue Kundengruppen: Über Plattformen wie katew erreichen Unternehmen Patienten und Einrichtungen, die sie über klassische Kanäle nicht angesprochen hätten.",
+          "Optimierte Routenplanung: Intelligente Algorithmen helfen bei der optimalen Planung von Touren und minimieren Leerfahrten.",
+          "Automatisierte Abrechnung: Rechnungsstellung und Abrechnung mit Krankenkassen erfolgen digital und fehlerfrei.",
+          "Qualitäts- und Bewertungssystem: Kundenbewertungen helfen, den Service kontinuierlich zu verbessern und sich von Wettbewerbern abzuheben.",
+          "Weniger Administration: Mehr Zeit für den eigentlichen Transport, weniger für Büroarbeit."
+        ]
+      },
+      {
+        type: "heading",
+        text: "Technologien, die die Zukunft der Krankenfahrten prägen"
+      },
+      {
+        type: "paragraph",
+        text: "Die aktuelle Digitalisierung ist erst der Anfang. Mehrere Technologietrends werden die Krankenfahrten in den kommenden Jahren grundlegend verändern:"
+      },
+      {
+        type: "list",
+        items: [
+          "Künstliche Intelligenz (KI): KI-basierte Systeme können den Bedarf an Krankenfahrten vorhersagen, Routen in Echtzeit optimieren und die Disposition automatisieren.",
+          "Elektronische Patientenakte (ePA): Die Vernetzung von Patientendaten mit Transportbuchungen ermöglicht nahtlose Abläufe – von der Verordnung bis zur Abrechnung.",
+          "Interoperabilität (HL7 FHIR): Standardisierte Schnittstellen sorgen dafür, dass verschiedene Systeme im Gesundheitswesen reibungslos kommunizieren.",
+          "Mobile-First-Lösungen: Apps für Patienten und Fahrer machen die Buchung und Durchführung von Krankenfahrten noch einfacher und zugänglicher.",
+          "Datenanalyse und Reporting: Auswertungen über Fahrtvolumen, Kosten und Qualität helfen allen Beteiligten, fundierte Entscheidungen zu treffen."
+        ]
+      },
+      {
+        type: "heading",
+        text: "Datenschutz und Sicherheit: Die Grundlage des Vertrauens"
+      },
+      {
+        type: "paragraph",
+        text: "Bei der Digitalisierung im Gesundheitswesen spielt Datenschutz eine zentrale Rolle. Gesundheitsdaten gehören zu den sensibelsten personenbezogenen Daten und unterliegen strengen gesetzlichen Anforderungen – insbesondere der DSGVO und dem Patientendaten-Schutz-Gesetz (PDSG). Seriöse Plattformen wie katew setzen auf verschlüsselte Datenübertragung, zertifizierte Rechenzentren in Deutschland und strenge Zugriffskontrollen."
+      },
+      {
+        type: "heading",
+        text: "katew: Die Zukunft der Krankenfahrten gestalten"
+      },
+      {
+        type: "paragraph",
+        text: "Bei katew arbeiten wir täglich daran, die Patientenbeförderung einfacher, effizienter und zugänglicher zu machen. Unsere Plattform verbindet Patienten, Gesundheitseinrichtungen und Transportunternehmen auf einer digitalen Plattform – mit dem Ziel, dass kein Patient mehr einen wichtigen Arzttermin wegen Transportproblemen verpasst."
+      },
+      {
+        type: "list",
+        items: [
+          "Über 500 geprüfte Transportunternehmen deutschlandweit",
+          "Buchung in wenigen Minuten – online oder telefonisch",
+          "Direkte Abrechnung mit allen gesetzlichen Krankenkassen",
+          "Persönlicher Kundenservice für individuelle Anliegen",
+          "DSGVO-konform und nach höchsten Sicherheitsstandards entwickelt"
+        ]
+      },
+      {
+        type: "heading",
+        text: "Häufig gestellte Fragen (FAQ)"
+      },
+      {
+        type: "paragraph",
+        text: "Was versteht man unter der Digitalisierung von Krankenfahrten? – Die Digitalisierung von Krankenfahrten bedeutet den Einsatz digitaler Technologien für Buchung, Koordination, Durchführung und Abrechnung von Patiententransporten. Statt Telefon und Fax kommen Online-Plattformen, Apps und automatisierte Prozesse zum Einsatz."
+      },
+      {
+        type: "paragraph",
+        text: "Welche Vorteile hat die digitale Buchung von Krankenfahrten? – Patienten profitieren von schnellerer Buchung, transparenten Preisen und weniger Papierkram. Kliniken sparen bis zu 70 % Verwaltungsaufwand. Transportunternehmen optimieren ihre Auslastung und gewinnen neue Kunden."
+      },
+      {
+        type: "paragraph",
+        text: "Ist die Online-Buchung von Krankenfahrten sicher? – Ja. Plattformen wie katew arbeiten DSGVO-konform, nutzen verschlüsselte Datenübertragung und speichern Daten in zertifizierten deutschen Rechenzentren."
+      },
+      {
+        type: "paragraph",
+        text: "Können auch ältere Menschen die digitale Buchung nutzen? – Ja. Neben der Online-Buchung bieten Plattformen wie katew einen persönlichen telefonischen Kundenservice an. So wird niemand ausgeschlossen."
+      },
+      {
+        type: "paragraph",
+        text: "Wie wird sich die Krankenfahrten-Branche in den nächsten Jahren verändern? – Künstliche Intelligenz, die elektronische Patientenakte und standardisierte Schnittstellen werden die Branche weiter transformieren. Digitale Plattformen werden zum Standard für die Buchung und Koordination von Krankenfahrten."
+      },
+      {
+        type: "heading",
+        text: "Fazit: Die Zukunft der Krankenfahrten ist digital"
+      },
+      {
+        type: "paragraph",
+        text: "Die Digitalisierung der Krankenfahrten ist keine ferne Zukunftsvision – sie findet jetzt statt. Patienten buchen bequemer, Kliniken arbeiten effizienter und Transportunternehmen wirtschaften profitabler. Wer die Weichen heute stellt, profitiert morgen von einer vernetzten, effizienten und patientenzentrierten Gesundheitslogistik. Mit katew gestalten wir diese Zukunft aktiv mit – für alle Beteiligten."
       }
     ],
     relatedPosts: [
@@ -265,9 +398,9 @@ const blogPosts = {
         category: "Tipps & Ratgeber"
       },
       {
-        title: "Digitalisierung im Gesundheitswesen: Chancen für die Patientenbeförderung",
-        slug: "digitalisierung-im-gesundheitswesen",
-        category: "Digitalisierung"
+        title: "Krankentransport Kosten: Was kostet ein Krankentransport?",
+        slug: "krankentransport-kosten",
+        category: "Tipps & Ratgeber"
       }
     ]
   },
@@ -690,6 +823,16 @@ export default function BlogPost() {
       { "@type": "Question", "name": "Was passiert, wenn mein Antrag abgelehnt wird?", "acceptedAnswer": { "@type": "Answer", "text": "Sie können innerhalb eines Monats Widerspruch einlegen. Legen Sie eine ausführliche ärztliche Begründung bei." } },
       { "@type": "Question", "name": "Werden auch Fahrten zur Reha übernommen?", "acceptedAnswer": { "@type": "Answer", "text": "Ja, Fahrten zu stationären und ambulanten Rehabilitationsmaßnahmen werden in der Regel übernommen, sofern eine ärztliche Verordnung vorliegt." } },
       { "@type": "Question", "name": "Kann ein Angehöriger die Krankenfahrt beantragen?", "acceptedAnswer": { "@type": "Answer", "text": "Ja, Angehörige oder gesetzliche Betreuer können die Verordnung beim Arzt beantragen und bei der Krankenkasse einreichen." } }
+    ]
+  } : slug === "zukunft-krankenfahrten-digitalisierung" ? {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      { "@type": "Question", "name": "Was versteht man unter der Digitalisierung von Krankenfahrten?", "acceptedAnswer": { "@type": "Answer", "text": "Die Digitalisierung von Krankenfahrten bedeutet den Einsatz digitaler Technologien für Buchung, Koordination, Durchführung und Abrechnung von Patiententransporten." } },
+      { "@type": "Question", "name": "Welche Vorteile hat die digitale Buchung von Krankenfahrten?", "acceptedAnswer": { "@type": "Answer", "text": "Patienten profitieren von schnellerer Buchung, transparenten Preisen und weniger Papierkram. Kliniken sparen bis zu 70 % Verwaltungsaufwand." } },
+      { "@type": "Question", "name": "Ist die Online-Buchung von Krankenfahrten sicher?", "acceptedAnswer": { "@type": "Answer", "text": "Ja. Plattformen wie katew arbeiten DSGVO-konform, nutzen verschlüsselte Datenübertragung und speichern Daten in zertifizierten deutschen Rechenzentren." } },
+      { "@type": "Question", "name": "Können auch ältere Menschen die digitale Buchung nutzen?", "acceptedAnswer": { "@type": "Answer", "text": "Ja. Neben der Online-Buchung bieten Plattformen wie katew einen persönlichen telefonischen Kundenservice an." } },
+      { "@type": "Question", "name": "Wie wird sich die Krankenfahrten-Branche verändern?", "acceptedAnswer": { "@type": "Answer", "text": "KI, die elektronische Patientenakte und standardisierte Schnittstellen werden die Branche weiter transformieren. Digitale Plattformen werden zum Standard." } }
     ]
   } : slug === "digitalisierung-im-gesundheitswesen" ? {
     "@context": "https://schema.org",
