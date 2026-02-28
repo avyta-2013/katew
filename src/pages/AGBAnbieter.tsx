@@ -1,4 +1,4 @@
-import { Scale, Truck, FileCheck, CreditCard, AlertTriangle, Shield, Gavel, Clock, UserPlus, CheckCircle } from "lucide-react";
+import { Truck, AlertTriangle, Shield, Gavel, Clock, UserPlus, CreditCard, FileText, Ban, Star, Lock, Eye } from "lucide-react";
 import { 
   LegalPageLayout, 
   LegalSection,
@@ -7,122 +7,60 @@ import {
 import { Link } from "react-router-dom";
 
 const sections = [
-  { id: "geltungsbereich", title: "§ 1 Geltungsbereich" },
-  { id: "vertragsgegenstand", title: "§ 2 Vertragsgegenstand" },
-  { id: "registrierung", title: "§ 3 Registrierung als Anbieter" },
-  { id: "qualitaet", title: "§ 4 Qualitätsanforderungen" },
-  { id: "pflichten", title: "§ 5 Pflichten des Anbieters" },
-  { id: "verguetung", title: "§ 6 Vergütung & Provision" },
-  { id: "haftung", title: "§ 7 Haftung & Versicherung" },
-  { id: "datenschutz", title: "§ 8 Datenschutz" },
-  { id: "laufzeit", title: "§ 9 Laufzeit & Kündigung" },
-  { id: "schlussbestimmungen", title: "§ 10 Schlussbestimmungen" },
+  { id: "vertragsgegenstand", title: "§ 1 Vertragsgegenstand" },
+  { id: "selbststaendigkeit", title: "§ 2 Selbstständigkeit" },
+  { id: "voraussetzungen", title: "§ 3 Rechtliche Voraussetzungen" },
+  { id: "vermittlung", title: "§ 4 Vermittlungsmechanismus" },
+  { id: "verguetung", title: "§ 5 Vergütung" },
+  { id: "abrechnung", title: "§ 6 Abrechnung" },
+  { id: "stornierung", title: "§ 7 Stornierungen" },
+  { id: "umgehungsverbot", title: "§ 8 Umgehungsverbot" },
+  { id: "haftung", title: "§ 9 Haftung" },
+  { id: "qualitaet", title: "§ 10 Qualitätssicherung" },
+  { id: "datenschutz", title: "§ 11 Datenschutz" },
+  { id: "laufzeit", title: "§ 12 Vertragslaufzeit" },
+  { id: "geheimhaltung", title: "§ 13 Geheimhaltung" },
+  { id: "schlussbestimmungen", title: "§ 14 Schlussbestimmungen" },
 ];
 
 export default function AGBAnbieter() {
   return (
     <LegalPageLayout
-      title="AGB für Anbieter"
-      subtitle="Allgemeine Geschäftsbedingungen für Beförderungsunternehmen auf der katew Plattform"
+      title="Vermittlungsvertrag"
+      subtitle="Allgemeine Geschäftsbedingungen für Fahrunternehmen auf der katew Plattform"
       badge="Anbieter-AGB"
       icon={<Truck className="w-10 h-10 text-primary" />}
       lastUpdated="Februar 2026"
       sections={sections}
     >
-      <LegalSection id="geltungsbereich" title="§ 1 Geltungsbereich">
-        <div className="space-y-4">
-          <div className="flex gap-4">
-            <span className="flex-shrink-0 w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center text-primary font-bold text-sm">1</span>
-            <p>
-              Diese Allgemeinen Geschäftsbedingungen (nachfolgend „Anbieter-AGB") gelten für alle Verträge zwischen der katew GmbH (nachfolgend „katew") und Beförderungsunternehmen (nachfolgend „Anbieter"), die über die katew Plattform Krankenfahrten durchführen.
-            </p>
-          </div>
-          <div className="flex gap-4">
-            <span className="flex-shrink-0 w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center text-primary font-bold text-sm">2</span>
-            <p>
-              Anbieter im Sinne dieser AGB sind zugelassene Krankenfahrtunternehmen, die über die erforderlichen Genehmigungen und Konzessionen verfügen.
-            </p>
-          </div>
-          <div className="flex gap-4">
-            <span className="flex-shrink-0 w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center text-primary font-bold text-sm">3</span>
-            <p>
-              Abweichende Bedingungen des Anbieters werden nicht anerkannt, es sei denn, katew stimmt ihrer Geltung ausdrücklich schriftlich zu.
-            </p>
-          </div>
-        </div>
-      </LegalSection>
-
-      <LegalSection id="vertragsgegenstand" title="§ 2 Vertragsgegenstand">
-        <LegalInfoCard icon={<Truck className="w-5 h-5" />}>
-          <p className="font-medium text-foreground mb-2">Vermittlungsmodell</p>
-          <p>
-            katew betreibt eine digitale Vermittlungsplattform für Krankenfahrten. Über die Plattform werden dem Anbieter Fahrtanfragen von Kunden und Partnern vermittelt. Der Anbieter entscheidet eigenständig über die Annahme von Aufträgen.
-          </p>
-        </LegalInfoCard>
-
-        <div className="mt-4 p-4 bg-amber-500/10 border border-amber-500/20 rounded-xl">
-          <div className="flex items-start gap-3">
-            <AlertTriangle className="w-5 h-5 text-amber-600 mt-0.5 flex-shrink-0" />
-            <p className="text-sm">
-              <span className="font-medium text-foreground">Wichtig:</span> Der Beförderungsvertrag kommt direkt zwischen dem Anbieter und dem Kunden/Patienten zustande. katew ist ausschließlich Vermittler.
-            </p>
-          </div>
-        </div>
-      </LegalSection>
-
-      <LegalSection id="registrierung" title="§ 3 Registrierung als Anbieter">
-        <LegalInfoCard icon={<UserPlus className="w-5 h-5" />}>
-          <p>
-            Die Nutzung der Plattform als Anbieter setzt eine Registrierung, Prüfung und Freischaltung durch katew voraus.
-          </p>
-        </LegalInfoCard>
-
-        <div className="mt-6 p-5 bg-muted/30 rounded-xl border border-border/50">
-          <h4 className="font-medium text-foreground mb-4 flex items-center gap-2">
-            <Shield className="w-4 h-4 text-primary" />
-            Voraussetzungen für die Registrierung
-          </h4>
-          <ul className="space-y-3">
-            {[
-              "Gültige Konzession nach § 49 PBefG für Krankenfahrten",
-              "Nachweis einer Betriebshaftpflichtversicherung",
-              "Gewerbeanmeldung und Handelsregistereintrag",
-              "Nachweis über qualifiziertes Fahrpersonal",
-              "Fahrzeuge mit gültiger HU und erforderlicher Ausstattung",
-            ].map((item, i) => (
-              <li key={i} className="flex items-start gap-3">
-                <div className="w-2 h-2 rounded-full bg-primary mt-2 flex-shrink-0" />
-                <span>{item}</span>
-              </li>
-            ))}
-          </ul>
-        </div>
-      </LegalSection>
-
-      <LegalSection id="qualitaet" title="§ 4 Qualitätsanforderungen">
+      {/* Header Info */}
+      <div className="mb-10 p-6 bg-gradient-to-br from-primary/5 via-secondary/5 to-primary/5 rounded-2xl border border-primary/20">
+        <p className="text-sm text-muted-foreground mb-4 font-medium">Zwischen:</p>
         <div className="grid sm:grid-cols-2 gap-4">
-          {[
-            { title: "Fahrzeugstandards", desc: "Alle Fahrzeuge müssen den gesetzlichen Anforderungen für Krankenfahrten entsprechen" },
-            { title: "Personal", desc: "Fahrer müssen über gültige Personenbeförderungsscheine und Erste-Hilfe-Ausbildung verfügen" },
-            { title: "Pünktlichkeit", desc: "Einhaltung der vereinbarten Abhol- und Ankunftszeiten mit max. 15 Min. Toleranz" },
-            { title: "Hygiene", desc: "Regelmäßige Reinigung und Desinfektion der Fahrzeuge nach geltenden Standards" },
-          ].map((item, i) => (
-            <div key={i} className="p-4 bg-gradient-to-br from-primary/5 to-secondary/5 border border-primary/20 rounded-xl">
-              <p className="font-medium text-foreground mb-1">{item.title}</p>
-              <p className="text-sm">{item.desc}</p>
-            </div>
-          ))}
+          <div className="p-4 bg-card/80 rounded-xl border border-border/50">
+            <p className="font-bold text-foreground">AVYTA GmbH</p>
+            <p className="text-sm text-muted-foreground">Allerheiligentor 2–4, 60311 Frankfurt am Main</p>
+            <p className="text-sm text-muted-foreground">HRB 96683 – AG Frankfurt am Main</p>
+            <p className="text-sm text-muted-foreground">Geschäftsführer: Dino Lalic</p>
+            <p className="text-xs text-primary font-medium mt-2">– nachfolgend „katew" –</p>
+          </div>
+          <div className="p-4 bg-card/80 rounded-xl border border-border/50">
+            <p className="font-bold text-foreground">[Name Fahrunternehmen]</p>
+            <p className="text-sm text-muted-foreground">[Adresse]</p>
+            <p className="text-sm text-muted-foreground">[Registerdaten, sofern vorhanden]</p>
+            <p className="text-xs text-primary font-medium mt-2">– nachfolgend „Fahrunternehmen" –</p>
+          </div>
         </div>
-      </LegalSection>
+      </div>
 
-      <LegalSection id="pflichten" title="§ 5 Pflichten des Anbieters">
+      <LegalSection id="vertragsgegenstand" title="§ 1 Vertragsgegenstand">
         <div className="space-y-4">
           {[
-            "Der Anbieter führt die vermittelten Fahrten fachgerecht, pünktlich und unter Einhaltung aller gesetzlichen Vorschriften durch.",
-            "Der Anbieter hält seine Verfügbarkeiten auf der Plattform aktuell und nimmt nur Aufträge an, die er zuverlässig erfüllen kann.",
-            "Der Anbieter behandelt Patientendaten vertraulich und gemäß den Anforderungen der DSGVO.",
-            "Der Anbieter meldet Zwischenfälle, Verspätungen oder Ausfälle unverzüglich über die Plattform.",
-            "Der Anbieter stellt sicher, dass alle eingesetzten Fahrzeuge und Mitarbeiter ordnungsgemäß versichert sind.",
+            "katew betreibt eine digitale Vermittlungsplattform für Kranken- und Patientenfahrten.",
+            "Gegenstand dieses Vertrages ist die Vermittlung von Fahrtanfragen an das Fahrunternehmen.",
+            "katew erbringt selbst keine Beförderungsleistungen.",
+            "Der Beförderungsvertrag kommt ausschließlich zwischen dem jeweiligen Kunden (Patient, Einrichtung, Kostenträger) und dem Fahrunternehmen zustande.",
+            "katew ist nicht Vertragspartner des Beförderungsvertrages.",
           ].map((text, i) => (
             <div key={i} className="flex gap-4">
               <span className="flex-shrink-0 w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center text-primary font-bold text-sm">{i + 1}</span>
@@ -132,107 +70,236 @@ export default function AGBAnbieter() {
         </div>
       </LegalSection>
 
-      <LegalSection id="verguetung" title="§ 6 Vergütung & Provision">
-        <LegalInfoCard icon={<CreditCard className="w-5 h-5" />}>
-          <p className="font-medium text-foreground mb-2">Provisionsmodell</p>
-          <p>
-            Für jede über die Plattform erfolgreich vermittelte und durchgeführte Fahrt erhebt katew eine Vermittlungsprovision. Die Höhe der Provision wird im individuellen Anbietervertrag festgelegt.
-          </p>
-        </LegalInfoCard>
+      <LegalSection id="selbststaendigkeit" title="§ 2 Selbstständigkeit">
+        <div className="space-y-4">
+          {[
+            "Das Fahrunternehmen handelt rechtlich und wirtschaftlich selbstständig.",
+            "Es besteht weder ein Arbeitsverhältnis noch eine gesellschaftsrechtliche Verbindung.",
+            "Das Fahrunternehmen ist nicht berechtigt, im Namen von katew Erklärungen abzugeben.",
+          ].map((text, i) => (
+            <div key={i} className="flex gap-4">
+              <span className="flex-shrink-0 w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center text-primary font-bold text-sm">{i + 1}</span>
+              <p>{text}</p>
+            </div>
+          ))}
+        </div>
+      </LegalSection>
 
-        <div className="mt-6 p-5 bg-muted/30 rounded-xl border border-border/50">
-          <h4 className="font-medium text-foreground mb-4">Abrechnungsdetails</h4>
+      <LegalSection id="voraussetzungen" title="§ 3 Rechtliche Voraussetzungen">
+        <LegalInfoCard icon={<UserPlus className="w-5 h-5" />}>
+          <p className="font-medium text-foreground mb-2">Das Fahrunternehmen versichert:</p>
+        </LegalInfoCard>
+        <div className="mt-4 p-5 bg-muted/30 rounded-xl border border-border/50">
           <ul className="space-y-3">
             {[
-              "Monatliche Abrechnung der Vermittlungsprovisionen",
-              "Zahlungsziel: 14 Tage nach Rechnungsstellung",
-              "Transparente Aufstellung aller vermittelten Fahrten",
-              "Automatische Rechnungserstellung über die Plattform",
+              "Im Besitz einer gültigen Genehmigung nach PBefG zu sein",
+              "Sämtliche gesetzlichen Vorschriften einzuhalten",
+              "Über eine gültige Haftpflichtversicherung zu verfügen",
+              "Ausschließlich geeignetes und geschultes Personal einzusetzen",
+              'Keine geschützten Begriffe wie „Krankentransport" unzulässig zu verwenden',
+              "Keine irreführende Werbung im Zusammenhang mit katew zu betreiben",
             ].map((item, i) => (
               <li key={i} className="flex items-start gap-3">
-                <CheckCircle className="w-4 h-4 text-primary mt-0.5 flex-shrink-0" />
-                <span className="text-sm">{item}</span>
+                <div className="w-2 h-2 rounded-full bg-primary mt-2 flex-shrink-0" />
+                <span>{item}</span>
               </li>
             ))}
           </ul>
         </div>
-      </LegalSection>
-
-      <LegalSection id="haftung" title="§ 7 Haftung & Versicherung">
-        <div className="space-y-4">
-          <div className="flex gap-4">
-            <span className="flex-shrink-0 w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center text-primary font-bold text-sm">1</span>
-            <p>
-              Der Anbieter haftet vollumfänglich für die ordnungsgemäße Durchführung der Beförderung und für alle Schäden, die im Zusammenhang mit der Beförderung entstehen.
-            </p>
-          </div>
-          <div className="flex gap-4">
-            <span className="flex-shrink-0 w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center text-primary font-bold text-sm">2</span>
-            <p>
-              Der Anbieter ist verpflichtet, eine Betriebshaftpflichtversicherung mit einer Deckungssumme von mindestens 3 Millionen Euro für Personen- und Sachschäden vorzuhalten.
-            </p>
-          </div>
-          <div className="flex gap-4">
-            <span className="flex-shrink-0 w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center text-primary font-bold text-sm">3</span>
-            <p>
-              katew haftet nicht für Schäden, die durch den Anbieter oder dessen Erfüllungsgehilfen verursacht werden.
-            </p>
-          </div>
-        </div>
-      </LegalSection>
-
-      <LegalSection id="datenschutz" title="§ 8 Datenschutz">
-        <LegalInfoCard icon={<Shield className="w-5 h-5" />}>
-          <p>
-            Der Anbieter verpflichtet sich, alle über die Plattform erhaltenen personenbezogenen Daten gemäß DSGVO zu verarbeiten. Für die Verarbeitung von Patientendaten wird ein separater Auftragsverarbeitungsvertrag (AVV) geschlossen.
-          </p>
-        </LegalInfoCard>
-        <p className="mt-4">
-          Ausführliche Informationen finden Sie in unserer{" "}
-          <Link to="/datenschutz" className="text-primary hover:underline font-medium">
-            Datenschutzerklärung
-          </Link>.
+        <p className="mt-4 text-sm">
+          Nachweise sind auf Verlangen vorzulegen.
         </p>
       </LegalSection>
 
-      <LegalSection id="laufzeit" title="§ 9 Laufzeit & Kündigung">
-        <LegalInfoCard icon={<Clock className="w-5 h-5" />}>
+      <LegalSection id="vermittlung" title="§ 4 Vermittlungsmechanismus">
+        <div className="space-y-4">
+          {[
+            "Fahrtanfragen werden automatisiert nach fairen, diskriminierungsfreien Kriterien verteilt.",
+            "Ein Anspruch auf bestimmte Vermittlungsvolumina besteht nicht.",
+            'Angaben zur Vermittlungsdauer („in der Regel unter 5 Minuten") stellen keine Garantie dar.',
+          ].map((text, i) => (
+            <div key={i} className="flex gap-4">
+              <span className="flex-shrink-0 w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center text-primary font-bold text-sm">{i + 1}</span>
+              <p>{text}</p>
+            </div>
+          ))}
+        </div>
+      </LegalSection>
+
+      <LegalSection id="verguetung" title="§ 5 Vergütung">
+        <LegalInfoCard icon={<CreditCard className="w-5 h-5" />}>
+          <p className="font-medium text-foreground mb-2">Provisionsmodell</p>
           <p>
-            Der Anbietervertrag wird auf unbestimmte Zeit geschlossen und kann von beiden Seiten mit einer Frist von 1 Monat zum Monatsende schriftlich gekündigt werden.
+            Für jede erfolgreich vermittelte Buchung zahlt das Fahrunternehmen an katew eine Provision in Höhe von:
           </p>
         </LegalInfoCard>
+
+        <div className="mt-4 p-5 bg-gradient-to-r from-primary/10 to-secondary/10 border border-primary/20 rounded-xl text-center">
+          <p className="text-2xl font-bold text-foreground">3,69 € netto</p>
+          <p className="text-sm text-muted-foreground mt-1">pro Buchung, zzgl. gesetzlicher Umsatzsteuer</p>
+        </div>
+
+        <div className="mt-6">
+          <p className="font-medium text-foreground mb-3">Eine Buchung gilt als provisionspflichtig, sobald:</p>
+          <div className="space-y-3">
+            {[
+              "Sie vom Fahrunternehmen angenommen wird",
+              "Die Fahrt durchgeführt wird",
+              "Ein Vertrag zwischen Kunde und Fahrunternehmen aufgrund der Vermittlung zustande kommt",
+            ].map((item, i) => (
+              <div key={i} className="flex items-start gap-3 p-3 bg-muted/30 rounded-xl border border-border/50">
+                <div className="w-2.5 h-2.5 rounded-full bg-gradient-to-r from-primary to-secondary mt-1.5 flex-shrink-0" />
+                <span className="text-sm">{item}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+
         <div className="mt-4 p-4 bg-amber-500/10 border border-amber-500/20 rounded-xl">
           <div className="flex items-start gap-3">
             <AlertTriangle className="w-5 h-5 text-amber-600 mt-0.5 flex-shrink-0" />
             <p className="text-sm">
-              katew behält sich das Recht vor, den Anbieter bei wiederholten Qualitätsmängeln, Beschwerden oder Verstößen gegen diese AGB mit sofortiger Wirkung von der Plattform auszuschließen.
+              Provisionen bleiben geschuldet, wenn das Fahrunternehmen den Vertrag unter Umgehung der Plattform abschließt.
             </p>
           </div>
         </div>
       </LegalSection>
 
-      <LegalSection id="schlussbestimmungen" title="§ 10 Schlussbestimmungen">
+      <LegalSection id="abrechnung" title="§ 6 Abrechnung">
+        <div className="space-y-4">
+          {[
+            "Die Abrechnung erfolgt monatlich.",
+            "katew stellt eine Rechnung über die provisionspflichtigen Buchungen.",
+            "Die Zahlungsfrist beträgt 14 Tage ab Rechnungsdatum.",
+            "Bei Zahlungsverzug ist katew berechtigt, weitere Vermittlungen auszusetzen.",
+          ].map((text, i) => (
+            <div key={i} className="flex gap-4">
+              <span className="flex-shrink-0 w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center text-primary font-bold text-sm">{i + 1}</span>
+              <p>{text}</p>
+            </div>
+          ))}
+        </div>
+      </LegalSection>
+
+      <LegalSection id="stornierung" title="§ 7 Stornierungen">
         <div className="space-y-4">
           <div className="flex gap-4">
             <span className="flex-shrink-0 w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center text-primary font-bold text-sm">1</span>
-            <p>Es gilt das Recht der Bundesrepublik Deutschland unter Ausschluss des UN-Kaufrechts.</p>
+            <p>Wird eine Fahrt vor Durchführung storniert, entfällt die Provision, sofern die Stornierung nicht vom Fahrunternehmen zu vertreten ist.</p>
           </div>
           <div className="flex gap-4">
             <span className="flex-shrink-0 w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center text-primary font-bold text-sm">2</span>
-            <p>Gerichtsstand für alle Streitigkeiten aus diesem Vertrag ist Frankfurt am Main.</p>
+            <p>Bei Stornierung durch das Fahrunternehmen bleibt die Provision geschuldet.</p>
+          </div>
+        </div>
+      </LegalSection>
+
+      <LegalSection id="umgehungsverbot" title="§ 8 Umgehungsverbot">
+        <LegalInfoCard icon={<Ban className="w-5 h-5" />}>
+          <div className="space-y-3">
+            <p>Das Fahrunternehmen verpflichtet sich, über katew vermittelte Kunden nicht systematisch außerhalb der Plattform abzuwickeln.</p>
+            <p>Bei schuldhafter Umgehung bleibt die Provision geschuldet.</p>
+          </div>
+        </LegalInfoCard>
+      </LegalSection>
+
+      <LegalSection id="haftung" title="§ 9 Haftung">
+        <div className="space-y-4">
+          <div className="flex gap-4">
+            <span className="flex-shrink-0 w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center text-primary font-bold text-sm">1</span>
+            <p>Das Fahrunternehmen haftet für die ordnungsgemäße Durchführung der Fahrten.</p>
           </div>
           <div className="flex gap-4">
-            <span className="flex-shrink-0 w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center text-primary font-bold text-sm">3</span>
-            <p>Sollten einzelne Bestimmungen unwirksam sein, bleibt die Wirksamkeit der übrigen Bestimmungen unberührt.</p>
+            <span className="flex-shrink-0 w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center text-primary font-bold text-sm">2</span>
+            <p>katew haftet ausschließlich für vorsätzliche oder grob fahrlässige Pflichtverletzungen im Rahmen der Vermittlung.</p>
           </div>
         </div>
 
-        <LegalInfoCard icon={<Gavel className="w-5 h-5" />}>
-          <p className="font-medium text-foreground">Salvatorische Klausel</p>
-          <p className="mt-1">
-            An Stelle der unwirksamen Bestimmung tritt eine wirksame Regelung, die dem wirtschaftlichen Zweck der unwirksamen Bestimmung am nächsten kommt.
+        <div className="mt-6 p-5 bg-muted/30 rounded-xl border border-border/50">
+          <h4 className="font-medium text-foreground mb-3">katew haftet nicht für:</h4>
+          <div className="grid sm:grid-cols-2 gap-3">
+            {[
+              "Durchführung der Fahrt",
+              "Verspätungen oder Ausfälle",
+              "Medizinische Betreuung",
+              "Preisgestaltung",
+              "Vertragsverletzungen des Fahrunternehmens",
+            ].map((item, i) => (
+              <div key={i} className="flex items-center gap-2 text-sm">
+                <div className="w-2 h-2 rounded-full bg-destructive" />
+                <span>{item}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <p className="mt-4">
+          Das Fahrunternehmen stellt katew von sämtlichen Ansprüchen Dritter frei, die aus der Durchführung der Fahrt resultieren.
+        </p>
+      </LegalSection>
+
+      <LegalSection id="qualitaet" title="§ 10 Qualitätssicherung & Bewertungen">
+        <LegalInfoCard icon={<Star className="w-5 h-5" />}>
+          <div className="space-y-3">
+            <p>katew ist berechtigt, ein Bewertungssystem zu betreiben.</p>
+            <p>Bei wiederholten erheblichen Beschwerden kann katew das Fahrunternehmen vorübergehend sperren oder kündigen.</p>
+          </div>
+        </LegalInfoCard>
+      </LegalSection>
+
+      <LegalSection id="datenschutz" title="§ 11 Datenschutz">
+        <div className="space-y-4">
+          <div className="flex gap-4">
+            <span className="flex-shrink-0 w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center text-primary font-bold text-sm">1</span>
+            <p>Beide Parteien sind eigenständige Verantwortliche im Sinne der DSGVO.</p>
+          </div>
+          <div className="flex gap-4">
+            <span className="flex-shrink-0 w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center text-primary font-bold text-sm">2</span>
+            <p>Das Fahrunternehmen verpflichtet sich zur vertraulichen Behandlung sämtlicher personenbezogener Daten.</p>
+          </div>
+          <div className="flex gap-4">
+            <span className="flex-shrink-0 w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center text-primary font-bold text-sm">3</span>
+            <p>Daten dürfen ausschließlich zur Durchführung der Fahrt verwendet werden.</p>
+          </div>
+        </div>
+        <p className="mt-4">
+          Ausführliche Informationen finden Sie in unserer{" "}
+          <Link to="/datenschutz" className="text-primary hover:underline font-medium">Datenschutzerklärung</Link>.
+        </p>
+      </LegalSection>
+
+      <LegalSection id="laufzeit" title="§ 12 Vertragslaufzeit">
+        <LegalInfoCard icon={<Clock className="w-5 h-5" />}>
+          <div className="space-y-3">
+            <p>Der Vertrag wird auf unbestimmte Zeit geschlossen.</p>
+            <p>Er kann von beiden Parteien mit einer Frist von einem Monat zum Monatsende gekündigt werden.</p>
+            <p>Das Recht zur außerordentlichen Kündigung bleibt unberührt.</p>
+          </div>
+        </LegalInfoCard>
+      </LegalSection>
+
+      <LegalSection id="geheimhaltung" title="§ 13 Geheimhaltung">
+        <LegalInfoCard icon={<Eye className="w-5 h-5" />}>
+          <p>
+            Vertrauliche Informationen sind vertraulich zu behandeln. Diese Pflicht besteht auch nach Vertragsende fort.
           </p>
         </LegalInfoCard>
+      </LegalSection>
+
+      <LegalSection id="schlussbestimmungen" title="§ 14 Schlussbestimmungen">
+        <div className="space-y-4">
+          {[
+            "Änderungen bedürfen der Textform.",
+            "Es gilt deutsches Recht.",
+            "Gerichtsstand ist Frankfurt am Main, soweit zulässig.",
+            "Sollten einzelne Bestimmungen unwirksam sein, bleibt der Vertrag im Übrigen wirksam.",
+          ].map((text, i) => (
+            <div key={i} className="flex gap-4">
+              <span className="flex-shrink-0 w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center text-primary font-bold text-sm">{i + 1}</span>
+              <p>{text}</p>
+            </div>
+          ))}
+        </div>
       </LegalSection>
     </LegalPageLayout>
   );
