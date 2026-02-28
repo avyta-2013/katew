@@ -55,11 +55,11 @@ export const Footer = () => {
                   </div>
                   <span className="text-sm">support@katew.de</span>
                 </a>
-                <a href="tel:+4915115561231" className="flex items-center gap-3 text-muted-foreground hover:text-primary transition-colors group">
+                <a href="tel:+496915045409" className="flex items-center gap-3 text-muted-foreground hover:text-primary transition-colors group">
                   <div className="w-9 h-9 rounded-lg bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
                     <Phone className="w-4 h-4 text-primary" />
                   </div>
-                  <span className="text-sm">+49 151 155 612 31</span>
+                  <span className="text-sm">+49 69 150 454 09</span>
                 </a>
               <div className="flex items-center gap-3 text-muted-foreground">
                   <div className="w-9 h-9 rounded-lg bg-secondary/10 flex items-center justify-center">

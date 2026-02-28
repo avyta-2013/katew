@@ -1,9 +1,8 @@
-import { Building2, MapPin, Phone, Mail, User, FileText, Scale, Link as LinkIcon, Copyright, Globe } from "lucide-react";
+import { Building2, MapPin, Phone, Mail, User, FileText, Scale, Globe, Info } from "lucide-react";
 import { 
   LegalPageLayout, 
   LegalSection, 
-  LegalInfoCard,
-  LegalLink 
+  LegalInfoCard 
 } from "@/components/LegalPageLayout";
 
 const sections = [
@@ -13,17 +12,14 @@ const sections = [
   { id: "register", title: "Registereintrag" },
   { id: "umsatzsteuer", title: "Umsatzsteuer-ID" },
   { id: "verantwortlich", title: "Verantwortlich für Inhalt" },
-  { id: "streitschlichtung", title: "Streitschlichtung" },
-  { id: "haftung-inhalte", title: "Haftung für Inhalte" },
-  { id: "haftung-links", title: "Haftung für Links" },
-  { id: "urheberrecht", title: "Urheberrecht" },
+  { id: "hinweis", title: "Hinweis zur Tätigkeit" },
 ];
 
 export default function Impressum() {
   return (
     <LegalPageLayout
       title="Impressum"
-      subtitle="Rechtliche Informationen und Kontaktdaten der katew GmbH"
+      subtitle="Rechtliche Informationen und Kontaktdaten der AVYTA GmbH"
       badge="Rechtliche Informationen"
       icon={<Building2 className="w-10 h-10 text-primary" />}
       lastUpdated="Februar 2026"
@@ -36,14 +32,14 @@ export default function Impressum() {
               <Building2 className="w-7 h-7 text-primary" />
             </div>
             <div className="space-y-1">
-              <p className="text-lg font-bold text-foreground">katew GmbH</p>
+              <p className="text-lg font-bold text-foreground">AVYTA GmbH</p>
               <div className="flex items-center gap-2 text-muted-foreground">
                 <MapPin className="w-4 h-4 text-primary/60" />
-                <span>Allerheiligentor 2-4</span>
+                <span>Allerheiligentor 2–4</span>
               </div>
               <div className="flex items-center gap-2 text-muted-foreground">
                 <span className="w-4" />
-                <span>60311 Frankfurt</span>
+                <span>60311 Frankfurt am Main</span>
               </div>
               <div className="flex items-center gap-2 text-muted-foreground">
                 <Globe className="w-4 h-4 text-primary/60" />
@@ -58,15 +54,6 @@ export default function Impressum() {
         <div className="grid sm:grid-cols-2 gap-4">
           <div className="group p-5 bg-card rounded-2xl border border-border/50 hover:border-primary/30 transition-all hover:shadow-lg hover:shadow-primary/5">
             <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
-              <Phone className="w-5 h-5 text-primary" />
-            </div>
-            <span className="text-xs uppercase tracking-wider text-muted-foreground font-medium">Telefon</span>
-            <a href="tel:+4915115561231" className="block mt-1 text-foreground font-semibold hover:text-primary transition-colors">
-              +49 151 155 612 31
-            </a>
-          </div>
-          <div className="group p-5 bg-card rounded-2xl border border-border/50 hover:border-primary/30 transition-all hover:shadow-lg hover:shadow-primary/5">
-            <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
               <Mail className="w-5 h-5 text-primary" />
             </div>
             <span className="text-xs uppercase tracking-wider text-muted-foreground font-medium">E-Mail</span>
@@ -74,10 +61,19 @@ export default function Impressum() {
               support@katew.de
             </a>
           </div>
+          <div className="group p-5 bg-card rounded-2xl border border-border/50 hover:border-primary/30 transition-all hover:shadow-lg hover:shadow-primary/5">
+            <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
+              <Phone className="w-5 h-5 text-primary" />
+            </div>
+            <span className="text-xs uppercase tracking-wider text-muted-foreground font-medium">Telefon</span>
+            <a href="tel:+496915045409" className="block mt-1 text-foreground font-semibold hover:text-primary transition-colors">
+              +49 69 150 454 09
+            </a>
+          </div>
         </div>
       </LegalSection>
 
-      <LegalSection id="vertreten" title="Vertreten durch">
+      <LegalSection id="vertreten" title="Vertreten durch den Geschäftsführer">
         <div className="p-5 bg-card rounded-2xl border border-border/50">
           <div className="flex items-center gap-4">
             <div className="w-12 h-12 rounded-full bg-gradient-to-br from-primary/20 to-secondary/20 flex items-center justify-center">
@@ -85,7 +81,7 @@ export default function Impressum() {
             </div>
             <div>
               <span className="text-xs uppercase tracking-wider text-muted-foreground font-medium">Geschäftsführer</span>
-              <p className="text-foreground font-semibold text-lg">Max Mustermann</p>
+              <p className="text-foreground font-semibold text-lg">Dino Lalic</p>
             </div>
           </div>
         </div>
@@ -106,7 +102,7 @@ export default function Impressum() {
                 </div>
                 <div className="p-3 bg-muted/30 rounded-xl">
                   <span className="text-xs uppercase tracking-wider text-muted-foreground">Registernummer</span>
-                  <p className="text-foreground font-medium font-mono mt-0.5">HRB 123456</p>
+                  <p className="text-foreground font-medium font-mono mt-0.5">HRB 96683</p>
                 </div>
               </div>
             </div>
@@ -116,73 +112,34 @@ export default function Impressum() {
 
       <LegalSection id="umsatzsteuer" title="Umsatzsteuer-ID">
         <p>
-          Umsatzsteuer-Identifikationsnummer gemäß § 27a Umsatzsteuergesetz:
+          Umsatzsteuer-Identifikationsnummer gemäß § 27a UStG:
         </p>
-        <div className="mt-3 inline-flex items-center gap-3 px-5 py-3 bg-gradient-to-r from-primary/10 to-secondary/10 border border-primary/20 rounded-xl">
-          <Scale className="w-4 h-4 text-primary" />
-          <span className="font-mono text-foreground font-semibold tracking-wider">DE 123 456 789</span>
+        <div className="mt-3 inline-flex items-center gap-3 px-5 py-3 bg-muted/30 border border-border/50 rounded-xl">
+          <Scale className="w-4 h-4 text-muted-foreground" />
+          <span className="text-foreground font-medium">Derzeit nicht vorhanden.</span>
         </div>
       </LegalSection>
 
-      <LegalSection id="verantwortlich" title="Verantwortlich für den Inhalt nach § 55 Abs. 2 RStV">
+      <LegalSection id="verantwortlich" title="Verantwortlich für den Inhalt nach § 18 Abs. 2 MStV">
         <div className="p-5 bg-card rounded-2xl border border-border/50">
           <div className="flex items-center gap-4">
             <div className="w-12 h-12 rounded-full bg-gradient-to-br from-primary/20 to-secondary/20 flex items-center justify-center">
               <User className="w-6 h-6 text-primary" />
             </div>
             <div>
-              <p className="text-foreground font-semibold">Max Mustermann</p>
-              <p className="text-sm text-muted-foreground">Allerheiligentor 2-4, 60311 Frankfurt</p>
+              <p className="text-foreground font-semibold">Dino Lalic</p>
+              <p className="text-sm text-muted-foreground">Anschrift wie oben</p>
             </div>
           </div>
         </div>
       </LegalSection>
 
-      <LegalSection id="streitschlichtung" title="Streitschlichtung">
-        <p>
-          Die Europäische Kommission stellt eine Plattform zur Online-Streitbeilegung (OS) bereit:
-        </p>
-        <p className="mt-3">
-          <LegalLink href="https://ec.europa.eu/consumers/odr">
-            https://ec.europa.eu/consumers/odr
-          </LegalLink>
-        </p>
-        <div className="mt-6 p-4 bg-amber-500/10 border border-amber-500/20 rounded-xl">
-          <p className="text-sm">
-            <span className="font-medium text-foreground">Hinweis:</span> Wir sind nicht bereit oder verpflichtet, an Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle teilzunehmen.
-          </p>
-        </div>
-      </LegalSection>
-
-      <LegalSection id="haftung-inhalte" title="Haftung für Inhalte">
-        <p>
-          Als Diensteanbieter sind wir gemäß § 7 Abs.1 TMG für eigene Inhalte auf diesen Seiten nach den allgemeinen Gesetzen verantwortlich. Nach §§ 8 bis 10 TMG sind wir als Diensteanbieter jedoch nicht verpflichtet, übermittelte oder gespeicherte fremde Informationen zu überwachen oder nach Umständen zu forschen, die auf eine rechtswidrige Tätigkeit hinweisen.
-        </p>
-        <p className="mt-4">
-          Verpflichtungen zur Entfernung oder Sperrung der Nutzung von Informationen nach den allgemeinen Gesetzen bleiben hiervon unberührt. Eine diesbezügliche Haftung ist jedoch erst ab dem Zeitpunkt der Kenntnis einer konkreten Rechtsverletzung möglich.
-        </p>
-      </LegalSection>
-
-      <LegalSection id="haftung-links" title="Haftung für Links">
-        <LegalInfoCard icon={<LinkIcon className="w-5 h-5" />}>
+      <LegalSection id="hinweis" title="Hinweis zur Tätigkeit">
+        <LegalInfoCard icon={<Info className="w-5 h-5" />}>
           <p>
-            Unser Angebot enthält Links zu externen Websites Dritter, auf deren Inhalte wir keinen Einfluss haben. Deshalb können wir für diese fremden Inhalte auch keine Gewähr übernehmen.
+            Die AVYTA GmbH betreibt unter „katew" eine digitale Vermittlungsplattform für Kranken- und Patientenfahrten. Es werden keine Krankentransporte im Sinne der Rettungsdienstgesetze der Länder angeboten oder durchgeführt.
           </p>
         </LegalInfoCard>
-        <p>
-          Für die Inhalte der verlinkten Seiten ist stets der jeweilige Anbieter oder Betreiber der Seiten verantwortlich. Die verlinkten Seiten wurden zum Zeitpunkt der Verlinkung auf mögliche Rechtsverstöße überprüft.
-        </p>
-      </LegalSection>
-
-      <LegalSection id="urheberrecht" title="Urheberrecht">
-        <LegalInfoCard icon={<Copyright className="w-5 h-5" />}>
-          <p>
-            Die durch die Seitenbetreiber erstellten Inhalte und Werke auf diesen Seiten unterliegen dem deutschen Urheberrecht.
-          </p>
-        </LegalInfoCard>
-        <p>
-          Die Vervielfältigung, Bearbeitung, Verbreitung und jede Art der Verwertung außerhalb der Grenzen des Urheberrechtes bedürfen der schriftlichen Zustimmung des jeweiligen Autors bzw. Erstellers. Downloads und Kopien dieser Seite sind nur für den privaten, nicht kommerziellen Gebrauch gestattet.
-        </p>
       </LegalSection>
     </LegalPageLayout>
   );
