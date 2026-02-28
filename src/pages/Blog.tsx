@@ -48,6 +48,16 @@ const posts = [
     slug: "krankenfahrt-richtig-beantragen",
   },
   {
+    title: "Krankentransport Kosten: Was kostet ein Krankentransport?",
+    excerpt: "Alle Kosten für Krankentransport, Krankenfahrt und Rettungswagen im Überblick – mit Tipps zur Kostenübernahme.",
+    category: "Tipps & Ratgeber",
+    author: "Redaktion katew",
+    date: "28. Februar 2026",
+    readTime: "13 Min.",
+    image: "https://images.unsplash.com/photo-1516574187841-cb9cc2ca948b?w=600&h=400&fit=crop",
+    slug: "krankentransport-kosten",
+  },
+  {
     title: "5 Tipps für die optimale Vorbereitung auf eine Krankenfahrt",
     excerpt: "Praktische Ratschläge für Patienten und Angehörige zur Vorbereitung auf den Transport.",
     category: "Tipps & Ratgeber",

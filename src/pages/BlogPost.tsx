@@ -460,6 +460,206 @@ const blogPosts = {
         category: "Digitalisierung"
       }
     ]
+  },
+  "krankentransport-kosten": {
+    title: "Krankentransport Kosten: Was kostet ein Krankentransport und wer zahlt?",
+    excerpt: "Alle Kosten für Krankentransport, Krankenfahrt und Rettungswagen im Überblick – mit Tipps zur Kostenübernahme durch die Krankenkasse.",
+    category: "Tipps & Ratgeber",
+    author: "Redaktion katew",
+    authorRole: "Fachredaktion Gesundheitslogistik",
+    date: "28. Februar 2026",
+    readTime: "13 Min.",
+    image: "https://images.unsplash.com/photo-1516574187841-cb9cc2ca948b?w=1200&h=600&fit=crop",
+    content: [
+      {
+        type: "paragraph",
+        text: "Wer einen Krankentransport benötigt, stellt sich schnell die Frage: Was kostet ein Krankentransport? Und vor allem: Wer übernimmt die Kosten? Die Antwort hängt von verschiedenen Faktoren ab – der Art des Transports, der Entfernung, dem medizinischen Grund und dem Versicherungsstatus. In diesem umfassenden Ratgeber erfahren Sie, mit welchen Kosten Sie rechnen müssen, wann die Krankenkasse zahlt und wie Sie unnötige Ausgaben vermeiden."
+      },
+      {
+        type: "heading",
+        text: "Was kostet ein Krankentransport? Die wichtigsten Preise im Überblick"
+      },
+      {
+        type: "paragraph",
+        text: "Die Kosten für einen Krankentransport variieren je nach Bundesland, Transportart und Anbieter erheblich. Grundsätzlich setzen sich die Kosten aus einer Grundgebühr, einem Kilometerpreis und eventuellen Zuschlägen zusammen. Hier ein Überblick über die durchschnittlichen Kosten in Deutschland:"
+      },
+      {
+        type: "list",
+        items: [
+          "Krankenfahrt (Taxi/Mietwagen): 20–80 € je nach Entfernung. Die günstigste Variante für gehfähige Patienten, die keine medizinische Betreuung während der Fahrt benötigen.",
+          "Krankentransportwagen (KTW) sitzend: 80–250 €. Für Patienten, die eine fachliche Betreuung benötigen, aber nicht liegend transportiert werden müssen.",
+          "Krankentransportwagen (KTW) liegend: 150–400 €. Für Patienten, die liegend transportiert und medizinisch betreut werden müssen.",
+          "Rettungswagen (RTW): 400–800 €. Bei akuten medizinischen Notfällen mit notfallmedizinischer Versorgung.",
+          "Notarzteinsatzfahrzeug (NEF): 500–1.200 € zusätzlich zum RTW. Kommt bei lebensbedrohlichen Situationen zum Einsatz.",
+          "Rettungshubschrauber: 3.000–7.000 €. Bei schweren Notfällen oder schwer zugänglichen Einsatzorten."
+        ]
+      },
+      {
+        type: "heading",
+        text: "Welche Faktoren beeinflussen die Krankentransport Kosten?"
+      },
+      {
+        type: "paragraph",
+        text: "Die tatsächlichen Kosten eines Krankentransports hängen von mehreren Faktoren ab. Diese zu kennen hilft Ihnen, die Kosten besser einzuschätzen und gegebenenfalls die günstigste Option zu wählen:"
+      },
+      {
+        type: "list",
+        items: [
+          "Art des Transports: Ein einfaches Taxi ist deutlich günstiger als ein vollausgestatteter Rettungswagen. Der Arzt legt fest, welche Transportart medizinisch notwendig ist.",
+          "Entfernung: Die meisten Anbieter berechnen einen Grundpreis plus einen Kilometerpreis. Längere Fahrten kosten entsprechend mehr.",
+          "Tageszeit und Wochentag: Nachts, an Wochenenden und Feiertagen können Zuschläge von 25–50 % anfallen.",
+          "Wartezeit: Falls der Fahrer am Zielort warten muss (z. B. bei einem Arztbesuch), wird die Wartezeit häufig berechnet.",
+          "Bundesland: Die Gebührenordnungen unterscheiden sich zwischen den Bundesländern. In Ballungsgebieten sind die Kosten tendenziell höher.",
+          "Zusatzleistungen: Treppentransport, Begleitperson oder spezielle medizinische Ausstattung können Zusatzkosten verursachen."
+        ]
+      },
+      {
+        type: "heading",
+        text: "Wann übernimmt die Krankenkasse die Kosten?"
+      },
+      {
+        type: "paragraph",
+        text: "Die gute Nachricht: In den meisten Fällen übernimmt die gesetzliche Krankenkasse die Kosten für einen medizinisch notwendigen Krankentransport. Voraussetzung ist eine ärztliche Verordnung (Muster 4). Die Kostenübernahme ist im Sozialgesetzbuch V (§ 60 SGB V) geregelt."
+      },
+      {
+        type: "list",
+        items: [
+          "Stationäre Behandlung: Fahrten zur stationären Aufnahme und Entlassung werden von der Krankenkasse übernommen – keine vorherige Genehmigung nötig.",
+          "Rettungsfahrten: Bei Notfällen übernimmt die Krankenkasse die Kosten vollständig. Eine Verordnung ist nicht erforderlich.",
+          "Krankentransport mit Betreuung: Fahrten im Krankentransportwagen (KTW) mit medizinischer Betreuung werden ohne Genehmigung übernommen.",
+          "Ambulante Behandlung: Hier ist eine vorherige Genehmigung durch die Krankenkasse erforderlich. Ausnahmen gelten bei Dialyse, Strahlen-/Chemotherapie, Pflegegrad 3–5 oder Schwerbehinderung (Merkzeichen aG, Bl, H).",
+          "Serienbehandlungen: Bei regelmäßigen Fahrten (z. B. Dialyse 3x pro Woche) genügt eine einmalige Genehmigung für die gesamte Serie."
+        ]
+      },
+      {
+        type: "heading",
+        text: "Zuzahlung: Was müssen Patienten selbst bezahlen?"
+      },
+      {
+        type: "paragraph",
+        text: "Auch wenn die Krankenkasse die Kosten grundsätzlich übernimmt, müssen gesetzlich Versicherte ab 18 Jahren eine Zuzahlung leisten. Diese beträgt 10 % der Fahrtkosten, mindestens 5 Euro und maximal 10 Euro pro Fahrt. Bei einer Hin- und Rückfahrt fällt die Zuzahlung zweimal an – also maximal 20 Euro pro Termin."
+      },
+      {
+        type: "paragraph",
+        text: "Wichtig: Kinder und Jugendliche unter 18 Jahren sind von der Zuzahlung befreit. Wer die jährliche Belastungsgrenze erreicht hat (2 % des Bruttoeinkommens, bei chronisch Kranken 1 %), kann sich bei seiner Krankenkasse von weiteren Zuzahlungen befreien lassen."
+      },
+      {
+        type: "heading",
+        text: "Krankentransport Kosten bei Privatversicherten"
+      },
+      {
+        type: "paragraph",
+        text: "Privatversicherte haben ebenfalls Anspruch auf Erstattung der Krankentransport Kosten – allerdings richtet sich der Umfang nach dem individuellen Versicherungsvertrag. Die meisten Tarife erstatten medizinisch notwendige Transporte vollständig oder anteilig. Prüfen Sie vorab Ihren Vertrag und reichen Sie die Rechnung zusammen mit der ärztlichen Verordnung bei Ihrer Versicherung ein."
+      },
+      {
+        type: "paragraph",
+        text: "Tipp: Einige private Krankenversicherungen verlangen eine vorherige Kostenzusage bei planbaren Transporten. Klären Sie dies rechtzeitig, um nicht auf den Kosten sitzen zu bleiben."
+      },
+      {
+        type: "heading",
+        text: "Krankentransport Kosten ohne Verordnung: Wer zahlt?"
+      },
+      {
+        type: "paragraph",
+        text: "Ohne ärztliche Verordnung müssen Sie die Kosten für einen Krankentransport in der Regel selbst tragen. Das gilt beispielsweise für Fahrten zu Vorsorgeuntersuchungen, Zahnarztbesuche ohne besondere medizinische Begründung oder private Wunschtransporte. Die Kosten können dann je nach Transportart zwischen 30 und mehreren hundert Euro betragen."
+      },
+      {
+        type: "paragraph",
+        text: "Ausnahme: Bei einem Notfall (z. B. Herzinfarkt, Schlaganfall, schwerer Unfall) übernimmt die Krankenkasse die Kosten auch ohne vorherige Verordnung. Hier gilt: Erst die Gesundheit sichern, dann die Formalitäten klären."
+      },
+      {
+        type: "heading",
+        text: "So sparen Sie bei Krankentransport Kosten"
+      },
+      {
+        type: "list",
+        items: [
+          "Verordnung rechtzeitig besorgen: Lassen Sie sich vom Arzt eine Verordnung (Muster 4) ausstellen, bevor Sie den Transport buchen. Ohne Verordnung keine Kostenübernahme.",
+          "Genehmigung vorab einholen: Bei ambulanten Fahrten die Krankenkasse mindestens eine Woche vorher kontaktieren.",
+          "Preise vergleichen: Nutzen Sie Plattformen wie katew, um Angebote verschiedener Transportunternehmen zu vergleichen und den besten Preis zu finden.",
+          "Befreiung beantragen: Prüfen Sie, ob Sie die Belastungsgrenze erreicht haben, und beantragen Sie eine Zuzahlungsbefreiung.",
+          "Richtige Transportart wählen: Lassen Sie den Arzt prüfen, ob ein günstigeres Transportmittel (z. B. Taxi statt KTW) medizinisch ausreichend ist.",
+          "Fahrten bündeln: Wenn möglich, legen Sie mehrere Termine auf einen Tag, um Fahrten zu sparen."
+        ]
+      },
+      {
+        type: "heading",
+        text: "Krankentransport Kosten: Beispielrechnungen"
+      },
+      {
+        type: "paragraph",
+        text: "Um Ihnen eine bessere Vorstellung zu geben, hier drei typische Szenarien mit Kostenbeispielen:"
+      },
+      {
+        type: "list",
+        items: [
+          "Szenario 1 – Dialysefahrt per Taxi (15 km): Grundgebühr 5 €, Kilometerpreis 2 €/km = ca. 35 € pro Fahrt. Zuzahlung: 5 €. Kostenübernahme durch die Krankenkasse nach einmaliger Genehmigung.",
+          "Szenario 2 – Krankentransport zur Klinik (30 km, KTW sitzend): Grundgebühr 80 €, Kilometerpreis 3,50 €/km = ca. 185 €. Zuzahlung: 10 €. Kostenübernahme bei stationärer Aufnahme ohne Genehmigung.",
+          "Szenario 3 – Liegendtransport zur Reha (80 km): Grundgebühr 120 €, Kilometerpreis 4 €/km = ca. 440 €. Zuzahlung: 10 €. Kostenübernahme mit Verordnung und ggf. Genehmigung."
+        ]
+      },
+      {
+        type: "heading",
+        text: "Krankentransport einfach und günstig buchen mit katew"
+      },
+      {
+        type: "paragraph",
+        text: "Die Suche nach einem günstigen und zuverlässigen Krankentransport muss nicht kompliziert sein. Über die digitale Plattform katew können Sie in wenigen Minuten Angebote von geprüften Transportunternehmen in Ihrer Region vergleichen und direkt buchen. Die Abrechnung erfolgt in den meisten Fällen direkt mit Ihrer Krankenkasse."
+      },
+      {
+        type: "list",
+        items: [
+          "Transparente Preise: Sehen Sie sofort, was der Transport kostet – keine versteckten Gebühren.",
+          "Über 500 geprüfte Anbieter: Qualitätsgeprüfte Transportunternehmen in ganz Deutschland.",
+          "Direkte Kassenabrechnung: katew übernimmt die Abwicklung mit Ihrer Krankenkasse.",
+          "Persönlicher Kundenservice: Bei Fragen zu Kosten und Kostenübernahme sind wir für Sie da."
+        ]
+      },
+      {
+        type: "heading",
+        text: "Häufig gestellte Fragen (FAQ)"
+      },
+      {
+        type: "paragraph",
+        text: "Was kostet ein Krankentransport im Durchschnitt? – Die Kosten variieren stark: Eine Krankenfahrt per Taxi kostet 20–80 €, ein KTW-Transport 80–400 €, ein Rettungswagen 400–800 €. Die genauen Kosten hängen von Transportart, Entfernung und Bundesland ab."
+      },
+      {
+        type: "paragraph",
+        text: "Muss ich einen Krankentransport selbst bezahlen? – In den meisten Fällen nicht. Mit einer ärztlichen Verordnung (Muster 4) übernimmt die Krankenkasse die Kosten. Sie zahlen nur die gesetzliche Zuzahlung von max. 10 € pro Fahrt."
+      },
+      {
+        type: "paragraph",
+        text: "Wie hoch ist die Zuzahlung beim Krankentransport? – Die Zuzahlung beträgt 10 % der Fahrtkosten, mindestens 5 € und maximal 10 € pro Fahrt. Kinder unter 18 Jahren sind befreit."
+      },
+      {
+        type: "paragraph",
+        text: "Wer zahlt den Rettungswagen bei einem Notfall? – Bei einem Notfall übernimmt die Krankenkasse die kompletten Kosten für den Rettungswagen. Eine vorherige Verordnung ist nicht erforderlich."
+      },
+      {
+        type: "paragraph",
+        text: "Kann ich Krankentransport Kosten von der Steuer absetzen? – Ja, Krankentransportkosten können als außergewöhnliche Belastungen in der Steuererklärung geltend gemacht werden, sofern die zumutbare Eigenbelastung überschritten wird."
+      },
+      {
+        type: "heading",
+        text: "Fazit: Krankentransport Kosten kennen und clever sparen"
+      },
+      {
+        type: "paragraph",
+        text: "Die Kosten für einen Krankentransport müssen kein finanzielles Risiko sein. In den allermeisten Fällen übernimmt die Krankenkasse den Großteil der Kosten – vorausgesetzt, Sie haben eine ärztliche Verordnung und beachten die Genehmigungspflichten. Vergleichen Sie Anbieter über Plattformen wie katew, nutzen Sie Ihre Rechte auf Zuzahlungsbefreiung und informieren Sie sich rechtzeitig über die Kostenübernahme. So fahren Sie nicht nur sicher zum Arzt, sondern auch finanziell auf der richtigen Seite."
+      }
+    ],
+    relatedPosts: [
+      {
+        title: "Krankenfahrt richtig beantragen: Verordnung & Kostenübernahme",
+        slug: "krankenfahrt-richtig-beantragen",
+        category: "Tipps & Ratgeber"
+      },
+      {
+        title: "Digitalisierung im Gesundheitswesen",
+        slug: "digitalisierung-im-gesundheitswesen",
+        category: "Digitalisierung"
+      }
+    ]
   }
 };
 
@@ -499,6 +699,16 @@ export default function BlogPost() {
       { "@type": "Question", "name": "Wie profitieren Patienten von der Digitalisierung?", "acceptedAnswer": { "@type": "Answer", "text": "Patienten profitieren von einfacherer Terminbuchung, weniger Papierkram, besserer Transparenz und kürzeren Wartezeiten – insbesondere bei der Buchung von Krankenfahrten." } },
       { "@type": "Question", "name": "Ist die digitale Buchung von Krankenfahrten sicher?", "acceptedAnswer": { "@type": "Answer", "text": "Ja. Seriöse Plattformen wie katew arbeiten DSGVO-konform und erfüllen alle datenschutzrechtlichen Anforderungen für den Umgang mit Gesundheitsdaten." } },
       { "@type": "Question", "name": "Kann ich trotz Digitalisierung noch telefonisch buchen?", "acceptedAnswer": { "@type": "Answer", "text": "Ja. katew bietet neben der Online-Buchung auch einen persönlichen telefonischen Kundenservice an, damit niemand ausgeschlossen wird." } }
+    ]
+  } : slug === "krankentransport-kosten" ? {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      { "@type": "Question", "name": "Was kostet ein Krankentransport im Durchschnitt?", "acceptedAnswer": { "@type": "Answer", "text": "Die Kosten variieren stark: Eine Krankenfahrt per Taxi kostet 20–80 €, ein KTW-Transport 80–400 €, ein Rettungswagen 400–800 €. Die genauen Kosten hängen von Transportart, Entfernung und Bundesland ab." } },
+      { "@type": "Question", "name": "Muss ich einen Krankentransport selbst bezahlen?", "acceptedAnswer": { "@type": "Answer", "text": "In den meisten Fällen nicht. Mit einer ärztlichen Verordnung (Muster 4) übernimmt die Krankenkasse die Kosten. Sie zahlen nur die gesetzliche Zuzahlung von max. 10 € pro Fahrt." } },
+      { "@type": "Question", "name": "Wie hoch ist die Zuzahlung beim Krankentransport?", "acceptedAnswer": { "@type": "Answer", "text": "Die Zuzahlung beträgt 10 % der Fahrtkosten, mindestens 5 € und maximal 10 € pro Fahrt. Kinder unter 18 Jahren sind befreit." } },
+      { "@type": "Question", "name": "Wer zahlt den Rettungswagen bei einem Notfall?", "acceptedAnswer": { "@type": "Answer", "text": "Bei einem Notfall übernimmt die Krankenkasse die kompletten Kosten für den Rettungswagen. Eine vorherige Verordnung ist nicht erforderlich." } },
+      { "@type": "Question", "name": "Kann ich Krankentransport Kosten von der Steuer absetzen?", "acceptedAnswer": { "@type": "Answer", "text": "Ja, Krankentransportkosten können als außergewöhnliche Belastungen in der Steuererklärung geltend gemacht werden, sofern die zumutbare Eigenbelastung überschritten wird." } }
     ]
   } : null;
 
