@@ -26,6 +26,7 @@ import PartnerDashboard from "./pages/PartnerDashboard";
 import ProviderDashboard from "./pages/ProviderDashboard";
 import Presentation from "./pages/Presentation";
 import SuperAdmin from "./pages/SuperAdmin";
+import MobileApp from "./pages/mobile/MobileApp";
 
 const queryClient = new QueryClient();
 
@@ -58,6 +59,7 @@ const App = () => (
           <Route path="/blog/:slug" element={<BlogPost />} />
           <Route path="/presentation" element={<Presentation />} />
           <Route path="/super-admin" element={<SuperAdmin />} />
+          <Route path="/app/*" element={<MobileApp />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
