@@ -1,4 +1,4 @@
-import { Shield, Eye, Cookie, Server, FileText, Lock, RefreshCw, Mail, UserCheck } from "lucide-react";
+import { Shield, Eye, Cookie, Server, FileText, Lock, RefreshCw, UserCheck } from "lucide-react";
 import { 
   LegalPageLayout, 
   LegalSection,
@@ -24,7 +24,7 @@ export default function Datenschutz() {
       subtitle="Transparenz über die Verarbeitung Ihrer personenbezogenen Daten"
       badge="Ihre Privatsphäre ist uns wichtig"
       icon={<Shield className="w-10 h-10 text-primary" />}
-      lastUpdated="Januar 2026"
+      lastUpdated="Februar 2026"
       sections={sections}
     >
       <LegalSection id="ueberblick" title="1. Datenschutz auf einen Blick">
@@ -34,30 +34,34 @@ export default function Datenschutz() {
           </p>
         </LegalSubsection>
 
-        <LegalInfoCard icon={<Eye className="w-5 h-5" />}>
-          <p className="font-medium text-foreground mb-2">Was sind personenbezogene Daten?</p>
-          <p>
-            Personenbezogene Daten sind Informationen, die sich auf eine identifizierte oder identifizierbare natürliche Person beziehen, z.B. Name, E-Mail-Adresse oder IP-Adresse.
-          </p>
-        </LegalInfoCard>
+        <div className="mt-6 p-6 bg-gradient-to-br from-primary/5 via-secondary/5 to-primary/5 rounded-2xl border border-primary/20">
+          <div className="flex gap-4">
+            <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-primary/20 to-secondary/20 flex items-center justify-center flex-shrink-0">
+              <Eye className="w-6 h-6 text-primary" />
+            </div>
+            <div>
+              <p className="font-semibold text-foreground mb-2">Was sind personenbezogene Daten?</p>
+              <p className="text-sm text-muted-foreground">
+                Personenbezogene Daten sind Informationen, die sich auf eine identifizierte oder identifizierbare natürliche Person beziehen, z.B. Name, E-Mail-Adresse oder IP-Adresse.
+              </p>
+            </div>
+          </div>
+        </div>
       </LegalSection>
 
       <LegalSection id="verantwortlich" title="2. Verantwortliche Stelle">
-        <div className="p-5 bg-muted/30 rounded-xl border border-border/50">
-          <div className="flex items-start gap-4">
-            <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center flex-shrink-0">
-              <UserCheck className="w-5 h-5 text-primary" />
+        <div className="p-6 bg-card rounded-2xl border border-border/50">
+          <div className="flex items-start gap-5">
+            <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-primary/20 to-secondary/20 flex items-center justify-center flex-shrink-0">
+              <UserCheck className="w-7 h-7 text-primary" />
             </div>
-            <div className="space-y-2">
-              <p className="font-semibold text-foreground">katew GmbH</p>
-              <p>Allerheiligentor 2-4</p>
-              <p>60311 Frankfurt</p>
-              <p>Deutschland</p>
-              <p className="pt-2">
-                <a href="mailto:datenschutz@katew.de" className="text-primary hover:underline">
-                  datenschutz@katew.de
-                </a>
-              </p>
+            <div className="space-y-1">
+              <p className="text-lg font-bold text-foreground">katew GmbH</p>
+              <p className="text-muted-foreground">Allerheiligentor 2-4</p>
+              <p className="text-muted-foreground">60311 Frankfurt, Deutschland</p>
+              <a href="mailto:datenschutz@katew.de" className="inline-flex items-center gap-1.5 mt-2 text-primary hover:underline font-medium text-sm">
+                datenschutz@katew.de
+              </a>
             </div>
           </div>
         </div>
@@ -65,21 +69,31 @@ export default function Datenschutz() {
 
       <LegalSection id="datenerfassung" title="3. Datenerfassung auf dieser Website">
         <LegalSubsection title="Cookies">
-          <LegalInfoCard icon={<Cookie className="w-5 h-5" />}>
-            <p>
-              Unsere Internetseiten verwenden so genannte „Cookies". Cookies sind kleine Datenpakete und richten auf Ihrem Endgerät keinen Schaden an. Sie werden entweder vorübergehend für die Dauer einer Sitzung (Session-Cookies) oder dauerhaft (permanente Cookies) auf Ihrem Endgerät gespeichert.
-            </p>
-          </LegalInfoCard>
+          <div className="p-5 bg-card rounded-2xl border border-border/50">
+            <div className="flex gap-4">
+              <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center flex-shrink-0">
+                <Cookie className="w-5 h-5 text-primary" />
+              </div>
+              <p className="text-sm text-muted-foreground">
+                Unsere Internetseiten verwenden so genannte „Cookies". Cookies sind kleine Datenpakete und richten auf Ihrem Endgerät keinen Schaden an. Sie werden entweder vorübergehend für die Dauer einer Sitzung (Session-Cookies) oder dauerhaft (permanente Cookies) auf Ihrem Endgerät gespeichert.
+              </p>
+            </div>
+          </div>
         </LegalSubsection>
 
         <LegalSubsection title="Server-Log-Dateien">
-          <LegalInfoCard icon={<Server className="w-5 h-5" />}>
-            <p className="mb-3">
-              Der Provider der Seiten erhebt und speichert automatisch Informationen in so genannten Server-Log-Dateien, die Ihr Browser automatisch an uns übermittelt:
-            </p>
-          </LegalInfoCard>
+          <div className="p-5 bg-card rounded-2xl border border-border/50 mb-4">
+            <div className="flex gap-4">
+              <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center flex-shrink-0">
+                <Server className="w-5 h-5 text-primary" />
+              </div>
+              <p className="text-sm text-muted-foreground">
+                Der Provider der Seiten erhebt und speichert automatisch Informationen in so genannten Server-Log-Dateien, die Ihr Browser automatisch an uns übermittelt:
+              </p>
+            </div>
+          </div>
 
-          <div className="mt-4 grid sm:grid-cols-2 gap-3">
+          <div className="grid sm:grid-cols-2 gap-3">
             {[
               "Browsertyp und Browserversion",
               "Verwendetes Betriebssystem",
@@ -88,8 +102,8 @@ export default function Datenschutz() {
               "Uhrzeit der Serveranfrage",
               "IP-Adresse"
             ].map((item, index) => (
-              <div key={index} className="flex items-center gap-2 p-3 bg-muted/30 rounded-lg border border-border/50">
-                <div className="w-2 h-2 rounded-full bg-primary" />
+              <div key={index} className="flex items-center gap-3 p-3 bg-muted/30 rounded-xl border border-border/50 hover:border-primary/20 transition-colors">
+                <div className="w-2.5 h-2.5 rounded-full bg-gradient-to-r from-primary to-secondary" />
                 <span className="text-sm">{item}</span>
               </div>
             ))}
@@ -113,7 +127,7 @@ export default function Datenschutz() {
           Sie haben jederzeit das Recht auf unentgeltliche Auskunft über Ihre gespeicherten personenbezogenen Daten, deren Herkunft und Empfänger und den Zweck der Datenverarbeitung sowie ein Recht auf Berichtigung oder Löschung dieser Daten.
         </p>
 
-        <div className="grid sm:grid-cols-2 gap-4">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {[
             { title: "Auskunft", desc: "Art. 15 DSGVO", icon: "📋" },
             { title: "Berichtigung", desc: "Art. 16 DSGVO", icon: "✏️" },
@@ -122,14 +136,10 @@ export default function Datenschutz() {
             { title: "Datenübertragbarkeit", desc: "Art. 20 DSGVO", icon: "📤" },
             { title: "Widerspruch", desc: "Art. 21 DSGVO", icon: "✋" },
           ].map((right, index) => (
-            <div key={index} className="p-4 bg-gradient-to-br from-primary/5 to-secondary/5 border border-primary/20 rounded-xl">
-              <div className="flex items-center gap-3">
-                <span className="text-2xl">{right.icon}</span>
-                <div>
-                  <p className="font-medium text-foreground">Recht auf {right.title}</p>
-                  <p className="text-xs text-muted-foreground">{right.desc}</p>
-                </div>
-              </div>
+            <div key={index} className="group p-4 bg-card rounded-2xl border border-border/50 hover:border-primary/30 hover:shadow-lg hover:shadow-primary/5 transition-all">
+              <span className="text-2xl block mb-2 group-hover:scale-110 transition-transform inline-block">{right.icon}</span>
+              <p className="font-medium text-foreground">Recht auf {right.title}</p>
+              <p className="text-xs text-muted-foreground mt-0.5">{right.desc}</p>
             </div>
           ))}
         </div>
@@ -143,7 +153,9 @@ export default function Datenschutz() {
         </LegalInfoCard>
         <div className="mt-4 p-4 bg-emerald-500/10 border border-emerald-500/20 rounded-xl">
           <div className="flex items-center gap-3">
-            <Lock className="w-5 h-5 text-emerald-600" />
+            <div className="w-8 h-8 rounded-lg bg-emerald-500/20 flex items-center justify-center">
+              <Lock className="w-4 h-4 text-emerald-600" />
+            </div>
             <p className="text-sm text-emerald-700 dark:text-emerald-400 font-medium">
               Ihre Verbindung zu katew.de ist verschlüsselt
             </p>

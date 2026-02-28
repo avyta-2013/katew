@@ -23,7 +23,8 @@ const footerLinks = {
   rechtliches: [
     { label: "Impressum", href: "/impressum" },
     { label: "Datenschutz", href: "/datenschutz" },
-    { label: "AGB", href: "/agb" },
+    { label: "AGB Partner", href: "/agb-partner" },
+    { label: "AGB Anbieter", href: "/agb-anbieter" },
   ],
 };
 

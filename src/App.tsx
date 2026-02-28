@@ -14,7 +14,8 @@ import Contact from "./pages/Contact";
 import FAQ from "./pages/FAQ";
 import Impressum from "./pages/Impressum";
 import Datenschutz from "./pages/Datenschutz";
-import AGB from "./pages/AGB";
+import AGBPartner from "./pages/AGBPartner";
+import AGBAnbieter from "./pages/AGBAnbieter";
 import Personenbefoerderungsvertrag from "./pages/Personenbefoerderungsvertrag";
 import Karriere from "./pages/Karriere";
 import JobDetail from "./pages/JobDetail";
@@ -49,7 +50,8 @@ const App = () => (
           <Route path="/faq" element={<FAQ />} />
           <Route path="/impressum" element={<Impressum />} />
           <Route path="/datenschutz" element={<Datenschutz />} />
-          <Route path="/agb" element={<AGB />} />
+          <Route path="/agb-partner" element={<AGBPartner />} />
+          <Route path="/agb-anbieter" element={<AGBAnbieter />} />
           <Route path="/personenbefoerderungsvertrag" element={<Personenbefoerderungsvertrag />} />
           <Route path="/karriere" element={<Karriere />} />
           <Route path="/partner-dashboard" element={<PartnerDashboard />} />

@@ -36,7 +36,8 @@ interface LegalPageLayoutProps {
 const legalPages = [
   { path: "/impressum", label: "Impressum", icon: Building2 },
   { path: "/datenschutz", label: "Datenschutz", icon: Shield },
-  { path: "/agb", label: "AGB", icon: Scale },
+  { path: "/agb-partner", label: "AGB Partner", icon: Scale },
+  { path: "/agb-anbieter", label: "AGB Anbieter", icon: Scale },
 ];
 
 export function LegalPageLayout({

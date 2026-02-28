@@ -624,7 +624,7 @@ export default function BookingResults() {
             />
             <span className="text-sm">
               Ich akzeptiere die{" "}
-              <Link to="/agb" target="_blank" className="text-primary font-medium hover:underline">
+              <Link to="/agb-partner" target="_blank" className="text-primary font-medium hover:underline">
                 Allgemeinen Geschäftsbedingungen (AGB)
               </Link>.
             </span>
