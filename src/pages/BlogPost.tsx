@@ -149,7 +149,7 @@ const blogPosts = {
           "Schnelle Online-Buchung in wenigen Minuten",
           "Über 500 geprüfte Transportunternehmen deutschlandweit",
           "Transparente Preise und direkte Abrechnung mit der Krankenkasse",
-          "Echtzeit-Tracking und Statusupdates für jede Fahrt"
+          "Persönlicher Kundenservice bei Fragen rund um Ihre Fahrt"
         ]
       },
       {
