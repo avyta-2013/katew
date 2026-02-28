@@ -93,6 +93,16 @@ const posts = [
     image: "https://images.unsplash.com/photo-1587745416684-47953f16f02f?w=600&h=400&fit=crop",
   },
   {
+    title: "Digitalisierung im Gesundheitswesen: Chancen für die Patientenbeförderung",
+    excerpt: "Wie die digitale Transformation das Gesundheitswesen verändert – von der ePA bis zur intelligenten Krankenfahrt-Buchung.",
+    category: "Digitalisierung",
+    author: "Redaktion katew",
+    date: "28. Februar 2026",
+    readTime: "14 Min.",
+    image: "https://images.unsplash.com/photo-1530497610245-94d3c16cda28?w=600&h=400&fit=crop",
+    slug: "digitalisierung-im-gesundheitswesen",
+  },
+  {
     title: "KI und Machine Learning im Patientenfahrdienst",
     excerpt: "Wie künstliche Intelligenz die Routenplanung und Disposition optimiert.",
     category: "Digitalisierung",

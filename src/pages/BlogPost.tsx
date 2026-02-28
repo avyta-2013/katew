@@ -231,7 +231,7 @@ const blogPosts = {
       {
         type: "list",
         items: [
-          "Echtzeit-Buchung und -Verfolgung: Patienten und Einrichtungen können Fahrten in Sekundenschnelle buchen und den Status in Echtzeit verfolgen.",
+          "Schnelle Online-Buchung: Patienten und Einrichtungen können Fahrten in Sekundenschnelle buchen.",
           "Automatisierte Disposition: KI-gestützte Systeme optimieren Routen und Fahrzeugzuweisungen automatisch.",
           "Digitale Dokumentation: Alle relevanten Unterlagen werden digital verwaltet und sind jederzeit abrufbar.",
           "Nahtlose Integration: Schnittstellen zu Krankenhaus- und Praxissystemen ermöglichen einen reibungslosen Datenaustausch."
@@ -265,9 +265,199 @@ const blogPosts = {
         category: "Tipps & Ratgeber"
       },
       {
-        title: "5 Tipps für die optimale Vorbereitung auf eine Krankenfahrt",
-        slug: "tipps-vorbereitung-krankenfahrt",
+        title: "Digitalisierung im Gesundheitswesen: Chancen für die Patientenbeförderung",
+        slug: "digitalisierung-im-gesundheitswesen",
+        category: "Digitalisierung"
+      }
+    ]
+  },
+  "digitalisierung-im-gesundheitswesen": {
+    title: "Digitalisierung im Gesundheitswesen: Chancen, Herausforderungen und die Zukunft der Patientenbeförderung",
+    excerpt: "Wie die digitale Transformation das Gesundheitswesen verändert – von der elektronischen Patientenakte bis zur intelligenten Krankenfahrt-Buchung.",
+    category: "Digitalisierung",
+    author: "Redaktion katew",
+    authorRole: "Fachredaktion Gesundheitslogistik",
+    date: "28. Februar 2026",
+    readTime: "14 Min.",
+    image: "https://images.unsplash.com/photo-1530497610245-94d3c16cda28?w=1200&h=600&fit=crop",
+    content: [
+      {
+        type: "paragraph",
+        text: "Die Digitalisierung im Gesundheitswesen gehört zu den wichtigsten Entwicklungen unserer Zeit. Von der elektronischen Patientenakte (ePA) über Telemedizin bis hin zur digitalen Patientenbeförderung – der medizinische Sektor befindet sich mitten in einer tiefgreifenden Transformation. Doch was bedeutet das konkret für Patienten, Ärzte, Kliniken und Transportunternehmen? In diesem Artikel beleuchten wir den aktuellen Stand, die größten Chancen und die Herausforderungen der Digitalisierung im deutschen Gesundheitswesen."
+      },
+      {
+        type: "heading",
+        text: "Was bedeutet Digitalisierung im Gesundheitswesen?"
+      },
+      {
+        type: "paragraph",
+        text: "Unter Digitalisierung im Gesundheitswesen versteht man den Einsatz digitaler Technologien zur Verbesserung medizinischer Versorgung, administrativer Prozesse und der Kommunikation zwischen allen Akteuren im Gesundheitssystem. Das umfasst ein breites Spektrum – von der Einführung elektronischer Akten über digitale Rezepte bis hin zu Plattformen, die Patiententransporte koordinieren."
+      },
+      {
+        type: "paragraph",
+        text: "Deutschland hat im internationalen Vergleich lange als Nachzügler gegolten. Doch spätestens seit dem Digitale-Versorgung-Gesetz (DVG) von 2019 und der verpflichtenden Einführung der elektronischen Patientenakte (ePA) ab 2025 hat die Politik den Rahmen für eine umfassende Digitalisierung geschaffen."
+      },
+      {
+        type: "heading",
+        text: "Die wichtigsten Bausteine der digitalen Gesundheitsversorgung"
+      },
+      {
+        type: "list",
+        items: [
+          "Elektronische Patientenakte (ePA): Ab 2025 haben alle gesetzlich Versicherten Anspruch auf eine ePA. Befunde, Laborwerte, Medikamentenpläne und Arztbriefe werden zentral digital gespeichert – und sind für behandelnde Ärzte jederzeit abrufbar.",
+          "E-Rezept: Das elektronische Rezept ersetzt den klassischen rosafarbenen Zettel. Verordnungen werden digital an die Apotheke übermittelt – schneller, sicherer und papierlos.",
+          "Telemedizin: Videosprechstunden, digitale Konsultationen und Ferndiagnosen ermöglichen medizinische Versorgung unabhängig vom Standort – besonders wertvoll in ländlichen Regionen.",
+          "Digitale Gesundheitsanwendungen (DiGA): Vom Bundesinstitut für Arzneimittel zugelassene Apps, die auf Rezept verschrieben werden können – etwa zur Unterstützung bei Diabetes, Depressionen oder Rückenschmerzen.",
+          "Digitale Patientenbeförderung: Plattformen wie katew digitalisieren die Buchung, Koordination und Abwicklung von Krankenfahrten – ein oft übersehener, aber essenzieller Baustein der Versorgungskette."
+        ]
+      },
+      {
+        type: "heading",
+        text: "Warum die Digitalisierung der Patientenbeförderung so wichtig ist"
+      },
+      {
+        type: "paragraph",
+        text: "Krankenfahrten sind ein unverzichtbarer Bestandteil der medizinischen Versorgung. Jährlich werden in Deutschland über 70 Millionen Fahrten zu Arztpraxen, Kliniken und Therapieeinrichtungen durchgeführt. Trotzdem wurde dieser Bereich bei der Digitalisierung lange vernachlässigt. Viele Buchungen laufen noch über Telefon und Fax – ein Anachronismus im Jahr 2026."
+      },
+      {
+        type: "paragraph",
+        text: "Die Folgen sind spürbar: lange Wartezeiten für Patienten, ineffiziente Routenplanung bei Transportunternehmen und hoher Verwaltungsaufwand in Kliniken und Arztpraxen. Digitale Plattformen lösen diese Probleme, indem sie alle Beteiligten vernetzen und Prozesse automatisieren."
+      },
+      {
+        type: "heading",
+        text: "Vorteile der Digitalisierung für Patienten"
+      },
+      {
+        type: "list",
+        items: [
+          "Einfache Online-Buchung: Krankenfahrten können rund um die Uhr online gebucht werden – ohne Wartezeiten am Telefon.",
+          "Transparenz: Patienten sehen sofort verfügbare Anbieter, Preise und Bewertungen.",
+          "Weniger Papierkram: Verordnungen und Abrechnungen werden digital verwaltet.",
+          "Bessere Planbarkeit: Termine können frühzeitig reserviert und bei Bedarf unkompliziert geändert werden.",
+          "Barrierefreiheit: Digitale Buchungssysteme berücksichtigen spezifische Anforderungen wie Rollstuhlgeeignetheit oder Liegetransport."
+        ]
+      },
+      {
+        type: "heading",
+        text: "Vorteile für Gesundheitseinrichtungen und Kliniken"
+      },
+      {
+        type: "paragraph",
+        text: "Krankenhäuser und Arztpraxen profitieren besonders stark von der Digitalisierung der Patientenbeförderung. Statt manuell Transportanbieter zu kontaktieren, können Mitarbeiter über zentrale Plattformen Fahrten mit wenigen Klicks buchen. Das spart nicht nur Zeit, sondern reduziert auch Fehlerquellen und verbessert die Dokumentation."
+      },
+      {
+        type: "list",
+        items: [
+          "Zeitersparnis: Bis zu 70 % weniger Aufwand bei der Transportorganisation.",
+          "Bessere Auslastung: Entlassungen und Verlegungen können effizienter koordiniert werden.",
+          "Lückenlose Dokumentation: Alle Buchungen werden automatisch protokolliert und sind revisionssicher archiviert.",
+          "Schnittstellenintegration: Moderne Plattformen lassen sich in Krankenhausinformationssysteme (KIS) einbinden."
+        ]
+      },
+      {
+        type: "heading",
+        text: "Vorteile für Transportunternehmen"
+      },
+      {
+        type: "paragraph",
+        text: "Auch für Krankentransportunternehmen eröffnet die Digitalisierung erhebliche Chancen. Statt auf telefonische Auftragsannahme und manuelle Disposition zu setzen, können Unternehmen digitale Plattformen nutzen, um ihre Auslastung zu optimieren und neue Kunden zu gewinnen."
+      },
+      {
+        type: "list",
+        items: [
+          "Mehr Aufträge: Durch die Anbindung an Plattformen wie katew erreichen Unternehmen Patienten und Einrichtungen, die sie sonst nicht angesprochen hätten.",
+          "Effizientere Disposition: Intelligente Algorithmen unterstützen bei der optimalen Planung von Routen und Fahrzeugeinsätzen.",
+          "Digitale Abrechnung: Rechnungsstellung und Abrechnung mit Krankenkassen erfolgen automatisiert und fehlerfrei.",
+          "Qualitätsmanagement: Bewertungen und Feedback helfen, den Service kontinuierlich zu verbessern."
+        ]
+      },
+      {
+        type: "heading",
+        text: "Herausforderungen der Digitalisierung im Gesundheitswesen"
+      },
+      {
+        type: "paragraph",
+        text: "Trotz aller Vorteile steht die Digitalisierung im Gesundheitswesen vor erheblichen Herausforderungen. Diese müssen aktiv adressiert werden, damit die Transformation gelingt:"
+      },
+      {
+        type: "list",
+        items: [
+          "Datenschutz und Datensicherheit: Gesundheitsdaten gehören zu den sensibelsten personenbezogenen Daten. Die DSGVO und das Patientendaten-Schutz-Gesetz (PDSG) stellen hohe Anforderungen an die Verarbeitung und Speicherung.",
+          "Interoperabilität: Verschiedene Systeme in Kliniken, Praxen und bei Transportanbietern müssen miteinander kommunizieren können. Standards wie HL7 FHIR gewinnen an Bedeutung.",
+          "Akzeptanz: Nicht alle Akteure im Gesundheitswesen sind sofort offen für digitale Lösungen. Schulungen und nutzerfreundliche Interfaces sind entscheidend.",
+          "Investitionskosten: Die Einführung neuer Technologien erfordert Investitionen – die sich jedoch mittelfristig durch Effizienzgewinne amortisieren.",
+          "Digitale Kluft: Ältere oder weniger technikaffine Patienten dürfen nicht von der Versorgung ausgeschlossen werden. Hybridlösungen mit persönlichem Kundenservice sind wichtig."
+        ]
+      },
+      {
+        type: "heading",
+        text: "Die Rolle von katew in der digitalen Gesundheitslogistik"
+      },
+      {
+        type: "paragraph",
+        text: "katew versteht sich als Bindeglied zwischen Patienten, Gesundheitseinrichtungen und Transportunternehmen. Unsere Plattform digitalisiert den gesamten Prozess der Krankenfahrt-Buchung – von der Anfrage bis zur Abrechnung. Dabei legen wir besonderen Wert auf Benutzerfreundlichkeit, Datenschutz und Zuverlässigkeit."
+      },
+      {
+        type: "list",
+        items: [
+          "Über 500 geprüfte Transportunternehmen deutschlandweit",
+          "Buchung in wenigen Minuten – online oder telefonisch",
+          "Direkte Abrechnung mit allen gesetzlichen Krankenkassen",
+          "Persönlicher Kundenservice für individuelle Anliegen",
+          "DSGVO-konform und nach höchsten Sicherheitsstandards entwickelt"
+        ]
+      },
+      {
+        type: "heading",
+        text: "Ausblick: Was bringt die Zukunft?"
+      },
+      {
+        type: "paragraph",
+        text: "Die Digitalisierung im Gesundheitswesen wird in den kommenden Jahren weiter an Dynamik gewinnen. Künstliche Intelligenz wird zunehmend bei der Disposition und Routenoptimierung eingesetzt. Die Vernetzung zwischen elektronischer Patientenakte, E-Rezept und Transportbuchung wird nahtloser. Und neue gesetzliche Rahmenbedingungen werden die digitale Transformation weiter vorantreiben."
+      },
+      {
+        type: "paragraph",
+        text: "Für Patienten bedeutet das: einfachere Abläufe, weniger Bürokratie und bessere Versorgung. Für Gesundheitseinrichtungen: effizientere Prozesse und mehr Zeit für das Wesentliche – die Betreuung der Patienten. Und für Transportunternehmen: neue Geschäftsmöglichkeiten und professionellere Abläufe."
+      },
+      {
+        type: "heading",
+        text: "Häufig gestellte Fragen (FAQ)"
+      },
+      {
+        type: "paragraph",
+        text: "Was versteht man unter Digitalisierung im Gesundheitswesen? – Die Digitalisierung im Gesundheitswesen umfasst den Einsatz digitaler Technologien zur Verbesserung der medizinischen Versorgung, von elektronischen Patientenakten über Telemedizin bis zur digitalen Koordination von Krankenfahrten."
+      },
+      {
+        type: "paragraph",
+        text: "Wie profitieren Patienten von der Digitalisierung? – Patienten profitieren von einfacherer Terminbuchung, weniger Papierkram, besserer Transparenz und kürzeren Wartezeiten – insbesondere bei der Buchung von Krankenfahrten."
+      },
+      {
+        type: "paragraph",
+        text: "Ist die digitale Buchung von Krankenfahrten sicher? – Ja. Seriöse Plattformen wie katew arbeiten DSGVO-konform und erfüllen alle datenschutzrechtlichen Anforderungen für den Umgang mit Gesundheitsdaten."
+      },
+      {
+        type: "paragraph",
+        text: "Kann ich trotz Digitalisierung noch telefonisch buchen? – Ja. katew bietet neben der Online-Buchung auch einen persönlichen telefonischen Kundenservice an, damit niemand ausgeschlossen wird."
+      },
+      {
+        type: "heading",
+        text: "Fazit: Digitalisierung als Chance für bessere Gesundheitsversorgung"
+      },
+      {
+        type: "paragraph",
+        text: "Die Digitalisierung im Gesundheitswesen ist keine ferne Zukunftsvision – sie findet jetzt statt. Von der elektronischen Patientenakte über das E-Rezept bis zur digitalen Krankenfahrt-Buchung: Die Vorteile sind real und messbar. Entscheidend ist, dass alle Beteiligten – Politik, Einrichtungen, Unternehmen und Patienten – den Wandel aktiv mitgestalten. Mit Plattformen wie katew wird der Einstieg in die digitale Gesundheitslogistik so einfach wie nie zuvor."
+      }
+    ],
+    relatedPosts: [
+      {
+        title: "Krankenfahrt richtig beantragen: Verordnung & Kostenübernahme",
+        slug: "krankenfahrt-richtig-beantragen",
         category: "Tipps & Ratgeber"
+      },
+      {
+        title: "Die Zukunft der Krankenfahrten: Digitalisierung im Gesundheitswesen",
+        slug: "zukunft-krankenfahrten-digitalisierung",
+        category: "Digitalisierung"
       }
     ]
   }
@@ -290,7 +480,7 @@ export default function BlogPost() {
     "mainEntityOfPage": { "@type": "WebPage", "@id": `https://katew.lovable.app/blog/${slug}` }
   } : null;
 
-  // FAQ JSON-LD for the Krankenfahrt article
+  // FAQ JSON-LD for articles with FAQ sections
   const faqJsonLd = slug === "krankenfahrt-richtig-beantragen" ? {
     "@context": "https://schema.org",
     "@type": "FAQPage",
@@ -300,6 +490,15 @@ export default function BlogPost() {
       { "@type": "Question", "name": "Was passiert, wenn mein Antrag abgelehnt wird?", "acceptedAnswer": { "@type": "Answer", "text": "Sie können innerhalb eines Monats Widerspruch einlegen. Legen Sie eine ausführliche ärztliche Begründung bei." } },
       { "@type": "Question", "name": "Werden auch Fahrten zur Reha übernommen?", "acceptedAnswer": { "@type": "Answer", "text": "Ja, Fahrten zu stationären und ambulanten Rehabilitationsmaßnahmen werden in der Regel übernommen, sofern eine ärztliche Verordnung vorliegt." } },
       { "@type": "Question", "name": "Kann ein Angehöriger die Krankenfahrt beantragen?", "acceptedAnswer": { "@type": "Answer", "text": "Ja, Angehörige oder gesetzliche Betreuer können die Verordnung beim Arzt beantragen und bei der Krankenkasse einreichen." } }
+    ]
+  } : slug === "digitalisierung-im-gesundheitswesen" ? {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      { "@type": "Question", "name": "Was versteht man unter Digitalisierung im Gesundheitswesen?", "acceptedAnswer": { "@type": "Answer", "text": "Die Digitalisierung im Gesundheitswesen umfasst den Einsatz digitaler Technologien zur Verbesserung der medizinischen Versorgung, von elektronischen Patientenakten über Telemedizin bis zur digitalen Koordination von Krankenfahrten." } },
+      { "@type": "Question", "name": "Wie profitieren Patienten von der Digitalisierung?", "acceptedAnswer": { "@type": "Answer", "text": "Patienten profitieren von einfacherer Terminbuchung, weniger Papierkram, besserer Transparenz und kürzeren Wartezeiten – insbesondere bei der Buchung von Krankenfahrten." } },
+      { "@type": "Question", "name": "Ist die digitale Buchung von Krankenfahrten sicher?", "acceptedAnswer": { "@type": "Answer", "text": "Ja. Seriöse Plattformen wie katew arbeiten DSGVO-konform und erfüllen alle datenschutzrechtlichen Anforderungen für den Umgang mit Gesundheitsdaten." } },
+      { "@type": "Question", "name": "Kann ich trotz Digitalisierung noch telefonisch buchen?", "acceptedAnswer": { "@type": "Answer", "text": "Ja. katew bietet neben der Online-Buchung auch einen persönlichen telefonischen Kundenservice an, damit niemand ausgeschlossen wird." } }
     ]
   } : null;
 
