@@ -1,0 +1,9 @@
+{
+  "appId": "app.lovable.9c7d1476467a42c6ad2691cc32318e92",
+  "appName": "katew",
+  "webDir": "dist",
+  "server": {
+    "url": "https://9c7d1476-467a-42c6-ad26-91cc32318e92.lovableproject.com?forceHideBadge=true",
+    "cleartext": true
+  }
+}
