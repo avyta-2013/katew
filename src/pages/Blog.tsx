@@ -38,6 +38,16 @@ const featuredPost = {
 
 const posts = [
   {
+    title: "Krankenfahrt richtig beantragen: Verordnung & Kostenübernahme",
+    excerpt: "Alles was Sie über Verordnungen, Muster 4 und Kostenübernahme wissen müssen – Schritt für Schritt erklärt.",
+    category: "Tipps & Ratgeber",
+    author: "Redaktion katew",
+    date: "28. Februar 2026",
+    readTime: "12 Min.",
+    image: "https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=600&h=400&fit=crop",
+    slug: "krankenfahrt-richtig-beantragen",
+  },
+  {
     title: "5 Tipps für die optimale Vorbereitung auf eine Krankenfahrt",
     excerpt: "Praktische Ratschläge für Patienten und Angehörige zur Vorbereitung auf den Transport.",
     category: "Tipps & Ratgeber",
@@ -259,16 +269,22 @@ export default function Blog() {
               </h2>
               
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                {filteredPosts.map((post, index) => (
-                  <article 
+                {filteredPosts.map((post, index) => {
+                  const postSlug = (post as any).slug;
+                  const Wrapper = postSlug ? Link : "div" as any;
+                  const wrapperProps = postSlug ? { to: `/blog/${postSlug}` } : {};
+                  return (
+                  <Wrapper
                     key={index}
-                    className="group bg-card rounded-2xl overflow-hidden border border-border/50 hover:border-primary/40 hover:shadow-xl transition-all duration-300"
+                    {...wrapperProps}
+                    className="group bg-card rounded-2xl overflow-hidden border border-border/50 hover:border-primary/40 hover:shadow-xl transition-all duration-300 block"
                   >
                     <div className="relative h-48 overflow-hidden">
                       <img 
                         src={post.image} 
                         alt={post.title}
                         className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                        loading="lazy"
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-card/80 to-transparent" />
                       <Badge 
@@ -296,8 +312,9 @@ export default function Blog() {
                         </span>
                       </div>
                     </div>
-                  </article>
-                ))}
+                  </Wrapper>
+                  );
+                })}
               </div>
 
               {/* Pagination */}
