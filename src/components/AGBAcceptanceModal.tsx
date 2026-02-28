@@ -223,7 +223,7 @@ const AGBAcceptanceModal = ({ open, onAccept }: AGBAcceptanceModalProps) => {
                 hasScrolledToBottom ? "cursor-pointer" : "cursor-not-allowed"
               )}
             >
-              Ich habe die <Link to="/agb" className="text-primary hover:underline font-medium" target="_blank">Allgemeinen Geschäftsbedingungen</Link> gelesen und akzeptiere diese. Mir ist bekannt, dass ich mit der Nutzung der Plattform an diese Bedingungen gebunden bin.
+              Ich habe die <Link to="/agb-partner" className="text-primary hover:underline font-medium" target="_blank">AGB für Partner</Link> und die <Link to="/agb-anbieter" className="text-primary hover:underline font-medium" target="_blank">AGB für Anbieter</Link> gelesen und akzeptiere diese. Mir ist bekannt, dass ich mit der Nutzung der Plattform an diese Bedingungen gebunden bin.
             </label>
           </div>
 

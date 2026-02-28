@@ -1,4 +1,4 @@
-import { Building2, MapPin, Phone, Mail, User, FileText, Scale, Link as LinkIcon, Copyright } from "lucide-react";
+import { Building2, MapPin, Phone, Mail, User, FileText, Scale, Link as LinkIcon, Copyright, Globe } from "lucide-react";
 import { 
   LegalPageLayout, 
   LegalSection, 
@@ -26,35 +26,51 @@ export default function Impressum() {
       subtitle="Rechtliche Informationen und Kontaktdaten der katew GmbH"
       badge="Rechtliche Informationen"
       icon={<Building2 className="w-10 h-10 text-primary" />}
-      lastUpdated="Januar 2026"
+      lastUpdated="Februar 2026"
       sections={sections}
     >
       <LegalSection id="angaben" title="Angaben gemäß § 5 TMG">
-        <LegalInfoCard icon={<MapPin className="w-5 h-5" />}>
-          <p className="font-semibold text-foreground">katew GmbH</p>
-          <p>Allerheiligentor 2-4</p>
-          <p>60311 Frankfurt</p>
-          <p>Deutschland</p>
-        </LegalInfoCard>
+        <div className="p-6 bg-gradient-to-br from-primary/5 via-secondary/5 to-primary/5 rounded-2xl border border-primary/20">
+          <div className="flex items-start gap-5">
+            <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-primary/20 to-secondary/20 flex items-center justify-center flex-shrink-0">
+              <Building2 className="w-7 h-7 text-primary" />
+            </div>
+            <div className="space-y-1">
+              <p className="text-lg font-bold text-foreground">katew GmbH</p>
+              <div className="flex items-center gap-2 text-muted-foreground">
+                <MapPin className="w-4 h-4 text-primary/60" />
+                <span>Allerheiligentor 2-4</span>
+              </div>
+              <div className="flex items-center gap-2 text-muted-foreground">
+                <span className="w-4" />
+                <span>60311 Frankfurt</span>
+              </div>
+              <div className="flex items-center gap-2 text-muted-foreground">
+                <Globe className="w-4 h-4 text-primary/60" />
+                <span>Deutschland</span>
+              </div>
+            </div>
+          </div>
+        </div>
       </LegalSection>
 
       <LegalSection id="kontakt" title="Kontakt">
         <div className="grid sm:grid-cols-2 gap-4">
-          <div className="p-4 bg-muted/30 rounded-xl border border-border/50">
-            <div className="flex items-center gap-3 mb-2">
+          <div className="group p-5 bg-card rounded-2xl border border-border/50 hover:border-primary/30 transition-all hover:shadow-lg hover:shadow-primary/5">
+            <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
               <Phone className="w-5 h-5 text-primary" />
-              <span className="font-medium text-foreground">Telefon</span>
             </div>
-            <a href="tel:+4915115561231" className="text-primary hover:underline">
+            <span className="text-xs uppercase tracking-wider text-muted-foreground font-medium">Telefon</span>
+            <a href="tel:+4915115561231" className="block mt-1 text-foreground font-semibold hover:text-primary transition-colors">
               +49 151 155 612 31
             </a>
           </div>
-          <div className="p-4 bg-muted/30 rounded-xl border border-border/50">
-            <div className="flex items-center gap-3 mb-2">
+          <div className="group p-5 bg-card rounded-2xl border border-border/50 hover:border-primary/30 transition-all hover:shadow-lg hover:shadow-primary/5">
+            <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
               <Mail className="w-5 h-5 text-primary" />
-              <span className="font-medium text-foreground">E-Mail</span>
             </div>
-            <a href="mailto:support@katew.de" className="text-primary hover:underline">
+            <span className="text-xs uppercase tracking-wider text-muted-foreground font-medium">E-Mail</span>
+            <a href="mailto:support@katew.de" className="block mt-1 text-foreground font-semibold hover:text-primary transition-colors">
               support@katew.de
             </a>
           </div>
@@ -62,20 +78,37 @@ export default function Impressum() {
       </LegalSection>
 
       <LegalSection id="vertreten" title="Vertreten durch">
-        <LegalInfoCard icon={<User className="w-5 h-5" />}>
-          <p className="font-semibold text-foreground">Geschäftsführer</p>
-          <p>Max Mustermann</p>
-        </LegalInfoCard>
+        <div className="p-5 bg-card rounded-2xl border border-border/50">
+          <div className="flex items-center gap-4">
+            <div className="w-12 h-12 rounded-full bg-gradient-to-br from-primary/20 to-secondary/20 flex items-center justify-center">
+              <User className="w-6 h-6 text-primary" />
+            </div>
+            <div>
+              <span className="text-xs uppercase tracking-wider text-muted-foreground font-medium">Geschäftsführer</span>
+              <p className="text-foreground font-semibold text-lg">Max Mustermann</p>
+            </div>
+          </div>
+        </div>
       </LegalSection>
 
       <LegalSection id="register" title="Registereintrag">
-        <div className="p-5 bg-muted/30 rounded-xl border border-border/50">
+        <div className="p-5 bg-card rounded-2xl border border-border/50">
           <div className="flex items-start gap-4">
-            <FileText className="w-5 h-5 text-primary mt-1 flex-shrink-0" />
-            <div className="space-y-2">
-              <p>Eintragung im Handelsregister</p>
-              <p><span className="text-foreground font-medium">Registergericht:</span> Amtsgericht Berlin-Charlottenburg</p>
-              <p><span className="text-foreground font-medium">Registernummer:</span> HRB 123456</p>
+            <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center flex-shrink-0">
+              <FileText className="w-5 h-5 text-primary" />
+            </div>
+            <div>
+              <p className="font-medium text-foreground mb-3">Eintragung im Handelsregister</p>
+              <div className="grid sm:grid-cols-2 gap-3">
+                <div className="p-3 bg-muted/30 rounded-xl">
+                  <span className="text-xs uppercase tracking-wider text-muted-foreground">Registergericht</span>
+                  <p className="text-foreground font-medium mt-0.5">Amtsgericht Frankfurt am Main</p>
+                </div>
+                <div className="p-3 bg-muted/30 rounded-xl">
+                  <span className="text-xs uppercase tracking-wider text-muted-foreground">Registernummer</span>
+                  <p className="text-foreground font-medium font-mono mt-0.5">HRB 123456</p>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -85,17 +118,24 @@ export default function Impressum() {
         <p>
           Umsatzsteuer-Identifikationsnummer gemäß § 27a Umsatzsteuergesetz:
         </p>
-        <p className="mt-2 font-mono text-foreground bg-muted/50 px-4 py-2 rounded-lg inline-block">
-          DE 123 456 789
-        </p>
+        <div className="mt-3 inline-flex items-center gap-3 px-5 py-3 bg-gradient-to-r from-primary/10 to-secondary/10 border border-primary/20 rounded-xl">
+          <Scale className="w-4 h-4 text-primary" />
+          <span className="font-mono text-foreground font-semibold tracking-wider">DE 123 456 789</span>
+        </div>
       </LegalSection>
 
       <LegalSection id="verantwortlich" title="Verantwortlich für den Inhalt nach § 55 Abs. 2 RStV">
-        <LegalInfoCard icon={<User className="w-5 h-5" />}>
-          <p className="font-semibold text-foreground">Max Mustermann</p>
-          <p>Allerheiligentor 2-4</p>
-          <p>60311 Frankfurt</p>
-        </LegalInfoCard>
+        <div className="p-5 bg-card rounded-2xl border border-border/50">
+          <div className="flex items-center gap-4">
+            <div className="w-12 h-12 rounded-full bg-gradient-to-br from-primary/20 to-secondary/20 flex items-center justify-center">
+              <User className="w-6 h-6 text-primary" />
+            </div>
+            <div>
+              <p className="text-foreground font-semibold">Max Mustermann</p>
+              <p className="text-sm text-muted-foreground">Allerheiligentor 2-4, 60311 Frankfurt</p>
+            </div>
+          </div>
+        </div>
       </LegalSection>
 
       <LegalSection id="streitschlichtung" title="Streitschlichtung">
