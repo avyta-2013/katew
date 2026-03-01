@@ -113,7 +113,7 @@ const AnbieterPraesentation = () => {
       {/* Bottom bar */}
       <div className="absolute bottom-0 left-0 right-0 flex items-center justify-between px-8 py-4 z-50">
         <div className="flex items-center gap-3">
-          <img src={logoNew} alt="katew" className="h-10 opacity-60" />
+          <img src={logoNew} alt="katew" className="h-14 opacity-60 bg-white rounded-lg p-1" />
         </div>
         <div className="flex items-center gap-2">
           {Array.from({ length: TOTAL_SLIDES }).map((_, i) => (
@@ -173,7 +173,7 @@ const InfoCard = ({ icon: Icon, title, text, delay = 0, color = "primary" }: { i
 const SlideCover = () => (
   <SlideLayout>
     <FadeUp className="text-center">
-      <img src={logoNew} alt="katew" className="h-24 md:h-32 mx-auto mb-8" />
+      <img src={logoNew} alt="katew" className="h-32 md:h-44 mx-auto mb-8 bg-white rounded-2xl p-3" />
     </FadeUp>
     <FadeUp delay={0.15} className="text-center max-w-4xl">
       <h1 className="text-4xl md:text-6xl lg:text-7xl font-extrabold text-foreground leading-tight">
@@ -452,7 +452,7 @@ const SlideVertrag = () => (
 const SlideKontakt = () => (
   <SlideLayout>
     <FadeUp className="text-center">
-      <img src={logoNew} alt="katew" className="h-20 mx-auto mb-6" />
+      <img src={logoNew} alt="katew" className="h-28 mx-auto mb-6 bg-white rounded-2xl p-3" />
     </FadeUp>
     <FadeUp delay={0.15} className="text-center max-w-3xl">
       <h2 className="text-3xl md:text-5xl font-bold text-foreground mb-4">Jetzt Anbieter werden</h2>
