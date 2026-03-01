@@ -190,7 +190,7 @@ export const ProvidersSection = () => {
                     {germanCities.map((city, index) => (
                       <motion.div
                         key={city.name}
-                        className="flex items-center justify-between p-3 rounded-xl bg-muted/40 hover:bg-muted/70 transition-colors group cursor-pointer"
+                        className="flex items-center justify-between p-3 rounded-xl bg-white hover:bg-muted/30 transition-colors group cursor-pointer"
                         initial={{ opacity: 0, y: 10 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: index * 0.02 }}
