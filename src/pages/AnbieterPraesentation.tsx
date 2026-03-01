@@ -85,10 +85,18 @@ const AnbieterPraesentation = () => {
   ];
 
   return (
-    <div className="h-screen w-screen bg-background overflow-hidden relative select-none" data-slide-content>
+    <div className="h-screen w-screen bg-white overflow-hidden relative select-none" data-slide-content>
+      {/* Decorative mesh gradient background */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute -top-1/2 -right-1/4 w-[800px] h-[800px] rounded-full bg-primary/5 blur-3xl" />
-        <div className="absolute -bottom-1/2 -left-1/4 w-[600px] h-[600px] rounded-full bg-secondary/5 blur-3xl" />
+        <div className="absolute -top-[30%] -right-[15%] w-[900px] h-[900px] rounded-full opacity-[0.07]"
+          style={{ background: "radial-gradient(circle, hsl(var(--primary)), transparent 70%)" }} />
+        <div className="absolute -bottom-[30%] -left-[15%] w-[700px] h-[700px] rounded-full opacity-[0.05]"
+          style={{ background: "radial-gradient(circle, hsl(var(--secondary)), transparent 70%)" }} />
+        <div className="absolute top-[20%] left-[50%] w-[500px] h-[500px] rounded-full opacity-[0.03]"
+          style={{ background: "radial-gradient(circle, hsl(var(--primary)), transparent 60%)" }} />
+        {/* Subtle dot grid */}
+        <div className="absolute inset-0 opacity-[0.03]"
+          style={{ backgroundImage: "radial-gradient(circle, hsl(var(--foreground)) 1px, transparent 1px)", backgroundSize: "32px 32px" }} />
       </div>
 
       {isExporting ? (
@@ -99,10 +107,10 @@ const AnbieterPraesentation = () => {
         <AnimatePresence mode="wait">
           <motion.div
             key={current}
-            initial={{ opacity: 0, x: 60 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: -60 }}
-            transition={{ duration: 0.4, ease: [0.4, 0, 0.2, 1] }}
+            initial={{ opacity: 0, y: 20, scale: 0.98 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: -10, scale: 0.98 }}
+            transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
             className="h-full w-full"
           >
             {slides[current]}
@@ -110,29 +118,29 @@ const AnbieterPraesentation = () => {
         </AnimatePresence>
       )}
 
-      {/* Bottom bar */}
-      <div className="absolute bottom-0 left-0 right-0 flex items-center justify-between px-8 py-4 z-50">
+      {/* Bottom bar - glassmorphism */}
+      <div className="absolute bottom-0 left-0 right-0 flex items-center justify-between px-8 py-4 z-50 bg-white/60 backdrop-blur-xl border-t border-black/[0.04]">
         <div className="flex items-center gap-3">
-          <img src={logoNew} alt="katew" className="h-14 opacity-60 bg-white rounded-lg p-1" />
+          <img src={logoNew} alt="katew" className="h-12 opacity-80" />
         </div>
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-1.5">
           {Array.from({ length: TOTAL_SLIDES }).map((_, i) => (
             <button
               key={i}
               onClick={() => setCurrent(i)}
-              className={`transition-all duration-300 rounded-full ${i === current ? "w-8 h-2 bg-primary" : "w-2 h-2 bg-foreground/20 hover:bg-foreground/40"}`}
+              className={`transition-all duration-500 rounded-full ${i === current ? "w-10 h-2.5 bg-gradient-to-r from-primary to-secondary shadow-sm" : "w-2.5 h-2.5 bg-foreground/15 hover:bg-foreground/30"}`}
             />
           ))}
         </div>
-        <div className="flex items-center gap-2">
-          <span className="text-muted-foreground text-sm font-medium mr-2">{current + 1} / {TOTAL_SLIDES}</span>
-          <button onClick={prev} disabled={current === 0} className="p-2 rounded-lg text-muted-foreground hover:text-foreground hover:bg-muted disabled:opacity-20 transition-all"><ChevronLeft className="w-5 h-5" /></button>
-          <button onClick={next} disabled={current === TOTAL_SLIDES - 1} className="p-2 rounded-lg text-muted-foreground hover:text-foreground hover:bg-muted disabled:opacity-20 transition-all"><ChevronRight className="w-5 h-5" /></button>
-          <button onClick={toggleFullscreen} className="p-2 rounded-lg text-muted-foreground hover:text-foreground hover:bg-muted transition-all ml-1">
-            {isFullscreen ? <Minimize className="w-5 h-5" /> : <Maximize className="w-5 h-5" />}
+        <div className="flex items-center gap-1">
+          <span className="text-foreground/40 text-xs font-medium tracking-wide mr-3 font-mono">{String(current + 1).padStart(2, '0')} / {TOTAL_SLIDES}</span>
+          <button onClick={prev} disabled={current === 0} className="p-2.5 rounded-xl text-foreground/40 hover:text-foreground hover:bg-black/[0.04] disabled:opacity-20 transition-all"><ChevronLeft className="w-4 h-4" /></button>
+          <button onClick={next} disabled={current === TOTAL_SLIDES - 1} className="p-2.5 rounded-xl text-foreground/40 hover:text-foreground hover:bg-black/[0.04] disabled:opacity-20 transition-all"><ChevronRight className="w-4 h-4" /></button>
+          <button onClick={toggleFullscreen} className="p-2.5 rounded-xl text-foreground/40 hover:text-foreground hover:bg-black/[0.04] transition-all ml-1">
+            {isFullscreen ? <Minimize className="w-4 h-4" /> : <Maximize className="w-4 h-4" />}
           </button>
-          <button onClick={exportPDF} disabled={isExporting} className="p-2 rounded-lg text-muted-foreground hover:text-foreground hover:bg-muted disabled:opacity-50 transition-all" title="Als PDF herunterladen">
-            {isExporting ? <Loader2 className="w-5 h-5 animate-spin" /> : <Download className="w-5 h-5" />}
+          <button onClick={exportPDF} disabled={isExporting} className="p-2.5 rounded-xl text-foreground/40 hover:text-foreground hover:bg-black/[0.04] disabled:opacity-50 transition-all" title="Als PDF herunterladen">
+            {isExporting ? <Loader2 className="w-4 h-4 animate-spin" /> : <Download className="w-4 h-4" />}
           </button>
         </div>
       </div>
@@ -142,29 +150,29 @@ const AnbieterPraesentation = () => {
 
 /* ── Shared ──────────────────────────── */
 const SlideLayout = ({ children, className = "" }: { children: React.ReactNode; className?: string }) => (
-  <div className={`h-full w-full flex flex-col items-center justify-center px-8 md:px-20 lg:px-32 py-16 ${className}`}>{children}</div>
+  <div className={`h-full w-full flex flex-col items-center justify-center px-8 md:px-20 lg:px-32 py-20 ${className}`}>{children}</div>
 );
 
 const Badge = ({ children, className = "" }: { children: React.ReactNode; className?: string }) => (
-  <motion.span initial={{ opacity: 0, scale: 0.8 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 0.2 }}
-    className={`inline-flex items-center px-4 py-1.5 rounded-full text-xs font-semibold tracking-widest uppercase border ${className}`}
+  <motion.span initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1, duration: 0.5 }}
+    className={`inline-flex items-center px-5 py-2 rounded-full text-xs font-semibold tracking-widest uppercase backdrop-blur-sm ${className}`}
   >{children}</motion.span>
 );
 
 const FadeUp = ({ children, delay = 0, className = "" }: { children: React.ReactNode; delay?: number; className?: string }) => (
-  <motion.div initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay, ease: [0.4, 0, 0.2, 1] }} className={className}>{children}</motion.div>
+  <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay, ease: [0.22, 1, 0.36, 1] }} className={className}>{children}</motion.div>
 );
 
 const InfoCard = ({ icon: Icon, title, text, delay = 0, color = "primary" }: { icon: any; title: string; text: string; delay?: number; color?: string }) => (
-  <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay }}
-    className="p-6 rounded-2xl bg-muted/50 border border-border/50 backdrop-blur-sm flex gap-5"
+  <motion.div initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ delay, duration: 0.6 }}
+    className="group p-7 rounded-2xl bg-white/80 backdrop-blur-sm border border-black/[0.06] shadow-[0_1px_3px_rgba(0,0,0,0.04)] hover:shadow-[0_8px_30px_rgba(0,0,0,0.06)] transition-all duration-500 flex gap-5"
   >
-    <div className={`w-12 h-12 rounded-xl bg-${color}/10 flex items-center justify-center shrink-0`}>
+    <div className={`w-12 h-12 rounded-2xl bg-${color}/8 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform duration-500`}>
       <Icon className={`w-6 h-6 text-${color}`} />
     </div>
     <div>
-      <h3 className="text-foreground font-semibold mb-1">{title}</h3>
-      <p className="text-muted-foreground text-sm leading-relaxed">{text}</p>
+      <h3 className="text-foreground font-bold mb-1.5">{title}</h3>
+      <p className="text-foreground/50 text-sm leading-relaxed">{text}</p>
     </div>
   </motion.div>
 );
@@ -173,22 +181,30 @@ const InfoCard = ({ icon: Icon, title, text, delay = 0, color = "primary" }: { i
 const SlideCover = () => (
   <SlideLayout>
     <FadeUp className="text-center">
-      <img src={logoNew} alt="katew" className="h-32 md:h-44 mx-auto mb-8 bg-white rounded-2xl p-3" />
+      <img src={logoNew} alt="katew" className="h-36 md:h-48 mx-auto mb-10" />
     </FadeUp>
     <FadeUp delay={0.15} className="text-center max-w-4xl">
-      <h1 className="text-4xl md:text-6xl lg:text-7xl font-extrabold text-foreground leading-tight">
+      <h1 className="text-4xl md:text-6xl lg:text-7xl font-extrabold text-foreground leading-[1.1] tracking-tight">
         Anbieter-Informationen für{" "}
-        <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">Fahrunternehmen</span>
+        <span className="bg-gradient-to-r from-primary via-primary/80 to-secondary bg-clip-text text-transparent">Fahrunternehmen</span>
       </h1>
     </FadeUp>
     <FadeUp delay={0.3} className="text-center mt-6">
-      <p className="text-lg md:text-xl text-muted-foreground max-w-2xl">
+      <p className="text-lg md:text-xl text-foreground/40 max-w-2xl leading-relaxed">
         Alles, was Sie als Fahrunternehmen über die Zusammenarbeit mit katew wissen müssen
       </p>
     </FadeUp>
-    <FadeUp delay={0.45} className="flex flex-wrap justify-center gap-3 mt-10">
-      {["Vermittlungsplattform", "3,69 € pro Buchung", "Keine Abo-Pflicht", "Digital & Fair"].map(tag => (
-        <span key={tag} className="px-4 py-2 rounded-xl bg-primary/10 text-primary text-sm font-medium border border-primary/20">{tag}</span>
+    <FadeUp delay={0.45} className="flex flex-wrap justify-center gap-3 mt-12">
+      {["Vermittlungsplattform", "3,69 € pro Buchung", "Keine Abo-Pflicht", "Digital & Fair"].map((tag, i) => (
+        <motion.span
+          key={tag}
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ delay: 0.55 + i * 0.08 }}
+          className="px-5 py-2.5 rounded-full bg-primary/[0.06] text-primary text-sm font-medium border border-primary/10 backdrop-blur-sm"
+        >
+          {tag}
+        </motion.span>
       ))}
     </FadeUp>
   </SlideLayout>
@@ -197,10 +213,10 @@ const SlideCover = () => (
 /* ── Slide 2: Wer ist katew? ─────────── */
 const SlideWerIstKatew = () => (
   <SlideLayout>
-    <Badge className="border-primary/30 text-primary bg-primary/10 mb-6"><Building2 className="w-3.5 h-3.5 mr-2" /> Wer wir sind</Badge>
-    <FadeUp className="text-center mb-10">
-      <h2 className="text-3xl md:text-5xl font-bold text-foreground">katew – Digitale Vermittlung</h2>
-      <p className="text-muted-foreground mt-3 text-lg max-w-3xl mx-auto">
+    <Badge className="border-primary/20 text-primary bg-primary/[0.06] mb-8"><Building2 className="w-3.5 h-3.5 mr-2" /> Wer wir sind</Badge>
+    <FadeUp className="text-center mb-12">
+      <h2 className="text-3xl md:text-5xl font-bold text-foreground tracking-tight">katew – Digitale Vermittlung</h2>
+      <p className="text-foreground/40 mt-4 text-lg max-w-3xl mx-auto leading-relaxed">
         katew ist eine Plattform der AVYTA GmbH mit Sitz in Frankfurt am Main. Wir vermitteln Kranken- und Patientenfahrten – digital, schnell und transparent.
       </p>
     </FadeUp>
@@ -215,9 +231,9 @@ const SlideWerIstKatew = () => (
 /* ── Slide 3: Wie funktioniert's? ────── */
 const SlideWieFunktionierts = () => (
   <SlideLayout>
-    <Badge className="border-secondary/30 text-secondary bg-secondary/10 mb-6"><Zap className="w-3.5 h-3.5 mr-2" /> So funktioniert's</Badge>
-    <FadeUp className="text-center mb-10">
-      <h2 className="text-3xl md:text-5xl font-bold text-foreground">In 4 Schritten zum Auftrag</h2>
+    <Badge className="border-secondary/20 text-secondary bg-secondary/[0.06] mb-8"><Zap className="w-3.5 h-3.5 mr-2" /> So funktioniert's</Badge>
+    <FadeUp className="text-center mb-12">
+      <h2 className="text-3xl md:text-5xl font-bold text-foreground tracking-tight">In 4 Schritten zum Auftrag</h2>
     </FadeUp>
     <FadeUp delay={0.2} className="grid grid-cols-1 md:grid-cols-4 gap-6 w-full max-w-6xl">
       {[
@@ -226,15 +242,17 @@ const SlideWieFunktionierts = () => (
         { step: "03", icon: FileText, title: "Anfragen erhalten", text: "Automatisierte, diskriminierungsfreie Verteilung der Fahrtanfragen" },
         { step: "04", icon: Handshake, title: "Fahrt durchführen", text: "Sie nehmen den Auftrag an – der Beförderungsvertrag entsteht mit dem Kunden" },
       ].map((item, i) => (
-        <motion.div key={item.step} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 + i * 0.12 }}
-          className="p-6 rounded-2xl bg-muted/50 border border-border/50 backdrop-blur-sm text-center relative"
+        <motion.div key={item.step} initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 + i * 0.15, duration: 0.6 }}
+          className="group p-7 rounded-2xl bg-white/80 backdrop-blur-sm border border-black/[0.06] shadow-[0_1px_3px_rgba(0,0,0,0.04)] hover:shadow-[0_8px_30px_rgba(0,0,0,0.06)] transition-all duration-500 text-center relative overflow-hidden"
         >
-          <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-1 rounded-full bg-primary text-primary-foreground text-xs font-bold">{item.step}</div>
-          <div className="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center mx-auto mb-4 mt-2">
+          {/* Accent line */}
+          <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-primary to-secondary opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+          <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-4 py-1.5 rounded-full bg-gradient-to-r from-primary to-secondary text-white text-xs font-bold shadow-lg shadow-primary/20">{item.step}</div>
+          <div className="w-14 h-14 rounded-2xl bg-primary/[0.06] flex items-center justify-center mx-auto mb-4 mt-3 group-hover:scale-110 transition-transform duration-500">
             <item.icon className="w-7 h-7 text-primary" />
           </div>
-          <h3 className="text-foreground font-semibold text-lg mb-2">{item.title}</h3>
-          <p className="text-muted-foreground text-sm leading-relaxed">{item.text}</p>
+          <h3 className="text-foreground font-bold text-lg mb-2">{item.title}</h3>
+          <p className="text-foreground/45 text-sm leading-relaxed">{item.text}</p>
         </motion.div>
       ))}
     </FadeUp>
@@ -244,10 +262,10 @@ const SlideWieFunktionierts = () => (
 /* ── Slide 4: Voraussetzungen ────────── */
 const SlideVoraussetzungen = () => (
   <SlideLayout>
-    <Badge className="border-primary/30 text-primary bg-primary/10 mb-6"><Shield className="w-3.5 h-3.5 mr-2" /> § 3 Voraussetzungen</Badge>
-    <FadeUp className="text-center mb-10">
-      <h2 className="text-3xl md:text-5xl font-bold text-foreground">Was Sie mitbringen müssen</h2>
-      <p className="text-muted-foreground mt-3 text-lg">Rechtliche Anforderungen an Fahrunternehmen auf katew</p>
+    <Badge className="border-primary/20 text-primary bg-primary/[0.06] mb-8"><Shield className="w-3.5 h-3.5 mr-2" /> § 3 Voraussetzungen</Badge>
+    <FadeUp className="text-center mb-12">
+      <h2 className="text-3xl md:text-5xl font-bold text-foreground tracking-tight">Was Sie mitbringen müssen</h2>
+      <p className="text-foreground/40 mt-4 text-lg">Rechtliche Anforderungen an Fahrunternehmen auf katew</p>
     </FadeUp>
     <FadeUp delay={0.2} className="grid grid-cols-1 md:grid-cols-2 gap-5 w-full max-w-4xl">
       {[
@@ -258,18 +276,18 @@ const SlideVoraussetzungen = () => (
         { icon: XCircle, text: 'Keine unzulässige Verwendung geschützter Begriffe wie „Krankentransport"' },
         { icon: Eye, text: "Keine irreführende Werbung im Zusammenhang mit katew" },
       ].map((item, i) => (
-        <motion.div key={i} initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.3 + i * 0.08 }}
-          className="flex items-center gap-4 p-5 rounded-2xl bg-muted/50 border border-border/50"
+        <motion.div key={i} initial={{ opacity: 0, x: i % 2 === 0 ? -20 : 20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.3 + i * 0.08, duration: 0.5 }}
+          className="flex items-center gap-5 p-6 rounded-2xl bg-white/80 backdrop-blur-sm border border-black/[0.06] shadow-[0_1px_3px_rgba(0,0,0,0.04)] hover:shadow-[0_8px_30px_rgba(0,0,0,0.06)] transition-all duration-500"
         >
-          <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
+          <div className="w-11 h-11 rounded-xl bg-primary/[0.06] flex items-center justify-center shrink-0">
             <item.icon className="w-5 h-5 text-primary" />
           </div>
-          <p className="text-foreground/70 text-sm">{item.text}</p>
+          <p className="text-foreground/60 text-sm leading-relaxed">{item.text}</p>
         </motion.div>
       ))}
     </FadeUp>
-    <FadeUp delay={0.7} className="mt-6">
-      <p className="text-muted-foreground/60 text-sm italic">Nachweise sind auf Verlangen vorzulegen.</p>
+    <FadeUp delay={0.7} className="mt-8">
+      <p className="text-foreground/30 text-sm italic">Nachweise sind auf Verlangen vorzulegen.</p>
     </FadeUp>
   </SlideLayout>
 );
@@ -277,10 +295,10 @@ const SlideVoraussetzungen = () => (
 /* ── Slide 5: Vermittlung ────────────── */
 const SlideVermittlung = () => (
   <SlideLayout>
-    <Badge className="border-secondary/30 text-secondary bg-secondary/10 mb-6"><Truck className="w-3.5 h-3.5 mr-2" /> Vermittlung</Badge>
-    <FadeUp className="text-center mb-10">
-      <h2 className="text-3xl md:text-5xl font-bold text-foreground">Faire Vermittlung</h2>
-      <p className="text-muted-foreground mt-3 text-lg max-w-2xl mx-auto">Automatisiert, transparent und diskriminierungsfrei</p>
+    <Badge className="border-secondary/20 text-secondary bg-secondary/[0.06] mb-8"><Truck className="w-3.5 h-3.5 mr-2" /> Vermittlung</Badge>
+    <FadeUp className="text-center mb-12">
+      <h2 className="text-3xl md:text-5xl font-bold text-foreground tracking-tight">Faire Vermittlung</h2>
+      <p className="text-foreground/40 mt-4 text-lg max-w-2xl mx-auto">Automatisiert, transparent und diskriminierungsfrei</p>
     </FadeUp>
     <FadeUp delay={0.2} className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full max-w-4xl">
       <InfoCard icon={Zap} title="Automatische Verteilung" text="Fahrtanfragen werden nach fairen, diskriminierungsfreien Kriterien automatisiert verteilt (Verfügbarkeit, Entfernung, Auslastung)." delay={0.3} />
@@ -294,24 +312,25 @@ const SlideVermittlung = () => (
 /* ── Slide 6: Vergütung ──────────────── */
 const SlideVerguetung = () => (
   <SlideLayout>
-    <Badge className="border-primary/30 text-primary bg-primary/10 mb-6"><CreditCard className="w-3.5 h-3.5 mr-2" /> Vergütung</Badge>
-    <FadeUp className="text-center mb-10">
-      <h2 className="text-3xl md:text-5xl font-bold text-foreground">Transparentes Preismodell</h2>
+    <Badge className="border-primary/20 text-primary bg-primary/[0.06] mb-8"><CreditCard className="w-3.5 h-3.5 mr-2" /> Vergütung</Badge>
+    <FadeUp className="text-center mb-12">
+      <h2 className="text-3xl md:text-5xl font-bold text-foreground tracking-tight">Transparentes Preismodell</h2>
     </FadeUp>
 
-    <FadeUp delay={0.2} className="w-full max-w-lg mb-10">
-      <div className="p-8 rounded-3xl bg-gradient-to-br from-primary/10 via-secondary/5 to-primary/10 border border-primary/20 text-center relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-r from-primary/5 to-secondary/5 blur-2xl" />
+    <FadeUp delay={0.2} className="w-full max-w-lg mb-12">
+      <div className="p-10 rounded-3xl bg-white/90 backdrop-blur-sm border border-black/[0.06] shadow-[0_20px_60px_rgba(0,0,0,0.06)] text-center relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-br from-primary/[0.03] to-secondary/[0.03]" />
+        <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-primary to-secondary" />
         <div className="relative">
-          <p className="text-muted-foreground text-sm mb-2">Provision pro vermittelter Buchung</p>
-          <p className="text-6xl md:text-7xl font-black bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">3,69 €</p>
-          <p className="text-muted-foreground/70 mt-2">netto, zzgl. gesetzlicher USt.</p>
+          <p className="text-foreground/40 text-sm mb-3 tracking-wide uppercase font-medium">Provision pro vermittelter Buchung</p>
+          <p className="text-7xl md:text-8xl font-black bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent leading-none">3,69 €</p>
+          <p className="text-foreground/30 mt-3 text-sm">netto, zzgl. gesetzlicher USt.</p>
         </div>
       </div>
     </FadeUp>
 
     <FadeUp delay={0.35} className="w-full max-w-4xl">
-      <p className="text-foreground/60 font-medium mb-4 text-center">Eine Buchung gilt als provisionspflichtig, sobald:</p>
+      <p className="text-foreground/40 font-medium mb-5 text-center text-sm tracking-wide uppercase">Eine Buchung gilt als provisionspflichtig, sobald:</p>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         {[
           "Vom Fahrunternehmen angenommen",
@@ -319,19 +338,19 @@ const SlideVerguetung = () => (
           "Ein Vertrag aufgrund der Vermittlung zustande kommt",
         ].map((text, i) => (
           <motion.div key={i} initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.5 + i * 0.1 }}
-            className="p-4 rounded-xl bg-muted/50 border border-border/50 text-center"
+            className="p-5 rounded-2xl bg-white/80 backdrop-blur-sm border border-black/[0.06] text-center shadow-[0_1px_3px_rgba(0,0,0,0.04)]"
           >
-            <CheckCircle2 className="w-6 h-6 text-primary mx-auto mb-2" />
-            <p className="text-foreground/60 text-sm">{text}</p>
+            <CheckCircle2 className="w-6 h-6 text-primary mx-auto mb-3" />
+            <p className="text-foreground/50 text-sm">{text}</p>
           </motion.div>
         ))}
       </div>
     </FadeUp>
 
-    <FadeUp delay={0.8} className="mt-6">
-      <div className="flex items-center gap-3 p-4 rounded-xl bg-muted/50 border border-border/50">
-        <FileText className="w-5 h-5 text-muted-foreground shrink-0" />
-        <p className="text-muted-foreground text-sm">Abrechnung erfolgt monatlich. Zahlungsfrist: 14 Tage ab Rechnungsdatum.</p>
+    <FadeUp delay={0.8} className="mt-8">
+      <div className="flex items-center gap-3 p-5 rounded-2xl bg-white/80 backdrop-blur-sm border border-black/[0.06]">
+        <FileText className="w-5 h-5 text-foreground/30 shrink-0" />
+        <p className="text-foreground/40 text-sm">Abrechnung erfolgt monatlich. Zahlungsfrist: 14 Tage ab Rechnungsdatum.</p>
       </div>
     </FadeUp>
   </SlideLayout>
@@ -340,17 +359,20 @@ const SlideVerguetung = () => (
 /* ── Slide 7: Rechte & Pflichten ─────── */
 const SlideRechteUndPflichten = () => (
   <SlideLayout>
-    <Badge className="border-destructive/30 text-destructive bg-destructive/10 mb-6"><Gavel className="w-3.5 h-3.5 mr-2" /> Rechte & Pflichten</Badge>
-    <FadeUp className="text-center mb-10">
-      <h2 className="text-3xl md:text-5xl font-bold text-foreground">Was für Sie gilt</h2>
+    <Badge className="border-destructive/20 text-destructive bg-destructive/[0.06] mb-8"><Gavel className="w-3.5 h-3.5 mr-2" /> Rechte & Pflichten</Badge>
+    <FadeUp className="text-center mb-12">
+      <h2 className="text-3xl md:text-5xl font-bold text-foreground tracking-tight">Was für Sie gilt</h2>
     </FadeUp>
-    <FadeUp delay={0.2} className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full max-w-5xl">
+    <FadeUp delay={0.2} className="grid grid-cols-1 md:grid-cols-2 gap-8 w-full max-w-5xl">
       {/* Pflichten */}
-      <div className="p-6 rounded-2xl bg-muted/50 border border-border/50">
-        <h3 className="text-foreground font-bold text-lg mb-4 flex items-center gap-2">
-          <AlertTriangle className="w-5 h-5 text-destructive" /> Ihre Pflichten
+      <div className="p-8 rounded-2xl bg-white/80 backdrop-blur-sm border border-black/[0.06] shadow-[0_1px_3px_rgba(0,0,0,0.04)]">
+        <h3 className="text-foreground font-bold text-lg mb-5 flex items-center gap-2">
+          <div className="w-8 h-8 rounded-lg bg-destructive/[0.08] flex items-center justify-center">
+            <AlertTriangle className="w-4 h-4 text-destructive" />
+          </div>
+          Ihre Pflichten
         </h3>
-        <ul className="space-y-3">
+        <ul className="space-y-3.5">
           {[
             "Ordnungsgemäße Durchführung der Fahrten",
             "Selbstständiges, rechtlich eigenständiges Handeln",
@@ -359,8 +381,8 @@ const SlideRechteUndPflichten = () => (
             "Keine systematische Umgehung der Plattform",
             "Bei Stornierung durch Sie: Provision bleibt geschuldet",
           ].map((t, i) => (
-            <li key={i} className="flex items-start gap-3 text-foreground/60 text-sm">
-              <div className="w-2 h-2 rounded-full bg-destructive/60 mt-1.5 shrink-0" />
+            <li key={i} className="flex items-start gap-3 text-foreground/50 text-sm">
+              <div className="w-1.5 h-1.5 rounded-full bg-destructive/50 mt-2 shrink-0" />
               {t}
             </li>
           ))}
@@ -368,11 +390,14 @@ const SlideRechteUndPflichten = () => (
       </div>
 
       {/* Rechte */}
-      <div className="p-6 rounded-2xl bg-muted/50 border border-border/50">
-        <h3 className="text-foreground font-bold text-lg mb-4 flex items-center gap-2">
-          <CheckCircle2 className="w-5 h-5 text-primary" /> Ihre Rechte
+      <div className="p-8 rounded-2xl bg-white/80 backdrop-blur-sm border border-black/[0.06] shadow-[0_1px_3px_rgba(0,0,0,0.04)]">
+        <h3 className="text-foreground font-bold text-lg mb-5 flex items-center gap-2">
+          <div className="w-8 h-8 rounded-lg bg-primary/[0.08] flex items-center justify-center">
+            <CheckCircle2 className="w-4 h-4 text-primary" />
+          </div>
+          Ihre Rechte
         </h3>
-        <ul className="space-y-3">
+        <ul className="space-y-3.5">
           {[
             "Eigene Preisgestaltung für Selbstzahler",
             "Monatliche, transparente Abrechnung",
@@ -381,8 +406,8 @@ const SlideRechteUndPflichten = () => (
             "Faire, diskriminierungsfreie Vermittlung",
             "Eigenverantwortliches Handeln – keine Weisungsbindung",
           ].map((t, i) => (
-            <li key={i} className="flex items-start gap-3 text-foreground/60 text-sm">
-              <div className="w-2 h-2 rounded-full bg-primary/60 mt-1.5 shrink-0" />
+            <li key={i} className="flex items-start gap-3 text-foreground/50 text-sm">
+              <div className="w-1.5 h-1.5 rounded-full bg-primary/50 mt-2 shrink-0" />
               {t}
             </li>
           ))}
@@ -395,9 +420,9 @@ const SlideRechteUndPflichten = () => (
 /* ── Slide 8: Qualität ───────────────── */
 const SlideQualitaet = () => (
   <SlideLayout>
-    <Badge className="border-secondary/30 text-secondary bg-secondary/10 mb-6"><Star className="w-3.5 h-3.5 mr-2" /> Qualität</Badge>
-    <FadeUp className="text-center mb-10">
-      <h2 className="text-3xl md:text-5xl font-bold text-foreground">Qualitätssicherung & Haftung</h2>
+    <Badge className="border-secondary/20 text-secondary bg-secondary/[0.06] mb-8"><Star className="w-3.5 h-3.5 mr-2" /> Qualität</Badge>
+    <FadeUp className="text-center mb-12">
+      <h2 className="text-3xl md:text-5xl font-bold text-foreground tracking-tight">Qualitätssicherung & Haftung</h2>
     </FadeUp>
     <FadeUp delay={0.2} className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full max-w-4xl">
       <InfoCard icon={Star} title="Bewertungssystem" text="katew betreibt ein Bewertungssystem. Bei wiederholten erheblichen Beschwerden kann katew vorübergehend sperren oder kündigen." delay={0.3} />
@@ -411,9 +436,9 @@ const SlideQualitaet = () => (
 /* ── Slide 9: Vertrag ────────────────── */
 const SlideVertrag = () => (
   <SlideLayout>
-    <Badge className="border-primary/30 text-primary bg-primary/10 mb-6"><FileText className="w-3.5 h-3.5 mr-2" /> Vertragliches</Badge>
-    <FadeUp className="text-center mb-10">
-      <h2 className="text-3xl md:text-5xl font-bold text-foreground">Vertrag & Datenschutz</h2>
+    <Badge className="border-primary/20 text-primary bg-primary/[0.06] mb-8"><FileText className="w-3.5 h-3.5 mr-2" /> Vertragliches</Badge>
+    <FadeUp className="text-center mb-12">
+      <h2 className="text-3xl md:text-5xl font-bold text-foreground tracking-tight">Vertrag & Datenschutz</h2>
     </FadeUp>
     <FadeUp delay={0.2} className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full max-w-5xl">
       {[
@@ -421,17 +446,17 @@ const SlideVertrag = () => (
         { icon: Shield, title: "Datenschutz", items: ["Beide Parteien sind eigenständige Verantwortliche (DSGVO)", "Vertrauliche Behandlung aller Daten", "Daten nur zur Fahrt-Durchführung"] },
         { icon: Gavel, title: "Schlussbestimmungen", items: ["Änderungen bedürfen der Textform", "Es gilt deutsches Recht", "Gerichtsstand: Frankfurt am Main", "Salvatorische Klausel"] },
       ].map((section, i) => (
-        <motion.div key={section.title} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 + i * 0.12 }}
-          className="p-6 rounded-2xl bg-muted/50 border border-border/50"
+        <motion.div key={section.title} initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 + i * 0.15, duration: 0.6 }}
+          className="group p-7 rounded-2xl bg-white/80 backdrop-blur-sm border border-black/[0.06] shadow-[0_1px_3px_rgba(0,0,0,0.04)] hover:shadow-[0_8px_30px_rgba(0,0,0,0.06)] transition-all duration-500"
         >
-          <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mb-4">
+          <div className="w-12 h-12 rounded-2xl bg-primary/[0.06] flex items-center justify-center mb-5 group-hover:scale-110 transition-transform duration-500">
             <section.icon className="w-6 h-6 text-primary" />
           </div>
-          <h3 className="text-foreground font-semibold text-lg mb-3">{section.title}</h3>
-          <ul className="space-y-2">
+          <h3 className="text-foreground font-bold text-lg mb-4">{section.title}</h3>
+          <ul className="space-y-2.5">
             {section.items.map((item, j) => (
-              <li key={j} className="text-muted-foreground text-sm flex items-start gap-2">
-                <span className="w-1.5 h-1.5 rounded-full bg-primary/60 mt-1.5 shrink-0" />
+              <li key={j} className="text-foreground/45 text-sm flex items-start gap-2.5">
+                <span className="w-1.5 h-1.5 rounded-full bg-primary/40 mt-2 shrink-0" />
                 {item}
               </li>
             ))}
@@ -439,10 +464,10 @@ const SlideVertrag = () => (
         </motion.div>
       ))}
     </FadeUp>
-    <FadeUp delay={0.7} className="mt-6">
-      <div className="flex items-center gap-3 p-4 rounded-xl bg-muted/50 border border-border/50">
-        <Eye className="w-5 h-5 text-muted-foreground shrink-0" />
-        <p className="text-muted-foreground text-sm">Geheimhaltungspflicht besteht auch nach Vertragsende fort.</p>
+    <FadeUp delay={0.7} className="mt-8">
+      <div className="flex items-center gap-3 p-5 rounded-2xl bg-white/80 backdrop-blur-sm border border-black/[0.06]">
+        <Eye className="w-5 h-5 text-foreground/30 shrink-0" />
+        <p className="text-foreground/40 text-sm">Geheimhaltungspflicht besteht auch nach Vertragsende fort.</p>
       </div>
     </FadeUp>
   </SlideLayout>
@@ -452,34 +477,36 @@ const SlideVertrag = () => (
 const SlideKontakt = () => (
   <SlideLayout>
     <FadeUp className="text-center">
-      <img src={logoNew} alt="katew" className="h-28 mx-auto mb-6 bg-white rounded-2xl p-3" />
+      <img src={logoNew} alt="katew" className="h-36 mx-auto mb-8" />
     </FadeUp>
     <FadeUp delay={0.15} className="text-center max-w-3xl">
-      <h2 className="text-3xl md:text-5xl font-bold text-foreground mb-4">Jetzt Anbieter werden</h2>
-      <p className="text-muted-foreground text-lg mb-10">Starten Sie noch heute und erhalten Sie Fahrtanfragen über Deutschlands führende Vermittlungsplattform für Krankenfahrten.</p>
+      <h2 className="text-3xl md:text-5xl font-bold text-foreground tracking-tight mb-4">Jetzt Anbieter werden</h2>
+      <p className="text-foreground/40 text-lg mb-12 leading-relaxed">Starten Sie noch heute und erhalten Sie Fahrtanfragen über Deutschlands führende Vermittlungsplattform für Krankenfahrten.</p>
     </FadeUp>
-    <FadeUp delay={0.3} className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full max-w-4xl mb-10">
+    <FadeUp delay={0.3} className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full max-w-4xl mb-12">
       {[
         { icon: Mail, label: "E-Mail", value: "support@katew.de" },
         { icon: Phone, label: "Telefon", value: "+49 69 150 454 09" },
         { icon: Globe, label: "Website", value: "katew.de" },
       ].map((item, i) => (
-        <motion.div key={item.label} initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.4 + i * 0.1 }}
-          className="p-6 rounded-2xl bg-muted/50 border border-border/50 text-center"
+        <motion.div key={item.label} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.4 + i * 0.12, duration: 0.6 }}
+          className="group p-7 rounded-2xl bg-white/80 backdrop-blur-sm border border-black/[0.06] shadow-[0_1px_3px_rgba(0,0,0,0.04)] hover:shadow-[0_8px_30px_rgba(0,0,0,0.06)] transition-all duration-500 text-center"
         >
-          <item.icon className="w-8 h-8 text-primary mx-auto mb-3" />
-          <p className="text-muted-foreground text-xs uppercase tracking-wider mb-1">{item.label}</p>
+          <div className="w-12 h-12 rounded-2xl bg-primary/[0.06] flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-500">
+            <item.icon className="w-6 h-6 text-primary" />
+          </div>
+          <p className="text-foreground/30 text-xs uppercase tracking-widest mb-1.5 font-medium">{item.label}</p>
           <p className="text-foreground font-semibold">{item.value}</p>
         </motion.div>
       ))}
     </FadeUp>
     <FadeUp delay={0.6} className="flex flex-wrap justify-center gap-4">
-      <span className="px-5 py-2.5 rounded-xl bg-primary text-primary-foreground font-semibold flex items-center gap-2">
+      <span className="px-7 py-3 rounded-full bg-gradient-to-r from-primary to-secondary text-white font-semibold flex items-center gap-2 shadow-lg shadow-primary/20">
         <ArrowRight className="w-4 h-4" /> katew.de/fuer-anbieter
       </span>
     </FadeUp>
-    <FadeUp delay={0.75} className="mt-8">
-      <p className="text-muted-foreground/50 text-xs">AVYTA GmbH · Allerheiligentor 2–4 · 60311 Frankfurt am Main · HRB 96683</p>
+    <FadeUp delay={0.75} className="mt-10">
+      <p className="text-foreground/25 text-xs tracking-wide">AVYTA GmbH · Allerheiligentor 2–4 · 60311 Frankfurt am Main · HRB 96683</p>
     </FadeUp>
   </SlideLayout>
 );
