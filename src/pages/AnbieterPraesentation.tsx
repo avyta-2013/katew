@@ -8,7 +8,7 @@ import {
 } from "lucide-react";
 import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
-import logoTransparent from "@/assets/katew-logo-transparent.png";
+import logoNew from "@/assets/logo-new.png";
 
 const TOTAL_SLIDES = 10;
 
@@ -44,33 +44,35 @@ const AnbieterPraesentation = () => {
 
   const exportPDF = async () => {
     setIsExporting(true);
+    const originalSlide = current;
     try {
       const pdf = new jsPDF({ orientation: "landscape", unit: "px", format: [1920, 1080] });
-      const container = document.createElement("div");
-      container.style.cssText = "position:fixed;left:-9999px;top:0;width:1920px;height:1080px;overflow:hidden;";
-      document.body.appendChild(container);
 
       for (let i = 0; i < TOTAL_SLIDES; i++) {
-        const { createRoot } = await import("react-dom/client");
-        const wrapper = document.createElement("div");
-        wrapper.className = "h-screen w-screen bg-foreground overflow-hidden relative";
-        wrapper.style.cssText = "width:1920px;height:1080px;";
-        container.innerHTML = "";
-        container.appendChild(wrapper);
-        const root = createRoot(wrapper);
-        root.render(slides[i]);
-        await new Promise(r => setTimeout(r, 500));
-        const canvas = await html2canvas(wrapper, { width: 1920, height: 1080, scale: 1, backgroundColor: null, useCORS: true });
-        root.unmount();
+        setCurrent(i);
+        await new Promise(r => setTimeout(r, 600));
+
+        const slideEl = document.querySelector("[data-slide-content]") as HTMLElement;
+        if (!slideEl) continue;
+
+        const canvas = await html2canvas(slideEl, {
+          width: slideEl.scrollWidth,
+          height: slideEl.scrollHeight,
+          scale: 2,
+          backgroundColor: null,
+          useCORS: true,
+          logging: false,
+        });
+
         if (i > 0) pdf.addPage([1920, 1080], "landscape");
-        pdf.addImage(canvas.toDataURL("image/jpeg", 0.92), "JPEG", 0, 0, 1920, 1080);
+        pdf.addImage(canvas.toDataURL("image/jpeg", 0.95), "JPEG", 0, 0, 1920, 1080);
       }
 
-      document.body.removeChild(container);
       pdf.save("katew-anbieter-praesentation.pdf");
     } catch (err) {
       console.error("PDF export failed:", err);
     } finally {
+      setCurrent(originalSlide);
       setIsExporting(false);
     }
   };
@@ -83,7 +85,7 @@ const AnbieterPraesentation = () => {
   ];
 
   return (
-    <div className="h-screen w-screen bg-foreground overflow-hidden relative select-none">
+    <div className="h-screen w-screen bg-foreground overflow-hidden relative select-none" data-slide-content>
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute -top-1/2 -right-1/4 w-[800px] h-[800px] rounded-full bg-primary/5 blur-3xl" />
         <div className="absolute -bottom-1/2 -left-1/4 w-[600px] h-[600px] rounded-full bg-secondary/5 blur-3xl" />
@@ -105,7 +107,7 @@ const AnbieterPraesentation = () => {
       {/* Bottom bar */}
       <div className="absolute bottom-0 left-0 right-0 flex items-center justify-between px-8 py-4 z-50">
         <div className="flex items-center gap-3">
-          <img src={logoTransparent} alt="katew" className="h-6 opacity-40" />
+          <img src={logoNew} alt="katew" className="h-6 opacity-40" />
         </div>
         <div className="flex items-center gap-2">
           {Array.from({ length: TOTAL_SLIDES }).map((_, i) => (
@@ -165,7 +167,7 @@ const InfoCard = ({ icon: Icon, title, text, delay = 0, color = "primary" }: { i
 const SlideCover = () => (
   <SlideLayout>
     <FadeUp className="text-center">
-      <img src={logoTransparent} alt="katew" className="h-16 md:h-20 mx-auto mb-8" />
+      <img src={logoNew} alt="katew" className="h-16 md:h-20 mx-auto mb-8" />
     </FadeUp>
     <FadeUp delay={0.15} className="text-center max-w-4xl">
       <h1 className="text-4xl md:text-6xl lg:text-7xl font-extrabold text-primary-foreground leading-tight">
@@ -444,7 +446,7 @@ const SlideVertrag = () => (
 const SlideKontakt = () => (
   <SlideLayout>
     <FadeUp className="text-center">
-      <img src={logoTransparent} alt="katew" className="h-14 mx-auto mb-6" />
+      <img src={logoNew} alt="katew" className="h-14 mx-auto mb-6" />
     </FadeUp>
     <FadeUp delay={0.15} className="text-center max-w-3xl">
       <h2 className="text-3xl md:text-5xl font-bold text-primary-foreground mb-4">Jetzt Anbieter werden</h2>
