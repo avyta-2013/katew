@@ -50,7 +50,7 @@ const AnbieterPraesentation = () => {
 
       for (let i = 0; i < TOTAL_SLIDES; i++) {
         setCurrent(i);
-        await new Promise(r => setTimeout(r, 600));
+        await new Promise(r => setTimeout(r, 1200));
 
         const slideEl = document.querySelector("[data-slide-content]") as HTMLElement;
         if (!slideEl) continue;
@@ -91,18 +91,24 @@ const AnbieterPraesentation = () => {
         <div className="absolute -bottom-1/2 -left-1/4 w-[600px] h-[600px] rounded-full bg-secondary/5 blur-3xl" />
       </div>
 
-      <AnimatePresence mode="wait">
-        <motion.div
-          key={current}
-          initial={{ opacity: 0, x: 60 }}
-          animate={{ opacity: 1, x: 0 }}
-          exit={{ opacity: 0, x: -60 }}
-          transition={{ duration: 0.4, ease: [0.4, 0, 0.2, 1] }}
-          className="h-full w-full"
-        >
+      {isExporting ? (
+        <div className="h-full w-full">
           {slides[current]}
-        </motion.div>
-      </AnimatePresence>
+        </div>
+      ) : (
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={current}
+            initial={{ opacity: 0, x: 60 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: -60 }}
+            transition={{ duration: 0.4, ease: [0.4, 0, 0.2, 1] }}
+            className="h-full w-full"
+          >
+            {slides[current]}
+          </motion.div>
+        </AnimatePresence>
+      )}
 
       {/* Bottom bar */}
       <div className="absolute bottom-0 left-0 right-0 flex items-center justify-between px-8 py-4 z-50">
