@@ -26,6 +26,7 @@ import NotFound from "./pages/NotFound";
 import PartnerDashboard from "./pages/PartnerDashboard";
 import ProviderDashboard from "./pages/ProviderDashboard";
 import Presentation from "./pages/Presentation";
+import AnbieterPraesentation from "./pages/AnbieterPraesentation";
 import SuperAdmin from "./pages/SuperAdmin";
 import MobileApp from "./pages/mobile/MobileApp";
 
@@ -60,6 +61,7 @@ const App = () => (
           <Route path="/karriere/:slug" element={<JobDetail />} />
           <Route path="/blog/:slug" element={<BlogPost />} />
           <Route path="/presentation" element={<Presentation />} />
+          <Route path="/anbieter-praesentation" element={<AnbieterPraesentation />} />
           <Route path="/super-admin" element={<SuperAdmin />} />
           <Route path="/app/*" element={<MobileApp />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
