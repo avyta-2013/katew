@@ -217,7 +217,7 @@ export const ProvidersSection = () => {
                     return (
                       <motion.div 
                         key={index}
-                        className="text-center p-4 rounded-2xl bg-gradient-to-br from-muted/50 to-muted/30"
+                        className="text-center p-4 rounded-2xl bg-white"
                         whileHover={{ scale: 1.05 }}
                       >
                         <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center mx-auto mb-2">
