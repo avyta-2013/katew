@@ -10,44 +10,46 @@ const AnbieterStammdatenPDF = () => {
 
   const exportPDF = async () => {
     if (!pageRef.current) return;
-    try {
-      const element = pageRef.current;
-      const clone = element.cloneNode(true) as HTMLElement;
-      clone.style.position = "fixed";
-      clone.style.left = "-9999px";
-      clone.style.top = "0";
-      document.body.appendChild(clone);
-      
-      const canvas = await html2canvas(clone, {
-        scale: 2,
-        backgroundColor: "#ffffff",
-        useCORS: true,
-        logging: false,
-        width: clone.scrollWidth,
-        height: clone.scrollHeight,
-        removeContainer: true,
-      });
-      
-      document.body.removeChild(clone);
-      
-      const pdf = new jsPDF({ orientation: "portrait", unit: "mm", format: "a4" });
-      const imgData = canvas.toDataURL("image/jpeg", 0.95);
-      pdf.addImage(imgData, "JPEG", 0, 0, 210, 297);
-      pdf.save("katew-anbieter-stammdaten.pdf");
-    } catch (err) {
-      console.error("PDF export error:", err);
-      // Fallback: try without clone
-      const canvas = await html2canvas(pageRef.current, {
-        scale: 2,
-        backgroundColor: "#ffffff",
-        useCORS: true,
-        logging: false,
-      });
-      const pdf = new jsPDF({ orientation: "portrait", unit: "mm", format: "a4" });
-      const imgData = canvas.toDataURL("image/jpeg", 0.95);
-      pdf.addImage(imgData, "JPEG", 0, 0, 210, 297);
-      pdf.save("katew-anbieter-stammdaten.pdf");
-    }
+    
+    // Use print-based PDF export for reliability
+    const printWindow = window.open('', '_blank');
+    if (!printWindow) return;
+
+    const content = pageRef.current.outerHTML;
+    
+    printWindow.document.write(`
+      <!DOCTYPE html>
+      <html>
+      <head>
+        <title>katew Anbieter-Stammdaten</title>
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+        <style>
+          * { margin: 0; padding: 0; box-sizing: border-box; }
+          body { font-family: 'Inter', -apple-system, sans-serif; background: white; }
+          @media print {
+            body { margin: 0; }
+            @page { size: A4 portrait; margin: 0; }
+          }
+          /* Tailwind grid utilities needed */
+          .grid { display: grid; }
+          .grid-cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+          .col-span-2 { grid-column: span 2 / span 2; }
+          .gap-x-\\[16px\\] { column-gap: 16px; }
+          .gap-y-\\[10px\\] { row-gap: 10px; }
+          .gap-\\[40px\\] { gap: 40px; }
+          .mb-\\[20px\\] { margin-bottom: 20px; }
+        </style>
+      </head>
+      <body>${content}</body>
+      </html>
+    `);
+    printWindow.document.close();
+    
+    // Wait for fonts and images to load
+    setTimeout(() => {
+      printWindow.print();
+      printWindow.close();
+    }, 500);
   };
 
   const Field = ({ label, required = false, wide = false }: { label: string; required?: boolean; wide?: boolean }) => (
