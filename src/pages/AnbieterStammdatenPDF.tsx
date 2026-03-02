@@ -10,16 +10,44 @@ const AnbieterStammdatenPDF = () => {
 
   const exportPDF = async () => {
     if (!pageRef.current) return;
-    const canvas = await html2canvas(pageRef.current, {
-      scale: 2,
-      backgroundColor: "#ffffff",
-      useCORS: true,
-      logging: false,
-    });
-    const pdf = new jsPDF({ orientation: "portrait", unit: "mm", format: "a4" });
-    const imgData = canvas.toDataURL("image/jpeg", 0.95);
-    pdf.addImage(imgData, "JPEG", 0, 0, 210, 297);
-    pdf.save("katew-anbieter-stammdaten.pdf");
+    try {
+      const element = pageRef.current;
+      const clone = element.cloneNode(true) as HTMLElement;
+      clone.style.position = "fixed";
+      clone.style.left = "-9999px";
+      clone.style.top = "0";
+      document.body.appendChild(clone);
+      
+      const canvas = await html2canvas(clone, {
+        scale: 2,
+        backgroundColor: "#ffffff",
+        useCORS: true,
+        logging: false,
+        width: clone.scrollWidth,
+        height: clone.scrollHeight,
+        removeContainer: true,
+      });
+      
+      document.body.removeChild(clone);
+      
+      const pdf = new jsPDF({ orientation: "portrait", unit: "mm", format: "a4" });
+      const imgData = canvas.toDataURL("image/jpeg", 0.95);
+      pdf.addImage(imgData, "JPEG", 0, 0, 210, 297);
+      pdf.save("katew-anbieter-stammdaten.pdf");
+    } catch (err) {
+      console.error("PDF export error:", err);
+      // Fallback: try without clone
+      const canvas = await html2canvas(pageRef.current, {
+        scale: 2,
+        backgroundColor: "#ffffff",
+        useCORS: true,
+        logging: false,
+      });
+      const pdf = new jsPDF({ orientation: "portrait", unit: "mm", format: "a4" });
+      const imgData = canvas.toDataURL("image/jpeg", 0.95);
+      pdf.addImage(imgData, "JPEG", 0, 0, 210, 297);
+      pdf.save("katew-anbieter-stammdaten.pdf");
+    }
   };
 
   const Field = ({ label, required = false, wide = false }: { label: string; required?: boolean; wide?: boolean }) => (
