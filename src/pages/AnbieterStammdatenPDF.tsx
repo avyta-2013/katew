@@ -94,8 +94,6 @@ const AnbieterStammdatenPDF = () => {
           <Field label="Postleitzahl" required />
           <Field label="Stadt" required />
           <Field label="Amtsgericht" />
-          <Field label="Handelsregisternummer (HRB)" />
-          <Field label="USt-IdNr." />
         </div>
 
         {/* Section 2: Kontakt */}
@@ -105,8 +103,6 @@ const AnbieterStammdatenPDF = () => {
           <Field label="Telefax" />
           <Field label="Mobil / WhatsApp" required />
           <Field label="E-Mail" required />
-          <Field label="Webseite" />
-          <Field label="Ansprechpartner" />
         </div>
 
         {/* Section 3: Dienstleistung */}
@@ -114,26 +110,24 @@ const AnbieterStammdatenPDF = () => {
         <div className="mb-[10px] pl-[4px]">
           <p className="text-[7px] uppercase tracking-[0.12em] font-semibold text-[#64748b] mb-[6px]">Anbietertyp *</p>
           <div className="flex flex-wrap gap-x-[16px] gap-y-[4px]">
-            <CheckField label="Krankentransport" />
-            <CheckField label="Rettungsdienst" />
             <CheckField label="Taxiunternehmen" />
             <CheckField label="Mietwagen" />
           </div>
         </div>
         <div className="mb-[10px] pl-[4px]">
-          <p className="text-[7px] uppercase tracking-[0.12em] font-semibold text-[#64748b] mb-[6px]">Transportart *</p>
+          <p className="text-[7px] uppercase tracking-[0.12em] font-semibold text-[#64748b] mb-[6px]">Kostenträger *</p>
           <div className="flex flex-wrap gap-x-[16px] gap-y-[4px]">
-            <CheckField label="Qualifizierter Krankentransport" />
-            <CheckField label="Nicht-qualifizierter Transport" />
+            <CheckField label="Transportschein" />
+            <CheckField label="Selbstzahler" />
           </div>
         </div>
         <div className="mb-[16px] pl-[4px]">
           <p className="text-[7px] uppercase tracking-[0.12em] font-semibold text-[#64748b] mb-[6px]">Transportmittel *</p>
           <div className="flex flex-wrap gap-x-[16px] gap-y-[4px]">
-            <CheckField label="KTW (Krankentransportwagen)" />
-            <CheckField label="RTW (Rettungswagen)" />
-            <CheckField label="NEF (Notarzteinsatzfahrzeug)" />
-            <CheckField label="Taxi / Mietwagen" />
+            <CheckField label="Sitzend" />
+            <CheckField label="Rollstuhl" />
+            <CheckField label="Tragestuhl" />
+            <CheckField label="Liegend" />
           </div>
         </div>
 
@@ -142,19 +136,13 @@ const AnbieterStammdatenPDF = () => {
         <div className="grid grid-cols-2 gap-x-[14px] gap-y-[8px] mb-[16px] pl-[4px]">
           <Field label="Betriebssitz / Start-Adresse" required wide />
           <Field label="Umkreis (km)" required />
-          <Field label="Einsatzgebiet / Region" />
         </div>
 
         {/* Section 5: Dokumente */}
         <SectionHeader icon={FileText} title="Erforderliche Dokumente" color="#8b5cf6" />
         <div className="pl-[4px] mb-[16px]">
           <div className="flex flex-wrap gap-x-[16px] gap-y-[4px]">
-            <CheckField label="PBefG-Genehmigung (Kopie)" />
-            <CheckField label="Haftpflichtversicherung (Nachweis)" />
-            <CheckField label="Gewerbeanmeldung" />
-            <CheckField label="Handelsregisterauszug" />
-            <CheckField label="Fahrzeugscheine" />
-            <CheckField label="Führungszeugnisse Personal" />
+            <CheckField label="Mietwagenkonzession (Kopie)" />
           </div>
         </div>
 
