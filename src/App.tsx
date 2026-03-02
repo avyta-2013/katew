@@ -28,6 +28,7 @@ import ProviderDashboard from "./pages/ProviderDashboard";
 import Presentation from "./pages/Presentation";
 import AnbieterPraesentation from "./pages/AnbieterPraesentation";
 import AnbieterStammdatenPDF from "./pages/AnbieterStammdatenPDF";
+import AnbieterBriefbogenPDF from "./pages/AnbieterBriefbogenPDF";
 import SuperAdmin from "./pages/SuperAdmin";
 import MobileApp from "./pages/mobile/MobileApp";
 
@@ -64,6 +65,7 @@ const App = () => (
           <Route path="/presentation" element={<Presentation />} />
           <Route path="/anbieter-praesentation" element={<AnbieterPraesentation />} />
           <Route path="/anbieter-stammdaten" element={<AnbieterStammdatenPDF />} />
+          <Route path="/anbieter-briefbogen" element={<AnbieterBriefbogenPDF />} />
           <Route path="/super-admin" element={<SuperAdmin />} />
           <Route path="/app/*" element={<MobileApp />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
