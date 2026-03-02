@@ -1,5 +1,5 @@
 import { useRef } from "react";
-import { Download, Building2, Phone, Mail, MapPin, Truck, Route, Users, Target, MessageSquare, FileText } from "lucide-react";
+import { Download, Building2, Phone, MapPin, Truck, FileText, Car, CreditCard, ShieldCheck } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
@@ -24,35 +24,40 @@ const AnbieterStammdatenPDF = () => {
 
   const Field = ({ label, required = false, wide = false }: { label: string; required?: boolean; wide?: boolean }) => (
     <div className={wide ? "col-span-2" : ""}>
-      <p className="text-[7px] uppercase tracking-[0.12em] font-semibold text-[#64748b] mb-[3px]">
-        {label}{required && <span className="text-[#ef4444] ml-0.5">*</span>}
+      <p style={{ fontSize: "6.5px", letterSpacing: "0.08em", fontWeight: 600, color: "#94a3b8", marginBottom: "4px", textTransform: "uppercase" }}>
+        {label}{required && <span style={{ color: "#3b82f6", marginLeft: "2px" }}>*</span>}
       </p>
-      <div className="h-[22px] border-b border-[#e2e8f0] bg-[#f8fafc] rounded-[3px]" />
+      <div style={{ height: "26px", borderBottom: "1.5px solid #e2e8f0", background: "linear-gradient(180deg, #f8fafc 0%, #ffffff 100%)", borderRadius: "4px" }} />
     </div>
   );
 
   const CheckField = ({ label }: { label: string }) => (
-    <div className="flex items-center gap-[6px]">
-      <div className="w-[13px] h-[13px] border border-[#cbd5e1] rounded-[2px] bg-white shrink-0" />
-      <span className="text-[8px] text-[#475569]">{label}</span>
+    <div style={{ display: "flex", alignItems: "center", gap: "7px", padding: "4px 10px 4px 6px", background: "#f8fafc", borderRadius: "6px", border: "1px solid #f1f5f9" }}>
+      <div style={{ width: "14px", height: "14px", border: "1.5px solid #cbd5e1", borderRadius: "3px", background: "white", flexShrink: 0 }} />
+      <span style={{ fontSize: "8px", color: "#475569", fontWeight: 500 }}>{label}</span>
     </div>
   );
 
-  const SectionHeader = ({ icon: Icon, title, color }: { icon: any; title: string; color: string }) => (
-    <div className="flex items-center gap-[8px] mb-[10px]">
-      <div className={`w-[22px] h-[22px] rounded-[5px] flex items-center justify-center`} style={{ background: `${color}15` }}>
-        <Icon className="w-[12px] h-[12px]" style={{ color }} />
+  const SectionHeader = ({ icon: Icon, title, number, color }: { icon: any; title: string; number: string; color: string }) => (
+    <div style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: "12px" }}>
+      <div style={{
+        width: "24px", height: "24px", borderRadius: "7px", display: "flex", alignItems: "center", justifyContent: "center",
+        background: `linear-gradient(135deg, ${color}, ${color}dd)`, boxShadow: `0 2px 8px ${color}30`
+      }}>
+        <Icon style={{ width: "12px", height: "12px", color: "white" }} />
       </div>
-      <h3 className="text-[10px] font-bold text-[#1e293b] tracking-wide uppercase">{title}</h3>
-      <div className="flex-1 h-[1px] bg-gradient-to-r from-[#e2e8f0] to-transparent ml-2" />
+      <div style={{ display: "flex", alignItems: "baseline", gap: "6px" }}>
+        <span style={{ fontSize: "7px", fontWeight: 700, color: color, opacity: 0.6 }}>{number}</span>
+        <h3 style={{ fontSize: "10px", fontWeight: 700, color: "#1e293b", letterSpacing: "0.04em", textTransform: "uppercase" }}>{title}</h3>
+      </div>
+      <div style={{ flex: 1, height: "1px", background: `linear-gradient(90deg, ${color}25, transparent)`, marginLeft: "8px" }} />
     </div>
   );
 
   return (
     <div className="min-h-screen bg-[#f1f5f9] flex flex-col items-center py-8 px-4">
-      {/* Download Button */}
       <div className="mb-6">
-        <Button onClick={exportPDF} className="gap-2 bg-gradient-to-r from-[hsl(221,83%,53%)] to-[hsl(142,76%,46%)] text-white hover:opacity-90 rounded-xl px-8 h-12 text-sm font-semibold shadow-lg">
+        <Button onClick={exportPDF} className="gap-2 bg-gradient-to-r from-[hsl(221,83%,53%)] to-[hsl(221,83%,63%)] text-white hover:opacity-90 rounded-xl px-8 h-12 text-sm font-semibold shadow-lg">
           <Download className="w-4 h-4" />
           Als PDF herunterladen
         </Button>
@@ -62,107 +67,126 @@ const AnbieterStammdatenPDF = () => {
       <div
         ref={pageRef}
         className="bg-white shadow-2xl"
-        style={{ width: "210mm", minHeight: "297mm", maxHeight: "297mm", overflow: "hidden", padding: "14mm 16mm 14mm 16mm", fontFamily: "'Inter', -apple-system, sans-serif", position: "relative" }}
+        style={{ width: "210mm", minHeight: "297mm", maxHeight: "297mm", overflow: "hidden", padding: "0", fontFamily: "'Inter', -apple-system, sans-serif", position: "relative" }}
       >
-        {/* Decorative top accent */}
-        <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: "3px", background: "linear-gradient(90deg, hsl(221,83%,53%), hsl(142,76%,46%))" }} />
+        {/* Top gradient bar */}
+        <div style={{ height: "4px", background: "linear-gradient(90deg, #2563eb, #3b82f6, #60a5fa)" }} />
 
-        {/* Header */}
-        <div className="flex items-center justify-between mb-[16px]">
-          <div className="flex items-center gap-[10px]">
-            <img src={logoNew} alt="katew" style={{ height: "32px" }} />
-            <div>
-              <p className="text-[14px] font-bold text-[#1e293b] tracking-tight">Anbieter-Profil</p>
-              <p className="text-[7px] text-[#94a3b8] tracking-wider uppercase">Stammdaten & Standort</p>
+        {/* Header area with subtle background */}
+        <div style={{ padding: "18mm 18mm 12mm 18mm", background: "linear-gradient(180deg, #f8fafc 0%, #ffffff 100%)" }}>
+          <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+            <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
+              <img src={logoNew} alt="katew" style={{ height: "36px" }} />
+              <div style={{ borderLeft: "2px solid #e2e8f0", paddingLeft: "12px" }}>
+                <p style={{ fontSize: "16px", fontWeight: 800, color: "#1e293b", letterSpacing: "-0.02em", lineHeight: 1.2 }}>Anbieter-Profil</p>
+                <p style={{ fontSize: "7.5px", color: "#94a3b8", letterSpacing: "0.15em", textTransform: "uppercase", marginTop: "2px" }}>Stammdaten · Standort · Dokumente</p>
+              </div>
+            </div>
+            <div style={{ textAlign: "right", background: "white", padding: "8px 14px", borderRadius: "8px", border: "1px solid #f1f5f9" }}>
+              <p style={{ fontSize: "7px", color: "#94a3b8", marginBottom: "3px" }}>Datum: ____.____.________</p>
+              <p style={{ fontSize: "7px", color: "#94a3b8" }}>Anbieter-ID: ______________</p>
             </div>
           </div>
-          <div className="text-right">
-            <p className="text-[7px] text-[#94a3b8]">Datum: ____.____.________</p>
-            <p className="text-[7px] text-[#94a3b8] mt-[2px]">Anbieter-ID: ______________</p>
+        </div>
+
+        {/* Content */}
+        <div style={{ padding: "0 18mm 14mm 18mm" }}>
+
+          {/* Section 1: Unternehmen */}
+          <SectionHeader icon={Building2} title="Unternehmensdaten" number="01" color="#2563eb" />
+          <div className="grid grid-cols-2 gap-x-[16px] gap-y-[10px] mb-[20px]" style={{ paddingLeft: "2px" }}>
+            <Field label="Unternehmensname" required wide />
+            <Field label="Vorname" required />
+            <Field label="Nachname" required />
+            <Field label="Straße & Hausnummer" required />
+            <Field label="Postleitzahl" required />
+            <Field label="Stadt" required />
+            <Field label="Amtsgericht" />
           </div>
-        </div>
 
-        <div style={{ height: "1px", background: "linear-gradient(90deg, hsl(221,83%,53%,0.2), hsl(142,76%,46%,0.1), transparent)", marginBottom: "14px" }} />
-
-        {/* Section 1: Unternehmen */}
-        <SectionHeader icon={Building2} title="Unternehmensdaten" color="#2563eb" />
-        <div className="grid grid-cols-2 gap-x-[14px] gap-y-[8px] mb-[16px] pl-[4px]">
-          <Field label="Unternehmensname" required wide />
-          <Field label="Vorname" required />
-          <Field label="Nachname" required />
-          <Field label="Straße & Hausnummer" required />
-          <Field label="Postleitzahl" required />
-          <Field label="Stadt" required />
-          <Field label="Amtsgericht" />
-        </div>
-
-        {/* Section 2: Kontakt */}
-        <SectionHeader icon={Phone} title="Kontaktdaten" color="#22c55e" />
-        <div className="grid grid-cols-2 gap-x-[14px] gap-y-[8px] mb-[16px] pl-[4px]">
-          <Field label="Telefon" required />
-          <Field label="Telefax" />
-          <Field label="Mobil / WhatsApp" required />
-          <Field label="E-Mail" required />
-        </div>
-
-        {/* Section 3: Dienstleistung */}
-        <SectionHeader icon={Truck} title="Dienstleistungskatalog" color="#f59e0b" />
-        <div className="mb-[10px] pl-[4px]">
-          <p className="text-[7px] uppercase tracking-[0.12em] font-semibold text-[#64748b] mb-[6px]">Anbietertyp *</p>
-          <div className="flex flex-wrap gap-x-[16px] gap-y-[4px]">
-            <CheckField label="Taxiunternehmen" />
-            <CheckField label="Mietwagen" />
+          {/* Section 2: Kontakt */}
+          <SectionHeader icon={Phone} title="Kontaktdaten" number="02" color="#0ea5e9" />
+          <div className="grid grid-cols-2 gap-x-[16px] gap-y-[10px] mb-[20px]" style={{ paddingLeft: "2px" }}>
+            <Field label="Telefon" required />
+            <Field label="Telefax" />
+            <Field label="Mobil / WhatsApp" required />
+            <Field label="E-Mail" required />
           </div>
-        </div>
-        <div className="mb-[10px] pl-[4px]">
-          <p className="text-[7px] uppercase tracking-[0.12em] font-semibold text-[#64748b] mb-[6px]">Kostenträger *</p>
-          <div className="flex flex-wrap gap-x-[16px] gap-y-[4px]">
-            <CheckField label="Transportschein" />
-            <CheckField label="Selbstzahler" />
-          </div>
-        </div>
-        <div className="mb-[16px] pl-[4px]">
-          <p className="text-[7px] uppercase tracking-[0.12em] font-semibold text-[#64748b] mb-[6px]">Transportmittel *</p>
-          <div className="flex flex-wrap gap-x-[16px] gap-y-[4px]">
-            <CheckField label="Sitzend" />
-            <CheckField label="Rollstuhl" />
-            <CheckField label="Tragestuhl" />
-            <CheckField label="Liegend" />
-          </div>
-        </div>
 
-        {/* Section 4: Standort */}
-        <SectionHeader icon={MapPin} title="Standort & Einsatzgebiet" color="#3b82f6" />
-        <div className="grid grid-cols-2 gap-x-[14px] gap-y-[8px] mb-[16px] pl-[4px]">
-          <Field label="Betriebssitz / Start-Adresse" required wide />
-          <Field label="Umkreis (km)" required />
-        </div>
-
-        {/* Section 5: Dokumente */}
-        <SectionHeader icon={FileText} title="Erforderliche Dokumente" color="#8b5cf6" />
-        <div className="pl-[4px] mb-[16px]">
-          <div className="flex flex-wrap gap-x-[16px] gap-y-[4px]">
-            <CheckField label="Mietwagenkonzession (Kopie)" />
+          {/* Section 3: Dienstleistung */}
+          <SectionHeader icon={Car} title="Dienstleistungskatalog" number="03" color="#6366f1" />
+          <div style={{ paddingLeft: "2px", marginBottom: "20px" }}>
+            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: "14px" }}>
+              {/* Anbietertyp */}
+              <div style={{ background: "#fafbff", borderRadius: "8px", padding: "10px 12px", border: "1px solid #f1f5f9" }}>
+                <p style={{ fontSize: "6.5px", letterSpacing: "0.1em", fontWeight: 700, color: "#6366f1", marginBottom: "8px", textTransform: "uppercase" }}>
+                  Anbietertyp <span style={{ color: "#3b82f6" }}>*</span>
+                </p>
+                <div style={{ display: "flex", flexDirection: "column", gap: "5px" }}>
+                  <CheckField label="Taxiunternehmen" />
+                  <CheckField label="Mietwagen" />
+                </div>
+              </div>
+              {/* Kostenträger */}
+              <div style={{ background: "#fafbff", borderRadius: "8px", padding: "10px 12px", border: "1px solid #f1f5f9" }}>
+                <p style={{ fontSize: "6.5px", letterSpacing: "0.1em", fontWeight: 700, color: "#6366f1", marginBottom: "8px", textTransform: "uppercase" }}>
+                  Kostenträger <span style={{ color: "#3b82f6" }}>*</span>
+                </p>
+                <div style={{ display: "flex", flexDirection: "column", gap: "5px" }}>
+                  <CheckField label="Transportschein" />
+                  <CheckField label="Selbstzahler" />
+                </div>
+              </div>
+              {/* Transportmittel */}
+              <div style={{ background: "#fafbff", borderRadius: "8px", padding: "10px 12px", border: "1px solid #f1f5f9" }}>
+                <p style={{ fontSize: "6.5px", letterSpacing: "0.1em", fontWeight: 700, color: "#6366f1", marginBottom: "8px", textTransform: "uppercase" }}>
+                  Transportmittel <span style={{ color: "#3b82f6" }}>*</span>
+                </p>
+                <div style={{ display: "flex", flexDirection: "column", gap: "5px" }}>
+                  <CheckField label="Sitzend" />
+                  <CheckField label="Rollstuhl" />
+                  <CheckField label="Tragestuhl" />
+                  <CheckField label="Liegend" />
+                </div>
+              </div>
+            </div>
           </div>
-        </div>
 
-        {/* Signature */}
-        <div style={{ height: "1px", background: "linear-gradient(90deg, hsl(221,83%,53%,0.15), transparent)", marginBottom: "14px" }} />
-        <div className="grid grid-cols-2 gap-[30px]">
-          <div>
-            <p className="text-[7px] uppercase tracking-[0.12em] font-semibold text-[#64748b] mb-[20px]">Ort, Datum</p>
-            <div className="border-b border-[#cbd5e1]" />
+          {/* Section 4: Standort */}
+          <SectionHeader icon={MapPin} title="Standort & Einsatzgebiet" number="04" color="#0ea5e9" />
+          <div className="grid grid-cols-2 gap-x-[16px] gap-y-[10px] mb-[20px]" style={{ paddingLeft: "2px" }}>
+            <Field label="Betriebssitz / Start-Adresse" required wide />
+            <Field label="Umkreis (km)" required />
           </div>
-          <div>
-            <p className="text-[7px] uppercase tracking-[0.12em] font-semibold text-[#64748b] mb-[20px]">Unterschrift / Stempel</p>
-            <div className="border-b border-[#cbd5e1]" />
+
+          {/* Section 5: Dokumente */}
+          <SectionHeader icon={ShieldCheck} title="Erforderliche Dokumente" number="05" color="#22c55e" />
+          <div style={{ paddingLeft: "2px", marginBottom: "20px" }}>
+            <div style={{ display: "flex", gap: "8px" }}>
+              <CheckField label="Mietwagenkonzession (Kopie)" />
+            </div>
+          </div>
+
+          {/* Signature area */}
+          <div style={{ marginTop: "10px" }}>
+            <div style={{ height: "1px", background: "linear-gradient(90deg, #e2e8f0, transparent)", marginBottom: "16px" }} />
+            <div className="grid grid-cols-2 gap-[40px]">
+              <div>
+                <p style={{ fontSize: "6.5px", letterSpacing: "0.1em", fontWeight: 600, color: "#94a3b8", textTransform: "uppercase", marginBottom: "28px" }}>Ort, Datum</p>
+                <div style={{ borderBottom: "1.5px solid #cbd5e1" }} />
+              </div>
+              <div>
+                <p style={{ fontSize: "6.5px", letterSpacing: "0.1em", fontWeight: 600, color: "#94a3b8", textTransform: "uppercase", marginBottom: "28px" }}>Unterschrift / Stempel</p>
+                <div style={{ borderBottom: "1.5px solid #cbd5e1" }} />
+              </div>
+            </div>
           </div>
         </div>
 
         {/* Footer */}
-        <div className="absolute bottom-[10mm] left-[16mm] right-[16mm] flex items-center justify-between">
-          <p className="text-[6px] text-[#94a3b8]">AVYTA GmbH · Allerheiligentor 2-4 · 60311 Frankfurt am Main · support@katew.de</p>
-          <p className="text-[6px] text-[#94a3b8]">katew.de</p>
+        <div style={{ position: "absolute", bottom: "10mm", left: "18mm", right: "18mm", display: "flex", alignItems: "center", justifyContent: "space-between", borderTop: "1px solid #f1f5f9", paddingTop: "8px" }}>
+          <p style={{ fontSize: "6px", color: "#94a3b8" }}>AVYTA GmbH · Allerheiligentor 2-4 · 60311 Frankfurt am Main · support@katew.de</p>
+          <p style={{ fontSize: "6px", color: "#94a3b8", fontWeight: 600 }}>katew.de</p>
         </div>
       </div>
     </div>
