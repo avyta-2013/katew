@@ -53,7 +53,7 @@ const AnbieterBriefbogenPDF = () => {
   const SectionHead = ({ icon: Icon, title, num, color }: { icon: any; title: string; num: string; color: string }) => (
     <div style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: "10px" }}>
       <div style={{ width: "22px", height: "22px", borderRadius: "6px", display: "flex", alignItems: "center", justifyContent: "center", background: `linear-gradient(135deg, ${color}, ${color}dd)`, boxShadow: `0 2px 8px ${color}30` }}>
-        <Icon style={{ width: "11px", height: "11px", color: "white" }} />
+        <Icon style={{ width: "11px", height: "11px" }} stroke="white" />
       </div>
       <span style={{ fontSize: "7px", fontWeight: 700, color, opacity: 0.6 }}>{num}</span>
       <h3 style={{ fontSize: "9.5px", fontWeight: 700, color: "#1e293b", letterSpacing: "0.04em", textTransform: "uppercase" }}>{title}</h3>
