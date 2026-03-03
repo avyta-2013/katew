@@ -213,7 +213,7 @@ const AnbieterStammdatenPDF = () => {
           {/* Section 4: Standort */}
           <SectionHeader icon={MapPin} title="Standort & Einsatzgebiet" number="04" color="#0ea5e9" />
           <div className="grid grid-cols-2 gap-x-[16px] gap-y-[10px] mb-[20px]" style={{ paddingLeft: "2px" }}>
-            <Field label="Betriebssitz / Start-Adresse" required wide />
+            <Field label="Betriebssitz / Start-Adresse" required />
             <Field label="Umkreis (km)" required />
           </div>
 
