@@ -182,6 +182,31 @@ const AnbieterStammdatenPDF = () => {
             </div>
           </div>
 
+          {/* Section 3b: Selbstzahler-Preise */}
+          <div style={{ paddingLeft: "2px", marginBottom: "20px" }}>
+            <div style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: "12px" }}>
+              <div style={{ width: "24px", height: "24px", borderRadius: "7px", display: "flex", alignItems: "center", justifyContent: "center", background: "linear-gradient(135deg, #8b5cf6, #8b5cf6dd)", boxShadow: "0 2px 8px #8b5cf630", color: "white" }}>
+                <CreditCard style={{ width: "12px", height: "12px" }} stroke="white" strokeWidth={2} color="white" />
+              </div>
+              <div style={{ display: "flex", alignItems: "baseline", gap: "6px" }}>
+                <span style={{ fontSize: "7px", fontWeight: 700, color: "#8b5cf6", opacity: 0.6 }}>03b</span>
+                <h3 style={{ fontSize: "10px", fontWeight: 700, color: "#1e293b", letterSpacing: "0.04em", textTransform: "uppercase" }}>Selbstzahler-Preise (pro Fahrt)</h3>
+              </div>
+              <div style={{ flex: 1, height: "1px", background: "linear-gradient(90deg, #8b5cf625, transparent)", marginLeft: "8px" }} />
+            </div>
+            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr 1fr", gap: "12px" }}>
+              {["Sitzend", "Rollstuhl", "Tragestuhl", "Liegend"].map((t) => (
+                <div key={t} style={{ background: "#faf5ff", borderRadius: "8px", padding: "10px 12px", border: "1px solid #f3e8ff", textAlign: "center" }}>
+                  <p style={{ fontSize: "6.5px", letterSpacing: "0.08em", fontWeight: 600, color: "#8b5cf6", marginBottom: "8px", textTransform: "uppercase" }}>{t}</p>
+                  <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "3px" }}>
+                    <div style={{ height: "24px", flex: 1, borderBottom: "1.5px solid #d8b4fe", background: "linear-gradient(180deg, #faf5ff 0%, #fff 100%)", borderRadius: "4px" }} />
+                    <span style={{ fontSize: "9px", fontWeight: 700, color: "#7c3aed" }}>€</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
           {/* Section 4: Standort */}
           <SectionHeader icon={MapPin} title="Standort & Einsatzgebiet" number="04" color="#0ea5e9" />
           <div className="grid grid-cols-2 gap-x-[16px] gap-y-[10px] mb-[20px]" style={{ paddingLeft: "2px" }}>

@@ -247,7 +247,20 @@ const AnbieterBriefbogenPDF = () => {
               </div>
             </div>
 
-            <SectionHead icon={MapPin} title="Standort & Einsatzgebiet" num="04" color="#0ea5e9" />
+            {/* Selbstzahler Preise */}
+            <SectionHead icon={Car} title="Selbstzahler-Preise (pro Fahrt)" num="03b" color="#8b5cf6" />
+            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr 1fr", gap: "10px", marginBottom: "16px", paddingLeft: "2px" }}>
+              {["Sitzend", "Rollstuhl", "Tragestuhl", "Liegend"].map((t) => (
+                <div key={t} style={{ background: "#faf5ff", borderRadius: "8px", padding: "8px 10px", border: "1px solid #f3e8ff", textAlign: "center" }}>
+                  <p style={{ fontSize: "6.5px", letterSpacing: "0.08em", fontWeight: 600, color: "#8b5cf6", marginBottom: "6px", textTransform: "uppercase" }}>{t}</p>
+                  <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "3px" }}>
+                    <div style={{ height: "22px", flex: 1, borderBottom: "1.5px solid #d8b4fe", background: "linear-gradient(180deg, #faf5ff 0%, #fff 100%)", borderRadius: "4px" }} />
+                    <span style={{ fontSize: "8px", fontWeight: 700, color: "#7c3aed" }}>€</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+
             <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "8px 16px", marginBottom: "16px", paddingLeft: "2px" }}>
               <Field label="Betriebssitz / Start-Adresse" required wide />
               <Field label="Umkreis (km)" required />
