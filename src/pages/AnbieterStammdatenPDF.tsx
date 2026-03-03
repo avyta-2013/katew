@@ -72,9 +72,9 @@ const AnbieterStammdatenPDF = () => {
     <div style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: "12px" }}>
       <div style={{
         width: "24px", height: "24px", borderRadius: "7px", display: "flex", alignItems: "center", justifyContent: "center",
-        background: `linear-gradient(135deg, ${color}, ${color}dd)`, boxShadow: `0 2px 8px ${color}30`
+        background: `linear-gradient(135deg, ${color}, ${color}dd)`, boxShadow: `0 2px 8px ${color}30`, color: "white"
       }}>
-        <Icon style={{ width: "12px", height: "12px" }} stroke="white" />
+        <Icon style={{ width: "12px", height: "12px" }} stroke="white" strokeWidth={2} color="white" />
       </div>
       <div style={{ display: "flex", alignItems: "baseline", gap: "6px" }}>
         <span style={{ fontSize: "7px", fontWeight: 700, color: color, opacity: 0.6 }}>{number}</span>
