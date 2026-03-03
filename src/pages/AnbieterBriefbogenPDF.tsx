@@ -282,9 +282,7 @@ const AnbieterBriefbogenPDF = () => {
                 <p style={{ fontSize: "7.5px", color: "#475569", lineHeight: 1.8 }}>
                   Hiermit bestätige ich, dass ich die <span style={{ fontWeight: 700, color: "#1e293b" }}>Allgemeinen Geschäftsbedingungen (AGB) für Anbieter</span> der
                   AVYTA GmbH gelesen und akzeptiert habe. Die AGB sind jederzeit einsehbar unter:{" "}
-                  <span style={{ fontWeight: 700, color: "#2563eb" }}>www.katew.de/agb-anbieter</span><br />
-                  Zusätzlich habe ich den <span style={{ fontWeight: 700, color: "#1e293b" }}>Personenbeförderungsvertrag</span> zur Kenntnis genommen, einsehbar unter:{" "}
-                  <span style={{ fontWeight: 700, color: "#2563eb" }}>www.katew.de/personenbefoerderungsvertrag</span>
+                  <span style={{ fontWeight: 700, color: "#2563eb" }}>www.katew.de/agb-anbieter</span>
                 </p>
               </div>
             </div>
