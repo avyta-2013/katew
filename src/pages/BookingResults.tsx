@@ -161,10 +161,9 @@ export default function BookingResults() {
   const [legalAccepted, setLegalAccepted] = useState({
     datenschutz: false,
     agb: false,
-    befoerderungsvertrag: false,
   });
 
-  const allLegalAccepted = legalAccepted.datenschutz && legalAccepted.agb && legalAccepted.befoerderungsvertrag;
+  const allLegalAccepted = legalAccepted.datenschutz && legalAccepted.agb;
 
   const allSelected = selectedProviders.length === transportProviders.length;
   
@@ -626,19 +625,6 @@ export default function BookingResults() {
               Ich akzeptiere die{" "}
               <Link to="/agb-partner" target="_blank" className="text-primary font-medium hover:underline">
                 Allgemeinen Geschäftsbedingungen (AGB)
-              </Link>.
-            </span>
-          </label>
-          <label className="flex items-start gap-3 p-3 bg-background rounded-xl border border-border/50 cursor-pointer hover:border-primary/30 transition-colors">
-            <Checkbox
-              checked={legalAccepted.befoerderungsvertrag}
-              onCheckedChange={(checked) => setLegalAccepted(prev => ({ ...prev, befoerderungsvertrag: checked === true }))}
-              className="mt-0.5 data-[state=checked]:bg-primary data-[state=checked]:border-primary"
-            />
-            <span className="text-sm">
-              Ich akzeptiere die Bedingungen des{" "}
-              <Link to="/personenbefoerderungsvertrag" target="_blank" className="text-primary font-medium hover:underline">
-                Personenbeförderungsvertrags
               </Link>.
             </span>
           </label>
