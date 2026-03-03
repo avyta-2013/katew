@@ -196,12 +196,15 @@ const AnbieterStammdatenPDF = () => {
             </div>
             <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr 1fr", gap: "12px" }}>
               {["Sitzend", "Rollstuhl", "Tragestuhl", "Liegend"].map((t) => (
-                <div key={t} style={{ background: "#faf5ff", borderRadius: "8px", padding: "10px 12px", border: "1px solid #f3e8ff", textAlign: "center" }}>
-                  <p style={{ fontSize: "6.5px", letterSpacing: "0.08em", fontWeight: 600, color: "#8b5cf6", marginBottom: "8px", textTransform: "uppercase" }}>{t}</p>
-                  <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "3px" }}>
-                    <div style={{ height: "24px", flex: 1, borderBottom: "1.5px solid #d8b4fe", background: "linear-gradient(180deg, #faf5ff 0%, #fff 100%)", borderRadius: "4px" }} />
-                    <span style={{ fontSize: "9px", fontWeight: 700, color: "#7c3aed" }}>€</span>
-                  </div>
+                <div key={t} style={{ background: "#faf5ff", borderRadius: "8px", padding: "10px 12px", border: "1px solid #f3e8ff" }}>
+                  <p style={{ fontSize: "6.5px", letterSpacing: "0.08em", fontWeight: 600, color: "#8b5cf6", marginBottom: "8px", textTransform: "uppercase", textAlign: "center" }}>{t}</p>
+                  {["Grundpreis", "inkl. KM", "Preis je KM"].map((sub) => (
+                    <div key={sub} style={{ display: "flex", alignItems: "center", gap: "4px", marginBottom: "5px" }}>
+                      <span style={{ fontSize: "6px", color: "#7c3aed", fontWeight: 500, width: "36px", flexShrink: 0 }}>{sub}</span>
+                      <div style={{ height: "20px", flex: 1, borderBottom: "1.5px solid #d8b4fe", background: "linear-gradient(180deg, #faf5ff 0%, #fff 100%)", borderRadius: "3px" }} />
+                      <span style={{ fontSize: "8px", fontWeight: 700, color: "#7c3aed" }}>€</span>
+                    </div>
+                  ))}
                 </div>
               ))}
             </div>
