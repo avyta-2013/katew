@@ -124,7 +124,7 @@ const AnbieterStammdatenPDF = () => {
 
           {/* Section 1: Unternehmen */}
           <SectionHeader icon={Building2} title="Unternehmensdaten" number="01" color="#2563eb" />
-          <div className="grid grid-cols-2 gap-x-[16px] gap-y-[6px]" style={{ paddingLeft: "2px", marginBottom: "12px" }}>
+          <div className="grid grid-cols-2 gap-x-[16px] gap-y-[6px]" style={{ paddingLeft: "2px", marginBottom: "16px" }}>
             <Field label="Unternehmensname" required wide />
             <Field label="Vorname" required />
             <Field label="Nachname" required />
@@ -136,7 +136,7 @@ const AnbieterStammdatenPDF = () => {
 
           {/* Section 2: Kontakt */}
           <SectionHeader icon={Phone} title="Kontaktdaten" number="02" color="#0ea5e9" />
-          <div className="grid grid-cols-2 gap-x-[16px] gap-y-[6px]" style={{ paddingLeft: "2px", marginBottom: "12px" }}>
+          <div className="grid grid-cols-2 gap-x-[16px] gap-y-[6px]" style={{ paddingLeft: "2px", marginBottom: "16px" }}>
             <Field label="Telefon" required />
             <Field label="Telefax" />
             <Field label="Mobil / WhatsApp" required />
@@ -145,7 +145,7 @@ const AnbieterStammdatenPDF = () => {
 
           {/* Section 3: Dienstleistung */}
           <SectionHeader icon={Car} title="Dienstleistungskatalog" number="03" color="#6366f1" />
-          <div style={{ paddingLeft: "2px", marginBottom: "12px" }}>
+          <div style={{ paddingLeft: "2px", marginBottom: "16px" }}>
             <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: "10px" }}>
               <div style={{ background: "#fafbff", borderRadius: "6px", padding: "7px 10px", border: "1px solid #f1f5f9" }}>
                 <p style={{ fontSize: "6px", letterSpacing: "0.1em", fontWeight: 700, color: "#6366f1", marginBottom: "5px", textTransform: "uppercase" }}>
@@ -180,7 +180,7 @@ const AnbieterStammdatenPDF = () => {
           </div>
 
           {/* Section 3b: Selbstzahler-Preise */}
-          <div style={{ paddingLeft: "2px", marginBottom: "12px" }}>
+          <div style={{ paddingLeft: "2px", marginBottom: "16px" }}>
             <div style={{ display: "flex", alignItems: "center", gap: "6px", marginBottom: "6px" }}>
               <div style={{ width: "20px", height: "20px", borderRadius: "5px", display: "flex", alignItems: "center", justifyContent: "center", background: "linear-gradient(135deg, #8b5cf6, #8b5cf6dd)", boxShadow: "0 2px 6px #8b5cf630", color: "white" }}>
                 <CreditCard style={{ width: "10px", height: "10px" }} stroke="white" strokeWidth={2} color="white" />
@@ -209,14 +209,14 @@ const AnbieterStammdatenPDF = () => {
 
           {/* Section 4: Standort */}
           <SectionHeader icon={MapPin} title="Standort & Einsatzgebiet" number="04" color="#0ea5e9" />
-          <div className="grid grid-cols-2 gap-x-[16px] gap-y-[6px]" style={{ paddingLeft: "2px", marginBottom: "12px" }}>
+          <div className="grid grid-cols-2 gap-x-[16px] gap-y-[6px]" style={{ paddingLeft: "2px", marginBottom: "16px" }}>
             <Field label="Betriebssitz / Start-Adresse" required />
             <Field label="Umkreis (km)" required />
           </div>
 
           {/* Section 5: Dokumente */}
           <SectionHeader icon={ShieldCheck} title="Erforderliche Dokumente" number="05" color="#22c55e" />
-          <div style={{ paddingLeft: "2px", marginBottom: "12px" }}>
+          <div style={{ paddingLeft: "2px", marginBottom: "16px" }}>
             <div style={{ display: "flex", gap: "8px" }}>
               <CheckField label="Taxi- oder Mietwagenkonzession (Kopie)" />
             </div>
