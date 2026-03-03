@@ -218,7 +218,18 @@ const AnbieterStammdatenPDF = () => {
           <SectionHeader icon={ShieldCheck} title="Erforderliche Dokumente" number="05" color="#22c55e" />
           <div style={{ paddingLeft: "2px", marginBottom: "12px" }}>
             <div style={{ display: "flex", gap: "8px" }}>
-              <CheckField label="Mietwagenkonzession (Kopie)" />
+              <CheckField label="Taxi- oder Mietwagenkonzession (Kopie)" />
+            </div>
+          </div>
+
+          {/* Section 6: AGB */}
+          <SectionHeader icon={FileText} title="AGB-Akzeptanz" number="06" color="#f59e0b" />
+          <div style={{ paddingLeft: "2px", marginBottom: "12px" }}>
+            <div style={{ display: "flex", alignItems: "flex-start", gap: "6px", background: "#fffbeb", borderRadius: "6px", padding: "6px 10px", border: "1px solid #fef3c7" }}>
+              <div style={{ width: "12px", height: "12px", border: "1.5px solid #f59e0b", borderRadius: "2px", background: "white", flexShrink: 0, marginTop: "1px" }} />
+              <p style={{ fontSize: "6.5px", color: "#78350f", lineHeight: 1.5 }}>
+                Hiermit bestätige ich, dass ich die <span style={{ fontWeight: 700 }}>Allgemeinen Geschäftsbedingungen (AGB)</span> der AVYTA GmbH für Anbieter gelesen habe und diese vollumfänglich akzeptiere. Die AGB sind einsehbar unter <span style={{ fontWeight: 600, color: "#2563eb" }}>katew.de/agb-anbieter</span>.
+              </p>
             </div>
           </div>
 
