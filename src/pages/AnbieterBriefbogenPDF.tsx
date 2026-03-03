@@ -14,10 +14,10 @@ const AnbieterBriefbogenPDF = () => {
     printWindow.document.write(`<!DOCTYPE html><html><head><title>katew Anschreiben & Anmeldung</title>
       <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
       <style>
-        *{margin:0;padding:0;box-sizing:border-box}
+        *{margin:0;padding:0;box-sizing:border-box;-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important;color-adjust:exact!important}
         body{font-family:'Inter',-apple-system,sans-serif;background:white;color:#1e293b}
         @media print{body{margin:0}@page{size:A4 portrait;margin:0}}
-        svg{display:inline-block;vertical-align:middle}
+        svg{display:inline-block;vertical-align:middle;overflow:visible;width:10px;height:10px}
         .page{width:210mm;min-height:297mm;max-height:297mm;position:relative;overflow:hidden;page-break-after:always;background:white}
         .grid{display:grid}.grid-cols-2{grid-template-columns:repeat(2,minmax(0,1fr))}.col-span-2{grid-column:span 2/span 2}
         .gap-x-\\[16px\\]{column-gap:16px}.gap-y-\\[6px\\]{row-gap:6px}.gap-\\[40px\\]{gap:40px}
