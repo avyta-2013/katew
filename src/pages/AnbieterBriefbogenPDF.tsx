@@ -17,6 +17,7 @@ const AnbieterBriefbogenPDF = () => {
         *{margin:0;padding:0;box-sizing:border-box}
         body{font-family:'Inter',-apple-system,sans-serif;background:white;color:#1e293b}
         @media print{body{margin:0}@page{size:A4 portrait;margin:0}}
+        svg{display:inline-block;vertical-align:middle}
         .page{width:210mm;min-height:297mm;max-height:297mm;position:relative;overflow:hidden;page-break-after:always;background:white}
         .grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
         .grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px}
@@ -52,8 +53,8 @@ const AnbieterBriefbogenPDF = () => {
 
   const SectionHead = ({ icon: Icon, title, num, color }: { icon: any; title: string; num: string; color: string }) => (
     <div style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: "10px" }}>
-      <div style={{ width: "22px", height: "22px", borderRadius: "6px", display: "flex", alignItems: "center", justifyContent: "center", background: `linear-gradient(135deg, ${color}, ${color}dd)`, boxShadow: `0 2px 8px ${color}30` }}>
-        <Icon style={{ width: "11px", height: "11px" }} stroke="white" />
+      <div style={{ width: "22px", height: "22px", borderRadius: "6px", display: "flex", alignItems: "center", justifyContent: "center", background: `linear-gradient(135deg, ${color}, ${color}dd)`, boxShadow: `0 2px 8px ${color}30`, color: "white" }}>
+        <Icon style={{ width: "11px", height: "11px" }} stroke="white" strokeWidth={2} color="white" />
       </div>
       <span style={{ fontSize: "7px", fontWeight: 700, color, opacity: 0.6 }}>{num}</span>
       <h3 style={{ fontSize: "9.5px", fontWeight: 700, color: "#1e293b", letterSpacing: "0.04em", textTransform: "uppercase" }}>{title}</h3>
