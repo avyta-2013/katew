@@ -228,7 +228,7 @@ const AnbieterStammdatenPDF = () => {
             <div style={{ display: "flex", alignItems: "flex-start", gap: "6px", background: "#fffbeb", borderRadius: "6px", padding: "6px 10px", border: "1px solid #fef3c7" }}>
               <div style={{ width: "12px", height: "12px", border: "1.5px solid #f59e0b", borderRadius: "2px", background: "white", flexShrink: 0, marginTop: "1px" }} />
               <p style={{ fontSize: "6.5px", color: "#78350f", lineHeight: 1.5 }}>
-                Hiermit bestätige ich, dass ich die <span style={{ fontWeight: 700 }}>Allgemeinen Geschäftsbedingungen (AGB)</span> der AVYTA GmbH für Anbieter gelesen habe und diese vollumfänglich akzeptiere. Die AGB sind einsehbar unter <span style={{ fontWeight: 600, color: "#2563eb" }}>katew.de/agb-anbieter</span>.
+                Hiermit bestätige ich, dass ich die <span style={{ fontWeight: 700 }}>Allgemeinen Geschäftsbedingungen (AGB)</span> der AVYTA GmbH für Anbieter gelesen habe und diese vollumfänglich akzeptiere. Die AGB sind einsehbar unter <span style={{ fontWeight: 600, color: "#2563eb" }}>katew.de/privacy/agb-anbieter</span>.
               </p>
             </div>
           </div>
