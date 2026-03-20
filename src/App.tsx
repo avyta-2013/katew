@@ -68,6 +68,7 @@ const App = () => (
           <Route path="/anbieter-stammdaten" element={<AnbieterStammdatenPDF />} />
           <Route path="/anbieter-briefbogen" element={<AnbieterBriefbogenPDF />} />
           <Route path="/super-admin" element={<SuperAdmin />} />
+          <Route path="/startseite2" element={<Startseite2 />} />
           <Route path="/app/*" element={<MobileApp />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
