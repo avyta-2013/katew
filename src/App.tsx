@@ -30,6 +30,7 @@ import AnbieterPraesentation from "./pages/AnbieterPraesentation";
 import AnbieterStammdatenPDF from "./pages/AnbieterStammdatenPDF";
 import AnbieterBriefbogenPDF from "./pages/AnbieterBriefbogenPDF";
 import SuperAdmin from "./pages/SuperAdmin";
+import Startseite2 from "./pages/Startseite2";
 import MobileApp from "./pages/mobile/MobileApp";
 
 const queryClient = new QueryClient();
