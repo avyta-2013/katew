@@ -2,10 +2,10 @@ import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import { CheckCircle2, Truck } from "lucide-react";
 
-import transportSitting from "@/assets/transport-sitting-new.jpg";
-import transportWheelchair from "@/assets/transport-wheelchair-new.jpg";
-import transportStairchair from "@/assets/transport-stairchair-new.jpg";
-import transportStretcher from "@/assets/transport-stretcher-new.jpg";
+import transportSitting from "@/assets/patient-transport-sitting.jpg";
+import transportWheelchair from "@/assets/patient-transport-wheelchair.jpg";
+import transportStairchair from "@/assets/patient-transport-stairchair.jpg";
+import transportStretcher from "@/assets/patient-transport-stretcher.jpg";
 
 const transportTypes = [
   {
