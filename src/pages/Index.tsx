@@ -1,6 +1,7 @@
 import { Header } from "@/components/Header";
 import { Hero } from "@/components/Hero";
 
+import { TrustBadges } from "@/components/TrustBadges";
 import { CombinedServicesSection } from "@/components/CombinedServicesSection";
 import { ProvidersSection } from "@/components/ProvidersSection";
 import { PartnersSection } from "@/components/PartnersSection";
@@ -13,6 +14,7 @@ const Index = () => {
     <main className="min-h-screen overflow-x-hidden">
       <Header />
       <Hero />
+      <TrustBadges />
       <CombinedServicesSection />
       <HomePartnersSection />
       <ProvidersSection />
