@@ -15,25 +15,25 @@ const badges = [
 
 export const TrustBadges = () => {
   return (
-    <section className="py-8 border-y border-border/30 bg-muted/20">
+    <div className="relative z-20 -mt-12 mb-8">
       <div className="container mx-auto px-4">
-        <div className="flex flex-wrap items-center justify-center gap-8 md:gap-12">
+        <div className="flex flex-wrap items-center justify-center gap-6 md:gap-10">
           {badges.map((badge, i) => (
             <motion.img
               key={badge.alt}
               src={badge.src}
               alt={badge.alt}
               loading="lazy"
-              className="h-16 md:h-20 w-auto object-contain grayscale hover:grayscale-0 transition-all duration-300 opacity-80 hover:opacity-100"
-              initial={{ opacity: 0, y: 10 }}
-              whileInView={{ opacity: 0.8, y: 0 }}
+              className="h-20 md:h-24 lg:h-28 w-auto object-contain drop-shadow-lg hover:drop-shadow-2xl transition-all duration-300"
+              initial={{ opacity: 0, scale: 0.8 }}
+              whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
-              transition={{ delay: i * 0.07 }}
-              whileHover={{ scale: 1.08 }}
+              transition={{ delay: i * 0.08, type: "spring", stiffness: 200 }}
+              whileHover={{ scale: 1.1, y: -4 }}
             />
           ))}
         </div>
       </div>
-    </section>
+    </div>
   );
 };
