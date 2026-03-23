@@ -24,7 +24,7 @@ export const TrustBadges = () => {
               src={badge.src}
               alt={badge.alt}
               loading="lazy"
-              className="h-20 md:h-24 lg:h-28 w-auto object-contain drop-shadow-lg hover:drop-shadow-2xl transition-all duration-300"
+              className="h-24 md:h-32 lg:h-36 w-auto object-contain drop-shadow-lg hover:drop-shadow-2xl transition-all duration-300"
               initial={{ opacity: 0, scale: 0.8 }}
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
