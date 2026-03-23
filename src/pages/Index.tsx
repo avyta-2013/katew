@@ -14,6 +14,7 @@ const Index = () => {
     <main className="min-h-screen overflow-x-hidden">
       <Header />
       <Hero />
+      <TrustBadges />
       <CombinedServicesSection />
       <HomePartnersSection />
       <ProvidersSection />
