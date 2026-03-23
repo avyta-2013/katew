@@ -207,7 +207,7 @@ export const CombinedServicesSection = () => {
   };
 
   return (
-    <section ref={ref} className="py-24 md:py-32 bg-muted/40 overflow-hidden relative">
+    <section ref={ref} className="py-24 md:py-32 bg-background overflow-hidden relative">
       {/* Background effects */}
       <div className="absolute inset-0 overflow-hidden">
         <motion.div 
