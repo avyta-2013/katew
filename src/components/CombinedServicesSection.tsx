@@ -208,20 +208,6 @@ export const CombinedServicesSection = () => {
 
   return (
     <section ref={ref} className="py-24 md:py-32 bg-background overflow-hidden relative">
-      {/* Background effects */}
-      <div className="absolute inset-0 overflow-hidden">
-        <motion.div 
-          className="absolute top-1/4 -left-40 w-96 h-96 rounded-full bg-gradient-to-br from-primary/10 to-secondary/5 blur-3xl"
-          animate={{ x: [0, 60, 0], y: [0, 40, 0] }}
-          transition={{ duration: 20, repeat: Infinity }}
-        />
-        <motion.div 
-          className="absolute bottom-1/4 -right-40 w-96 h-96 rounded-full bg-gradient-to-br from-secondary/10 to-primary/5 blur-3xl"
-          animate={{ x: [0, -60, 0], y: [0, -40, 0] }}
-          transition={{ duration: 25, repeat: Infinity }}
-        />
-        <div className="absolute inset-0 bg-[linear-gradient(rgba(0,0,0,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(0,0,0,0.02)_1px,transparent_1px)] bg-[size:60px_60px]" />
-      </div>
 
       <div className="container mx-auto px-4 relative z-10">
         {/* Header */}
