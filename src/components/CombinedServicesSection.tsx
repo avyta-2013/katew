@@ -207,7 +207,7 @@ export const CombinedServicesSection = () => {
   };
 
   return (
-    <section ref={ref} className="py-24 md:py-32 bg-gradient-to-b from-background via-muted/30 to-background overflow-hidden relative">
+    <section ref={ref} className="py-24 md:py-32 bg-muted/40 overflow-hidden relative">
       {/* Background effects */}
       <div className="absolute inset-0 overflow-hidden">
         <motion.div 
