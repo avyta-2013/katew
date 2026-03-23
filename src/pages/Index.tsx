@@ -1,6 +1,7 @@
 import { Header } from "@/components/Header";
 import { Hero } from "@/components/Hero";
 
+import { TrustBadges } from "@/components/TrustBadges";
 import { CombinedServicesSection } from "@/components/CombinedServicesSection";
 import { ProvidersSection } from "@/components/ProvidersSection";
 import { PartnersSection } from "@/components/PartnersSection";
